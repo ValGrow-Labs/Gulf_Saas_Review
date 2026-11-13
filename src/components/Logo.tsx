@@ -21,7 +21,7 @@ export default function Logo({
       aria-label="GulfSaasReview Homepage"
     >
       {/* Custom Geometric Gulf-inspired Emblem */}
-      <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#101F35] border border-[#C6A66B]/50 shadow-sm transition-transform duration-300 group-hover:scale-105">
+      <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#1F3D2B] border border-[#C6A66B]/50 shadow-sm transition-transform duration-300 group-hover:scale-105">
         <svg
           viewBox="0 0 40 40"
           className="h-6 w-6"
@@ -46,7 +46,7 @@ export default function Logo({
             width="18"
             height="18"
             rx="2"
-            stroke="#E7E4DC"
+            stroke="#D8CABA"
             strokeWidth="1.2"
             strokeOpacity="0.5"
           />
@@ -58,10 +58,10 @@ export default function Logo({
           />
           <path
             d="M20 28L15 19H25L20 28Z"
-            fill="#FCFAF5"
+            fill="#F9F6F0"
             fillOpacity="0.35"
           />
-          <circle cx="20" cy="20" r="2.2" fill="#FCFAF5" />
+          <circle cx="20" cy="20" r="2.2" fill="#F9F6F0" />
         </svg>
       </div>
 
@@ -70,7 +70,7 @@ export default function Logo({
         <div className="flex items-baseline tracking-tight leading-none">
           <span
             className={`font-extrabold text-[1.25rem] tracking-tight ${
-              isLight ? "text-[#FCFAF5]" : "text-[#101F35]"
+              isLight ? "text-[#F9F6F0]" : "text-[#1F3D2B]"
             }`}
           >
             GulfSaas
@@ -82,7 +82,7 @@ export default function Logo({
         {showTagline ? (
           <span
             className={`text-[9.5px] tracking-[0.16em] uppercase font-bold mt-1 ${
-              isLight ? "text-[#E7E4DC]/80" : "text-[#697386]"
+              isLight ? "text-[#D8CABA]/80" : "text-[#697386]"
             }`}
           >
             Middle East Software Directory

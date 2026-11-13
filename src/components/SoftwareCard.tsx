@@ -42,7 +42,7 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
   };
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 transition-all duration-300 hover:border-[#C6A66B] hover:shadow-[0_12px_36px_rgba(16,31,53,0.09)] hover:-translate-y-0.5">
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 transition-all duration-300 hover:border-[#C6A66B] hover:shadow-[0_12px_36px_rgba(31,61,43,0.09)] hover:-translate-y-0.5">
       {/* Top Row: Brand & Rating */}
       <div>
         <div className="flex items-start justify-between gap-3">
@@ -50,7 +50,7 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
             {/* Logo Badge */}
             <div
               className="flex h-13 w-13 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl font-bold text-white shadow-xs transition-transform duration-300 group-hover:scale-105"
-              style={{ backgroundColor: software.accentColor || "#101F35" }}
+              style={{ backgroundColor: software.accentColor || "#1F3D2B" }}
             >
               <span className="text-lg sm:text-xl font-bold tracking-tight">
                 {software.name.substring(0, 2).toUpperCase()}
@@ -61,14 +61,14 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
               <div className="flex flex-wrap items-center gap-2">
                 <Link
                   href={`/reviews/${software.slug}`}
-                  className="font-bold text-[#101F35] text-xl sm:text-2xl hover:text-[#C6A66B] transition-colors leading-tight truncate"
+                  className="font-bold text-[#1F3D2B] text-xl sm:text-2xl hover:text-[#C6A66B] transition-colors leading-tight truncate"
                   title={software.name}
                 >
                   {software.name}
                 </Link>
                 {/* Sample Review Badge */}
                 <span
-                  className="inline-flex items-center gap-1 rounded bg-[#F6F1E7] px-2.5 py-0.5 text-xs font-semibold text-[#64748B] border border-[#E7E4DC] shrink-0"
+                  className="inline-flex items-center gap-1 rounded bg-[#E8DCC4] px-2.5 py-0.5 text-xs font-semibold text-[#64748B] border border-[#D8CABA] shrink-0"
                   title={software.sampleNotice}
                 >
                   <ShieldCheck className="h-3.5 w-3.5 text-[#C6A66B]" />
@@ -82,7 +82,7 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
           </div>
 
           {/* Star Rating Badge */}
-          <div className="flex items-center gap-1.5 rounded-lg bg-[#F6F1E7] px-3 py-1 text-sm font-bold text-[#101F35] border border-[#E7E4DC] shrink-0">
+          <div className="flex items-center gap-1.5 rounded-lg bg-[#E8DCC4] px-3 py-1 text-sm font-bold text-[#1F3D2B] border border-[#D8CABA] shrink-0">
             <Star className="h-4 w-4 fill-[#C6A66B] text-[#C6A66B]" />
             <span>{software.rating.toFixed(1)}</span>
             <span className="text-xs text-[#64748B] font-normal">
@@ -101,7 +101,7 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
           {software.countrySuitability.map((country) => (
             <span
               key={country}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#101F35]/5 px-3 py-1 text-xs sm:text-[13px] font-bold text-[#101F35]"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#1F3D2B]/5 px-3 py-1 text-xs sm:text-[13px] font-bold text-[#1F3D2B]"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#C6A66B]" />
               {country}
@@ -116,7 +116,7 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
         </div>
 
         {/* Key Compliance Bullet points - 15-16px font */}
-        <div className="mt-4 space-y-2 pt-3.5 border-t border-[#E7E4DC]/80 text-[15px] sm:text-[16px]">
+        <div className="mt-4 space-y-2 pt-3.5 border-t border-[#D8CABA]/80 text-[15px] sm:text-[16px]">
           {software.localCompliance.slice(0, 2).map((item, idx) => (
             <div key={idx} className="flex items-center gap-2 text-[#1E293B] font-medium">
               <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
@@ -127,13 +127,13 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
       </div>
 
       {/* Bottom Footer: Pricing & Action Buttons */}
-      <div className="mt-6 pt-4 border-t border-[#E7E4DC] flex items-center justify-between gap-3">
+      <div className="mt-6 pt-4 border-t border-[#D8CABA] flex items-center justify-between gap-3">
         <div className="flex flex-col">
           <span className="text-[12px] uppercase tracking-wider font-bold text-[#64748B]">
             Starting From
           </span>
           <div className="flex items-baseline gap-1">
-            <span className="text-xl sm:text-2xl font-extrabold text-[#101F35]">
+            <span className="text-xl sm:text-2xl font-extrabold text-[#1F3D2B]">
               {software.pricing.startingPrice}
             </span>
             {getBillingSuffix() && (
@@ -151,8 +151,8 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
             onClick={handleCompareClick}
             className={`inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2.5 text-[15px] font-bold transition-all min-h-[44px] cursor-pointer ${
               compared
-                ? "bg-[#101F35] text-[#FCFAF5]"
-                : "border border-[#E7E4DC] bg-white text-[#101F35] hover:border-[#C6A66B] hover:text-[#C6A66B]"
+                ? "bg-[#1F3D2B] text-[#F9F6F0]"
+                : "border border-[#D8CABA] bg-white text-[#1F3D2B] hover:border-[#C6A66B] hover:text-[#C6A66B]"
             }`}
             title={compared ? "Remove from comparison" : "Add to comparison"}
           >
@@ -172,7 +172,7 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
           {/* Read Review Link */}
           <Link
             href={`/reviews/${software.slug}`}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#101F35] px-4 py-2.5 text-[15px] font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-colors min-h-[44px]"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#1F3D2B] px-4 py-2.5 text-[15px] font-bold text-[#F9F6F0] hover:bg-[#173022] transition-colors min-h-[44px]"
           >
             <span>Review</span>
             <ArrowRight className="h-4 w-4 text-[#C6A66B]" />

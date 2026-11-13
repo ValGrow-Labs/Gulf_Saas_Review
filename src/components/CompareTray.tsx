@@ -32,11 +32,11 @@ export default function CompareTray() {
 
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-3xl animate-in slide-in-from-bottom-6 duration-300">
-      <div className="rounded-2xl border border-[#C6A66B]/50 bg-[#101F35] p-3.5 sm:p-4 text-[#FCFAF5] shadow-[0_20px_50px_rgba(16,31,53,0.35)] backdrop-blur-xl">
+      <div className="rounded-2xl border border-[#C6A66B]/50 bg-[#1F3D2B] p-3.5 sm:p-4 text-[#F9F6F0] shadow-[0_20px_50px_rgba(31,61,43,0.35)] backdrop-blur-xl">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Left: Indicator & Items */}
           <div className="flex items-center gap-3 overflow-x-auto w-full sm:w-auto py-1">
-            <div className="flex items-center gap-2 border-r border-[#223859] pr-3 shrink-0">
+            <div className="flex items-center gap-2 border-r border-[#2C4F39] pr-3 shrink-0">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#C6A66B]/20 text-[#C6A66B]">
                 <Scale className="h-4 w-4" />
               </div>
@@ -44,7 +44,7 @@ export default function CompareTray() {
                 <span className="text-xs font-bold leading-tight">
                   Comparing ({compareSlugs.length}/3)
                 </span>
-                <span className="text-[10px] text-[#E7E4DC]/70">
+                <span className="text-[10px] text-[#D8CABA]/70">
                   Select up to 3 tools
                 </span>
               </div>
@@ -55,7 +55,7 @@ export default function CompareTray() {
               {comparedSoftwares.map((sw) => (
                 <div
                   key={sw.id}
-                  className="flex items-center gap-2 rounded-lg bg-[#14243C] border border-[#223859] px-2.5 py-1 text-xs"
+                  className="flex items-center gap-2 rounded-lg bg-[#183324] border border-[#2C4F39] px-2.5 py-1 text-xs"
                 >
                   <span
                     className="h-2 w-2 rounded-full"
@@ -64,7 +64,7 @@ export default function CompareTray() {
                   <span className="font-semibold text-white">{sw.name}</span>
                   <button
                     onClick={() => removeFromCompare(sw.slug)}
-                    className="text-[#697386] hover:text-[#FCFAF5] transition-colors"
+                    className="text-[#697386] hover:text-[#F9F6F0] transition-colors"
                     aria-label={`Remove ${sw.name}`}
                   >
                     <X className="h-3 w-3" />
@@ -73,7 +73,7 @@ export default function CompareTray() {
               ))}
 
               {compareSlugs.length < 2 && (
-                <span className="text-xs text-[#E7E4DC]/50 italic pl-1">
+                <span className="text-xs text-[#D8CABA]/50 italic pl-1">
                   + Add 1 more to compare
                 </span>
               )}
@@ -84,7 +84,7 @@ export default function CompareTray() {
           <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
             <button
               onClick={clearCompare}
-              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[#E7E4DC]/70 hover:text-white transition-colors"
+              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[#D8CABA]/70 hover:text-white transition-colors"
               title="Clear all"
             >
               <Trash2 className="h-3.5 w-3.5" />
@@ -95,8 +95,8 @@ export default function CompareTray() {
               href={compareUrl}
               className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-bold transition-all shadow-md ${
                 compareSlugs.length >= 2
-                  ? "bg-[#C6A66B] text-[#101F35] hover:bg-[#DFCA9B] active:scale-95"
-                  : "bg-[#223859] text-[#E7E4DC]/70 pointer-events-none opacity-60"
+                  ? "bg-[#C6A66B] text-[#1F3D2B] hover:bg-[#DFCA9B] active:scale-95"
+                  : "bg-[#2C4F39] text-[#D8CABA]/70 pointer-events-none opacity-60"
               }`}
             >
               <span>Compare Side-by-Side</span>
@@ -105,7 +105,7 @@ export default function CompareTray() {
 
             <button
               onClick={() => setIsCompareTrayOpen(false)}
-              className="p-1 text-[#E7E4DC]/60 hover:text-white"
+              className="p-1 text-[#D8CABA]/60 hover:text-white"
               title="Minimize bar"
             >
               <X className="h-4 w-4" />

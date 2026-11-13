@@ -10,16 +10,16 @@ export const metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-[#F6F1E7] pb-24">
+    <div className="min-h-screen bg-[#E8DCC4] pb-24">
       {/* Header */}
-      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-12 pb-14">
+      <div className="bg-[#F9F6F0] border-b border-[#D8CABA] pt-12 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2.5">
               <Mail className="h-4 w-4" />
               <span>Get in Touch</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#1F3D2B] tracking-tight">
               Contact Our Research Team
             </h1>
             <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] leading-relaxed">
@@ -33,8 +33,8 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column: Contact Form (Col 7) */}
           <div className="lg:col-span-7">
-            <div className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl font-bold font-editorial text-[#101F35] mb-1">
+            <div className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-8 shadow-xs">
+              <h2 className="text-2xl font-bold font-editorial text-[#1F3D2B] mb-1">
                 Send an Inquiry
               </h2>
               <p className="text-[16px] text-[#64748B] mb-6">
@@ -47,16 +47,16 @@ export default function ContactPage() {
 
           {/* Right Column: Office Hubs & Information (Col 5) */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8 shadow-xs space-y-5">
-              <h3 className="text-xl font-bold text-[#101F35]">
+            <div className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-8 shadow-xs space-y-5">
+              <h3 className="text-xl font-bold text-[#1F3D2B]">
                 Regional Operations &amp; Coverage
               </h3>
 
               <div className="space-y-4">
-                <div className="flex items-start gap-3.5 p-4 rounded-xl bg-[#F6F1E7] border border-[#E7E4DC]">
+                <div className="flex items-start gap-3.5 p-4 rounded-xl bg-[#E8DCC4] border border-[#D8CABA]">
                   <MapPin className="h-5 w-5 text-[#C6A66B] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-[#101F35] block text-base mb-1">
+                    <strong className="text-[#1F3D2B] block text-base mb-1">
                       Riyadh Research Desk
                     </strong>
                     <span className="text-[16px] text-[#475569] leading-relaxed block">
@@ -68,10 +68,10 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3.5 p-4 rounded-xl bg-[#F6F1E7] border border-[#E7E4DC]">
+                <div className="flex items-start gap-3.5 p-4 rounded-xl bg-[#E8DCC4] border border-[#D8CABA]">
                   <MapPin className="h-5 w-5 text-[#C6A66B] shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-[#101F35] block text-base mb-1">
+                    <strong className="text-[#1F3D2B] block text-base mb-1">
                       Dubai Editorial Office
                     </strong>
                     <span className="text-[16px] text-[#475569] leading-relaxed block">
@@ -84,7 +84,7 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[#E7E4DC] flex items-center gap-2.5 text-[15px] text-[#475569] font-medium">
+              <div className="pt-4 border-t border-[#D8CABA] flex items-center gap-2.5 text-[15px] text-[#475569] font-medium">
                 <Clock className="h-4 w-4 text-[#C6A66B]" />
                 <span>
                   Sunday – Thursday: 9:00 AM – 6:00 PM (GMT+3 / GMT+4)
@@ -92,7 +92,7 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-[#223859] bg-[#101F35] text-[#FCFAF5] p-6 sm:p-8 shadow-md">
+            <div className="rounded-2xl border border-[#2C4F39] bg-[#1F3D2B] text-[#F9F6F0] p-6 sm:p-8 shadow-md">
               <div className="flex items-center gap-2 text-[14px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2">
                 <ShieldCheck className="h-4 w-4" />
                 <span>Vendor Inclusion Policy</span>

@@ -49,25 +49,25 @@ export default async function ComparisonDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#F6F1E7] pb-24">
+    <div className="min-h-screen bg-[#E8DCC4] pb-24">
       {/* Top Header */}
-      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-10 pb-14">
+      <div className="bg-[#F9F6F0] border-b border-[#D8CABA] pt-10 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/compare"
-            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#101F35] mb-6"
+            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#1F3D2B] mb-6"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>All Comparisons</span>
           </Link>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#F6F1E7] px-4 py-1.5 text-[14px] font-bold text-[#8C6D33] mb-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#E8DCC4] px-4 py-1.5 text-[14px] font-bold text-[#8C6D33] mb-3">
               <Scale className="h-4 w-4" />
               <span>{comparison.categories.join(" • ")} Matchup</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#1F3D2B] tracking-tight">
               {comparison.title}
             </h1>
 
@@ -90,8 +90,8 @@ export default async function ComparisonDetailPage({
         />
 
         {/* Other Comparisons Navigation */}
-        <div className="mt-16 pt-10 border-t border-[#E7E4DC]">
-          <h3 className="text-xl font-bold text-[#101F35] mb-5">
+        <div className="mt-16 pt-10 border-t border-[#D8CABA]">
+          <h3 className="text-xl font-bold text-[#1F3D2B] mb-5">
             Explore Other Regional Matchups
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -102,9 +102,9 @@ export default async function ComparisonDetailPage({
                 <Link
                   key={other.id}
                   href={`/compare/${other.slug}`}
-                  className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-5 hover:border-[#C6A66B] transition-colors shadow-2xs"
+                  className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-5 hover:border-[#C6A66B] transition-colors shadow-2xs"
                 >
-                  <h4 className="text-base sm:text-lg font-bold text-[#101F35] mb-2">
+                  <h4 className="text-base sm:text-lg font-bold text-[#1F3D2B] mb-2">
                     {other.title}
                   </h4>
                   <p className="text-[15px] text-[#475569] line-clamp-2">

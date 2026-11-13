@@ -23,16 +23,16 @@ export default function CompareClient() {
   const productC = slugC ? softwares.find((s) => s.slug === slugC) || null : null;
 
   return (
-    <div className="min-h-screen bg-[#F6F1E7] pb-24">
+    <div className="min-h-screen bg-[#E8DCC4] pb-24">
       {/* Header */}
-      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-12 pb-14">
+      <div className="bg-[#F9F6F0] border-b border-[#D8CABA] pt-12 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2.5">
               <Scale className="h-4 w-4" />
               <span>Side-by-Side Comparison Matrix</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#1F3D2B] tracking-tight">
               Compare Gulf Business Software
             </h1>
             <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] leading-relaxed">
@@ -41,7 +41,7 @@ export default function CompareClient() {
           </div>
 
           {/* Quick Preset Badges */}
-          <div className="mt-8 pt-6 border-t border-[#E7E4DC]">
+          <div className="mt-8 pt-6 border-t border-[#D8CABA]">
             <span className="text-[15px] font-bold uppercase tracking-wider text-[#64748B] block mb-3">
               Popular Head-to-Head Comparisons:
             </span>
@@ -50,7 +50,7 @@ export default function CompareClient() {
                 <Link
                   key={c.id}
                   href={`/compare/${c.slug}`}
-                  className="rounded-xl border border-[#E7E4DC] bg-white px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#101F35] hover:border-[#C6A66B] hover:text-[#C6A66B] transition-colors shadow-2xs"
+                  className="rounded-xl border border-[#D8CABA] bg-white px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#1F3D2B] hover:border-[#C6A66B] hover:text-[#C6A66B] transition-colors shadow-2xs"
                 >
                   {c.title}
                 </Link>

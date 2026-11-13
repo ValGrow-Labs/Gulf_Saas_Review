@@ -64,12 +64,12 @@ export default function SearchModal() {
     : articles.slice(0, 2);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-20 px-4 bg-[#101F35]/70 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-20 px-4 bg-[#1F3D2B]/70 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="fixed inset-0" onClick={closeSearch} />
 
-      <div className="relative w-full max-w-2xl rounded-2xl border border-[#C6A66B]/40 bg-[#FCFAF5] shadow-[0_25px_60px_rgba(16,31,53,0.35)] overflow-hidden z-10 flex flex-col max-h-[82vh]">
+      <div className="relative w-full max-w-2xl rounded-2xl border border-[#C6A66B]/40 bg-[#F9F6F0] shadow-[0_25px_60px_rgba(31,61,43,0.35)] overflow-hidden z-10 flex flex-col max-h-[82vh]">
         {/* Search Header Bar */}
-        <div className="relative flex items-center border-b border-[#E7E4DC] px-5 py-4 bg-white">
+        <div className="relative flex items-center border-b border-[#D8CABA] px-5 py-4 bg-white">
           <Search className="h-6 w-6 text-[#C6A66B] shrink-0 mr-3" />
           <input
             ref={inputRef}
@@ -77,17 +77,17 @@ export default function SearchModal() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search software (e.g. Zoho, Odoo, ZATCA, CRM, UAE VAT)..."
-            className="w-full bg-transparent text-[17px] sm:text-[18px] text-[#101F35] placeholder-[#64748B] focus:outline-none"
+            className="w-full bg-transparent text-[17px] sm:text-[18px] text-[#1F3D2B] placeholder-[#64748B] focus:outline-none"
           />
           {query ? (
             <button
               onClick={() => setQuery("")}
-              className="p-1.5 text-[#64748B] hover:text-[#101F35] cursor-pointer"
+              className="p-1.5 text-[#64748B] hover:text-[#1F3D2B] cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
           ) : (
-            <kbd className="hidden sm:inline-block rounded border border-[#E7E4DC] bg-[#F6F1E7] px-2 py-0.5 text-[12px] font-mono text-[#64748B]">
+            <kbd className="hidden sm:inline-block rounded border border-[#D8CABA] bg-[#E8DCC4] px-2 py-0.5 text-[12px] font-mono text-[#64748B]">
               ESC
             </kbd>
           )}
@@ -113,21 +113,21 @@ export default function SearchModal() {
                     key={item.id}
                     href={`/reviews/${item.slug}`}
                     onClick={closeSearch}
-                    className="group flex items-center justify-between rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-3.5 hover:border-[#C6A66B] hover:bg-[#F6F1E7]/60 transition-all"
+                    className="group flex items-center justify-between rounded-xl border border-[#D8CABA] bg-[#F9F6F0] p-3.5 hover:border-[#C6A66B] hover:bg-[#E8DCC4]/60 transition-all"
                   >
                     <div className="flex items-center gap-3.5">
                       <div
                         className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold text-white"
-                        style={{ backgroundColor: item.accentColor || "#101F35" }}
+                        style={{ backgroundColor: item.accentColor || "#1F3D2B" }}
                       >
                         {item.name.substring(0, 2).toUpperCase()}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-[17px] font-bold text-[#101F35] group-hover:text-[#C6A66B]">
+                          <span className="text-[17px] font-bold text-[#1F3D2B] group-hover:text-[#C6A66B]">
                             {item.name}
                           </span>
-                          <span className="text-[12px] font-bold text-[#64748B] bg-[#E7E4DC]/60 px-2 py-0.5 rounded">
+                          <span className="text-[12px] font-bold text-[#64748B] bg-[#D8CABA]/60 px-2 py-0.5 rounded">
                             {item.categoryName}
                           </span>
                         </div>
@@ -137,7 +137,7 @@ export default function SearchModal() {
                       </div>
                     </div>
                     <div className="flex items-center gap-2.5 shrink-0">
-                      <div className="flex items-center gap-1 text-[15px] font-bold text-[#101F35]">
+                      <div className="flex items-center gap-1 text-[15px] font-bold text-[#1F3D2B]">
                         <Star className="h-4 w-4 fill-[#C6A66B] text-[#C6A66B]" />
                         <span>{item.rating.toFixed(1)}</span>
                       </div>
@@ -167,14 +167,14 @@ export default function SearchModal() {
                     key={c.id}
                     href={`/compare/${c.slug}`}
                     onClick={closeSearch}
-                    className="group flex items-center justify-between rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-3.5 hover:border-[#C6A66B] hover:bg-[#F6F1E7]/60 transition-all"
+                    className="group flex items-center justify-between rounded-xl border border-[#D8CABA] bg-[#F9F6F0] p-3.5 hover:border-[#C6A66B] hover:bg-[#E8DCC4]/60 transition-all"
                   >
                     <div className="flex items-center gap-3.5">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#101F35] text-[#C6A66B]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1F3D2B] text-[#C6A66B]">
                         <Scale className="h-5 w-5" />
                       </div>
                       <div>
-                        <span className="text-[16px] font-bold text-[#101F35] group-hover:text-[#C6A66B]">
+                        <span className="text-[16px] font-bold text-[#1F3D2B] group-hover:text-[#C6A66B]">
                           {c.title}
                         </span>
                         <p className="text-[14px] text-[#475569] line-clamp-1">
@@ -190,7 +190,7 @@ export default function SearchModal() {
           )}
         </div>
 
-        <div className="border-t border-[#E7E4DC] bg-[#F6F1E7]/70 px-5 py-3 text-[14px] text-[#64748B] flex items-center justify-between">
+        <div className="border-t border-[#D8CABA] bg-[#E8DCC4]/70 px-5 py-3 text-[14px] text-[#64748B] flex items-center justify-between">
           <span>Independent evaluations for Saudi Arabia, UAE &amp; GCC businesses</span>
           <span className="hidden sm:inline">Press ESC to dismiss</span>
         </div>

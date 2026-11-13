@@ -59,30 +59,30 @@ export default async function IndividualReviewPage({
   ).slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-[#F6F1E7] pb-24">
+    <div className="min-h-screen bg-[#E8DCC4] pb-24">
       {/* ---------------------------------------------------- */}
       {/* BREADCRUMBS & TOP HERO BANNER                        */}
       {/* ---------------------------------------------------- */}
-      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-8 pb-14">
+      <div className="bg-[#F9F6F0] border-b border-[#D8CABA] pt-8 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb Navigation */}
           <nav className="flex items-center space-x-2 text-xs sm:text-sm text-[#697386] mb-6">
-            <Link href="/" className="hover:text-[#101F35] font-medium">
+            <Link href="/" className="hover:text-[#1F3D2B] font-medium">
               Home
             </Link>
             <span>/</span>
-            <Link href="/reviews" className="hover:text-[#101F35] font-medium">
+            <Link href="/reviews" className="hover:text-[#1F3D2B] font-medium">
               Reviews
             </Link>
             <span>/</span>
             <Link
               href={`/reviews?category=${software.category}`}
-              className="hover:text-[#101F35] font-medium"
+              className="hover:text-[#1F3D2B] font-medium"
             >
               {software.categoryName}
             </Link>
             <span>/</span>
-            <span className="font-bold text-[#101F35]">{software.name}</span>
+            <span className="font-bold text-[#1F3D2B]">{software.name}</span>
           </nav>
 
           {/* Product Header */}
@@ -91,17 +91,17 @@ export default async function IndividualReviewPage({
               {/* Product Logo */}
               <div
                 className="flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-2xl text-2xl sm:text-3xl font-serif font-bold text-white shadow-md"
-                style={{ backgroundColor: software.accentColor || "#101F35" }}
+                style={{ backgroundColor: software.accentColor || "#1F3D2B" }}
               >
                 {software.name.substring(0, 2).toUpperCase()}
               </div>
 
               <div>
                 <div className="flex flex-wrap items-center gap-2.5 mb-2">
-                  <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#101F35]">
+                  <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#1F3D2B]">
                     {software.name}
                   </h1>
-                  <span className="inline-flex items-center gap-1 rounded-lg bg-[#F6F1E7] px-3 py-1 text-xs sm:text-sm font-semibold text-[#697386] border border-[#E7E4DC]">
+                  <span className="inline-flex items-center gap-1 rounded-lg bg-[#E8DCC4] px-3 py-1 text-xs sm:text-sm font-semibold text-[#697386] border border-[#D8CABA]">
                     <ShieldCheck className="h-4 w-4 text-[#C6A66B]" />
                     Sample Review Profile
                   </span>
@@ -119,7 +119,7 @@ export default async function IndividualReviewPage({
                   {software.countrySuitability.map((c) => (
                     <span
                       key={c}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-[#101F35]/5 px-3 py-1 text-xs sm:text-sm font-bold text-[#101F35]"
+                      className="inline-flex items-center gap-1.5 rounded-lg bg-[#1F3D2B]/5 px-3 py-1 text-xs sm:text-sm font-bold text-[#1F3D2B]"
                     >
                       <Building2 className="h-3.5 w-3.5 text-[#C6A66B]" />
                       {c}
@@ -135,14 +135,14 @@ export default async function IndividualReviewPage({
             </div>
 
             {/* Rating & CTA Block */}
-            <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-[#E7E4DC]">
+            <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-[#D8CABA]">
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-extrabold text-[#101F35]">
+                <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-extrabold text-[#1F3D2B]">
                   <Star className="h-6 w-6 fill-[#C6A66B] text-[#C6A66B]" />
                   <span>{software.rating.toFixed(1)}</span>
                 </div>
                 <div className="text-left text-xs sm:text-sm text-[#556070]">
-                  <div className="font-bold text-[#101F35]">Score: {software.verdict.score}/10</div>
+                  <div className="font-bold text-[#1F3D2B]">Score: {software.verdict.score}/10</div>
                   <div className="text-[11px] text-[#697386]">Regional GCC Criteria</div>
                 </div>
               </div>
@@ -150,7 +150,7 @@ export default async function IndividualReviewPage({
               <div className="flex items-center gap-2.5 w-full sm:w-auto pt-2">
                 <Link
                   href={`/compare?a=${software.slug}`}
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-[#101F35] bg-white px-5 py-3 text-sm font-bold text-[#101F35] hover:bg-[#F6F1E7] transition-all min-h-[44px]"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-[#1F3D2B] bg-white px-5 py-3 text-sm font-bold text-[#1F3D2B] hover:bg-[#E8DCC4] transition-all min-h-[44px]"
                 >
                   <Scale className="h-4 w-4 text-[#C6A66B]" />
                   <span>Compare</span>
@@ -160,7 +160,7 @@ export default async function IndividualReviewPage({
                   href={software.websiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl bg-[#101F35] px-5 py-3 text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-all shadow-xs min-h-[44px]"
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl bg-[#1F3D2B] px-5 py-3 text-sm font-bold text-[#F9F6F0] hover:bg-[#173022] transition-all shadow-xs min-h-[44px]"
                 >
                   <span>Visit Vendor</span>
                   <ExternalLink className="h-4 w-4 text-[#C6A66B]" />
@@ -179,11 +179,11 @@ export default async function IndividualReviewPage({
           {/* Main Review Content (Col Span 8) */}
           <div className="lg:col-span-8 space-y-10">
             {/* 1. Software Overview & Executive Summary */}
-            <section className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35] mb-4">
+            <section className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-8 shadow-xs">
+              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D2B] mb-4">
                 Executive Overview
               </h2>
-              <p className="text-base sm:text-lg text-[#101F35] leading-relaxed mb-4 font-normal">
+              <p className="text-base sm:text-lg text-[#1F3D2B] leading-relaxed mb-4 font-normal">
                 {software.description}
               </p>
               <p className="text-sm sm:text-base text-[#556070] leading-relaxed">
@@ -191,32 +191,32 @@ export default async function IndividualReviewPage({
               </p>
 
               {/* Quick Metrics Bar */}
-              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 border-t border-[#E7E4DC]">
-                <div className="rounded-xl bg-[#F6F1E7] p-4 text-center">
+              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 border-t border-[#D8CABA]">
+                <div className="rounded-xl bg-[#E8DCC4] p-4 text-center">
                   <span className="text-xs uppercase font-bold text-[#697386] block">
                     Ease of Use
                   </span>
-                  <span className="text-xl font-extrabold text-[#101F35] block mt-1">
+                  <span className="text-xl font-extrabold text-[#1F3D2B] block mt-1">
                     {software.easeOfUse} / 10
                   </span>
                 </div>
-                <div className="rounded-xl bg-[#F6F1E7] p-4 text-center">
+                <div className="rounded-xl bg-[#E8DCC4] p-4 text-center">
                   <span className="text-xs uppercase font-bold text-[#697386] block">
                     Deployment
                   </span>
-                  <span className="text-sm sm:text-base font-bold text-[#101F35] block mt-1">
+                  <span className="text-sm sm:text-base font-bold text-[#1F3D2B] block mt-1">
                     {software.deploymentTime}
                   </span>
                 </div>
-                <div className="rounded-xl bg-[#F6F1E7] p-4 text-center">
+                <div className="rounded-xl bg-[#E8DCC4] p-4 text-center">
                   <span className="text-xs uppercase font-bold text-[#697386] block">
                     Starting At
                   </span>
-                  <span className="text-base sm:text-lg font-bold text-[#101F35] block mt-1">
+                  <span className="text-base sm:text-lg font-bold text-[#1F3D2B] block mt-1">
                     {software.pricing.startingPrice}
                   </span>
                 </div>
-                <div className="rounded-xl bg-[#F6F1E7] p-4 text-center">
+                <div className="rounded-xl bg-[#E8DCC4] p-4 text-center">
                   <span className="text-xs uppercase font-bold text-[#697386] block">
                     Arabic Support
                   </span>
@@ -228,8 +228,8 @@ export default async function IndividualReviewPage({
             </section>
 
             {/* 2. Key Features Breakdown */}
-            <section className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35] mb-2">
+            <section className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-8 shadow-xs">
+              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D2B] mb-2">
                 Key Features &amp; Regional Benchmarks
               </h2>
               <p className="text-sm text-[#556070] mb-6">
@@ -240,13 +240,13 @@ export default async function IndividualReviewPage({
                 {software.keyFeatures.map((kf, idx) => (
                   <div
                     key={idx}
-                    className="rounded-xl border border-[#E7E4DC] bg-white p-5 transition-all hover:border-[#C6A66B]"
+                    className="rounded-xl border border-[#D8CABA] bg-white p-5 transition-all hover:border-[#C6A66B]"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-base font-bold text-[#101F35]">
+                      <h4 className="text-base font-bold text-[#1F3D2B]">
                         {kf.title}
                       </h4>
-                      <div className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#8C6D33] bg-[#F6F1E7] px-2.5 py-1 rounded-md">
+                      <div className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#8C6D33] bg-[#E8DCC4] px-2.5 py-1 rounded-md">
                         <Sparkles className="h-3.5 w-3.5 text-[#C6A66B]" />
                         <span>{kf.score} / 10</span>
                       </div>
@@ -260,8 +260,8 @@ export default async function IndividualReviewPage({
             </section>
 
             {/* 3. Pros & Cons (Gulf Market Focused) */}
-            <section className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35] mb-6">
+            <section className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-8 shadow-xs">
+              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D2B] mb-6">
                 Pros &amp; Cons: The Gulf Perspective
               </h2>
 
@@ -276,7 +276,7 @@ export default async function IndividualReviewPage({
                     {software.pros.map((pro, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-2.5 text-xs sm:text-sm text-[#101F35] leading-relaxed"
+                        className="flex items-start gap-2.5 text-xs sm:text-sm text-[#1F3D2B] leading-relaxed"
                       >
                         <span className="h-2 w-2 rounded-full bg-emerald-600 mt-1.5 shrink-0" />
                         <span>{pro}</span>
@@ -295,7 +295,7 @@ export default async function IndividualReviewPage({
                     {software.cons.map((con, idx) => (
                       <li
                         key={idx}
-                        className="flex items-start gap-2.5 text-xs sm:text-sm text-[#101F35] leading-relaxed"
+                        className="flex items-start gap-2.5 text-xs sm:text-sm text-[#1F3D2B] leading-relaxed"
                       >
                         <span className="h-2 w-2 rounded-full bg-rose-600 mt-1.5 shrink-0" />
                         <span>{con}</span>
@@ -307,19 +307,19 @@ export default async function IndividualReviewPage({
             </section>
 
             {/* 4. Regional Suitability Deep-Dive */}
-            <section className="rounded-2xl border border-[#C6A66B]/50 bg-gradient-to-br from-[#FCFAF5] to-[#F6F1E7] p-6 sm:p-8 shadow-xs">
+            <section className="rounded-2xl border border-[#C6A66B]/50 bg-gradient-to-br from-[#F9F6F0] to-[#E8DCC4] p-6 sm:p-8 shadow-xs">
               <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#C6A66B] mb-2">
                 <Globe2 className="h-4 w-4" />
                 <span>Regional Middle East Audit</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35] mb-6">
+              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D2B] mb-6">
                 Middle Eastern Market Compliance &amp; Readiness
               </h2>
 
               <div className="space-y-4">
                 {software.gulfSuitabilityAnalysis.zatcaStatus && (
-                  <div className="rounded-xl bg-white border border-[#E7E4DC] p-5">
-                    <span className="text-sm font-bold text-[#101F35] block mb-1">
+                  <div className="rounded-xl bg-white border border-[#D8CABA] p-5">
+                    <span className="text-sm font-bold text-[#1F3D2B] block mb-1">
                       Saudi Arabia ZATCA E-Invoicing Status:
                     </span>
                     <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
@@ -329,8 +329,8 @@ export default async function IndividualReviewPage({
                 )}
 
                 {software.gulfSuitabilityAnalysis.uaeVatStatus && (
-                  <div className="rounded-xl bg-white border border-[#E7E4DC] p-5">
-                    <span className="text-sm font-bold text-[#101F35] block mb-1">
+                  <div className="rounded-xl bg-white border border-[#D8CABA] p-5">
+                    <span className="text-sm font-bold text-[#1F3D2B] block mb-1">
                       UAE FTA VAT Compliance Status:
                     </span>
                     <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
@@ -339,8 +339,8 @@ export default async function IndividualReviewPage({
                   </div>
                 )}
 
-                <div className="rounded-xl bg-white border border-[#E7E4DC] p-5">
-                  <span className="text-sm font-bold text-[#101F35] block mb-1">
+                <div className="rounded-xl bg-white border border-[#D8CABA] p-5">
+                  <span className="text-sm font-bold text-[#1F3D2B] block mb-1">
                     Arabic Language &amp; RTL Usability:
                   </span>
                   <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
@@ -348,8 +348,8 @@ export default async function IndividualReviewPage({
                   </p>
                 </div>
 
-                <div className="rounded-xl bg-white border border-[#E7E4DC] p-5">
-                  <span className="text-sm font-bold text-[#101F35] block mb-1">
+                <div className="rounded-xl bg-white border border-[#D8CABA] p-5">
+                  <span className="text-sm font-bold text-[#1F3D2B] block mb-1">
                     GCC Data Residency &amp; Cloud Hosting:
                   </span>
                   <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
@@ -360,8 +360,8 @@ export default async function IndividualReviewPage({
             </section>
 
             {/* 5. Pricing Information & Tiers */}
-            <section className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35] mb-2">
+            <section className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-8 shadow-xs">
+              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D2B] mb-2">
                 Pricing &amp; Regional Estimates
               </h2>
               <p className="text-sm text-[#556070] mb-6">
@@ -374,24 +374,24 @@ export default async function IndividualReviewPage({
                     key={idx}
                     className={`rounded-2xl border p-6 flex flex-col justify-between ${
                       tier.highlight
-                        ? "border-[#C6A66B] bg-[#F6F1E7]/70 shadow-sm"
-                        : "border-[#E7E4DC] bg-white"
+                        ? "border-[#C6A66B] bg-[#E8DCC4]/70 shadow-sm"
+                        : "border-[#D8CABA] bg-white"
                     }`}
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-bold text-[#101F35] text-lg">
+                        <h4 className="font-bold text-[#1F3D2B] text-lg">
                           {tier.name}
                         </h4>
                         {tier.highlight && (
-                          <span className="rounded-md bg-[#C6A66B] text-[#101F35] text-xs font-bold px-2.5 py-1">
+                          <span className="rounded-md bg-[#C6A66B] text-[#1F3D2B] text-xs font-bold px-2.5 py-1">
                             Recommended
                           </span>
                         )}
                       </div>
 
                       <div className="flex items-baseline gap-1 my-3">
-                        <span className="text-2xl sm:text-3xl font-extrabold text-[#101F35]">
+                        <span className="text-2xl sm:text-3xl font-extrabold text-[#1F3D2B]">
                           {tier.price}
                         </span>
                         <span className="text-xs sm:text-sm text-[#697386]">
@@ -409,7 +409,7 @@ export default async function IndividualReviewPage({
                         {tier.description}
                       </p>
 
-                      <ul className="space-y-2.5 border-t border-[#E7E4DC] pt-4 text-xs sm:text-sm text-[#101F35]">
+                      <ul className="space-y-2.5 border-t border-[#D8CABA] pt-4 text-xs sm:text-sm text-[#1F3D2B]">
                         {tier.features.map((feat, fIdx) => (
                           <li key={fIdx} className="flex items-center gap-2">
                             <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
@@ -424,8 +424,8 @@ export default async function IndividualReviewPage({
             </section>
 
             {/* 6. Final Verdict */}
-            <section className="rounded-2xl border border-[#101F35] bg-[#101F35] text-[#FCFAF5] p-6 sm:p-8 shadow-lg">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#223859]">
+            <section className="rounded-2xl border border-[#1F3D2B] bg-[#1F3D2B] text-[#F9F6F0] p-6 sm:p-8 shadow-lg">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#2C4F39]">
                 <div>
                   <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#C6A66B] block mb-1">
                     GulfSaasReview Editorial Verdict
@@ -434,24 +434,24 @@ export default async function IndividualReviewPage({
                     {software.verdict.badge}
                   </h3>
                 </div>
-                <div className="flex items-center gap-2 bg-[#14243C] px-5 py-2.5 rounded-xl border border-[#223859]">
+                <div className="flex items-center gap-2 bg-[#183324] px-5 py-2.5 rounded-xl border border-[#2C4F39]">
                   <span className="text-3xl font-extrabold text-[#C6A66B]">
                     {software.verdict.score}
                   </span>
-                  <span className="text-xs sm:text-sm text-[#E7E4DC]/80 font-medium">/ 10 Overall Score</span>
+                  <span className="text-xs sm:text-sm text-[#D8CABA]/80 font-medium">/ 10 Overall Score</span>
                 </div>
               </div>
 
-              <p className="mt-6 text-sm sm:text-base text-[#E7E4DC] leading-relaxed">
+              <p className="mt-6 text-sm sm:text-base text-[#D8CABA] leading-relaxed">
                 {software.verdict.summary}
               </p>
 
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs sm:text-sm pt-5 border-t border-[#223859]">
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs sm:text-sm pt-5 border-t border-[#2C4F39]">
                 <div>
                   <strong className="text-emerald-400 block mb-1 text-sm">
                     Best Suited For:
                   </strong>
-                  <span className="text-[#E7E4DC]/90 leading-relaxed">
+                  <span className="text-[#D8CABA]/90 leading-relaxed">
                     {software.verdict.bestFor}
                   </span>
                 </div>
@@ -459,7 +459,7 @@ export default async function IndividualReviewPage({
                   <strong className="text-rose-400 block mb-1 text-sm">
                     Not Recommended For:
                   </strong>
-                  <span className="text-[#E7E4DC]/90 leading-relaxed">
+                  <span className="text-[#D8CABA]/90 leading-relaxed">
                     {software.verdict.notRecommendedFor}
                   </span>
                 </div>
@@ -470,15 +470,15 @@ export default async function IndividualReviewPage({
           {/* Sidebar Column (Col Span 4) */}
           <aside className="lg:col-span-4 space-y-6">
             {/* Quick Actions Card */}
-            <div className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-7 shadow-xs sticky top-28">
-              <h3 className="text-base sm:text-lg font-bold text-[#101F35] mb-4">
+            <div className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-7 shadow-xs sticky top-28">
+              <h3 className="text-base sm:text-lg font-bold text-[#1F3D2B] mb-4">
                 Evaluate &amp; Compare
               </h3>
 
               <div className="space-y-3">
                 <Link
                   href={`/compare?a=${software.slug}`}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#101F35] px-4 py-3.5 text-sm font-bold text-white hover:bg-[#172B46] transition-colors"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#1F3D2B] px-4 py-3.5 text-sm font-bold text-white hover:bg-[#173022] transition-colors"
                 >
                   <Scale className="h-4 w-4 text-[#C6A66B]" />
                   <span>Compare with Other Platforms</span>
@@ -488,7 +488,7 @@ export default async function IndividualReviewPage({
                   href={software.websiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#101F35] bg-white px-4 py-3.5 text-sm font-bold text-[#101F35] hover:bg-[#F6F1E7] transition-colors"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#1F3D2B] bg-white px-4 py-3.5 text-sm font-bold text-[#1F3D2B] hover:bg-[#E8DCC4] transition-colors"
                 >
                   <span>Visit {software.name} Official Website</span>
                   <ExternalLink className="h-4 w-4 text-[#C6A66B]" />
@@ -496,7 +496,7 @@ export default async function IndividualReviewPage({
               </div>
 
               {/* Verified Integrations List */}
-              <div className="mt-6 pt-5 border-t border-[#E7E4DC]">
+              <div className="mt-6 pt-5 border-t border-[#D8CABA]">
                 <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] mb-3">
                   Verified Local Integrations
                 </h4>
@@ -504,7 +504,7 @@ export default async function IndividualReviewPage({
                   {software.localIntegrations.map((intg, i) => (
                     <span
                       key={i}
-                      className="rounded-lg bg-[#F6F1E7] border border-[#E7E4DC] px-2.5 py-1 text-xs text-[#101F35] font-semibold"
+                      className="rounded-lg bg-[#E8DCC4] border border-[#D8CABA] px-2.5 py-1 text-xs text-[#1F3D2B] font-semibold"
                     >
                       {intg}
                     </span>
@@ -513,7 +513,7 @@ export default async function IndividualReviewPage({
               </div>
 
               {/* Regulatory Compliance Badges */}
-              <div className="mt-6 pt-5 border-t border-[#E7E4DC]">
+              <div className="mt-6 pt-5 border-t border-[#D8CABA]">
                 <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] mb-3">
                   Regional Regulatory Badges
                 </h4>
@@ -521,7 +521,7 @@ export default async function IndividualReviewPage({
                   {software.localCompliance.map((comp, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 text-xs sm:text-sm text-[#101F35]"
+                      className="flex items-center gap-2 text-xs sm:text-sm text-[#1F3D2B]"
                     >
                       <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
                       <span className="font-semibold">{comp}</span>
@@ -531,8 +531,8 @@ export default async function IndividualReviewPage({
               </div>
 
               {/* Research Disclaimer */}
-              <div className="mt-6 pt-5 border-t border-[#E7E4DC] text-xs text-[#697386] leading-relaxed">
-                <span className="font-bold text-[#101F35] block mb-1">
+              <div className="mt-6 pt-5 border-t border-[#D8CABA] text-xs text-[#697386] leading-relaxed">
+                <span className="font-bold text-[#1F3D2B] block mb-1">
                   Editorial Research Note:
                 </span>
                 {software.sampleNotice}
@@ -544,19 +544,19 @@ export default async function IndividualReviewPage({
         {/* ---------------------------------------------------- */}
         {/* SIMILAR SOFTWARE RECOMMENDATIONS                     */}
         {/* ---------------------------------------------------- */}
-        <section className="mt-20 pt-12 border-t border-[#E7E4DC]">
+        <section className="mt-20 pt-12 border-t border-[#D8CABA]">
           <div className="flex items-center justify-between mb-8">
             <div>
               <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#C6A66B] block mb-1">
                 Alternative Solutions
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35]">
+              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D2B]">
                 Similar Software for Gulf Businesses
               </h2>
             </div>
             <Link
               href="/reviews"
-              className="text-sm font-bold text-[#101F35] hover:text-[#C6A66B] flex items-center gap-1"
+              className="text-sm font-bold text-[#1F3D2B] hover:text-[#C6A66B] flex items-center gap-1"
             >
               <span>All Reviews</span>
               <ArrowRight className="h-4 w-4" />

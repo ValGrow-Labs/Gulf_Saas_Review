@@ -11,8 +11,8 @@ export default function ComparePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-[#FCFAF5]">
-          <div className="text-sm font-semibold text-[#101F35]">
+        <div className="min-h-screen flex items-center justify-center bg-[#F9F6F0]">
+          <div className="text-sm font-semibold text-[#1F3D2B]">
             Loading software comparison engine...
           </div>
         </div>

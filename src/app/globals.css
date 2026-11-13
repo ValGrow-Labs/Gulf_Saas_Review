@@ -5,18 +5,28 @@
   --font-serif: var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
   --font-editorial: var(--font-serif), Georgia, Cambria, serif;
 
-  --color-deep-navy: #101F35;
-  --color-dark-navy: #172B46;
-  --color-navy-card: #14243C;
-  --color-navy-border: #223859;
-  --color-warm-cream: #F6F1E7;
-  --color-light-cream: #FCFAF5;
+  /* Primary User Theme: Forest Green (#1F3D2B) & Sand Beige (#E8DCC4) */
+  --color-forest-green: #1F3D2B;
+  --color-dark-forest: #173022;
+  --color-forest-card: #183324;
+  --color-forest-border: #2C4F39;
+  --color-sand-beige: #E8DCC4;
+  --color-light-sand: #F9F6F0;
+  --color-soft-sand: #D8CABA;
   --color-muted-gold: #C6A66B;
   --color-gold-light: #DFCA9B;
   --color-gold-hover: #B79555;
-  --color-soft-grey: #E7E4DC;
-  --color-text-grey: #697386;
-  --color-dark-text: #101F35;
+  --color-text-grey: #5A6A5C;
+  --color-dark-text: #1F3D2B;
+
+  /* Semantic Theme Aliases */
+  --color-deep-navy: #1F3D2B;
+  --color-dark-navy: #173022;
+  --color-navy-card: #183324;
+  --color-navy-border: #2C4F39;
+  --color-warm-cream: #E8DCC4;
+  --color-light-cream: #F9F6F0;
+  --color-soft-grey: #D8CABA;
 }
 
 /* Set root font size to 18px so all 1rem = 18px, making 18-20px readable everywhere */
@@ -31,8 +41,8 @@ html {
 }
 
 body {
-  background-color: #F6F1E7;
-  color: #101F35;
+  background-color: #E8DCC4;
+  color: #1F3D2B;
   font-size: 1rem; /* 18px */
   line-height: 1.65;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -47,14 +57,14 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F6F1E7;
+  background: #E8DCC4;
 }
 ::-webkit-scrollbar-thumb {
   background: #C6A66B;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #172B46;
+  background: #1F3D2B;
 }
 
 /* Custom editorial typography class */
@@ -69,6 +79,7 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-.navy-gradient-bg {
-  background: linear-gradient(145deg, #101F35 0%, #172B46 100%);
+.navy-gradient-bg,
+.forest-gradient-bg {
+  background: linear-gradient(145deg, #1F3D2B 0%, #173022 100%);
 }

@@ -60,7 +60,7 @@ export default function RootLayout({
       className={`${sans.variable} ${serif.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-screen flex flex-col bg-[#E8DCC4] text-[#1F3D2B] font-sans antialiased selection:bg-[#C6A66B]/20 selection:text-[#1F3D2B]">
+      <body className="min-h-screen flex flex-col bg-[#F4EDE0] text-[#14123D] font-sans antialiased selection:bg-[#FF6B5B]/20 selection:text-[#14123D]">
         <AppProvider>
           <Navigation />
           <main className="flex-1">{children}</main>

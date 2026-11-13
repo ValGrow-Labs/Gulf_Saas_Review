@@ -5,28 +5,23 @@
   --font-serif: var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
   --font-editorial: var(--font-serif), Georgia, Cambria, serif;
 
-  /* Primary User Theme: Forest Green (#1F3D2B) & Sand Beige (#E8DCC4) */
-  --color-forest-green: #1F3D2B;
-  --color-dark-forest: #173022;
-  --color-forest-card: #183324;
-  --color-forest-border: #2C4F39;
-  --color-sand-beige: #E8DCC4;
-  --color-light-sand: #F9F6F0;
-  --color-soft-sand: #D8CABA;
-  --color-muted-gold: #C6A66B;
-  --color-gold-light: #DFCA9B;
-  --color-gold-hover: #B79555;
-  --color-text-grey: #5A6A5C;
-  --color-dark-text: #1F3D2B;
-
-  /* Semantic Theme Aliases */
-  --color-deep-navy: #1F3D2B;
-  --color-dark-navy: #173022;
-  --color-navy-card: #183324;
-  --color-navy-border: #2C4F39;
-  --color-warm-cream: #E8DCC4;
-  --color-light-cream: #F9F6F0;
-  --color-soft-grey: #D8CABA;
+  --color-deep-navy: #14123D;
+  --color-navy: #14123D;
+  --color-dark-navy: #1F1C5C;
+  --color-navy-card: #1B184F;
+  --color-navy-border: #2C2775;
+  --color-warm-cream: #F4EDE0;
+  --color-cream: #F4EDE0;
+  --color-light-cream: #FAF5ED;
+  --color-muted-gold: #FF6B5B;
+  --color-coral: #FF6B5B;
+  --color-coral-light: #FFA094;
+  --color-coral-hover: #E85545;
+  --color-gold-light: #FFA094;
+  --color-gold-hover: #E85545;
+  --color-soft-grey: #E5DCD0;
+  --color-text-grey: #697386;
+  --color-dark-text: #14123D;
 }
 
 /* Set root font size to 18px so all 1rem = 18px, making 18-20px readable everywhere */
@@ -41,8 +36,8 @@ html {
 }
 
 body {
-  background-color: #E8DCC4;
-  color: #1F3D2B;
+  background-color: #F4EDE0;
+  color: #14123D;
   font-size: 1rem; /* 18px */
   line-height: 1.65;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -57,14 +52,14 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #E8DCC4;
+  background: #F4EDE0;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C6A66B;
+  background: #FF6B5B;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1F3D2B;
+  background: #1F1C5C;
 }
 
 /* Custom editorial typography class */
@@ -74,12 +69,11 @@ body {
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #DFCA9B 0%, #C6A66B 50%, #A88643 100%);
+  background: linear-gradient(135deg, #FFA094 0%, #FF6B5B 50%, #C93B2B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.navy-gradient-bg,
-.forest-gradient-bg {
-  background: linear-gradient(145deg, #1F3D2B 0%, #173022 100%);
+.navy-gradient-bg {
+  background: linear-gradient(145deg, #14123D 0%, #1F1C5C 100%);
 }

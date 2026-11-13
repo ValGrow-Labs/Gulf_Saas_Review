@@ -53,25 +53,25 @@ export default async function CategoryDetailPage({
   );
 
   return (
-    <div className="min-h-screen bg-[#E8DCC4] pb-24">
+    <div className="min-h-screen bg-[#F4EDE0] pb-24">
       {/* Header */}
-      <div className="bg-[#F9F6F0] border-b border-[#D8CABA] pt-10 pb-14">
+      <div className="bg-[#FAF5ED] border-b border-[#E5DCD0] pt-10 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/categories"
-            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#1F3D2B] mb-6"
+            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#14123D] mb-6"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>All Categories</span>
           </Link>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#E8DCC4] px-4 py-1.5 text-[14px] font-bold text-[#8C6D33] mb-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#FF6B5B]/50 bg-[#F4EDE0] px-4 py-1.5 text-[14px] font-bold text-[#D94534] mb-3">
               <Layers className="h-4 w-4" />
               <span>{matchingSoftware.length} Evaluated Solutions</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#1F3D2B] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#14123D] tracking-tight">
               {category.name} Software in the Gulf
             </h1>
 
@@ -79,8 +79,8 @@ export default async function CategoryDetailPage({
               {category.description}
             </p>
 
-            <div className="mt-6 rounded-2xl bg-[#E8DCC4] border border-[#D8CABA] p-5 text-[17px]">
-              <span className="font-bold text-[#8C6D33] block mb-1">
+            <div className="mt-6 rounded-2xl bg-[#F4EDE0] border border-[#E5DCD0] p-5 text-[17px]">
+              <span className="font-bold text-[#D94534] block mb-1">
                 Regional Gulf Context &amp; Relevance:
               </span>
               <p className="text-[#334155] leading-relaxed">
@@ -94,7 +94,7 @@ export default async function CategoryDetailPage({
       {/* Software Listings in this Category */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#1F3D2B]">
+          <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#14123D]">
             Reviewed {category.name} Tools
           </h2>
           <span className="text-[15px] font-semibold text-[#64748B]">
@@ -109,8 +109,8 @@ export default async function CategoryDetailPage({
         </div>
 
         {/* Category Key Criteria Box */}
-        <div className="mt-16 rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-8">
-          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#1F3D2B] mb-5">
+        <div className="mt-16 rounded-2xl border border-[#E5DCD0] bg-[#FAF5ED] p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#14123D] mb-5">
             Buyer&apos;s Checklist for {category.name} in Saudi Arabia &amp; UAE
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

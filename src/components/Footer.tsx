@@ -5,17 +5,17 @@ import { ShieldCheck, Mail, ArrowUpRight } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#1F3D2B] text-[#F9F6F0] border-t border-[#2C4F39]">
+    <footer className="w-full bg-[#14123D] text-[#FAF5ED] border-t border-[#2C2775]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
         {/* Main Clean 4-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-10 border-b border-[#2C4F39]/80">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-10 border-b border-[#2C2775]/80">
           {/* Brand Info (Col 2) */}
           <div className="lg:col-span-2 space-y-4">
             <Logo variant="light" showTagline={false} />
-            <p className="text-[17px] text-[#D8CABA]/90 leading-relaxed max-w-sm">
+            <p className="text-[17px] text-[#E5DCD0]/90 leading-relaxed max-w-sm">
               Independent software reviews, comparisons and practical technology insights for businesses across KSA, UAE and the GCC.
             </p>
-            <div className="flex items-center gap-2 text-[15px] text-[#C6A66B] font-semibold">
+            <div className="flex items-center gap-2 text-[15px] text-[#FF6B5B] font-semibold">
               <ShieldCheck className="h-4 w-4 shrink-0" />
               <span>Independent Editorial Standards • Riyadh &amp; Dubai</span>
             </div>
@@ -23,10 +23,10 @@ export default function Footer() {
 
           {/* Col 1: Software Reviews */}
           <div className="space-y-3">
-            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#C6A66B]">
+            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B]">
               Reviews
             </h3>
-            <ul className="space-y-2.5 text-[16px] text-[#D8CABA]">
+            <ul className="space-y-2.5 text-[16px] text-[#E5DCD0]">
               <li>
                 <Link href="/reviews" className="hover:text-white transition-colors">
                   All Software Reviews
@@ -52,10 +52,10 @@ export default function Footer() {
 
           {/* Col 2: Categories */}
           <div className="space-y-3">
-            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#C6A66B]">
+            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B]">
               Categories
             </h3>
-            <ul className="space-y-2.5 text-[16px] text-[#D8CABA]">
+            <ul className="space-y-2.5 text-[16px] text-[#E5DCD0]">
               <li>
                 <Link href="/categories/accounting-finance" className="hover:text-white transition-colors">
                   Accounting &amp; Finance
@@ -72,7 +72,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-[#C6A66B] font-bold inline-flex items-center gap-1 transition-colors">
+                <Link href="/categories" className="hover:text-[#FF6B5B] font-bold inline-flex items-center gap-1 transition-colors">
                   <span>Browse All 8 &rarr;</span>
                 </Link>
               </li>
@@ -81,10 +81,10 @@ export default function Footer() {
 
           {/* Col 3: Company */}
           <div className="space-y-3">
-            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#C6A66B]">
+            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B]">
               Company
             </h3>
-            <ul className="space-y-2.5 text-[16px] text-[#D8CABA]">
+            <ul className="space-y-2.5 text-[16px] text-[#E5DCD0]">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About Our Mission
@@ -110,17 +110,17 @@ export default function Footer() {
         </div>
 
         {/* Short Concise Disclaimer Strip */}
-        <div className="py-4 text-[14px] text-[#D8CABA]/70 leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#2C4F39]/60">
+        <div className="py-4 text-[14px] text-[#E5DCD0]/70 leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#2C2775]/60">
           <span>
             Independent research &amp; sample review directory for GCC enterprise software. All brand trademarks belong to their respective owners.
           </span>
-          <span className="text-[#C6A66B] font-semibold shrink-0">
+          <span className="text-[#FF6B5B] font-semibold shrink-0">
             KSA • UAE • GCC Coverage
           </span>
         </div>
 
         {/* Bottom Clean Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[15px] text-[#D8CABA]/80">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[15px] text-[#E5DCD0]/80">
           <div>
             © 2026 GulfSaasReview. All rights reserved.
           </div>
@@ -143,7 +143,7 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-[#183324] text-[#D8CABA] hover:text-[#C6A66B] transition-colors"
+              className="p-2 rounded-lg bg-[#1A174E] text-[#E5DCD0] hover:text-[#FF6B5B] transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -154,7 +154,7 @@ export default function Footer() {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-[#183324] text-[#D8CABA] hover:text-[#C6A66B] transition-colors"
+              className="p-2 rounded-lg bg-[#1A174E] text-[#E5DCD0] hover:text-[#FF6B5B] transition-colors"
               aria-label="X / Twitter"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -163,7 +163,7 @@ export default function Footer() {
             </a>
             <a
               href="mailto:contact@gulfsaasreview.com"
-              className="p-2 rounded-lg bg-[#183324] text-[#D8CABA] hover:text-[#C6A66B] transition-colors"
+              className="p-2 rounded-lg bg-[#1A174E] text-[#E5DCD0] hover:text-[#FF6B5B] transition-colors"
               aria-label="Email Us"
             >
               <Mail className="h-4 w-4" />

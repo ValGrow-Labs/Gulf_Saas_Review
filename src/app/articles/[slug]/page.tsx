@@ -44,37 +44,37 @@ export default async function ArticleDetailPage({
   }
 
   return (
-    <div className="min-h-screen bg-[#E8DCC4] pb-24">
+    <div className="min-h-screen bg-[#F4EDE0] pb-24">
       {/* Header */}
-      <div className="bg-[#F9F6F0] border-b border-[#D8CABA] pt-10 pb-14">
+      <div className="bg-[#FAF5ED] border-b border-[#E5DCD0] pt-10 pb-14">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/articles"
-            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#1F3D2B] mb-6"
+            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#14123D] mb-6"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>All Articles &amp; Guides</span>
           </Link>
 
           <div>
-            <span className="inline-block rounded-lg bg-[#C6A66B]/20 px-3.5 py-1 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8C6D33] mb-4">
+            <span className="inline-block rounded-lg bg-[#FF6B5B]/20 px-3.5 py-1 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#D94534] mb-4">
               {article.category}
             </span>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#1F3D2B] tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#14123D] tracking-tight leading-tight">
               {article.title}
             </h1>
 
-            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm sm:text-base text-[#64748B] pt-4 border-t border-[#D8CABA]">
+            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm sm:text-base text-[#64748B] pt-4 border-t border-[#E5DCD0]">
               <div className="flex items-center gap-2.5">
-                <div className="h-9 w-9 rounded-full bg-[#1F3D2B] text-[#C6A66B] flex items-center justify-center font-bold text-xs">
+                <div className="h-9 w-9 rounded-full bg-[#14123D] text-[#FF6B5B] flex items-center justify-center font-bold text-xs">
                   {article.author.name
                     .split(" ")
                     .map((n) => n[0])
                     .join("")}
                 </div>
                 <div>
-                  <div className="font-bold text-[#1F3D2B]">
+                  <div className="font-bold text-[#14123D]">
                     {article.author.name}
                   </div>
                   <div className="text-[13px] text-[#64748B]">
@@ -97,9 +97,9 @@ export default async function ArticleDetailPage({
 
       {/* Article Body */}
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] p-6 sm:p-10 shadow-xs">
+        <div className="rounded-2xl border border-[#E5DCD0] bg-[#FAF5ED] p-6 sm:p-10 shadow-xs">
           {/* Lead Paragraph - 20-22px */}
-          <p className="text-[20px] sm:text-[22px] text-[#1F3D2B] font-serif italic border-l-4 border-[#C6A66B] pl-5 mb-8 leading-relaxed">
+          <p className="text-[20px] sm:text-[22px] text-[#14123D] font-serif italic border-l-4 border-[#FF6B5B] pl-5 mb-8 leading-relaxed">
             {article.excerpt}
           </p>
 
@@ -111,8 +111,8 @@ export default async function ArticleDetailPage({
               </p>
             ))}
 
-            <div className="my-8 rounded-2xl bg-[#E8DCC4] border border-[#D8CABA] p-6 sm:p-7">
-              <h4 className="font-bold text-lg text-[#1F3D2B] mb-2">
+            <div className="my-8 rounded-2xl bg-[#F4EDE0] border border-[#E5DCD0] p-6 sm:p-7">
+              <h4 className="font-bold text-lg text-[#14123D] mb-2">
                 Executive Takeaway for Gulf Leadership
               </h4>
               <p className="text-[17px] text-[#475569] leading-relaxed">
@@ -121,18 +121,18 @@ export default async function ArticleDetailPage({
             </div>
           </div>
 
-          <div className="mt-12 pt-8 border-t border-[#D8CABA] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="mt-12 pt-8 border-t border-[#E5DCD0] flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link
               href="/reviews"
-              className="inline-flex items-center gap-2 text-[16px] font-bold text-[#1F3D2B] hover:text-[#C6A66B]"
+              className="inline-flex items-center gap-2 text-[16px] font-bold text-[#14123D] hover:text-[#FF6B5B]"
             >
               <span>Explore software matching these criteria</span>
-              <ArrowRight className="h-4 w-4 text-[#C6A66B]" />
+              <ArrowRight className="h-4 w-4 text-[#FF6B5B]" />
             </Link>
 
             <Link
               href="/compare"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-[#1F3D2B] px-5 py-2.5 text-[15px] font-bold text-white hover:bg-[#173022]"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#14123D] px-5 py-2.5 text-[15px] font-bold text-white hover:bg-[#1E1B59]"
             >
               <span>Compare Solutions</span>
             </Link>

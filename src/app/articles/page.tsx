@@ -11,16 +11,16 @@ export const metadata = {
 
 export default function ArticlesPage() {
   return (
-    <div className="min-h-screen bg-[#E8DCC4] pb-24">
+    <div className="min-h-screen bg-[#F4EDE0] pb-24">
       {/* Header */}
-      <div className="bg-[#F9F6F0] border-b border-[#D8CABA] pt-12 pb-14">
+      <div className="bg-[#FAF5ED] border-b border-[#E5DCD0] pt-12 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2.5">
+            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B] mb-2.5">
               <FileText className="h-4 w-4" />
               <span>Editorial Intelligence</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#1F3D2B] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#14123D] tracking-tight">
               Insights for Smarter Business Technology
             </h1>
             <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] leading-relaxed">
@@ -35,11 +35,11 @@ export default function ArticlesPage() {
           {articles.map((art) => (
             <article
               key={art.id}
-              className="group flex flex-col justify-between rounded-2xl border border-[#D8CABA] bg-[#F9F6F0] overflow-hidden shadow-xs hover:border-[#C6A66B] hover:shadow-md transition-all"
+              className="group flex flex-col justify-between rounded-2xl border border-[#E5DCD0] bg-[#FAF5ED] overflow-hidden shadow-xs hover:border-[#FF6B5B] hover:shadow-md transition-all"
             >
               <div>
-                <div className="h-48 w-full bg-[#1F3D2B] p-6 flex flex-col justify-between text-white relative overflow-hidden">
-                  <span className="inline-block rounded-md bg-[#C6A66B]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#DFCA9B] border border-[#C6A66B]/30 self-start">
+                <div className="h-48 w-full bg-[#14123D] p-6 flex flex-col justify-between text-white relative overflow-hidden">
+                  <span className="inline-block rounded-md bg-[#FF6B5B]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#FFA094] border border-[#FF6B5B]/30 self-start">
                     {art.category}
                   </span>
                   <p className="font-editorial italic text-white text-xl font-normal line-clamp-2">
@@ -57,7 +57,7 @@ export default function ArticlesPage() {
                     </span>
                   </div>
 
-                  <h2 className="text-lg sm:text-xl font-bold text-[#1F3D2B] group-hover:text-[#C6A66B] transition-colors leading-snug">
+                  <h2 className="text-lg sm:text-xl font-bold text-[#14123D] group-hover:text-[#FF6B5B] transition-colors leading-snug">
                     <Link href={`/articles/${art.slug}`}>{art.title}</Link>
                   </h2>
 
@@ -67,22 +67,22 @@ export default function ArticlesPage() {
                 </div>
               </div>
 
-              <div className="px-6 pb-6 pt-4 flex items-center justify-between border-t border-[#D8CABA]/80 mt-auto">
+              <div className="px-6 pb-6 pt-4 flex items-center justify-between border-t border-[#E5DCD0]/80 mt-auto">
                 <div className="flex items-center gap-2.5">
-                  <div className="h-8 w-8 rounded-full bg-[#1F3D2B] text-[#C6A66B] flex items-center justify-center font-bold text-xs">
+                  <div className="h-8 w-8 rounded-full bg-[#14123D] text-[#FF6B5B] flex items-center justify-center font-bold text-xs">
                     {art.author.name
                       .split(" ")
                       .map((n) => n[0])
                       .join("")}
                   </div>
-                  <span className="text-[15px] font-semibold text-[#1F3D2B]">
+                  <span className="text-[15px] font-semibold text-[#14123D]">
                     {art.author.name}
                   </span>
                 </div>
 
                 <Link
                   href={`/articles/${art.slug}`}
-                  className="inline-flex items-center gap-1.5 text-[15px] font-bold text-[#1F3D2B] group-hover:text-[#C6A66B]"
+                  className="inline-flex items-center gap-1.5 text-[15px] font-bold text-[#14123D] group-hover:text-[#FF6B5B]"
                 >
                   <span>Read Guide</span>
                   <ArrowRight className="h-4 w-4" />

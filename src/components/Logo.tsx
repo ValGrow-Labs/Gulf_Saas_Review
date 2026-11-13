@@ -17,7 +17,7 @@ export default function Logo({
   return (
     <Link
       href="/"
-      className={`group inline-flex items-center gap-3 transition-opacity hover:opacity-95 ${className}`}
+      className={`group inline-flex items-center gap-3 transition-opacity hover:opacity-95 whitespace-nowrap shrink-0 ${className}`}
       aria-label="GulfSaasReview Homepage"
     >
       {/* Custom Geometric Gulf-inspired Emblem */}

@@ -30,73 +30,78 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
     const price = software.pricing.startingPrice?.toLowerCase() || "";
     if (price.includes("quote")) return "";
     const period = software.pricing.billingPeriod?.toLowerCase() || "";
-    if (period.includes("user") || period.includes("seat") || period.includes("agent") || period.includes("employee")) {
+    if (
+      period.includes("user") ||
+      period.includes("seat") ||
+      period.includes("agent") ||
+      period.includes("employee")
+    ) {
       return "/user/mo";
     }
     return "/mo";
   };
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-5 sm:p-6 transition-all duration-300 hover:border-[#C6A66B]/80 hover:shadow-[0_12px_32px_rgba(16,31,53,0.08)] hover:-translate-y-0.5">
+    <div className="group relative flex flex-col justify-between rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-5 sm:p-6 transition-all duration-300 hover:border-[#C6A66B] hover:shadow-[0_12px_36px_rgba(16,31,53,0.09)] hover:-translate-y-0.5">
       {/* Top Row: Brand & Rating */}
       <div>
         <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
+          <div className="flex items-center gap-3.5 min-w-0">
             {/* Logo Badge */}
             <div
-              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl font-bold text-white shadow-xs transition-transform duration-300 group-hover:scale-105 border border-black/5"
+              className="flex h-12 w-12 sm:h-14 sm:w-14 shrink-0 items-center justify-center rounded-xl font-bold text-white shadow-xs transition-transform duration-300 group-hover:scale-105"
               style={{ backgroundColor: software.accentColor || "#101F35" }}
             >
-              <span className="text-base font-bold tracking-tight">
+              <span className="text-base sm:text-lg font-bold tracking-tight">
                 {software.name.substring(0, 2).toUpperCase()}
               </span>
             </div>
 
             <div className="min-w-0 flex-1">
-              <div className="flex flex-wrap items-center gap-1.5">
+              <div className="flex flex-wrap items-center gap-2">
                 <Link
                   href={`/reviews/${software.slug}`}
-                  className="font-bold text-[#101F35] text-lg hover:text-[#C6A66B] transition-colors leading-tight truncate"
+                  className="font-bold text-[#101F35] text-lg sm:text-xl hover:text-[#C6A66B] transition-colors leading-tight truncate"
                   title={software.name}
                 >
                   {software.name}
                 </Link>
                 {/* Sample Review Badge */}
                 <span
-                  className="inline-flex items-center gap-1 rounded bg-[#F6F1E7] px-2 py-0.5 text-[9.5px] font-semibold text-[#697386] border border-[#E7E4DC] shrink-0"
+                  className="inline-flex items-center gap-1 rounded bg-[#F6F1E7] px-2.5 py-0.5 text-xs font-semibold text-[#697386] border border-[#E7E4DC] shrink-0"
                   title={software.sampleNotice}
                 >
-                  <ShieldCheck className="h-3 w-3 text-[#C6A66B]" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-[#C6A66B]" />
                   Sample Review
                 </span>
               </div>
-              <span className="text-xs text-[#697386] font-medium block mt-0.5 truncate">
+              <span className="text-xs sm:text-sm text-[#697386] font-medium block mt-1 truncate">
                 {software.categoryName}
               </span>
             </div>
           </div>
 
           {/* Star Rating Badge */}
-          <div className="flex items-center gap-1.5 rounded-lg bg-[#F6F1E7] px-2.5 py-1 text-xs font-bold text-[#101F35] border border-[#E7E4DC] shrink-0">
-            <Star className="h-3.5 w-3.5 fill-[#C6A66B] text-[#C6A66B]" />
+          <div className="flex items-center gap-1.5 rounded-lg bg-[#F6F1E7] px-2.5 py-1 text-xs sm:text-sm font-bold text-[#101F35] border border-[#E7E4DC] shrink-0">
+            <Star className="h-4 w-4 fill-[#C6A66B] text-[#C6A66B]" />
             <span>{software.rating.toFixed(1)}</span>
-            <span className="text-[10px] text-[#697386] font-normal">
+            <span className="text-xs text-[#697386] font-normal">
               ({software.reviewCount})
             </span>
           </div>
         </div>
 
         {/* Tagline / Excerpt */}
-        <p className="mt-3.5 text-xs text-[#697386] leading-relaxed line-clamp-2 min-h-[2rem]">
+        <p className="mt-4 text-xs sm:text-sm text-[#556070] leading-relaxed line-clamp-2">
           {software.tagline || software.description}
         </p>
 
         {/* Regional Suitability Badges */}
-        <div className="mt-4 flex flex-wrap items-center gap-1.5">
+        <div className="mt-4 flex flex-wrap items-center gap-2">
           {software.countrySuitability.map((country) => (
             <span
               key={country}
-              className="inline-flex items-center gap-1 rounded-md bg-[#101F35]/5 px-2 py-0.5 text-[10.5px] font-semibold text-[#101F35]"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#101F35]/5 px-2.5 py-1 text-xs font-semibold text-[#101F35]"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-[#C6A66B]" />
               {country}
@@ -104,17 +109,17 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
           ))}
 
           {/* Arabic Support Pill */}
-          <span className="inline-flex items-center gap-1 rounded-md bg-[#C6A66B]/15 px-2 py-0.5 text-[10.5px] font-semibold text-[#8C6D33]">
-            <Globe2 className="h-3 w-3" />
+          <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#C6A66B]/15 px-2.5 py-1 text-xs font-semibold text-[#8C6D33]">
+            <Globe2 className="h-3.5 w-3.5" />
             {software.arabicSupport}
           </span>
         </div>
 
         {/* Key Compliance Bullet points */}
-        <div className="mt-3.5 space-y-1.5 pt-3 border-t border-[#E7E4DC]/60 text-xs">
+        <div className="mt-4 space-y-2 pt-3.5 border-t border-[#E7E4DC]/80 text-xs sm:text-sm">
           {software.localCompliance.slice(0, 2).map((item, idx) => (
-            <div key={idx} className="flex items-center gap-1.5 text-[#101F35] text-[11px]">
-              <CheckCircle2 className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
+            <div key={idx} className="flex items-center gap-2 text-[#101F35] text-xs sm:text-sm font-medium">
+              <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
               <span className="truncate">{item}</span>
             </div>
           ))}
@@ -122,17 +127,17 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
       </div>
 
       {/* Bottom Footer: Pricing & Action Buttons */}
-      <div className="mt-5 pt-3.5 border-t border-[#E7E4DC] flex items-center justify-between">
+      <div className="mt-6 pt-4 border-t border-[#E7E4DC] flex items-center justify-between gap-3">
         <div className="flex flex-col">
-          <span className="text-[10px] uppercase tracking-wider font-bold text-[#697386]">
+          <span className="text-[11px] sm:text-xs uppercase tracking-wider font-bold text-[#697386]">
             Starting From
           </span>
           <div className="flex items-baseline gap-1">
-            <span className="text-base font-extrabold text-[#101F35]">
+            <span className="text-lg sm:text-xl font-extrabold text-[#101F35]">
               {software.pricing.startingPrice}
             </span>
             {getBillingSuffix() && (
-              <span className="text-[11px] font-medium text-[#697386]">
+              <span className="text-xs sm:text-sm font-medium text-[#697386]">
                 {getBillingSuffix()}
               </span>
             )}
@@ -144,7 +149,7 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
           <button
             type="button"
             onClick={handleCompareClick}
-            className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold transition-all min-h-[40px] cursor-pointer ${
               compared
                 ? "bg-[#101F35] text-[#FCFAF5]"
                 : "border border-[#E7E4DC] bg-white text-[#101F35] hover:border-[#C6A66B] hover:text-[#C6A66B]"
@@ -153,12 +158,12 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
           >
             {compared ? (
               <>
-                <Check className="h-3 w-3 text-[#C6A66B]" />
+                <Check className="h-3.5 w-3.5 text-[#C6A66B]" />
                 <span>Added</span>
               </>
             ) : (
               <>
-                <Plus className="h-3 w-3" />
+                <Plus className="h-3.5 w-3.5" />
                 <span>Compare</span>
               </>
             )}
@@ -167,10 +172,10 @@ export default function SoftwareCard({ software, compact = false }: SoftwareCard
           {/* Read Review Link */}
           <Link
             href={`/reviews/${software.slug}`}
-            className="inline-flex items-center gap-1 rounded-lg bg-[#101F35] px-3 py-1.5 text-xs font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-colors"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-[#101F35] px-3.5 py-2 text-xs sm:text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-colors min-h-[40px]"
           >
             <span>Review</span>
-            <ArrowRight className="h-3 w-3 text-[#C6A66B]" />
+            <ArrowRight className="h-3.5 w-3.5 text-[#C6A66B]" />
           </Link>
         </div>
       </div>

@@ -44,13 +44,13 @@ export default function Navigation() {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-200 ${
           scrolled
-            ? "bg-[#FCFAF5]/95 backdrop-blur-md shadow-[0_4px_20px_rgba(16,31,53,0.06)] border-b border-[#E7E4DC]"
-            : "bg-[#FCFAF5] border-b border-[#E7E4DC]/80"
+            ? "bg-[#FCFAF5]/98 backdrop-blur-md shadow-[0_4px_24px_rgba(16,31,53,0.08)] border-b border-[#E7E4DC]"
+            : "bg-[#FCFAF5] border-b border-[#E7E4DC]"
         }`}
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Left: Logo */}
-          <div className="flex items-center">
+          <div className="flex items-center shrink-0">
             <Logo />
           </div>
 
@@ -62,15 +62,15 @@ export default function Navigation() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`relative px-3.5 py-2 text-sm font-medium transition-colors rounded-md ${
+                  className={`relative px-3.5 py-2 text-sm lg:text-[15px] font-semibold transition-colors rounded-lg ${
                     active
-                      ? "text-[#101F35] font-semibold bg-[#E7E4DC]/40"
-                      : "text-[#697386] hover:text-[#101F35] hover:bg-[#E7E4DC]/20"
+                      ? "text-[#101F35] bg-[#E7E4DC]/50 shadow-2xs"
+                      : "text-[#556070] hover:text-[#101F35] hover:bg-[#E7E4DC]/30"
                   }`}
                 >
                   {link.name}
                   {active && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#C6A66B] rounded-full" />
+                    <span className="absolute bottom-0.5 left-3 right-3 h-[2px] bg-[#C6A66B] rounded-full" />
                   )}
                 </Link>
               );
@@ -78,15 +78,15 @@ export default function Navigation() {
           </nav>
 
           {/* Right: Search & Explore CTA */}
-          <div className="flex items-center space-x-2.5 sm:space-x-3">
+          <div className="flex items-center space-x-2.5 sm:space-x-3 shrink-0">
             {/* Compare Badge Indicator if items are selected */}
             {compareSlugs.length > 0 && (
               <button
                 onClick={() => setIsCompareTrayOpen(true)}
-                className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#101F35] text-[#C6A66B] border border-[#C6A66B]/50 hover:bg-[#172B46] transition-colors"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs sm:text-sm font-bold bg-[#101F35] text-[#C6A66B] border border-[#C6A66B]/60 hover:bg-[#172B46] transition-colors cursor-pointer"
                 title="View selected software to compare"
               >
-                <Scale className="h-3.5 w-3.5" />
+                <Scale className="h-4 w-4" />
                 <span>Compare ({compareSlugs.length})</span>
               </button>
             )}
@@ -95,12 +95,12 @@ export default function Navigation() {
             <button
               type="button"
               onClick={openSearch}
-              className="flex items-center gap-2 rounded-lg border border-[#E7E4DC] bg-[#FCFAF5] px-3 py-2 text-xs font-medium text-[#697386] hover:border-[#C6A66B] hover:text-[#101F35] transition-all shadow-xs"
+              className="flex items-center gap-2 rounded-xl border border-[#E7E4DC] bg-white px-3 sm:px-3.5 py-2 text-xs sm:text-sm font-medium text-[#556070] hover:border-[#C6A66B] hover:text-[#101F35] transition-all shadow-2xs cursor-pointer min-h-[40px]"
               aria-label="Search software and comparisons"
             >
               <Search className="h-4 w-4 text-[#101F35]" />
-              <span className="hidden lg:inline text-xs">Search software...</span>
-              <kbd className="hidden lg:inline-flex items-center rounded border border-[#E7E4DC] bg-[#F6F1E7] px-1.5 py-0.5 text-[10px] text-[#697386] font-mono">
+              <span className="hidden lg:inline text-xs sm:text-sm font-medium">Search software...</span>
+              <kbd className="hidden lg:inline-flex items-center rounded border border-[#E7E4DC] bg-[#F6F1E7] px-1.5 py-0.5 text-[11px] text-[#697386] font-mono">
                 ⌘K
               </kbd>
             </button>
@@ -108,17 +108,17 @@ export default function Navigation() {
             {/* Explore Software Primary CTA */}
             <Link
               href="/reviews"
-              className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-[#101F35] px-4 py-2.5 text-xs font-semibold text-[#FCFAF5] hover:bg-[#172B46] active:scale-[0.99] transition-all shadow-sm border border-[#101F35]"
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#101F35] px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46] active:scale-[0.98] transition-all shadow-sm border border-[#101F35] min-h-[40px]"
             >
               <span>Explore Software</span>
-              <ArrowUpRight className="h-3.5 w-3.5 text-[#C6A66B]" />
+              <ArrowUpRight className="h-4 w-4 text-[#C6A66B]" />
             </Link>
 
-            {/* Mobile Menu Toggle Button */}
+            {/* Mobile Menu Toggle Button (Touch target 44px+) */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden inline-flex items-center justify-center rounded-lg p-2 text-[#101F35] hover:bg-[#E7E4DC]/50 focus:outline-none"
+              className="md:hidden inline-flex items-center justify-center rounded-xl p-2.5 min-h-[44px] min-w-[44px] text-[#101F35] hover:bg-[#E7E4DC]/60 focus:outline-none cursor-pointer border border-[#E7E4DC] bg-white"
               aria-expanded={isMobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
@@ -131,20 +131,22 @@ export default function Navigation() {
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* ---------------------------------------------------- */}
+        {/* MOBILE RESPONSIVE DRAWER (RWD FORMAT)                */}
+        {/* ---------------------------------------------------- */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-b border-[#E7E4DC] bg-[#FCFAF5] px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top-2 duration-200">
-            <div className="space-y-1">
+          <div className="md:hidden border-b border-[#E7E4DC] bg-[#FCFAF5] px-4 pt-4 pb-8 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+            <div className="space-y-1.5">
               {navLinks.map((link) => {
                 const active = isActive(link.href);
                 return (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`block rounded-lg px-4 py-2.5 text-sm font-medium transition-colors ${
+                    className={`block rounded-xl px-4 py-3 text-base font-bold transition-colors ${
                       active
-                        ? "bg-[#101F35] text-[#FCFAF5] font-semibold"
-                        : "text-[#101F35] hover:bg-[#E7E4DC]/40"
+                        ? "bg-[#101F35] text-[#FCFAF5]"
+                        : "text-[#101F35] hover:bg-[#E7E4DC]/50"
                     }`}
                   >
                     {link.name}
@@ -153,23 +155,23 @@ export default function Navigation() {
               })}
             </div>
 
-            <div className="mt-5 pt-4 border-t border-[#E7E4DC] flex flex-col gap-2.5">
+            <div className="mt-6 pt-5 border-t border-[#E7E4DC] flex flex-col gap-3">
               <button
                 onClick={() => {
                   setIsMobileMenuOpen(false);
                   openSearch();
                 }}
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#E7E4DC] bg-white py-2.5 text-sm font-medium text-[#101F35]"
+                className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-[#E7E4DC] bg-white py-3.5 text-sm sm:text-base font-semibold text-[#101F35] shadow-xs cursor-pointer"
               >
-                <Search className="h-4 w-4" />
-                <span>Search Reviews, Comparisons & Guides</span>
+                <Search className="h-4 w-4 text-[#C6A66B]" />
+                <span>Search Reviews, Categories &amp; Matchups</span>
               </button>
 
               <Link
                 href="/reviews"
-                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-[#101F35] py-2.5 text-sm font-semibold text-[#FCFAF5]"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#101F35] py-3.5 text-sm sm:text-base font-bold text-[#FCFAF5] shadow-sm"
               >
-                <span>Explore Software</span>
+                <span>Explore All Software Reviews</span>
                 <ArrowUpRight className="h-4 w-4 text-[#C6A66B]" />
               </Link>
             </div>
@@ -179,4 +181,3 @@ export default function Navigation() {
     </>
   );
 }
-

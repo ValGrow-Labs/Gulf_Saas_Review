@@ -75,7 +75,6 @@ export default function ReviewsClient() {
         // Pricing Model Filter
         if (selectedPricing !== "all") {
           if (selectedPricing === "free" && item.pricing.model !== "Free Tier") {
-            // Check if any tier has free price
             const hasFreeTier = item.pricing.tiers.some((t) => t.price === "$0");
             if (!hasFreeTier) return false;
           } else if (
@@ -131,14 +130,14 @@ export default function ReviewsClient() {
       <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-12 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B] mb-2">
-              <Sparkles className="h-3.5 w-3.5" />
+            <div className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#C6A66B] mb-2.5">
+              <Sparkles className="h-4 w-4" />
               <span>Independent Directory</span>
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#101F35] tracking-tight">
               Software Reviews Directory
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-[#697386] leading-relaxed">
+            <p className="mt-3 text-base sm:text-lg text-[#556070] leading-relaxed">
               Explore independent evaluations of enterprise and small business software tailored for businesses in Saudi Arabia, the UAE, and the GCC. Filter by regulatory readiness, Arabic UI, and pricing models.
             </p>
           </div>
@@ -147,22 +146,22 @@ export default function ReviewsClient() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
         {/* Search & Quick Controls Bar */}
-        <div className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-4 sm:p-5 shadow-xs mb-8">
+        <div className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-5 sm:p-6 shadow-xs mb-8">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#697386]" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#697386]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search by software name, feature (e.g. ZATCA, WhatsApp, WPS, Payroll)..."
-                className="w-full rounded-xl border border-[#E7E4DC] bg-white pl-10 pr-9 py-2.5 text-sm text-[#101F35] placeholder-[#697386] focus:border-[#C6A66B] focus:outline-none focus:ring-1 focus:ring-[#C6A66B]"
+                placeholder="Search software (e.g. Odoo, Zoho, ZATCA Phase 2, WhatsApp, WPS, Payroll)..."
+                className="w-full rounded-xl border border-[#E7E4DC] bg-white pl-12 pr-10 py-3 text-sm sm:text-base text-[#101F35] placeholder-[#697386] focus:border-[#C6A66B] focus:outline-none focus:ring-1 focus:ring-[#C6A66B] shadow-2xs"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#697386] hover:text-[#101F35]"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#697386] hover:text-[#101F35] cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -170,15 +169,15 @@ export default function ReviewsClient() {
             </div>
 
             {/* Quick Sort Dropdown */}
-            <div className="flex items-center gap-2.5 shrink-0">
-              <label htmlFor="sort-by" className="text-xs font-medium text-[#697386] shrink-0">
+            <div className="flex items-center gap-3 shrink-0">
+              <label htmlFor="sort-by" className="text-xs sm:text-sm font-semibold text-[#556070] shrink-0">
                 Sort By:
               </label>
               <select
                 id="sort-by"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="rounded-xl border border-[#E7E4DC] bg-white px-3 py-2 text-xs font-semibold text-[#101F35] focus:border-[#C6A66B] focus:outline-none"
+                className="rounded-xl border border-[#E7E4DC] bg-white px-3.5 py-2.5 text-xs sm:text-sm font-bold text-[#101F35] focus:border-[#C6A66B] focus:outline-none shadow-2xs cursor-pointer min-h-[44px]"
               >
                 <option value="rating">Highest Rated</option>
                 <option value="reviews">Most Reviewed</option>
@@ -188,18 +187,18 @@ export default function ReviewsClient() {
           </div>
 
           {/* Filter Pills: Country, Arabic, Pricing, Category */}
-          <div className="mt-4 pt-4 border-t border-[#E7E4DC]/70 flex flex-wrap items-center gap-2 text-xs">
+          <div className="mt-5 pt-4 border-t border-[#E7E4DC]/80 flex flex-wrap items-center gap-2.5 text-xs sm:text-sm">
             {/* Country Suitability Pills */}
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#697386] mr-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#697386] mr-1">
               Country:
             </span>
             {["all", "Saudi Arabia", "UAE", "GCC"].map((c) => (
               <button
                 key={c}
                 onClick={() => setSelectedCountry(c)}
-                className={`rounded-lg px-3 py-1.5 font-medium transition-colors ${
+                className={`rounded-xl px-3.5 py-2 font-bold transition-all min-h-[40px] cursor-pointer ${
                   selectedCountry === c
-                    ? "bg-[#101F35] text-[#FCFAF5]"
+                    ? "bg-[#101F35] text-[#FCFAF5] shadow-xs"
                     : "bg-[#F6F1E7] text-[#101F35] hover:bg-[#E7E4DC]"
                 }`}
               >
@@ -207,28 +206,28 @@ export default function ReviewsClient() {
               </button>
             ))}
 
-            <div className="h-4 w-[1px] bg-[#E7E4DC] mx-1 hidden sm:block" />
+            <div className="h-5 w-[1px] bg-[#E7E4DC] mx-1 hidden sm:block" />
 
             {/* Arabic Language Toggle */}
             <button
               onClick={() => setArabicOnly(!arabicOnly)}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-medium transition-colors ${
+              className={`inline-flex items-center gap-2 rounded-xl px-3.5 py-2 font-bold transition-all min-h-[40px] cursor-pointer ${
                 arabicOnly
-                  ? "bg-[#C6A66B] text-[#101F35] font-bold"
+                  ? "bg-[#C6A66B] text-[#101F35] shadow-xs"
                   : "bg-[#F6F1E7] text-[#101F35] hover:bg-[#E7E4DC]"
               }`}
             >
-              {arabicOnly && <Check className="h-3 w-3" />}
+              {arabicOnly && <Check className="h-3.5 w-3.5 stroke-[3]" />}
               <span>Arabic UI / RTL Support</span>
             </button>
 
-            <div className="h-4 w-[1px] bg-[#E7E4DC] mx-1 hidden sm:block" />
+            <div className="h-5 w-[1px] bg-[#E7E4DC] mx-1 hidden sm:block" />
 
             {/* Category Dropdown Filter */}
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="rounded-lg border border-[#E7E4DC] bg-[#F6F1E7] px-3 py-1.5 text-xs font-medium text-[#101F35] focus:border-[#C6A66B] focus:outline-none"
+              className="rounded-xl border border-[#E7E4DC] bg-[#F6F1E7] px-3.5 py-2 text-xs sm:text-sm font-semibold text-[#101F35] focus:border-[#C6A66B] focus:outline-none min-h-[40px] cursor-pointer"
             >
               <option value="all">All Categories ({categories.length})</option>
               {categories.map((cat) => (
@@ -242,7 +241,7 @@ export default function ReviewsClient() {
             <select
               value={selectedPricing}
               onChange={(e) => setSelectedPricing(e.target.value)}
-              className="rounded-lg border border-[#E7E4DC] bg-[#F6F1E7] px-3 py-1.5 text-xs font-medium text-[#101F35] focus:border-[#C6A66B] focus:outline-none"
+              className="rounded-xl border border-[#E7E4DC] bg-[#F6F1E7] px-3.5 py-2 text-xs sm:text-sm font-semibold text-[#101F35] focus:border-[#C6A66B] focus:outline-none min-h-[40px] cursor-pointer"
             >
               <option value="all">All Pricing Models</option>
               <option value="free">Free Tier Available</option>
@@ -254,9 +253,9 @@ export default function ReviewsClient() {
             {hasActiveFilters && (
               <button
                 onClick={handleResetFilters}
-                className="ml-auto inline-flex items-center gap-1 text-xs font-bold text-[#DE2A2A] hover:underline"
+                className="ml-auto inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#DE2A2A] hover:underline cursor-pointer py-1"
               >
-                <RotateCcw className="h-3 w-3" />
+                <RotateCcw className="h-3.5 w-3.5" />
                 <span>Reset All Filters</span>
               </button>
             )}
@@ -264,37 +263,37 @@ export default function ReviewsClient() {
         </div>
 
         {/* Results Counter & Transparency Note */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6 text-xs text-[#697386]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 text-xs sm:text-sm text-[#556070]">
           <div>
-            Showing <strong className="text-[#101F35]">{filteredSoftwares.length}</strong> software {filteredSoftwares.length === 1 ? "solution" : "solutions"}
+            Showing <strong className="text-[#101F35] text-base">{filteredSoftwares.length}</strong> software {filteredSoftwares.length === 1 ? "solution" : "solutions"}
             {selectedCategory !== "all" && ` in ${categories.find(c => c.slug === selectedCategory)?.name}`}
             {selectedCountry !== "all" && ` for ${selectedCountry}`}
           </div>
-          <div className="flex items-center gap-1.5 text-[#101F35]">
-            <ShieldCheck className="h-3.5 w-3.5 text-[#C6A66B]" />
+          <div className="flex items-center gap-1.5 text-[#101F35] font-medium">
+            <ShieldCheck className="h-4 w-4 text-[#C6A66B] shrink-0" />
             <span>Sample review directory compiled under GulfSaasReview regional standards.</span>
           </div>
         </div>
 
         {/* Results Grid */}
         {filteredSoftwares.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredSoftwares.map((software) => (
               <SoftwareCard key={software.id} software={software} />
             ))}
           </div>
         ) : (
           <div className="rounded-2xl border border-dashed border-[#E7E4DC] bg-[#FCFAF5] p-12 text-center max-w-xl mx-auto my-12">
-            <SlidersHorizontal className="mx-auto h-10 w-10 text-[#697386] mb-3" />
-            <h3 className="text-lg font-bold text-[#101F35]">No software matches your criteria</h3>
-            <p className="mt-1 text-xs text-[#697386]">
+            <SlidersHorizontal className="mx-auto h-12 w-12 text-[#697386] mb-3" />
+            <h3 className="text-xl font-bold text-[#101F35]">No software matches your criteria</h3>
+            <p className="mt-2 text-sm text-[#556070]">
               Try clearing your search query or loosening your category and country filters.
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-5 inline-flex items-center gap-1.5 rounded-lg bg-[#101F35] px-4 py-2 text-xs font-bold text-white hover:bg-[#172B46]"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#101F35] px-5 py-3 text-sm font-bold text-white hover:bg-[#172B46] cursor-pointer"
             >
-              <RotateCcw className="h-3.5 w-3.5" />
+              <RotateCcw className="h-4 w-4" />
               <span>Reset Filters</span>
             </button>
           </div>
@@ -303,4 +302,3 @@ export default function ReviewsClient() {
     </div>
   );
 }
-

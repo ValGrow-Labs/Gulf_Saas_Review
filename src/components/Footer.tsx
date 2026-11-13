@@ -13,7 +13,7 @@ export default function Footer() {
           <div className="lg:col-span-2 space-y-4">
             <Logo variant="light" showTagline={false} />
             <p className="text-[17px] text-[#E7E4DC]/90 leading-relaxed max-w-sm">
-              Independent software reviews, comparisons, and practical technology insights for businesses across Saudi Arabia, UAE, and the GCC.
+              Independent software reviews, comparisons and practical technology insights for businesses across KSA, UAE and the GCC.
             </p>
             <div className="flex items-center gap-2 text-[15px] text-[#C6A66B] font-semibold">
               <ShieldCheck className="h-4 w-4 shrink-0" />

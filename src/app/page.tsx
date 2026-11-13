@@ -74,11 +74,11 @@ export default function HomePage() {
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight leading-[1.14]">
-                Find the Right Software for Your Business in the Gulf.
+                Find the right software for your business in the Gulf.
               </h1>
 
               <p className="text-[19px] sm:text-[20px] text-[#334155] leading-relaxed max-w-2xl font-normal">
-                Independent software reviews, expert comparisons, and practical insights to help Middle Eastern businesses make smarter technology decisions.
+                Independent software reviews, expert comparisons and practical insights to help Middle Eastern businesses make better technology decisions.
               </p>
 
               <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
@@ -103,7 +103,7 @@ export default function HomePage() {
               <div className="pt-5 border-t border-[#E7E4DC] flex flex-wrap items-center gap-y-3 gap-x-6 text-[16px] text-[#334155]">
                 <div className="flex items-center gap-2 font-bold text-[#101F35]">
                   <Building2 className="h-5 w-5 text-[#C6A66B] shrink-0" />
-                  <span>Built for businesses across Saudi Arabia, the UAE, and the GCC.</span>
+                  <span>Built for businesses across Saudi Arabia, the UAE and the GCC.</span>
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-[15px] font-semibold text-[#334155]">
                   <span className="flex items-center gap-1.5">
@@ -204,7 +204,7 @@ export default function HomePage() {
                 Discover Software That Works for Your Business
               </h2>
               <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl leading-relaxed">
-                Explore carefully reviewed digital tools selected for the needs of Gulf businesses, evaluated for Arabic capabilities and regional compliance.
+                Look carefully at the range of digital tools that have been carefully reviewed and selected to meet the needs of Gulf businesses, having been assessed for their Arabic capability and suitability in the Gulf context.
               </p>
             </div>
 
@@ -225,9 +225,9 @@ export default function HomePage() {
 
           <div className="mt-12 rounded-xl bg-[#F6F1E7] border border-[#E7E4DC] p-5 text-center text-[16px] text-[#475569]">
             <span>
-              Illustrative listings presented for regional evaluation purposes. GulfSaasReview objectively analyses software specifications without commercial bias.
+              Illustrative listings for the purposes of regional evaluation only. GulfSaasReview carries out an objective analysis of software specs with no commercial bias.
             </span>
-            <Link href="/about#methodology" className="ml-2 font-bold text-[#101F35] hover:underline">
+            <Link href="/about#methodology" className="ml-1 font-bold text-[#101F35] hover:underline">
               Read our evaluation criteria &rarr;
             </Link>
           </div>
@@ -247,7 +247,7 @@ export default function HomePage() {
               Explore Software by Category
             </h2>
             <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155]">
-              Targeted software suites categorized by specific functional and compliance requirements across the Gulf market.
+              Targeted software suites by functional and compliance requirements in the Gulf market.
             </p>
           </div>
 
@@ -314,7 +314,7 @@ export default function HomePage() {
                 Make Better Decisions with Side-by-Side Comparisons
               </h2>
               <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl">
-                Directly compare features, regional compliance, Arabic localization, and true total cost of ownership before committing to software contracts.
+                Just compare the features, the regional compliance, the Arabic localisation and the real total cost of ownership before you sign off on any software contracts.
               </p>
             </div>
 
@@ -418,7 +418,7 @@ export default function HomePage() {
               Software Reviews with a Gulf Perspective
             </h2>
             <p className="mt-3 text-[19px] sm:text-[20px] text-[#E7E4DC]/90">
-              Generic global directories overlook the specific regulatory, payment, and cultural nuances of doing business in Saudi Arabia and the UAE. We bridge that gap.
+              Generic global directories ignore the particular regulatory, payment and cultural aspects of doing business in Saudi Arabia and the UAE. We address that.
             </p>
           </div>
 
@@ -431,7 +431,7 @@ export default function HomePage() {
                 1. Regional Expertise
               </h3>
               <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Software insights focused strictly on Saudi Arabia, UAE, and GCC business requirements, labor mandates, and tax environments.
+                Software insights focused purely on the Saudi Arabian, UAE and wider GCC business requirements, labour requirements and tax environments.
               </p>
             </div>
 
@@ -443,7 +443,7 @@ export default function HomePage() {
                 2. Practical Evaluations
               </h3>
               <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Assess software based on real features, ease of use, pricing transparency, and practical business value rather than marketing hype.
+                Assess the software on its actual features, ease of use, transparency of pricing and practical business value rather than on the marketing hype.
               </p>
             </div>
 
@@ -455,7 +455,7 @@ export default function HomePage() {
                 3. Local Business Relevance
               </h3>
               <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Highlight regional availability, Arabic support, local payment options (Mada, Tabby), and relevant compliance (ZATCA, WPS).
+                Highlight regional availability, Arabic support, local payment options (Mada, Tabby) and the relevant compliance (ZATCA, WPS).
               </p>
             </div>
 
@@ -467,7 +467,7 @@ export default function HomePage() {
                 4. Smarter Decisions
               </h3>
               <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Help businesses cut research time from weeks to hours and select suitable digital solutions that work seamlessly in the Middle East.
+                Help businesses to reduce their research time from weeks to hours and to select the right digital solutions that will work in the Middle East.
               </p>
             </div>
           </div>
@@ -488,7 +488,7 @@ export default function HomePage() {
                 Insights for Smarter Business Technology
               </h2>
               <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl leading-relaxed">
-                In-depth editorial articles analyzing regulatory requirements, software selection playbooks, and tech leadership trends in the Middle East.
+                In-depth editorial pieces looking at the regulatory landscape, software selection playbooks and the state of tech leadership in the Middle East.
               </p>
             </div>
 

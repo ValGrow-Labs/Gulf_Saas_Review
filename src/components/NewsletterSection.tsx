@@ -42,7 +42,7 @@ export default function NewsletterSection() {
         </h2>
 
         <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg lg:text-xl text-[#E7E4DC]/90 leading-relaxed font-normal">
-          Get independent software reviews, ZATCA e-invoicing updates, GCC pricing benchmarks, and practical technology insights delivered directly to your inbox.
+          Get independent software reviews, ZATCA e-invoicing updates, GCC pricing benchmarks and the sort of practical technology insights you can actually use delivered straight to your inbox.
         </p>
 
         {status === "success" ? (
@@ -108,7 +108,7 @@ export default function NewsletterSection() {
         <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm text-[#E7E4DC]/80 font-medium">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="h-4 w-4 text-[#C6A66B]" />
-            Strictly zero spam. Unsubscribe anytime.
+            Strictly zero spam. You can unsubscribe at any time.
           </span>
           <span>•</span>
           <span>Read by 4,200+ GCC business executives &amp; founders</span>

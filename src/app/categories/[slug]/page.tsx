@@ -55,36 +55,35 @@ export default async function CategoryDetailPage({
   return (
     <div className="min-h-screen bg-[#F6F1E7] pb-24">
       {/* Header */}
-      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-10 pb-16">
+      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-10 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/categories"
-            className="inline-flex items-center gap-2 text-sm font-bold text-[#334155] hover:text-[#101F35] mb-6"
+            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#101F35] mb-6"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>All Categories</span>
           </Link>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/60 bg-[#F6F1E7] px-4 py-1.5 text-xs sm:text-sm font-bold text-[#8C6D33] mb-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#F6F1E7] px-4 py-1.5 text-[14px] font-bold text-[#8C6D33] mb-3">
               <Layers className="h-4 w-4" />
               <span>{matchingSoftware.length} Evaluated Solutions</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
               {category.name} Software in the Gulf
             </h1>
 
-            <p className="mt-4 text-base sm:text-xl text-[#1E293B] leading-relaxed">
+            <p className="mt-3 text-[19px] sm:text-[20px] text-[#334155] leading-relaxed">
               {category.description}
             </p>
 
-            {/* Gulf Context Card */}
-            <div className="mt-6 rounded-2xl bg-[#F6F1E7] border-2 border-[#E7E4DC] p-5 sm:p-6 text-sm sm:text-base">
-              <span className="font-extrabold text-[#8C6D33] block mb-1.5">
+            <div className="mt-6 rounded-2xl bg-[#F6F1E7] border border-[#E7E4DC] p-5 text-[17px]">
+              <span className="font-bold text-[#8C6D33] block mb-1">
                 Regional Gulf Context &amp; Relevance:
               </span>
-              <p className="text-[#101F35] leading-relaxed font-medium">
+              <p className="text-[#334155] leading-relaxed">
                 {category.gulfRelevance}
               </p>
             </div>
@@ -93,12 +92,12 @@ export default async function CategoryDetailPage({
       </div>
 
       {/* Software Listings in this Category */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35]">
             Reviewed {category.name} Tools
           </h2>
-          <span className="text-sm font-semibold text-[#334155]">
+          <span className="text-[15px] font-semibold text-[#64748B]">
             Sorted by Gulf regional suitability
           </span>
         </div>
@@ -110,13 +109,13 @@ export default async function CategoryDetailPage({
         </div>
 
         {/* Category Key Criteria Box */}
-        <div className="mt-16 rounded-3xl border-2 border-[#E7E4DC] bg-[#FCFAF5] p-7 sm:p-10 shadow-xs">
+        <div className="mt-16 rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8">
           <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#101F35] mb-5">
             Buyer&apos;s Checklist for {category.name} in Saudi Arabia &amp; UAE
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {category.keyCriteria.map((crit, idx) => (
-              <div key={idx} className="flex items-start gap-2.5 text-sm sm:text-base text-[#101F35] font-medium">
+              <div key={idx} className="flex items-start gap-2.5 text-[17px] text-[#1E293B]">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
                 <span>{crit}</span>
               </div>

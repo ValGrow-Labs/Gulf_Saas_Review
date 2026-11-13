@@ -3,13 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { articles, articleLookup } from "@/data/articles";
 import {
-  FileText,
   Clock,
   ArrowLeft,
-  Calendar,
-  Share2,
-  Building2,
-  CheckCircle2,
   ArrowRight,
 } from "lucide-react";
 
@@ -55,14 +50,14 @@ export default async function ArticleDetailPage({
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/articles"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#697386] hover:text-[#101F35] mb-6"
+            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#101F35] mb-6"
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>All Articles & Guides</span>
+            <ArrowLeft className="h-4 w-4" />
+            <span>All Articles &amp; Guides</span>
           </Link>
 
           <div>
-            <span className="inline-block rounded-md bg-[#C6A66B]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#8C6D33] mb-4">
+            <span className="inline-block rounded-lg bg-[#C6A66B]/20 px-3.5 py-1 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#8C6D33] mb-4">
               {article.category}
             </span>
 
@@ -70,9 +65,9 @@ export default async function ArticleDetailPage({
               {article.title}
             </h1>
 
-            <div className="mt-6 flex flex-wrap items-center gap-4 text-xs text-[#697386] pt-4 border-t border-[#E7E4DC]">
-              <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-[#101F35] text-[#C6A66B] flex items-center justify-center font-bold text-xs">
+            <div className="mt-6 flex flex-wrap items-center gap-4 text-sm sm:text-base text-[#64748B] pt-4 border-t border-[#E7E4DC]">
+              <div className="flex items-center gap-2.5">
+                <div className="h-9 w-9 rounded-full bg-[#101F35] text-[#C6A66B] flex items-center justify-center font-bold text-xs">
                   {article.author.name
                     .split(" ")
                     .map((n) => n[0])
@@ -82,7 +77,7 @@ export default async function ArticleDetailPage({
                   <div className="font-bold text-[#101F35]">
                     {article.author.name}
                   </div>
-                  <div className="text-[10px] text-[#697386]">
+                  <div className="text-[13px] text-[#64748B]">
                     {article.author.role}
                   </div>
                 </div>
@@ -91,8 +86,8 @@ export default async function ArticleDetailPage({
               <span>•</span>
               <span>{article.publishedDate}</span>
               <span>•</span>
-              <span className="flex items-center gap-1">
-                <Clock className="h-3.5 w-3.5" />
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
                 {article.readTime}
               </span>
             </div>
@@ -103,42 +98,41 @@ export default async function ArticleDetailPage({
       {/* Article Body */}
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pt-10">
         <div className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-10 shadow-xs">
-          {/* Lead Paragraph */}
-          <p className="text-base sm:text-lg text-[#101F35] font-serif italic border-l-4 border-[#C6A66B] pl-4 mb-8 leading-relaxed">
+          {/* Lead Paragraph - 20-22px */}
+          <p className="text-[20px] sm:text-[22px] text-[#101F35] font-serif italic border-l-4 border-[#C6A66B] pl-5 mb-8 leading-relaxed">
             {article.excerpt}
           </p>
 
-          {/* Body Content */}
-          <div className="space-y-6 text-sm sm:text-base text-[#101F35] leading-relaxed">
+          {/* Body Content - 18-19px */}
+          <div className="space-y-6 text-[18px] sm:text-[19px] text-[#1E293B] leading-relaxed">
             {article.content?.map((paragraph, idx) => (
-              <p key={idx} className="text-[#101F35] leading-relaxed">
+              <p key={idx} className="leading-relaxed">
                 {paragraph}
               </p>
             ))}
 
-            <div className="my-8 rounded-xl bg-[#F6F1E7] border border-[#E7E4DC] p-6">
-              <h4 className="font-bold text-sm text-[#101F35] mb-2">
+            <div className="my-8 rounded-2xl bg-[#F6F1E7] border border-[#E7E4DC] p-6 sm:p-7">
+              <h4 className="font-bold text-lg text-[#101F35] mb-2">
                 Executive Takeaway for Gulf Leadership
               </h4>
-              <p className="text-xs text-[#697386] leading-relaxed">
+              <p className="text-[17px] text-[#475569] leading-relaxed">
                 When procuring software in Saudi Arabia or the UAE, ensure vendor contracts stipulate adherence to regional regulatory milestones (such as Phase 2 ZATCA updates or MOHRE WPS changes) without punitive add-on consulting fees.
               </p>
             </div>
           </div>
 
-          {/* Related Links CTA */}
           <div className="mt-12 pt-8 border-t border-[#E7E4DC] flex flex-col sm:flex-row items-center justify-between gap-4">
             <Link
               href="/reviews"
-              className="inline-flex items-center gap-2 text-xs font-bold text-[#101F35] hover:text-[#C6A66B]"
+              className="inline-flex items-center gap-2 text-[16px] font-bold text-[#101F35] hover:text-[#C6A66B]"
             >
               <span>Explore software matching these criteria</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[#C6A66B]" />
+              <ArrowRight className="h-4 w-4 text-[#C6A66B]" />
             </Link>
 
             <Link
               href="/compare"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#101F35] px-4 py-2 text-xs font-semibold text-white hover:bg-[#172B46]"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#101F35] px-5 py-2.5 text-[15px] font-bold text-white hover:bg-[#172B46]"
             >
               <span>Compare Solutions</span>
             </Link>
@@ -148,4 +142,3 @@ export default async function ArticleDetailPage({
     </div>
   );
 }
-

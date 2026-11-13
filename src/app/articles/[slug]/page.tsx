@@ -13,6 +13,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return articles.map((a) => ({
     slug: a.slug,

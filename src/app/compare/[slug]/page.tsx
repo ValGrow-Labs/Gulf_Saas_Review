@@ -6,6 +6,8 @@ import { softwares, softwareLookup } from "@/data/software";
 import ComparisonMatrix from "@/components/ComparisonMatrix";
 import { Scale, ArrowLeft, Sparkles } from "lucide-react";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return comparisons.map((c) => ({
     slug: c.slug,

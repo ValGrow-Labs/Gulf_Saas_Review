@@ -12,6 +12,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return categories.map((c) => ({
     slug: c.slug,

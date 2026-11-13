@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Newsreader } from "next/font/google";
+import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
 import Navigation from "@/components/Navigation";
@@ -11,13 +11,15 @@ const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
 });
 
-const serif = Newsreader({
+const serif = Lora({
   variable: "--font-serif",
   subsets: ["latin"],
-  style: ["normal", "italic"],
   display: "swap",
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -53,8 +55,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${sans.variable} ${serif.variable} scroll-smooth`}>
-      <body className="min-h-screen flex flex-col bg-[#F6F1E7] text-[#101F35] antialiased selection:bg-[#C6A66B]/20 selection:text-[#101F35]">
+    <html
+      lang="en"
+      className={`${sans.variable} ${serif.variable}`}
+      data-scroll-behavior="smooth"
+    >
+      <body className="min-h-screen flex flex-col bg-[#F6F1E7] text-[#101F35] font-sans antialiased selection:bg-[#C6A66B]/20 selection:text-[#101F35]">
         <AppProvider>
           <Navigation />
           <main className="flex-1">{children}</main>

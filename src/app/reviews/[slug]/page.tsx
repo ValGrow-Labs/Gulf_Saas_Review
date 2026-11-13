@@ -20,6 +20,8 @@ import {
   Zap,
 } from "lucide-react";
 
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return softwares.map((s) => ({
     slug: s.slug,

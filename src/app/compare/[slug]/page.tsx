@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { comparisons, comparisonLookup } from "@/data/comparisons";
 import { softwares, softwareLookup } from "@/data/software";
 import ComparisonMatrix from "@/components/ComparisonMatrix";
-import { Scale, ArrowLeft, Sparkles } from "lucide-react";
+import { Scale, ArrowLeft } from "lucide-react";
 
 export const dynamicParams = false;
 
@@ -51,27 +51,27 @@ export default async function ComparisonDetailPage({
   return (
     <div className="min-h-screen bg-[#F6F1E7] pb-24">
       {/* Top Header */}
-      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-10 pb-14">
+      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-10 pb-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/compare"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#697386] hover:text-[#101F35] mb-6"
+            className="inline-flex items-center gap-2 text-sm font-bold text-[#334155] hover:text-[#101F35] mb-6"
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
+            <ArrowLeft className="h-4 w-4" />
             <span>All Comparisons</span>
           </Link>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#F6F1E7] px-3.5 py-1 text-xs font-bold text-[#8C6D33] mb-3">
-              <Scale className="h-3.5 w-3.5" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/60 bg-[#F6F1E7] px-4 py-1.5 text-xs sm:text-sm font-bold text-[#8C6D33] mb-4">
+              <Scale className="h-4 w-4" />
               <span>{comparison.categories.join(" • ")} Matchup</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#101F35] tracking-tight">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
               {comparison.title}
             </h1>
 
-            <p className="mt-3 text-base sm:text-lg text-[#697386] leading-relaxed">
+            <p className="mt-4 text-base sm:text-xl text-[#1E293B] leading-relaxed">
               {comparison.shortDescription}
             </p>
           </div>
@@ -79,7 +79,7 @@ export default async function ComparisonDetailPage({
       </div>
 
       {/* Main Comparison Area */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12">
         <ComparisonMatrix
           initialProductA={productA}
           initialProductB={productB}
@@ -91,10 +91,10 @@ export default async function ComparisonDetailPage({
 
         {/* Other Comparisons Navigation */}
         <div className="mt-16 pt-10 border-t border-[#E7E4DC]">
-          <h3 className="text-base font-bold text-[#101F35] mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-[#101F35] mb-5">
             Explore Other Regional Matchups
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {comparisons
               .filter((c) => c.slug !== comparison.slug)
               .slice(0, 3)
@@ -102,12 +102,12 @@ export default async function ComparisonDetailPage({
                 <Link
                   key={other.id}
                   href={`/compare/${other.slug}`}
-                  className="rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-4 hover:border-[#C6A66B] transition-colors"
+                  className="rounded-2xl border-2 border-[#E7E4DC] bg-[#FCFAF5] p-5 hover:border-[#C6A66B] transition-colors"
                 >
-                  <h4 className="text-sm font-bold text-[#101F35] mb-1">
+                  <h4 className="text-base font-bold text-[#101F35] mb-1.5">
                     {other.title}
                   </h4>
-                  <p className="text-xs text-[#697386] line-clamp-2">
+                  <p className="text-xs sm:text-sm text-[#334155] line-clamp-2">
                     {other.shortDescription}
                   </p>
                 </Link>
@@ -118,4 +118,3 @@ export default async function ComparisonDetailPage({
     </div>
   );
 }
-

@@ -15,8 +15,26 @@
   --color-gold-light: #DFCA9B;
   --color-gold-hover: #B79555;
   --color-soft-grey: #E7E4DC;
-  --color-text-grey: #697386;
+  --color-text-grey: #334155;
   --color-dark-text: #101F35;
+}
+
+/* Global root scale for high legibility and large, comfortable font sizing across all pages */
+html {
+  font-size: 17.5px;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 19px;
+  }
 }
 
 body {
@@ -25,7 +43,7 @@ body {
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.011em;
+  line-height: 1.6;
 }
 
 /* Custom scrollbar for modern editorial feel */

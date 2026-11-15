@@ -38,6 +38,10 @@ export default function ComparisonMatrix({
     (p): p is Software => Boolean(p)
   );
 
+  const isThreeSolutions = activeProducts.length === 3;
+  const specColWidth = isThreeSolutions ? "22%" : "26%";
+  const productColWidth = isThreeSolutions ? "26%" : "37%";
+
   return (
     <div className="space-y-10">
       {/* Product Selectors Header */}
@@ -54,7 +58,7 @@ export default function ComparisonMatrix({
           </span>
         </div>
 
-        <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Selector A */}
           <div>
             <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] block mb-2">
@@ -66,7 +70,7 @@ export default function ComparisonMatrix({
                 const found = softwares.find((s) => s.slug === e.target.value);
                 if (found) setProductA(found);
               }}
-              className="w-full rounded-xl border border-[#E5DCD0] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#14123D] focus:border-[#FF6B5B] focus:outline-none min-h-[46px] shadow-2xs"
+              className="w-full rounded-xl border border-[#E5DCD0] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#14123D] focus:border-[#FF6B5B] focus:outline-none min-h-[46px] shadow-2xs cursor-pointer truncate"
             >
               {softwares.map((s) => (
                 <option key={s.id} value={s.slug}>
@@ -87,7 +91,7 @@ export default function ComparisonMatrix({
                 const found = softwares.find((s) => s.slug === e.target.value);
                 if (found) setProductB(found);
               }}
-              className="w-full rounded-xl border border-[#E5DCD0] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#14123D] focus:border-[#FF6B5B] focus:outline-none min-h-[46px] shadow-2xs"
+              className="w-full rounded-xl border border-[#E5DCD0] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#14123D] focus:border-[#FF6B5B] focus:outline-none min-h-[46px] shadow-2xs cursor-pointer truncate"
             >
               {softwares.map((s) => (
                 <option key={s.id} value={s.slug}>
@@ -98,7 +102,7 @@ export default function ComparisonMatrix({
           </div>
 
           {/* Selector C (Optional 3rd) */}
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div>
             <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] block mb-2">
               Solution 3 (Optional):
             </label>
@@ -112,7 +116,7 @@ export default function ComparisonMatrix({
                   if (found) setProductC(found);
                 }
               }}
-              className="w-full rounded-xl border border-[#E5DCD0] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#14123D] focus:border-[#FF6B5B] focus:outline-none min-h-[46px] shadow-2xs"
+              className="w-full rounded-xl border border-[#E5DCD0] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#14123D] focus:border-[#FF6B5B] focus:outline-none min-h-[46px] shadow-2xs cursor-pointer truncate"
             >
               <option value="none">-- None (2-way comparison) --</option>
               {softwares
@@ -215,33 +219,39 @@ export default function ComparisonMatrix({
       {/* DESKTOP TABLE COMPARISON VIEW (Hidden on small screens) */}
       {/* ---------------------------------------------------- */}
       <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#E5DCD0] bg-[#FAF5ED] shadow-xs">
-        <table className="w-full text-left border-collapse min-w-[700px]">
+        <table className="w-full table-fixed text-left border-collapse min-w-[780px] lg:min-w-[880px]">
+          <colgroup>
+            <col style={{ width: specColWidth }} />
+            {activeProducts.map((p) => (
+              <col key={p.id} style={{ width: productColWidth }} />
+            ))}
+          </colgroup>
           {/* Header Row: Products */}
           <thead>
             <tr className="border-b border-[#E5DCD0] bg-white">
-              <th className="p-5 w-1/4 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386]">
+              <th className="p-5 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] align-top">
                 Specification
               </th>
               {activeProducts.map((p) => (
-                <th key={p.id} className="p-5 w-1/3 align-top border-l border-[#E5DCD0]">
+                <th key={p.id} className="p-5 align-top border-l border-[#E5DCD0]">
                   <div className="flex items-center gap-3">
                     <div
-                      className="h-12 w-12 rounded-xl flex items-center justify-center font-bold text-white text-base shrink-0"
+                      className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl flex items-center justify-center font-bold text-white text-base shrink-0 shadow-xs"
                       style={{ backgroundColor: p.accentColor || "#14123D" }}
                     >
                       {p.name.substring(0, 2).toUpperCase()}
                     </div>
-                    <div>
-                      <h4 className="font-bold text-lg text-[#14123D]">
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-bold text-base sm:text-lg text-[#14123D] leading-tight truncate" title={p.name}>
                         {p.name}
                       </h4>
-                      <span className="text-xs sm:text-sm text-[#697386]">
+                      <span className="text-xs sm:text-sm text-[#697386] block truncate">
                         {p.categoryName}
                       </span>
                     </div>
                   </div>
 
-                  <div className="mt-3 flex items-center gap-2">
+                  <div className="mt-3 flex items-center flex-wrap gap-2">
                     <div className="flex items-center gap-1 text-base font-bold text-[#14123D]">
                       <Star className="h-4 w-4 fill-[#FF6B5B] text-[#FF6B5B]" />
                       <span>{p.rating.toFixed(1)}</span>
@@ -254,7 +264,7 @@ export default function ComparisonMatrix({
                   <div className="mt-4 flex items-center gap-2">
                     <Link
                       href={`/reviews/${p.slug}`}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#14123D] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#1E1B59] transition-colors"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#14123D] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#1E1B59] transition-colors whitespace-nowrap shadow-xs"
                     >
                       <span>Read Review</span>
                       <ArrowRight className="h-3.5 w-3.5 text-[#FF6B5B]" />
@@ -268,9 +278,9 @@ export default function ComparisonMatrix({
           <tbody className="divide-y divide-[#E5DCD0] text-sm">
             {/* 1. Starting Price & Model */}
             <tr className="bg-[#FAF5ED]">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Starting Price</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Starting Price</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="text-lg font-extrabold text-[#14123D]">
                     {p.pricing.startingPrice}
                   </div>
@@ -283,9 +293,9 @@ export default function ComparisonMatrix({
 
             {/* 2. GCC Regional Cost Estimate */}
             <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">SAR / AED Estimate</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">SAR / AED Estimate</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="font-bold text-[#D94534] text-sm sm:text-base">
                     {p.pricing.tiers[0]?.regionalEstimateSAR || "See tier breakdown"}
                   </div>
@@ -298,11 +308,11 @@ export default function ComparisonMatrix({
 
             {/* 3. Saudi Arabia ZATCA E-Invoicing */}
             <tr className="bg-[#FAF5ED]">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">
                 Saudi ZATCA E-Invoicing
               </td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="font-semibold text-[#14123D] leading-relaxed">
                     {p.gulfSuitabilityAnalysis.zatcaStatus || "Check third-party sync"}
                   </div>
@@ -312,11 +322,11 @@ export default function ComparisonMatrix({
 
             {/* 4. UAE VAT 5% Compliance */}
             <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">
                 UAE FTA VAT Readiness
               </td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="font-semibold text-[#14123D] leading-relaxed">
                     {p.gulfSuitabilityAnalysis.uaeVatStatus || "Standard tax fields supported"}
                   </div>
@@ -326,9 +336,9 @@ export default function ComparisonMatrix({
 
             {/* 5. Arabic Language & RTL */}
             <tr className="bg-[#FAF5ED]">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Arabic Support</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Arabic Support</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#FF6B5B]/20 px-2.5 py-1 text-xs font-bold text-[#D94534]">
                     <Globe2 className="h-3.5 w-3.5" />
                     {p.arabicSupport}
@@ -342,9 +352,9 @@ export default function ComparisonMatrix({
 
             {/* 6. Country Suitability */}
             <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Country Suitability</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Country Suitability</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="flex flex-wrap gap-1.5">
                     {p.countrySuitability.map((c) => (
                       <span
@@ -361,9 +371,9 @@ export default function ComparisonMatrix({
 
             {/* 7. Ease of Use */}
             <tr className="bg-[#FAF5ED]">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Ease of Use</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Ease of Use</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="font-extrabold text-base text-[#14123D]">
                     {p.easeOfUse} / 10
                   </div>
@@ -373,9 +383,9 @@ export default function ComparisonMatrix({
 
             {/* 8. Deployment Time */}
             <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Typical Deployment</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Typical Deployment</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="font-semibold text-[#14123D]">
                     {p.deploymentTime}
                   </div>
@@ -385,9 +395,9 @@ export default function ComparisonMatrix({
 
             {/* 9. Local Integrations */}
             <tr className="bg-[#FAF5ED]">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Local Integrations</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Local Integrations</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="flex flex-wrap gap-1.5">
                     {p.localIntegrations.map((item, idx) => (
                       <span
@@ -404,9 +414,9 @@ export default function ComparisonMatrix({
 
             {/* 10. Pros */}
             <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Key Pros</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Key Pros</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <ul className="space-y-2">
                     {p.pros.slice(0, 3).map((pro, idx) => (
                       <li key={idx} className="flex items-start gap-2">
@@ -421,9 +431,9 @@ export default function ComparisonMatrix({
 
             {/* 11. Cons */}
             <tr className="bg-[#FAF5ED]">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Key Cons</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Key Cons</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <ul className="space-y-2">
                     {p.cons.slice(0, 3).map((con, idx) => (
                       <li key={idx} className="flex items-start gap-2">
@@ -438,9 +448,9 @@ export default function ComparisonMatrix({
 
             {/* 12. Best Suited For */}
             <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Best Suited For</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Best Suited For</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="font-bold text-emerald-800 text-xs sm:text-sm leading-relaxed">
                     {p.verdict.bestFor}
                   </div>
@@ -450,9 +460,9 @@ export default function ComparisonMatrix({
 
             {/* 13. Final Recommendation */}
             <tr className="bg-[#FAF5ED]">
-              <td className="p-4 sm:p-5 font-bold text-[#14123D]">Verdict Summary</td>
+              <td className="p-4 sm:p-5 font-bold text-[#14123D] align-top">Verdict Summary</td>
               {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0]">
+                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DCD0] align-top break-words">
                   <div className="rounded-xl bg-white p-4 border border-[#E5DCD0]">
                     <span className="font-bold text-[#14123D] text-sm sm:text-base block mb-1">
                       {p.verdict.badge}

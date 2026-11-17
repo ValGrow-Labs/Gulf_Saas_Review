@@ -105,6 +105,7 @@ export interface Article {
   category: string;
   readTime: string;
   publishedDate: string;
+  isoDate?: string;
   author: {
     name: string;
     role: string;
@@ -113,5 +114,45 @@ export interface Article {
   image: string;
   featured?: boolean;
   content?: string[];
+  country?: string;
+  countryCode?: GccCountryCode | "gcc";
+  subheadings?: { title: string; paragraphs: string[] }[];
+  keyTakeaways?: string[];
+  relatedSoftwareSlugs?: string[];
 }
+
+export type GccCountryCode = "saudi-arabia" | "uae" | "qatar" | "kuwait" | "bahrain" | "oman";
+
+export interface GccCountryProfile {
+  id: GccCountryCode;
+  name: string;
+  shortName: string;
+  nativeName: string;
+  capital: string;
+  techHubs: string[];
+  flagEmoji: string;
+  summary: string;
+  keyInitiative: string;
+  metrics: {
+    startups: string;
+    cloudRegions: string;
+    aiRank: string;
+    saasGrowth: string;
+  };
+  coordinates: { x: number; y: number };
+}
+
+export interface NewsArticle extends Article {
+  subtitle?: string;
+  categorySlug: string;
+  country: string;
+  countryCode: GccCountryCode | "gcc";
+  featuredImage: string;
+  imageCaption?: string;
+  isHeroFeatured?: boolean;
+  isTrending?: boolean;
+  trendingRank?: number;
+  tags: string[];
+}
+
 

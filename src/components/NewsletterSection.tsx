@@ -18,7 +18,6 @@ export default function NewsletterSection() {
     }
 
     setStatus("loading");
-    // Simulate instantaneous verification
     setTimeout(() => {
       setStatus("success");
       setMessage(`Thank you! You are now subscribed to Gulf business technology insights tailored for ${country}.`);
@@ -26,13 +25,13 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#14123D] py-16 sm:py-24 text-[#FAF5ED]">
+    <section className="relative w-full overflow-hidden bg-[#101F35] py-16 sm:py-24 text-[#FCFAF5]">
       {/* Subtle geometric background watermarks */}
-      <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#1E1B59] blur-3xl opacity-50 pointer-events-none" />
-      <div className="absolute -left-20 -bottom-20 h-96 w-96 rounded-full bg-[#FF6B5B]/10 blur-3xl pointer-events-none" />
+      <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-[#172B46] blur-3xl opacity-50 pointer-events-none" />
+      <div className="absolute -left-20 -bottom-20 h-96 w-96 rounded-full bg-[#C6A66B]/10 blur-3xl pointer-events-none" />
 
       <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#FF6B5B]/50 bg-[#1E1B59] px-4 py-1.5 text-xs sm:text-sm font-bold text-[#FF6B5B] mb-5">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#172B46] px-4 py-1.5 text-xs sm:text-sm font-bold text-[#C6A66B] mb-5">
           <Mail className="h-4 w-4" />
           <span>Bi-Weekly GCC Software Intelligence</span>
         </div>
@@ -41,8 +40,8 @@ export default function NewsletterSection() {
           Stay Ahead of Business Technology
         </h2>
 
-        <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg lg:text-xl text-[#E5DCD0]/90 leading-relaxed font-normal">
-          Get independent software reviews, ZATCA e-invoicing updates, GCC pricing benchmarks and the sort of practical technology insights you can actually use delivered straight to your inbox.
+        <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg lg:text-xl text-[#E7E4DC]/90 leading-relaxed font-normal">
+          Get independent software reviews, ZATCA e-invoicing updates, GCC pricing benchmarks and practical technology insights delivered straight to your inbox.
         </p>
 
         {status === "success" ? (
@@ -57,7 +56,7 @@ export default function NewsletterSection() {
                 setStatus("idle");
                 setEmail("");
               }}
-              className="mt-5 text-sm font-semibold text-[#FF6B5B] hover:underline cursor-pointer"
+              className="mt-5 text-sm font-semibold text-[#C6A66B] hover:underline cursor-pointer"
             >
               Subscribe another business email &rarr;
             </button>
@@ -73,7 +72,7 @@ export default function NewsletterSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your corporate email"
-                className="w-full rounded-xl border border-[#2C2775] bg-[#1A174E] px-4 py-3.5 sm:py-4 text-base text-white placeholder-[#697386] focus:border-[#FF6B5B] focus:outline-none focus:ring-1 focus:ring-[#FF6B5B] min-h-[50px]"
+                className="w-full rounded-xl border border-[#172B46] bg-[#0C1728] px-4 py-3.5 sm:py-4 text-base text-white placeholder-[#697386] focus:border-[#C6A66B] focus:outline-none focus:ring-1 focus:ring-[#C6A66B] min-h-[50px]"
                 required
               />
             </div>
@@ -82,7 +81,7 @@ export default function NewsletterSection() {
               <select
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                className="w-full rounded-xl border border-[#2C2775] bg-[#1A174E] px-3.5 py-3.5 sm:py-4 text-sm sm:text-base text-[#FAF5ED] font-semibold focus:border-[#FF6B5B] focus:outline-none min-h-[50px] cursor-pointer"
+                className="w-full rounded-xl border border-[#172B46] bg-[#0C1728] px-3.5 py-3.5 sm:py-4 text-sm sm:text-base text-[#FCFAF5] font-semibold focus:border-[#C6A66B] focus:outline-none min-h-[50px] cursor-pointer"
               >
                 <option value="Saudi Arabia">Saudi Arabia (KSA)</option>
                 <option value="UAE">UAE (Dubai &amp; AD)</option>
@@ -93,7 +92,7 @@ export default function NewsletterSection() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF6B5B] px-8 py-3.5 sm:py-4 text-base font-bold text-[#14123D] hover:bg-[#FFA094] active:scale-95 transition-all shadow-md shrink-0 cursor-pointer min-h-[50px]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#C6A66B] px-8 py-3.5 sm:py-4 text-base font-bold text-[#101F35] hover:bg-[#D4B67D] active:scale-95 transition-all shadow-md shrink-0 cursor-pointer min-h-[50px]"
             >
               <span>{status === "loading" ? "Subscribing..." : "Subscribe"}</span>
               <ArrowRight className="h-4 w-4" />
@@ -102,16 +101,16 @@ export default function NewsletterSection() {
         )}
 
         {status === "error" && (
-          <p className="mt-3 text-sm text-rose-400 font-medium">{message}</p>
+          <p className="mt-3 text-sm font-semibold text-rose-400">{message}</p>
         )}
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm text-[#E5DCD0]/80 font-medium">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-[#E7E4DC]/70">
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="h-4 w-4 text-[#FF6B5B]" />
-            Strictly zero spam. You can unsubscribe at any time.
+            <ShieldCheck className="h-4 w-4 text-[#C6A66B]" />
+            No marketing spam. Unsubscribe anytime.
           </span>
           <span>•</span>
-          <span>Read by 4,200+ GCC business executives &amp; founders</span>
+          <span>Curated by regional SaaS research team</span>
         </div>
       </div>
     </section>

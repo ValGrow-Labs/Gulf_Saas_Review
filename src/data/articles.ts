@@ -1,6 +1,8 @@
 import { Article } from "@/types";
+import { newsArticles } from "./news";
 
 export const articles: Article[] = [
+  ...newsArticles,
   {
     id: "best-accounting-software-saudi-arabia-zatca",
     slug: "best-accounting-software-saudi-arabia-zatca",
@@ -69,8 +71,8 @@ export const articles: Article[] = [
 export const articleLookup: Record<string, Article> = articles.reduce(
   (acc, a) => {
     acc[a.slug] = a;
+    acc[a.id] = a;
     return acc;
   },
   {} as Record<string, Article>
 );
-

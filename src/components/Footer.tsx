@@ -1,32 +1,90 @@
 import React from "react";
 import Link from "next/link";
 import Logo from "./Logo";
-import { ShieldCheck, Mail, ArrowUpRight } from "lucide-react";
+import { ShieldCheck, MapPin, Newspaper, Layers, Scale, Sparkles } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#14123D] text-[#FAF5ED] border-t border-[#2C2775]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-14">
-        {/* Main Clean 4-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-10 border-b border-[#2C2775]/80">
-          {/* Brand Info (Col 2) */}
+    <footer className="w-full bg-[#101F35] text-[#FCFAF5] border-t border-[#172B46]">
+      {/* Top Editorial Authority Strip */}
+      <div className="border-b border-[#172B46] bg-[#0C1728]/70">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="flex items-center gap-2.5 text-sm text-[#E7E4DC]">
+            <span className="flex h-2 w-2 rounded-full bg-[#C6A66B]" />
+            <span className="font-semibold text-white">Independent GCC Software &amp; Tech Intelligence</span>
+            <span className="text-[#697386] hidden sm:inline">•</span>
+            <span className="text-[#E7E4DC]/80 hidden sm:inline">Unbiased evaluations for Saudi Arabia, the UAE, and the GCC</span>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-[#E7E4DC]/80">
+            <span className="inline-flex items-center gap-1.5">
+              <MapPin className="h-3.5 w-3.5 text-[#C6A66B]" />
+              Bureaus: Riyadh • Dubai • Doha • Manama
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        {/* Main 5-Column Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 pb-12 border-b border-[#172B46]">
+          {/* Brand Info (2 Columns) */}
           <div className="lg:col-span-2 space-y-4">
             <Logo variant="light" showTagline={false} />
-            <p className="text-[17px] text-[#E5DCD0]/90 leading-relaxed max-w-sm">
-              Independent software reviews, comparisons and practical technology insights for businesses across KSA, UAE and the GCC.
+            <p className="text-[16px] text-[#E7E4DC]/90 leading-relaxed max-w-sm">
+              GulfSaasReview is the premier independent business technology publication and software evaluation authority for the Middle East.
             </p>
-            <div className="flex items-center gap-2 text-[15px] text-[#FF6B5B] font-semibold">
-              <ShieldCheck className="h-4 w-4 shrink-0" />
-              <span>Independent Editorial Standards • Riyadh &amp; Dubai</span>
+            <div className="pt-2 flex items-center gap-2 text-sm text-[#C6A66B] font-semibold">
+              <ShieldCheck className="h-4 w-4 shrink-0 text-[#C6A66B]" />
+              <span>ZATCA Phase 2 • UAE Corporate Tax • Bilingual RTL</span>
+            </div>
+            <div className="pt-2 text-xs text-[#697386] leading-relaxed">
+              Published by Gulf Business Intelligence Media FZ-LLC. Free from vendor sponsorship bias.
             </div>
           </div>
 
-          {/* Col 1: Software Reviews */}
-          <div className="space-y-3">
-            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B]">
-              Reviews
-            </h3>
-            <ul className="space-y-2.5 text-[16px] text-[#E5DCD0]">
+          {/* Col 1: Gulf Tech News */}
+          <div className="space-y-3.5">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+              <Newspaper className="h-3.5 w-3.5" />
+              <span>Gulf News</span>
+            </div>
+            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
+              <li>
+                <Link href="/news" className="hover:text-white transition-colors">
+                  Latest Technology News
+                </Link>
+              </li>
+              <li>
+                <Link href="/news?country=saudi-arabia" className="hover:text-white transition-colors">
+                  Saudi Arabia (Vision 2030)
+                </Link>
+              </li>
+              <li>
+                <Link href="/news?country=uae" className="hover:text-white transition-colors">
+                  UAE Digital Economy
+                </Link>
+              </li>
+              <li>
+                <Link href="/news?country=gcc" className="hover:text-white transition-colors">
+                  GCC Cross-Border Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/news?category=ai-innovation" className="hover:text-white transition-colors">
+                  AI &amp; Sovereign Models
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 2: Software Directory */}
+          <div className="space-y-3.5">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+              <Layers className="h-3.5 w-3.5" />
+              <span>SaaS Reviews</span>
+            </div>
+            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
               <li>
                 <Link href="/reviews" className="hover:text-white transition-colors">
                   All Software Reviews
@@ -34,12 +92,12 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/reviews?country=Saudi+Arabia" className="hover:text-white transition-colors">
-                  Saudi (ZATCA) Tools
+                  Saudi ZATCA Phase 2 Tools
                 </Link>
               </li>
               <li>
                 <Link href="/reviews?country=UAE" className="hover:text-white transition-colors">
-                  UAE VAT Ready SaaS
+                  UAE VAT &amp; Corp Tax SaaS
                 </Link>
               </li>
               <li>
@@ -47,44 +105,56 @@ export default function Footer() {
                   Side-by-Side Comparisons
                 </Link>
               </li>
+              <li>
+                <Link href="/categories" className="hover:text-white transition-colors">
+                  Browse All Categories &rarr;
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Col 2: Categories */}
-          <div className="space-y-3">
-            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B]">
-              Categories
-            </h3>
-            <ul className="space-y-2.5 text-[16px] text-[#E5DCD0]">
+          {/* Col 3: Key Categories */}
+          <div className="space-y-3.5">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+              <Scale className="h-3.5 w-3.5" />
+              <span>Categories</span>
+            </div>
+            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
+              <li>
+                <Link href="/categories/erp-business-management" className="hover:text-white transition-colors">
+                  ERP &amp; Operations
+                </Link>
+              </li>
               <li>
                 <Link href="/categories/accounting-finance" className="hover:text-white transition-colors">
-                  Accounting &amp; Finance
+                  Accounting &amp; E-Invoicing
                 </Link>
               </li>
               <li>
                 <Link href="/categories/crm-sales" className="hover:text-white transition-colors">
-                  CRM &amp; Sales Pipelines
+                  CRM &amp; Sales Automation
                 </Link>
               </li>
               <li>
-                <Link href="/categories/erp-business-management" className="hover:text-white transition-colors">
-                  ERP &amp; Business Management
+                <Link href="/categories/customer-support" className="hover:text-white transition-colors">
+                  Customer Support &amp; WhatsApp
                 </Link>
               </li>
               <li>
-                <Link href="/categories" className="hover:text-[#FF6B5B] font-bold inline-flex items-center gap-1 transition-colors">
-                  <span>Browse All 8 &rarr;</span>
+                <Link href="/categories/hr-payroll" className="hover:text-white transition-colors">
+                  HR &amp; Wage Protection (WPS)
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Company */}
-          <div className="space-y-3">
-            <h3 className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B]">
-              Company
-            </h3>
-            <ul className="space-y-2.5 text-[16px] text-[#E5DCD0]">
+          {/* Col 4: Editorial & Bureaus */}
+          <div className="space-y-3.5">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+              <Sparkles className="h-3.5 w-3.5" />
+              <span>Publication</span>
+            </div>
+            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About Our Mission
@@ -92,58 +162,69 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="/about#methodology" className="hover:text-white transition-colors">
-                  Editorial Methodology
+                  Evaluation Methodology
                 </Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors">
-                  Contact Our Desk
+                  Contact Editorial Desk
                 </Link>
               </li>
               <li>
                 <Link href="/contact?type=vendor" className="hover:text-white transition-colors">
-                  Request Vendor Listing
+                  Submit Software for Review
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="hover:text-white transition-colors">
+                  Ethics &amp; Independence Policy
                 </Link>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Short Concise Disclaimer Strip */}
-        <div className="py-4 text-[14px] text-[#E5DCD0]/70 leading-relaxed flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-[#2C2775]/60">
-          <span>
-            Independent research &amp; sample review directory for GCC enterprise software. All brand trademarks belong to their respective owners.
-          </span>
-          <span className="text-[#FF6B5B] font-semibold shrink-0">
-            KSA • UAE • GCC Coverage
-          </span>
+        {/* Regional Bureaus & Transparency Statement */}
+        <div className="py-6 border-b border-[#172B46] grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-[#697386] leading-relaxed">
+          <div>
+            <span className="font-bold text-[#E7E4DC] uppercase tracking-wider block mb-1">
+              Regional Editorial Coverage
+            </span>
+            Reporting from Riyadh (King Abdullah Financial District), Dubai (DIFC &amp; Dubai Internet City), Doha (Lusail), and Manama (Seef District).
+          </div>
+          <div>
+            <span className="font-bold text-[#E7E4DC] uppercase tracking-wider block mb-1">
+              Editorial Independence Notice
+            </span>
+            GulfSaasReview does not accept paid placements to alter software ratings or editorial conclusions. Ratings reflect independent feature audits and local compliance verification.
+          </div>
         </div>
 
-        {/* Bottom Clean Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[15px] text-[#E5DCD0]/80">
+        {/* Bottom Legal & Copyright Bar */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#697386]">
           <div>
-            © 2026 GulfSaasReview. All rights reserved.
+            &copy; 2026 GulfSaasReview. All rights reserved.
           </div>
 
-          <div className="flex items-center space-x-6 text-[15px]">
+          <div className="flex items-center space-x-6">
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="hover:text-white transition-colors">
-              Terms &amp; Conditions
+              Terms of Service
             </Link>
             <Link href="/contact" className="hover:text-white transition-colors">
-              Contact
+              Editorial Contact
             </Link>
           </div>
 
-          {/* Compact Social Icons */}
+          {/* Social Icons */}
           <div className="flex items-center space-x-2">
             <a
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-[#1A174E] text-[#E5DCD0] hover:text-[#FF6B5B] transition-colors"
+              className="p-2 rounded-lg bg-[#172B46] text-[#E7E4DC] hover:text-[#C6A66B] transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -151,22 +232,15 @@ export default function Footer() {
               </svg>
             </a>
             <a
-              href="https://twitter.com"
+              href="https://x.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-[#1A174E] text-[#E5DCD0] hover:text-[#FF6B5B] transition-colors"
-              aria-label="X / Twitter"
+              className="p-2 rounded-lg bg-[#172B46] text-[#E7E4DC] hover:text-[#C6A66B] transition-colors"
+              aria-label="X (Twitter)"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
               </svg>
-            </a>
-            <a
-              href="mailto:contact@gulfsaasreview.com"
-              className="p-2 rounded-lg bg-[#1A174E] text-[#E5DCD0] hover:text-[#FF6B5B] transition-colors"
-              aria-label="Email Us"
-            >
-              <Mail className="h-4 w-4" />
             </a>
           </div>
         </div>

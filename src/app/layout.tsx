@@ -3,6 +3,7 @@ import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
 import Navigation from "@/components/Navigation";
+import BreakingNewsTicker from "@/components/BreakingNewsTicker";
 import Footer from "@/components/Footer";
 import CompareTray from "@/components/CompareTray";
 import SearchModal from "@/components/SearchModal";
@@ -24,24 +25,25 @@ const serif = Lora({
 
 export const metadata: Metadata = {
   title: {
-    default: "GulfSaasReview | Independent Software Reviews for Saudi Arabia, UAE & GCC",
+    default: "GulfSaasReview | Gulf Business Technology & SaaS News Journal",
     template: "%s | GulfSaasReview",
   },
   description:
-    "Independent software reviews, expert comparisons, and practical technology insights to help Middle Eastern businesses make smarter software decisions. ZATCA compliance, Arabic support & UAE VAT.",
+    "Leading Gulf business technology, artificial intelligence, and enterprise software publication. Dedicated coverage of Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, and Oman.",
   keywords: [
-    "Gulf SaaS reviews",
-    "Saudi Arabia business software",
-    "UAE software comparison",
-    "ZATCA Phase 2 compliant software",
-    "GCC ERP systems",
-    "Middle East CRM",
-    "Riyadh Dubai software directory",
+    "Gulf technology news",
+    "Saudi Arabia AI",
+    "Dubai AI Campus",
+    "Middle East B2B SaaS",
+    "ZATCA compliance",
+    "GCC cloud computing",
+    "Gulf software comparisons",
+    "Arab business tech journal",
   ],
   authors: [{ name: "GulfSaasReview Editorial Board" }],
   openGraph: {
-    title: "GulfSaasReview — Software Reviews with a Gulf Perspective",
-    description: "Independent reviews, side-by-side comparisons, and regional compliance analysis for businesses in KSA, UAE, and GCC.",
+    title: "GulfSaasReview — Gulf Business Technology & SaaS Intelligence",
+    description: "Daily reporting on artificial intelligence, sovereign cloud, enterprise software reviews, and market comparisons across KSA, UAE, and the GCC.",
     url: "https://gulfsaasreview.com",
     siteName: "GulfSaasReview",
     locale: "en_US",
@@ -60,9 +62,10 @@ export default function RootLayout({
       className={`${sans.variable} ${serif.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-screen flex flex-col bg-[#F4EDE0] text-[#14123D] font-sans antialiased selection:bg-[#FF6B5B]/20 selection:text-[#14123D]">
+      <body className="min-h-screen flex flex-col bg-[#F6F1E7] text-[#101F35] font-sans antialiased selection:bg-[#C6A66B]/25 selection:text-[#101F35]">
         <AppProvider>
           <Navigation />
+          <BreakingNewsTicker />
           <main className="flex-1">{children}</main>
           <Footer />
           <CompareTray />

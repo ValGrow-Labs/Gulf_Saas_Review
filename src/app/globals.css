@@ -5,23 +5,21 @@
   --font-serif: var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
   --font-editorial: var(--font-serif), Georgia, Cambria, serif;
 
-  --color-deep-navy: #14123D;
-  --color-navy: #14123D;
-  --color-dark-navy: #1F1C5C;
-  --color-navy-card: #1B184F;
-  --color-navy-border: #2C2775;
-  --color-warm-cream: #F4EDE0;
-  --color-cream: #F4EDE0;
-  --color-light-cream: #FAF5ED;
-  --color-muted-gold: #FF6B5B;
-  --color-coral: #FF6B5B;
-  --color-coral-light: #FFA094;
-  --color-coral-hover: #E85545;
-  --color-gold-light: #FFA094;
-  --color-gold-hover: #E85545;
-  --color-soft-grey: #E5DCD0;
+  --color-deep-navy: #101F35;
+  --color-navy: #101F35;
+  --color-dark-navy: #172B46;
+  --color-navy-card: #14243C;
+  --color-navy-border: #223859;
+  --color-warm-cream: #F6F1E7;
+  --color-cream: #F6F1E7;
+  --color-light-cream: #FCFAF5;
+  --color-muted-gold: #C6A66B;
+  --color-gold: #C6A66B;
+  --color-gold-light: #DFCA9B;
+  --color-gold-hover: #B79555;
+  --color-soft-grey: #E7E4DC;
   --color-text-grey: #697386;
-  --color-dark-text: #14123D;
+  --color-dark-text: #101F35;
 }
 
 /* Set root font size to 18px so all 1rem = 18px, making 18-20px readable everywhere */
@@ -36,8 +34,8 @@ html {
 }
 
 body {
-  background-color: #F4EDE0;
-  color: #14123D;
+  background-color: #F6F1E7;
+  color: #101F35;
   font-size: 1rem; /* 18px */
   line-height: 1.65;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -52,14 +50,14 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #F4EDE0;
+  background: #F6F1E7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #FF6B5B;
+  background: #C6A66B;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1F1C5C;
+  background: #101F35;
 }
 
 /* Custom editorial typography class */
@@ -69,11 +67,36 @@ body {
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #FFA094 0%, #FF6B5B 50%, #C93B2B 100%);
+  background: linear-gradient(135deg, #DFCA9B 0%, #C6A66B 50%, #A88643 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .navy-gradient-bg {
-  background: linear-gradient(145deg, #14123D 0%, #1F1C5C 100%);
+  background: linear-gradient(145deg, #101F35 0%, #172B46 100%);
+}
+
+/* News ticker smooth keyframe */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  animation: ticker 38s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Map glowing pulse */
+@keyframes ping-slow {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.6); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2.4s ease-in-out infinite;
 }

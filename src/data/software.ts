@@ -1491,3 +1491,6 @@ export const softwareLookup: Record<string, Software> = softwares.reduce(
   {} as Record<string, Software>
 );
 
+export const softwareList = softwares;
+
+

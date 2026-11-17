@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+﻿import React, { Suspense } from "react";
 import CompareClient from "./CompareClient";
 
 export const metadata = {
@@ -11,8 +11,8 @@ export default function ComparePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-[#FAF5ED]">
-          <div className="text-sm font-semibold text-[#14123D]">
+        <div className="min-h-screen flex items-center justify-center bg-[#FCFAF5]">
+          <div className="text-sm font-semibold text-[#101F35]">
             Loading software comparison engine...
           </div>
         </div>

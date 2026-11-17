@@ -1,46 +1,33 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
+import { newsArticles, trendingTopics } from "@/data/news";
 import { softwares } from "@/data/software";
-import { categories } from "@/data/categories";
 import { comparisons } from "@/data/comparisons";
-import { articles } from "@/data/articles";
 import SoftwareCard from "@/components/SoftwareCard";
+import HomeNewsSection from "@/components/HomeNewsSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import {
   ArrowRight,
   ArrowUpRight,
   Scale,
-  ShieldCheck,
-  CheckCircle2,
   Sparkles,
-  Building2,
-  Globe2,
-  TrendingUp,
   Clock,
-  Layers,
-  Star,
-  Check,
-  Calculator,
-  Users,
-  Briefcase,
-  CheckSquare,
-  Send,
-  ShoppingBag,
-  Headphones,
+  User,
+  TrendingUp,
+  Cpu,
+  ShieldCheck,
+  Globe2,
+  ChevronRight,
+  Flame,
+  FileText
 } from "lucide-react";
 
-const categoryIcons: Record<string, React.ElementType> = {
-  Calculator,
-  Users,
-  Briefcase,
-  CheckSquare,
-  Send,
-  ShoppingBag,
-  Layers,
-  Headphones,
-};
-
 export default function HomePage() {
+  const heroArticle = newsArticles.find((a) => a.isHeroFeatured) || newsArticles[0];
+  const trendingArticles = newsArticles.filter((a) => a.isTrending && a.id !== heroArticle.id).slice(0, 3);
+  const latestArticles = newsArticles.filter((a) => a.id !== heroArticle.id).slice(0, 5);
+  const aiArticles = newsArticles.filter((a) => a.category === "AI & Innovation" || a.category === "Cybersecurity" || a.category === "SaaS & Cloud").slice(0, 3);
+
   const featuredSlugs = [
     "zoho-one",
     "hubspot-crm",
@@ -54,512 +41,210 @@ export default function HomePage() {
     .filter((s): s is (typeof softwares)[0] => Boolean(s));
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#F6F1E7]">
       {/* ---------------------------------------------------- */}
-      {/* HERO SECTION                                         */}
+      {/* SECTION 1: EDITORIAL HERO NEWS SECTION               */}
       {/* ---------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#FAF5ED] via-[#F4EDE0] to-[#EADECB] pt-12 sm:pt-16 pb-16 sm:pb-24 border-b border-[#E5DCD0]">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-[#FF6B5B]/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-[#14123D]/5 blur-2xl pointer-events-none" />
-
+      <section className="relative overflow-hidden bg-[#FCFAF5] pt-8 sm:pt-12 pb-16 border-b border-[#E7E4DC]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
-            {/* Left Column: Headlines & CTAs */}
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#FF6B5B]/60 bg-[#FAF5ED] px-4 py-1.5 text-[15px] font-bold text-[#14123D] shadow-xs">
-                <span className="flex h-2.5 w-2.5 rounded-full bg-[#FF6B5B]" />
-                <span className="text-[#D94534] font-bold">Independent Software Intelligence</span>
-                <span className="text-[#697386] hidden sm:inline">•</span>
-                <span className="text-[#334155] hidden sm:inline">Saudi Arabia • UAE • GCC</span>
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#14123D] tracking-tight leading-[1.14]">
-                Find the right software for your business in the Gulf.
-              </h1>
-
-              <p className="text-[19px] sm:text-[20px] text-[#334155] leading-relaxed max-w-2xl font-normal">
-                Independent software reviews, expert comparisons and practical insights to help Middle Eastern businesses make better technology decisions.
-              </p>
-
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                <Link
-                  href="/reviews"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#14123D] px-8 py-4 text-[18px] font-bold text-[#FAF5ED] hover:bg-[#1E1B59] active:scale-[0.98] transition-all shadow-md border border-[#14123D] min-h-[52px]"
-                >
-                  <span>Explore Software</span>
-                  <ArrowRight className="h-5 w-5 text-[#FF6B5B]" />
-                </Link>
-
-                <Link
-                  href="/compare"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#14123D] bg-[#FAF5ED] px-8 py-4 text-[18px] font-bold text-[#14123D] hover:bg-[#E5DCD0]/50 active:scale-[0.98] transition-all shadow-2xs min-h-[52px]"
-                >
-                  <Scale className="h-5 w-5 text-[#FF6B5B]" />
-                  <span>Compare Solutions</span>
-                </Link>
-              </div>
-
-              {/* Trust Statement */}
-              <div className="pt-5 border-t border-[#E5DCD0] flex flex-wrap items-center gap-y-3 gap-x-6 text-[16px] text-[#334155]">
-                <div className="flex items-center gap-2 font-bold text-[#14123D]">
-                  <Building2 className="h-5 w-5 text-[#FF6B5B] shrink-0" />
-                  <span>Built for businesses across Saudi Arabia, the UAE and the GCC.</span>
-                </div>
-                <div className="flex flex-wrap items-center gap-4 text-[15px] font-semibold text-[#334155]">
-                  <span className="flex items-center gap-1.5">
-                    <Check className="h-4 w-4 text-emerald-600 font-bold" /> ZATCA Phase 2
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Check className="h-4 w-4 text-emerald-600 font-bold" /> UAE 5% VAT
-                  </span>
-                  <span className="flex items-center gap-1.5">
-                    <Check className="h-4 w-4 text-emerald-600 font-bold" /> Arabic RTL Ready
-                  </span>
-                </div>
-              </div>
+          {/* Sub-masthead breadcrumb / date */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pb-6 border-b border-[#E7E4DC] mb-8 text-xs font-semibold uppercase tracking-wider text-[#697386]">
+            <div className="flex items-center gap-2">
+              <span className="h-2 w-2 rounded-full bg-[#C6A66B]" />
+              <span className="text-[#101F35] font-bold">GulfSaasReview Executive Journal</span>
+              <span>â€¢</span>
+              <span>Middle East Business &amp; SaaS Intelligence</span>
             </div>
+            <div className="flex items-center gap-2 text-[#C6A66B]">
+              <Flame className="h-3.5 w-3.5" />
+              <span className="font-bold">Daily Tech Edition</span>
+            </div>
+          </div>
 
-            {/* Right Column: Floating Review Card */}
-            <div className="lg:col-span-5 relative w-full">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                <div className="rounded-2xl border border-[#FF6B5B]/50 bg-[#FAF5ED] p-6 sm:p-7 shadow-[0_20px_50px_rgba(20,18,61,0.12)] relative z-10">
-                  <div className="flex items-center justify-between pb-4 border-b border-[#E5DCD0]">
-                    <div className="flex items-center gap-3.5">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#714B67] text-white font-serif font-bold text-xl shadow-xs">
-                        OD
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+            {/* Left: Lead Featured Hero Story (col-span-8) */}
+            <div className="lg:col-span-8 flex flex-col justify-between">
+              <div className="group relative rounded-3xl overflow-hidden border border-[#E7E4DC] bg-[#101F35] text-[#FCFAF5] shadow-lg flex flex-col justify-end min-h-[440px] sm:min-h-[500px] p-6 sm:p-10 transition-all duration-300">
+                {/* Background Editorial Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#101F35] via-[#101F35]/75 to-transparent z-10" />
+                <div className="absolute inset-0 bg-[radial-gradient(#C6A66B_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
+
+                {/* Content Overlay */}
+                <div className="relative z-20 space-y-4">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#C6A66B] px-3.5 py-1 text-xs font-black uppercase tracking-wider text-[#101F35]">
+                      <Sparkles className="h-3.5 w-3.5" />
+                      {heroArticle.category}
+                    </span>
+                    <span className="rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-[#FCFAF5] backdrop-blur-xs">
+                      {heroArticle.country}
+                    </span>
+                    <span className="text-xs text-[#E7E4DC]/80 font-medium">
+                      {heroArticle.publishedDate}
+                    </span>
+                  </div>
+
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-white tracking-tight leading-[1.18] group-hover:text-[#DFCA9B] transition-colors">
+                    <Link href={`/news/${heroArticle.slug}`}>
+                      {heroArticle.title}
+                    </Link>
+                  </h1>
+
+                  <p className="text-[17px] sm:text-[18.5px] text-[#E7E4DC]/90 leading-relaxed max-w-3xl line-clamp-3">
+                    {heroArticle.subtitle || heroArticle.excerpt}
+                  </p>
+
+                  <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-white/15">
+                    <div className="flex items-center gap-3 text-sm text-[#E7E4DC]/90">
+                      <div className="h-8 w-8 rounded-full bg-[#C6A66B] flex items-center justify-center font-bold text-[#101F35] text-xs">
+                        TA
                       </div>
                       <div>
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-bold text-[#14123D] text-xl">Odoo ERP</h4>
-                          <span className="rounded bg-[#FF6B5B]/20 text-[#D94534] text-[13px] font-bold px-2 py-0.5">
-                            Top Rated GCC
-                          </span>
-                        </div>
-                        <p className="text-[15px] text-[#697386] font-medium">ERP &amp; Business Management</p>
+                        <span className="font-bold text-white block leading-tight">{heroArticle.author.name}</span>
+                        <span className="text-xs text-[#E7E4DC]/70">{heroArticle.author.role}</span>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <div className="flex items-center gap-1 text-lg font-bold text-[#14123D]">
-                        <Star className="h-4 w-4 fill-[#FF6B5B] text-[#FF6B5B]" />
-                        <span>4.8</span>
-                      </div>
-                      <span className="text-[13px] text-[#697386]">Score: 9.5/10</span>
-                    </div>
-                  </div>
 
-                  <div className="mt-4 space-y-3 text-[16px]">
-                    <div className="flex items-center justify-between rounded-xl bg-[#F4EDE0] p-3.5">
-                      <span className="text-[#475569]">Saudi Compliance</span>
-                      <span className="font-bold text-emerald-700 flex items-center gap-1.5">
-                        <CheckCircle2 className="h-4 w-4" />
-                        ZATCA Phase 2 Official
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between rounded-xl bg-[#F4EDE0] p-3.5">
-                      <span className="text-[#475569]">Arabic UI &amp; RTL</span>
-                      <span className="font-bold text-[#14123D] flex items-center gap-1.5">
-                        <Globe2 className="h-4 w-4 text-[#FF6B5B]" />
-                        100% Native RTL
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between rounded-xl bg-[#F4EDE0] p-3.5">
-                      <span className="text-[#475569]">Pricing Model</span>
-                      <span className="font-bold text-[#14123D]">
-                        $24.90 / user (~93 SAR)
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-5 pt-4 border-t border-[#E5DCD0] flex items-center justify-between text-[15px]">
-                    <span className="text-[#64748B]">
-                      Tested for UAE &amp; KSA mid-market
-                    </span>
                     <Link
-                      href="/reviews/odoo"
-                      className="font-bold text-[#14123D] hover:text-[#FF6B5B] flex items-center gap-1.5"
+                      href={`/news/${heroArticle.slug}`}
+                      className="inline-flex items-center gap-2 rounded-xl bg-[#C6A66B] px-5 py-2.5 text-sm font-bold text-[#101F35] hover:bg-[#DFCA9B] transition-all shadow-md"
                     >
-                      <span>Read Full Review</span>
+                      <span>Read Full Story</span>
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* ---------------------------------------------------- */}
-      {/* FEATURED SOFTWARE SECTION                            */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-16 sm:py-24 bg-[#FAF5ED] border-b border-[#E5DCD0]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B] mb-2">
-                <Sparkles className="h-4 w-4" />
-                <span>Curated Directory</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#14123D] tracking-tight">
-                Discover Software That Works for Your Business
-              </h2>
-              <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl leading-relaxed">
-                Look carefully at the range of digital tools that have been carefully reviewed and selected to meet the needs of Gulf businesses, having been assessed for their Arabic capability and suitability in the Gulf context.
-              </p>
-            </div>
-
-            <Link
-              href="/reviews"
-              className="inline-flex items-center gap-2 text-[17px] font-bold text-[#14123D] hover:text-[#FF6B5B] transition-colors shrink-0"
-            >
-              <span>View All Software Reviews</span>
-              <ArrowUpRight className="h-5 w-5" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {featuredSoftware.map((software) => (
-              <SoftwareCard key={software.id} software={software} />
-            ))}
-          </div>
-
-          <div className="mt-12 rounded-xl bg-[#F4EDE0] border border-[#E5DCD0] p-5 text-center text-[16px] text-[#475569]">
-            <span>
-              Illustrative listings for the purposes of regional evaluation only. GulfSaasReview carries out an objective analysis of software specs with no commercial bias.
-            </span>
-            <Link href="/about#methodology" className="ml-1 font-bold text-[#14123D] hover:underline">
-              Read our evaluation criteria &rarr;
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- */}
-      {/* BROWSE BY CATEGORY SECTION                           */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-16 sm:py-24 bg-[#F4EDE0] border-b border-[#E5DCD0]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-14">
-            <span className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B] block mb-2">
-              Browse by Industry Need
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#14123D] tracking-tight">
-              Explore Software by Category
-            </h2>
-            <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155]">
-              Targeted software suites by functional and compliance requirements in the Gulf market.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((category) => {
-              const IconComponent = categoryIcons[category.iconName] || Layers;
-              return (
+            {/* Right: Trending News Dispatches Column (col-span-4) */}
+            <div className="lg:col-span-4 flex flex-col justify-between space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-[#E7E4DC]">
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#C6A66B] animate-pulse" />
+                  <h3 className="text-lg font-bold font-editorial text-[#101F35] tracking-tight">
+                    Trending Dispatches
+                  </h3>
+                </div>
                 <Link
-                  key={category.id}
-                  href={`/categories/${category.slug}`}
-                  className="group relative flex flex-col justify-between rounded-2xl border border-[#E5DCD0] bg-[#FAF5ED] p-6 transition-all duration-300 hover:border-[#FF6B5B] hover:shadow-[0_12px_30px_rgba(20,18,61,0.08)] hover:-translate-y-1"
+                  href="/news"
+                  className="text-xs font-bold text-[#8C6D33] hover:text-[#101F35] transition-colors"
                 >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex h-13 w-13 items-center justify-center rounded-xl bg-[#14123D] text-[#FF6B5B] group-hover:bg-[#FF6B5B] group-hover:text-[#14123D] transition-colors">
-                        <IconComponent className="h-6 w-6" />
-                      </div>
-                      <span className="text-[14px] font-bold text-[#475569] bg-[#F4EDE0] px-3 py-1 rounded-md">
-                        {category.count}+ tools
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-bold text-[#14123D] group-hover:text-[#FF6B5B] transition-colors">
-                      {category.name}
-                    </h3>
-
-                    <p className="mt-2.5 text-[17px] text-[#475569] leading-relaxed line-clamp-2">
-                      {category.description}
-                    </p>
-                  </div>
-
-                  <div className="mt-6 pt-4 border-t border-[#E5DCD0]/80 flex items-center justify-between text-[16px] font-bold text-[#14123D]">
-                    <span>Explore Tools</span>
-                    <ArrowRight className="h-4 w-4 text-[#FF6B5B] group-hover:translate-x-1 transition-transform" />
-                  </div>
+                  View All &rarr;
                 </Link>
-              );
-            })}
-          </div>
+              </div>
 
-          <div className="mt-12 text-center">
-            <Link
-              href="/categories"
-              className="inline-flex items-center gap-2 rounded-xl border border-[#14123D] bg-[#FAF5ED] px-7 py-3.5 text-[17px] font-bold text-[#14123D] hover:bg-[#E5DCD0]/50 transition-colors shadow-2xs"
-            >
-              <span>View Category Index &amp; Gulf Criteria</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- */}
-      {/* TOP SOFTWARE COMPARISONS (LARGE 18-20px READABLE TEXT) */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-16 sm:py-24 bg-[#FAF5ED] border-b border-[#E5DCD0]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
-            <div>
-              <span className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B] block mb-2">
-                Head-to-Head Analysis
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#14123D] tracking-tight">
-                Make Better Decisions with Side-by-Side Comparisons
-              </h2>
-              <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl">
-                Just compare the features, the regional compliance, the Arabic localisation and the real total cost of ownership before you sign off on any software contracts.
-              </p>
-            </div>
-
-            <Link
-              href="/compare"
-              className="inline-flex items-center gap-2 text-[17px] font-bold text-[#14123D] hover:text-[#FF6B5B] transition-colors shrink-0"
-            >
-              <span>Build Custom Comparison</span>
-              <Scale className="h-5 w-5 text-[#FF6B5B]" />
-            </Link>
-          </div>
-
-          {/* Comparison Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {comparisons.map((c) => {
-              const productA = softwares.find((s) => s.slug === c.productAId);
-              const productB = softwares.find((s) => s.slug === c.productBId);
-
-              return (
-                <div
-                  key={c.id}
-                  className="group rounded-2xl border border-[#E5DCD0] bg-[#FAF5ED] p-6 sm:p-8 shadow-xs hover:border-[#FF6B5B] hover:shadow-md transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Header: Logos & VS Badge */}
-                    <div className="flex items-center justify-between pb-4 border-b border-[#E5DCD0]">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="h-12 w-12 rounded-xl flex items-center justify-center font-bold text-white text-base"
-                          style={{ backgroundColor: productA?.accentColor || "#14123D" }}
-                        >
-                          {productA?.name.substring(0, 2).toUpperCase() || "A"}
-                        </div>
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#FF6B5B] bg-[#F4EDE0] px-2.5 py-1 rounded-md">
-                          VS
+              <div className="space-y-4 flex-1 flex flex-col justify-between">
+                {trendingArticles.map((article, index) => (
+                  <article
+                    key={article.id}
+                    className="group rounded-2xl border border-[#E7E4DC] bg-white p-4.5 hover:border-[#C6A66B] hover:shadow-md transition-all flex flex-col justify-between flex-1"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#8C6D33] bg-[#C6A66B]/15 px-2 py-0.5 rounded">
+                          {article.category}
                         </span>
-                        <div
-                          className="h-12 w-12 rounded-xl flex items-center justify-center font-bold text-white text-base"
-                          style={{ backgroundColor: productB?.accentColor || "#1E1B59" }}
-                        >
-                          {productB?.name.substring(0, 2).toUpperCase() || "B"}
-                        </div>
+                        <span className="text-[11px] font-semibold text-[#697386]">
+                          {article.readTime}
+                        </span>
                       </div>
 
-                      <span className="text-[15px] font-semibold text-[#64748B]">
-                        {c.categories[0]}
-                      </span>
-                    </div>
+                      <h4 className="font-bold text-[16.5px] font-editorial text-[#101F35] group-hover:text-[#8C6D33] transition-colors leading-snug line-clamp-2">
+                        <Link href={`/news/${article.slug}`}>
+                          {article.title}
+                        </Link>
+                      </h4>
 
-                    {/* Comparison Title */}
-                    <h3 className="mt-4 text-xl sm:text-2xl font-bold text-[#14123D] group-hover:text-[#FF6B5B] transition-colors">
-                      {c.title}
-                    </h3>
-
-                    {/* Description - 18px-19px */}
-                    <p className="mt-3 text-[18px] text-[#334155] leading-relaxed">
-                      {c.shortDescription}
-                    </p>
-
-                    {/* Gulf Context Snippet - 18px font */}
-                    <div className="mt-5 rounded-xl bg-[#F4EDE0] p-4 text-[#14123D] border border-[#E5DCD0]">
-                      <span className="font-bold text-[#D94534] text-[16px] block mb-1">
-                        Gulf Market Take:
-                      </span>
-                      <p className="text-[17px] text-[#334155] leading-relaxed line-clamp-2">
-                        {c.gulfContext}
+                      <p className="mt-2 text-xs text-[#475569] leading-relaxed line-clamp-2">
+                        {article.excerpt}
                       </p>
                     </div>
-                  </div>
 
-                  {/* Compare Now CTA Button */}
-                  <div className="mt-6 pt-4 border-t border-[#E5DCD0] flex items-center justify-between">
-                    <span className="text-[15px] font-semibold text-[#64748B]">
-                      Full breakdown available
-                    </span>
-                    <Link
-                      href={`/compare/${c.slug}`}
-                      className="inline-flex items-center gap-2 rounded-xl bg-[#14123D] px-5 py-2.5 text-[16px] font-bold text-[#FAF5ED] hover:bg-[#1E1B59] transition-colors"
-                    >
-                      <span>Compare Now</span>
-                      <ArrowRight className="h-4 w-4 text-[#FF6B5B]" />
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- */}
-      {/* WHY GULFSAASREVIEW? (4 FEATURE BLOCKS)               */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-16 sm:py-24 bg-[#14123D] text-[#FAF5ED]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B] block mb-2">
-              Our Value Proposition
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-white tracking-tight">
-              Software Reviews with a Gulf Perspective
-            </h2>
-            <p className="mt-3 text-[19px] sm:text-[20px] text-[#E5DCD0]/90">
-              Generic global directories ignore the particular regulatory, payment and cultural aspects of doing business in Saudi Arabia and the UAE. We address that.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-            <div className="rounded-2xl border border-[#2C2775] bg-[#1A174E] p-6 sm:p-7 hover:border-[#FF6B5B]/50 transition-colors">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF6B5B]/20 text-[#FF6B5B] mb-5">
-                <Globe2 className="h-6 w-6" />
+                    <div className="mt-3 pt-2.5 border-t border-[#E7E4DC]/70 flex items-center justify-between text-[11.5px] text-[#697386]">
+                      <span className="font-semibold text-[#101F35]">{article.country}</span>
+                      <span className="text-[#8C6D33] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-0.5">
+                        Read story &rarr;
+                      </span>
+                    </div>
+                  </article>
+                ))}
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                1. Regional Expertise
-              </h3>
-              <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Software insights focused purely on the Saudi Arabian, UAE and wider GCC business requirements, labour requirements and tax environments.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#2C2775] bg-[#1A174E] p-6 sm:p-7 hover:border-[#FF6B5B]/50 transition-colors">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF6B5B]/20 text-[#FF6B5B] mb-5">
-                <TrendingUp className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                2. Practical Evaluations
-              </h3>
-              <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Assess the software on its actual features, ease of use, transparency of pricing and practical business value rather than on the marketing hype.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#2C2775] bg-[#1A174E] p-6 sm:p-7 hover:border-[#FF6B5B]/50 transition-colors">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF6B5B]/20 text-[#FF6B5B] mb-5">
-                <ShieldCheck className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                3. Local Business Relevance
-              </h3>
-              <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Highlight regional availability, Arabic support, local payment options (Mada, Tabby) and the relevant compliance (ZATCA, WPS).
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-[#2C2775] bg-[#1A174E] p-6 sm:p-7 hover:border-[#FF6B5B]/50 transition-colors">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FF6B5B]/20 text-[#FF6B5B] mb-5">
-                <Scale className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                4. Smarter Decisions
-              </h3>
-              <p className="text-[17px] text-[#CBD5E1] leading-relaxed">
-                Help businesses to reduce their research time from weeks to hours and to select the right digital solutions that will work in the Middle East.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ---------------------------------------------------- */}
-      {/* LATEST INSIGHTS & ARTICLES                           */}
+      {/* SECTION 2: GULF COUNTRIES MAP & REGIONAL NEWS        */}
       {/* ---------------------------------------------------- */}
-      <section className="py-16 sm:py-24 bg-[#FAF5ED] border-b border-[#E5DCD0]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+      <HomeNewsSection />
+
+      {/* ---------------------------------------------------- */}
+      {/* SECTION 3: LATEST GULF TECHNOLOGY NEWS (MAGAZINE)    */}
+      {/* ---------------------------------------------------- */}
+      <section className="py-16 sm:py-24 bg-[#FCFAF5] border-b border-[#E7E4DC]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <span className="text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B] block mb-2">
-                Regional Briefings
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#14123D] tracking-tight">
-                Insights for Smarter Business Technology
+              <div className="inline-flex items-center gap-1.5 text-[14px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2">
+                <FileText className="h-4 w-4" />
+                <span>Editorial Dispatch</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#101F35] tracking-tight">
+                Latest Gulf Technology News
               </h2>
               <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl leading-relaxed">
-                In-depth editorial pieces looking at the regulatory landscape, software selection playbooks and the state of tech leadership in the Middle East.
+                Independent reporting on Middle Eastern artificial intelligence, sovereign cloud infrastructure, and enterprise software acquisitions.
               </p>
             </div>
 
             <Link
-              href="/articles"
-              className="inline-flex items-center gap-2 text-[17px] font-bold text-[#14123D] hover:text-[#FF6B5B] transition-colors shrink-0"
+              href="/news"
+              className="inline-flex items-center gap-2 text-[16px] font-bold text-[#101F35] hover:text-[#C6A66B] transition-colors shrink-0"
             >
-              <span>View All Articles</span>
-              <ArrowUpRight className="h-5 w-5" />
+              <span>Explore All News</span>
+              <ArrowRight className="h-4 w-4 text-[#C6A66B]" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {articles.slice(0, 3).map((art) => (
+          {/* Magazine Grid Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {latestArticles.map((article, i) => (
               <article
-                key={art.id}
-                className="group flex flex-col justify-between rounded-2xl border border-[#E5DCD0] bg-[#FAF5ED] overflow-hidden shadow-xs hover:border-[#FF6B5B] hover:shadow-md transition-all"
+                key={article.id}
+                className="group flex flex-col justify-between rounded-2xl border border-[#E7E4DC] bg-white p-6 transition-all duration-300 hover:border-[#C6A66B] hover:shadow-md"
               >
                 <div>
-                  <div className="relative h-48 w-full bg-[#14123D] overflow-hidden flex items-center justify-center p-6 text-center">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#14123D] to-[#1E1B59] opacity-90" />
-                    <div className="relative z-10">
-                      <span className="inline-block rounded-full bg-[#FF6B5B]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#FFA094] border border-[#FF6B5B]/30 mb-2">
-                        {art.category}
-                      </span>
-                      <p className="font-editorial italic text-white text-xl font-normal line-clamp-2 px-2">
-                        &ldquo;{art.title}&rdquo;
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex items-center gap-3 text-sm text-[#64748B] mb-3">
-                      <span>{art.publishedDate}</span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        {art.readTime}
-                      </span>
-                    </div>
-
-                    <h3 className="text-lg sm:text-xl font-bold text-[#14123D] group-hover:text-[#FF6B5B] transition-colors leading-snug">
-                      <Link href={`/articles/${art.slug}`}>{art.title}</Link>
-                    </h3>
-
-                    <p className="mt-3 text-[17px] sm:text-[18px] text-[#334155] leading-relaxed line-clamp-3">
-                      {art.excerpt}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="px-6 pb-6 pt-4 flex items-center justify-between border-t border-[#E5DCD0]/80 mt-auto">
-                  <div className="flex items-center gap-2.5">
-                    <div className="h-8 w-8 rounded-full bg-[#14123D] text-[#FF6B5B] flex items-center justify-center font-bold text-xs">
-                      {art.author.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")}
-                    </div>
-                    <span className="text-[15px] font-semibold text-[#14123D]">
-                      {art.author.name}
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#8C6D33] bg-[#C6A66B]/15 px-2.5 py-1 rounded-md">
+                      {article.category}
+                    </span>
+                    <span className="text-xs font-semibold text-[#697386]">
+                      {article.publishedDate}
                     </span>
                   </div>
 
-                  <Link
-                    href={`/articles/${art.slug}`}
-                    className="inline-flex items-center gap-1.5 text-[15px] font-bold text-[#14123D] group-hover:text-[#FF6B5B]"
-                  >
-                    <span>Read Article</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  <h3 className="text-xl font-bold font-editorial text-[#101F35] group-hover:text-[#8C6D33] transition-colors leading-snug line-clamp-2">
+                    <Link href={`/news/${article.slug}`}>
+                      {article.title}
+                    </Link>
+                  </h3>
+
+                  <p className="mt-3 text-[15px] text-[#475569] leading-relaxed line-clamp-3">
+                    {article.excerpt}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-[#E7E4DC] flex items-center justify-between text-xs text-[#697386]">
+                  <div className="flex items-center gap-1.5 font-medium">
+                    <User className="h-3.5 w-3.5 text-[#C6A66B]" />
+                    <span>{article.author.name}</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Clock className="h-3.5 w-3.5 text-[#C6A66B]" />
+                    <span>{article.readTime}</span>
+                  </div>
                 </div>
               </article>
             ))}
@@ -568,7 +253,241 @@ export default function HomePage() {
       </section>
 
       {/* ---------------------------------------------------- */}
-      {/* NEWSLETTER SECTION                                   */}
+      {/* SECTION 4: WHAT'S TRENDING IN THE GULF               */}
+      {/* ---------------------------------------------------- */}
+      <section className="py-16 sm:py-24 bg-[#101F35] text-[#FCFAF5] border-b border-[#223859]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#172B46] px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B] mb-3">
+                <TrendingUp className="h-3.5 w-3.5" />
+                <span>Executive Pulse</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-white tracking-tight">
+                What&apos;s Trending in the Gulf
+              </h2>
+              <p className="mt-3 text-[18px] sm:text-[19px] text-[#E7E4DC]/90 max-w-2xl leading-relaxed">
+                High-interest technology topics dominating boardrooms and ministerial agendas across Riyadh, Dubai, Doha, and Kuwait City.
+              </p>
+            </div>
+
+            <Link
+              href="/news"
+              className="inline-flex items-center gap-2 text-[15px] font-bold text-[#C6A66B] hover:text-white transition-colors shrink-0"
+            >
+              <span>Explore All Trends</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+
+          {/* Numbered Editorial Trend Ranking Cards (01 to 06) */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {trendingTopics.map((item) => (
+              <div
+                key={item.rank}
+                className="group relative rounded-2xl border border-[#223859] bg-[#14243C] p-6 sm:p-7 hover:border-[#C6A66B] transition-all flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between pb-3 border-b border-[#223859]">
+                    <span className="font-editorial text-3xl sm:text-4xl font-extrabold text-[#C6A66B]/80 group-hover:text-[#C6A66B] transition-colors">
+                      {item.rank}
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#DFCA9B] bg-[#C6A66B]/15 px-2.5 py-1 rounded-md">
+                      {item.tag}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-4 text-xl font-bold font-editorial text-white group-hover:text-[#DFCA9B] transition-colors leading-snug">
+                    <Link href="/news">
+                      {item.headline}
+                    </Link>
+                  </h3>
+
+                  <p className="mt-3 text-[15px] text-[#CBD5E1] leading-relaxed">
+                    {item.summary}
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-3.5 border-t border-[#223859] flex items-center justify-between text-xs text-[#E7E4DC]/70">
+                  <span>{item.category}</span>
+                  <span className="font-mono text-[#C6A66B]">{item.reads}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- */}
+      {/* SECTION 5: AI & ENTERPRISE TECHNOLOGY INSIGHTS       */}
+      {/* ---------------------------------------------------- */}
+      <section className="py-16 sm:py-24 bg-[#F6F1E7] border-b border-[#E7E4DC]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-[14px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2">
+                <Cpu className="h-4 w-4" />
+                <span>Deep-Tech Research</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#101F35] tracking-tight">
+                AI &amp; Enterprise Technology Insights
+              </h2>
+              <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl leading-relaxed">
+                In-depth technical evaluations of Arabic foundation models, GCC sovereign cloud infrastructure, and enterprise automation.
+              </p>
+            </div>
+
+            <Link
+              href="/news?category=ai-innovation"
+              className="inline-flex items-center gap-2 text-[16px] font-bold text-[#101F35] hover:text-[#C6A66B] transition-colors shrink-0"
+            >
+              <span>View All AI Articles</span>
+              <ArrowRight className="h-4 w-4 text-[#C6A66B]" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {aiArticles.map((art) => (
+              <article
+                key={art.id}
+                className="group flex flex-col justify-between rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] overflow-hidden shadow-xs hover:border-[#C6A66B] hover:shadow-md transition-all"
+              >
+                <div>
+                  <div className="relative h-44 w-full bg-[#101F35] overflow-hidden flex items-center justify-center p-6 text-center">
+                    <div className="absolute inset-0 bg-gradient-to-tr from-[#101F35] to-[#172B46] opacity-95" />
+                    <div className="relative z-10 space-y-2">
+                      <span className="inline-block rounded-full bg-[#C6A66B]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#DFCA9B] border border-[#C6A66B]/30">
+                        {art.category}
+                      </span>
+                      <p className="font-editorial italic text-white text-lg font-normal line-clamp-2 px-2">
+                        &ldquo;{art.title}&rdquo;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <span className="text-xs font-semibold text-[#8C6D33] block mb-2">
+                      {art.country} â€¢ {art.publishedDate}
+                    </span>
+                    <h3 className="font-bold text-lg font-editorial text-[#101F35] group-hover:text-[#8C6D33] transition-colors leading-snug line-clamp-2">
+                      <Link href={`/news/${art.slug}`}>
+                        {art.title}
+                      </Link>
+                    </h3>
+                    <p className="mt-2.5 text-[15px] text-[#475569] leading-relaxed line-clamp-3">
+                      {art.excerpt}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="px-6 pb-6 pt-3 border-t border-[#E7E4DC] flex items-center justify-between text-xs text-[#697386]">
+                  <span className="font-medium">{art.author.name}</span>
+                  <span className="font-bold text-[#101F35] group-hover:text-[#C6A66B] flex items-center gap-1">
+                    Read Analysis &rarr;
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- */}
+      {/* SECTION 6: CURATED SAAS REVIEWS & COMPARISONS        */}
+      {/* ---------------------------------------------------- */}
+      <section className="py-16 sm:py-24 bg-[#FCFAF5] border-b border-[#E7E4DC]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
+          {/* Section Header */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-[14px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2">
+                <ShieldCheck className="h-4 w-4" />
+                <span>Independent Regional Evaluations</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#101F35] tracking-tight">
+                Curated Software Intelligence &amp; Comparisons
+              </h2>
+              <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] max-w-2xl leading-relaxed">
+                Objective evaluations of digital tools tailored for Gulf businesses, assessed for Arabic capabilities, ZATCA Phase 2, and UAE VAT compliance.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Link
+                href="/reviews"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#101F35] px-6 py-3.5 text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-all shadow-sm"
+              >
+                <span>All 12 Software Reviews</span>
+                <ArrowUpRight className="h-4 w-4 text-[#C6A66B]" />
+              </Link>
+              <Link
+                href="/compare"
+                className="inline-flex items-center gap-2 rounded-xl border border-[#101F35] bg-white px-6 py-3.5 text-sm font-bold text-[#101F35] hover:bg-[#F6F1E7] transition-all shadow-2xs"
+              >
+                <Scale className="h-4 w-4 text-[#C6A66B]" />
+                <span>Side-by-Side Matrix</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Featured Software Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {featuredSoftware.map((software) => (
+              <SoftwareCard key={software.id} software={software} />
+            ))}
+          </div>
+
+          {/* Top Head-to-Head Comparison Matchups Strip */}
+          <div className="pt-10 border-t border-[#E7E4DC] space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-bold font-editorial text-[#101F35]">
+                Top Regional Head-to-Head Comparisons
+              </h3>
+              <Link
+                href="/compare"
+                className="text-sm font-bold text-[#8C6D33] hover:text-[#101F35]"
+              >
+                Custom 3-Way Compare &rarr;
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+              {comparisons.map((c) => (
+                <div
+                  key={c.id}
+                  className="rounded-2xl border border-[#E7E4DC] bg-white p-5 hover:border-[#C6A66B] hover:shadow-md transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#697386] block mb-2">
+                      {c.categories[0]}
+                    </span>
+                    <h4 className="font-bold text-base font-editorial text-[#101F35] leading-snug">
+                      {c.title}
+                    </h4>
+                    <p className="mt-2 text-xs text-[#475569] leading-relaxed line-clamp-2">
+                      {c.shortDescription}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 pt-3 border-t border-[#E7E4DC] flex items-center justify-between">
+                    <span className="text-xs text-[#697386]">Gulf Market Take</span>
+                    <Link
+                      href={`/compare/${c.slug}`}
+                      className="text-xs font-bold text-[#101F35] hover:text-[#C6A66B] inline-flex items-center gap-1"
+                    >
+                      <span>Compare</span>
+                      <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------------- */}
+      {/* SECTION 7: EDITORIAL NEWSLETTER & BRIEFING           */}
       {/* ---------------------------------------------------- */}
       <NewsletterSection />
     </div>

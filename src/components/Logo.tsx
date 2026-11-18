@@ -21,10 +21,10 @@ export default function Logo({
       aria-label="GulfSaasReview Homepage"
     >
       {/* Custom Geometric Gulf-inspired Emblem */}
-      <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#101F35] border border-[#C6A66B]/50 shadow-sm transition-transform duration-300 group-hover:scale-105">
+      <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#101F35] border border-[#C6A66B]/50 shadow-sm transition-transform duration-300 group-hover:scale-105">
         <svg
           viewBox="0 0 40 40"
-          className="h-6 w-6"
+          className="h-6.5 w-6.5"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -69,19 +69,19 @@ export default function Logo({
       <div className="flex flex-col">
         <div className="flex items-baseline tracking-tight leading-none">
           <span
-            className={`font-extrabold text-[1.25rem] tracking-tight ${
+            className={`font-extrabold text-[1.38rem] tracking-tight ${
               isLight ? "text-[#FCFAF5]" : "text-[#101F35]"
             }`}
           >
             GulfSaas
           </span>
-          <span className="font-serif font-bold text-[#C6A66B] ml-1 text-[1.3rem] tracking-tight">
+          <span className="font-serif font-bold text-[#C6A66B] ml-1.5 text-[1.44rem] tracking-tight">
             Review
           </span>
         </div>
         {showTagline ? (
           <span
-            className={`text-[9.5px] tracking-[0.16em] uppercase font-bold mt-1 ${
+            className={`text-[11px] tracking-[0.16em] uppercase font-bold mt-1 ${
               isLight ? "text-[#E7E4DC]/80" : "text-[#697386]"
             }`}
           >
@@ -89,7 +89,7 @@ export default function Logo({
           </span>
         ) : (
           <span
-            className={`text-[9px] tracking-[0.18em] uppercase font-bold mt-0.5 ${
+            className={`text-[10.5px] tracking-[0.18em] uppercase font-bold mt-0.5 ${
               isLight ? "text-[#C6A66B]/90" : "text-[#697386]"
             }`}
           >

@@ -188,20 +188,20 @@ export default function GulfSkylinesAnimation({
       {/* Top Controller Strip: City & Panorama Selectors */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E7E4DC]">
         <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-[#C6A66B] flex items-center gap-1.5 mb-1">
-            <Compass className="h-4 w-4" />
+          <span className="text-sm font-bold uppercase tracking-wider text-[#C6A66B] flex items-center gap-1.5 mb-1">
+            <Compass className="h-4.5 w-4.5" />
             <span>Interactive GCC Architectural Metropolises</span>
           </span>
-          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#101F35]">
+          <h3 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35]">
             Gulf Innovation Capitals &amp; Real Landmark Buildings
           </h3>
         </div>
 
         {/* Tab Selector Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto py-1 scrollbar-none">
+        <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
           <button
             onClick={() => handleCountryClick("all")}
-            className={`rounded-xl px-3.5 py-2 text-xs font-bold transition-all shrink-0 cursor-pointer ${
+            className={`rounded-xl px-4 py-2.5 text-sm font-bold transition-all shrink-0 cursor-pointer ${
               activeTab === "all"
                 ? "bg-[#101F35] text-[#FCFAF5] shadow-sm"
                 : "bg-white text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B]"
@@ -213,7 +213,7 @@ export default function GulfSkylinesAnimation({
             <button
               key={country.id}
               onClick={() => handleCountryClick(country.id)}
-              className={`inline-flex items-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-bold transition-all shrink-0 cursor-pointer ${
+              className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-bold transition-all shrink-0 cursor-pointer ${
                 activeTab === country.id
                   ? "bg-[#101F35] text-[#FCFAF5] shadow-sm"
                   : "bg-white text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B]"
@@ -247,11 +247,11 @@ export default function GulfSkylinesAnimation({
         {/* Status Bar */}
         <div className="relative z-20 px-6 pt-6 pb-2 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#101F35]/90 border border-[#C6A66B]/50 px-3.5 py-1 text-xs font-bold text-[#C6A66B] backdrop-blur-md">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#101F35]/90 border border-[#C6A66B]/50 px-4 py-1.5 text-sm font-bold text-[#C6A66B] backdrop-blur-md">
               <span className="h-2 w-2 rounded-full bg-[#C6A66B] animate-ping" />
               {activeTab === "all" ? "Continuous Real Building Parallax Fly-Through" : `${currentCountry?.name} Architectural Showcase`}
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-[#E7E4DC] backdrop-blur-xs">
+            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-[#E7E4DC] backdrop-blur-xs">
               {activeTab === "all" ? "8 Iconic GCC Skylines in Motion" : `Tech Capital: ${currentCountry?.capital}`}
             </span>
           </div>
@@ -259,9 +259,9 @@ export default function GulfSkylinesAnimation({
           {activeTab === "all" && (
             <button
               onClick={() => setIsMarqueePaused(!isMarqueePaused)}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#142642] border border-[#25406B] px-3 py-1 text-xs font-semibold text-[#DFCA9B] hover:bg-[#1A3358] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#142642] border border-[#25406B] px-3.5 py-1.5 text-sm font-semibold text-[#DFCA9B] hover:bg-[#1A3358] transition-colors cursor-pointer"
             >
-              {isMarqueePaused ? <Play className="h-3 w-3" /> : <Pause className="h-3 w-3" />}
+              {isMarqueePaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
               <span>{isMarqueePaused ? "Resume Motion" : "Pause Motion"}</span>
             </button>
           )}
@@ -480,32 +480,32 @@ function BuildingRealCard({
 
         {/* Top Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#101F35]/90 border border-[#C6A66B]/50 px-2.5 py-0.5 text-[10.5px] font-bold text-[#C6A66B] backdrop-blur-md">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#101F35]/90 border border-[#C6A66B]/50 px-3 py-1 text-xs font-bold text-[#C6A66B] backdrop-blur-md">
             <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-beacon" />
             <span>{building.height}</span>
           </span>
-          <span className="rounded-full bg-black/70 px-2 py-0.5 text-[10.5px] font-semibold text-white backdrop-blur-xs">
+          <span className="rounded-full bg-black/70 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-xs">
             {building.flagEmoji} {building.city}
           </span>
         </div>
 
         {/* Building Name on bottom of photo */}
         <div className="absolute bottom-3 left-3 right-3 z-10">
-          <h4 className="text-lg font-bold font-editorial text-white leading-tight group-hover:text-[#DFCA9B] transition-colors">
+          <h4 className="text-xl font-bold font-editorial text-white leading-tight group-hover:text-[#DFCA9B] transition-colors">
             {building.name}
           </h4>
-          <span className="text-[11px] text-[#C6A66B] font-semibold block mt-0.5 truncate">
+          <span className="text-xs text-[#C6A66B] font-semibold block mt-0.5 truncate">
             {building.techDistrict}
           </span>
         </div>
       </div>
 
       {/* Building Facts Strip */}
-      <div className="p-3.5 space-y-2 text-[11.5px] border-t border-[#1C3354]">
+      <div className="p-4 space-y-2 text-[13px] border-t border-[#1C3354]">
         <p className="text-[#C8D5E5] line-clamp-2 leading-relaxed">
           {building.highlight}
         </p>
-        <div className="pt-2 border-t border-[#1C3354]/60 flex items-center justify-between text-[#8BA0BD]">
+        <div className="pt-2 border-t border-[#1C3354]/60 flex items-center justify-between text-xs text-[#8BA0BD]">
           <span>{building.floors}</span>
           <span className="text-[#C6A66B] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-0.5">
             Explore &rarr;

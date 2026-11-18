@@ -100,3 +100,68 @@ body {
 .animate-ping-slow {
   animation: ping-slow 2.4s ease-in-out infinite;
 }
+
+/* Moving Gulf Buildings & Skyline Keyframes */
+@keyframes skylineMarquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-skyline-marquee {
+  animation: skylineMarquee 48s linear infinite;
+}
+
+.animate-skyline-marquee:hover {
+  animation-play-state: paused;
+}
+
+@keyframes turbineSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-turbine {
+  animation: turbineSpin 3.5s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes beaconPulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+.animate-beacon {
+  animation: beaconPulse 2s ease-in-out infinite;
+}
+
+@keyframes beamSweep {
+  0% { transform: rotate(-18deg); opacity: 0.25; }
+  50% { transform: rotate(18deg); opacity: 0.6; }
+  100% { transform: rotate(-18deg); opacity: 0.25; }
+}
+
+.animate-beam {
+  animation: beamSweep 7s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes cloudDrift {
+  0% { transform: translateX(-5%); }
+  50% { transform: translateX(5%); }
+  100% { transform: translateX(-5%); }
+}
+
+.animate-cloud-drift {
+  animation: cloudDrift 20s ease-in-out infinite;
+}
+
+@keyframes elevatorPulse {
+  0% { transform: translateY(120px); opacity: 0.2; }
+  50% { opacity: 0.9; }
+  100% { transform: translateY(-120px); opacity: 0.2; }
+}
+
+.animate-elevator {
+  animation: elevatorPulse 5s ease-in-out infinite;
+}
+

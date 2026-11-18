@@ -577,3 +577,4 @@ export const newsLookup: Record<string, NewsArticle> = newsArticles.reduce(
   },
   {} as Record<string, NewsArticle>
 );
+

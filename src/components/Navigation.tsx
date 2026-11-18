@@ -5,7 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { useApp } from "@/context/AppContext";
-import { Search, Menu, X, ArrowUpRight, Scale, TrendingUp, Sparkles } from "lucide-react";
+import {
+  Search,
+  Menu,
+  X,
+  ArrowUpRight,
+  Scale,
+  TrendingUp,
+  Globe2,
+  Calendar,
+} from "lucide-react";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -15,7 +24,7 @@ export default function Navigation() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 15);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -29,9 +38,9 @@ export default function Navigation() {
     { name: "Home", href: "/" },
     { name: "Latest News", href: "/news" },
     { name: "Saudi Arabia", href: "/news?country=saudi-arabia" },
-    { name: "UAE", href: "/news?country=uae" },
-    { name: "GCC News", href: "/news?country=gcc" },
-    { name: "AI & Technology", href: "/news?category=ai-innovation" },
+    { name: "UAE & Dubai", href: "/news?country=uae" },
+    { name: "Qatar & GCC", href: "/news?country=gcc" },
+    { name: "AI & Innovation", href: "/news?category=ai-innovation" },
     { name: "SaaS Reviews", href: "/reviews" },
     { name: "Comparisons", href: "/compare" },
     { name: "About Us", href: "/about" },
@@ -39,18 +48,33 @@ export default function Navigation() {
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    if (href.startsWith("/news?")) {
-      return false; // dynamic query
-    }
+    if (href.startsWith("/news?")) return false;
     return pathname.startsWith(href);
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full">
-      {/* Top Editorial Market & Date Strip */}
-      <div className="hidden md:block w-full bg-[#101F35] text-[#E7E4DC] text-xs py-1.5 border-b border-[#223859]">
+    <header className="w-full bg-[#FCFAF5]">
+      {/* 1. Top Editorial Markets & Date Bar */}
+      <div className="w-full bg-[#101F35] text-[#E7E4DC] text-xs py-2 border-b border-[#172B46]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          <div className="flex items-center gap-4 text-[11.5px] font-semibold text-[#E7E4DC]/80">
+          {/* Left: Date & Edition Info */}
+          <div className="flex items-center gap-3 text-[11.5px] text-[#E7E4DC]/80">
+            <span className="flex items-center gap-1.5 text-[#C6A66B] font-semibold">
+              <Calendar className="h-3 w-3" />
+              <span>Wednesday, November 18, 2026</span>
+            </span>
+            <span className="text-[#697386] hidden sm:inline">•</span>
+            <span className="hidden sm:inline text-[#E7E4DC]/70">
+              Middle East Time (UTC+3)
+            </span>
+            <span className="text-[#697386] hidden md:inline">•</span>
+            <span className="hidden md:inline text-[#DFCA9B] font-medium">
+              Daily Executive Edition
+            </span>
+          </div>
+
+          {/* Right: GCC Financial & Tech Markets */}
+          <div className="hidden lg:flex items-center gap-4 text-[11.5px] font-semibold text-[#E7E4DC]/80">
             <span className="flex items-center gap-1.5 text-[#C6A66B]">
               <TrendingUp className="h-3 w-3" />
               <span>GCC Markets:</span>
@@ -63,69 +87,32 @@ export default function Navigation() {
             <span className="text-[#697386]">•</span>
             <span className="text-[#DFCA9B]">Middle East B2B SaaS Index</span>
           </div>
-
-          <div className="flex items-center gap-4 text-[11.5px] text-[#E7E4DC]/70">
-            <span>Riyadh &amp; Dubai Editorial Desks</span>
-            <span className="text-[#697386]">•</span>
-            <span>Tuesday, November 17, 2026</span>
-          </div>
         </div>
       </div>
 
-      {/* Main Navigation Bar */}
-      <div
-        className={`w-full transition-all duration-200 ${
-          scrolled
-            ? "bg-[#FCFAF5]/98 backdrop-blur-md shadow-[0_4px_24px_rgba(16,31,53,0.06)] border-b border-[#E7E4DC]"
-            : "bg-[#FCFAF5] border-b border-[#E7E4DC]"
-        }`}
-      >
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Left: Brand Logo */}
-          <div className="flex items-center shrink-0 pr-4 lg:pr-6">
-            <Logo />
+      {/* 2. Main Newspaper Masthead (Clean, Authoritative, High-End) */}
+      <div className="border-b border-[#E7E4DC] bg-[#FCFAF5] py-4 sm:py-6">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+          {/* Left: Prominent Newspaper Brand */}
+          <div className="flex items-center gap-4">
+            <Logo showTagline={false} />
+            <div className="hidden md:block pl-4 border-l border-[#E7E4DC]">
+              <span className="block text-[11px] font-bold uppercase tracking-widest text-[#697386]">
+                Middle East Software &amp; Tech Intelligence
+              </span>
+              <span className="text-xs text-[#101F35] font-semibold">
+                Independent Reviews • Regional Benchmarks • Vision 2030 Analysis
+              </span>
+            </div>
           </div>
 
-          {/* Center: Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-5 2xl:gap-7">
-            {navLinks.map((link) => {
-              const active = isActive(link.href);
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={`relative py-2 text-[14.5px] 2xl:text-[15.5px] font-semibold tracking-tight whitespace-nowrap transition-colors duration-150 ${
-                    active
-                      ? "text-[#101F35]"
-                      : "text-[#475569] hover:text-[#101F35]"
-                  }`}
-                >
-                  <span>{link.name}</span>
-                  {active && (
-                    <span className="absolute -bottom-1.5 left-0 right-0 h-[2.5px] bg-[#C6A66B] rounded-full transition-all duration-200" />
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* Medium Screen Sub-nav (for 1024px - 1279px screens) */}
-          <nav className="hidden lg:flex xl:hidden items-center gap-4">
-            <Link href="/" className={`text-sm font-semibold ${pathname === "/" ? "text-[#101F35] font-bold" : "text-[#475569]"}`}>Home</Link>
-            <Link href="/news" className={`text-sm font-semibold ${pathname.startsWith("/news") ? "text-[#101F35] font-bold" : "text-[#475569]"}`}>Latest News</Link>
-            <Link href="/news?country=saudi-arabia" className="text-sm font-semibold text-[#475569]">Saudi Arabia</Link>
-            <Link href="/news?country=uae" className="text-sm font-semibold text-[#475569]">UAE</Link>
-            <Link href="/reviews" className={`text-sm font-semibold ${pathname.startsWith("/reviews") ? "text-[#101F35] font-bold" : "text-[#475569]"}`}>SaaS Reviews</Link>
-            <Link href="/compare" className={`text-sm font-semibold ${pathname.startsWith("/compare") ? "text-[#101F35] font-bold" : "text-[#475569]"}`}>Comparisons</Link>
-          </nav>
-
-          {/* Right: Actions (Search, Compare, Explore CTA, Mobile Menu Button) */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0 pl-2 lg:pl-4">
-            {/* Active Compare Pill */}
+          {/* Right: Search, Comparison Tray & Action CTA */}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Compare Counter Pill */}
             {compareSlugs.length > 0 && (
               <button
                 onClick={() => setIsCompareTrayOpen(true)}
-                className="inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl text-[13px] font-bold bg-[#101F35] text-[#C6A66B] border border-[#C6A66B]/50 hover:bg-[#172B46] transition-all whitespace-nowrap shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl text-xs sm:text-[13px] font-bold bg-[#101F35] text-[#C6A66B] border border-[#C6A66B]/50 hover:bg-[#172B46] transition-all shadow-xs cursor-pointer"
                 title="View selected software to compare"
               >
                 <Scale className="h-4 w-4" />
@@ -137,13 +124,13 @@ export default function Navigation() {
             <button
               type="button"
               onClick={openSearch}
-              className="flex items-center justify-center h-10 rounded-xl border border-[#E7E4DC] bg-white px-3 xl:px-3.5 text-[14px] font-medium text-[#475569] hover:border-[#C6A66B] hover:text-[#101F35] hover:bg-[#F6F1E7]/40 transition-all shadow-2xs cursor-pointer whitespace-nowrap"
+              className="flex items-center justify-center h-10 rounded-xl border border-[#E7E4DC] bg-white px-3 sm:px-3.5 text-sm font-medium text-[#475569] hover:border-[#C6A66B] hover:text-[#101F35] transition-all shadow-2xs cursor-pointer whitespace-nowrap"
               aria-label="Search news, reviews and comparisons"
               title="Search (⌘K)"
             >
               <Search className="h-4 w-4 text-[#101F35]" />
-              <span className="hidden 2xl:inline ml-2 text-[14px] text-[#475569]">Search intelligence...</span>
-              <kbd className="hidden 2xl:inline-flex ml-2 items-center rounded border border-[#E7E4DC] bg-[#F6F1E7] px-1.5 py-0.5 text-[11px] text-[#64748B] font-mono">
+              <span className="hidden sm:inline ml-2 text-xs sm:text-sm text-[#475569]">Search stories &amp; SaaS...</span>
+              <kbd className="hidden sm:inline-flex ml-2 items-center rounded border border-[#E7E4DC] bg-[#F6F1E7] px-1.5 py-0.5 text-[10px] text-[#697386] font-mono">
                 ⌘K
               </kbd>
             </button>
@@ -151,17 +138,17 @@ export default function Navigation() {
             {/* Primary Action Button */}
             <Link
               href="/news"
-              className="hidden sm:inline-flex items-center gap-2 h-10 px-4 rounded-xl bg-[#101F35] text-[14px] font-bold text-[#FCFAF5] hover:bg-[#172B46] active:scale-[0.98] transition-all shadow-xs hover:shadow-sm border border-[#101F35] whitespace-nowrap"
+              className="hidden sm:inline-flex items-center gap-1.5 h-10 px-4 rounded-xl bg-[#101F35] text-xs sm:text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-all shadow-xs"
             >
-              <span>Latest Dispatch</span>
+              <span>Latest News</span>
               <ArrowUpRight className="h-4 w-4 text-[#C6A66B]" />
             </Link>
 
-            {/* Mobile Menu Hamburger (< lg) */}
+            {/* Mobile Hamburger Toggle (< xl) */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl text-[#101F35] hover:bg-[#E7E4DC]/60 focus:outline-none cursor-pointer border border-[#E7E4DC] bg-white transition-colors"
+              className="xl:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl text-[#101F35] hover:bg-[#E7E4DC]/60 border border-[#E7E4DC] bg-white transition-colors cursor-pointer"
               aria-expanded={isMobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
@@ -173,10 +160,45 @@ export default function Navigation() {
             </button>
           </div>
         </div>
+      </div>
+
+      {/* 3. Primary Section Navigation Strip (Classic Newspaper Ribbon) */}
+      <nav className="sticky top-0 z-30 w-full bg-[#FCFAF5]/98 backdrop-blur-md border-b border-[#E7E4DC]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="hidden xl:flex items-center justify-between h-12">
+            <div className="flex items-center gap-6 2xl:gap-8">
+              {navLinks.map((link) => {
+                const active = isActive(link.href);
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={`relative py-3 text-[14px] 2xl:text-[15px] font-bold tracking-tight whitespace-nowrap transition-colors duration-150 ${
+                      active
+                        ? "text-[#101F35]"
+                        : "text-[#475569] hover:text-[#101F35]"
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {active && (
+                      <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#C6A66B] rounded-full" />
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+
+            {/* Right Mini Status */}
+            <div className="flex items-center gap-2 text-xs text-[#697386] font-semibold">
+              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Riyadh &amp; Dubai Editorial Desks</span>
+            </div>
+          </div>
+        </div>
 
         {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-b border-[#E7E4DC] bg-[#FCFAF5] px-5 pt-4 pb-8 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+          <div className="xl:hidden border-b border-[#E7E4DC] bg-[#FCFAF5] px-5 pt-4 pb-8 shadow-2xl animate-in slide-in-from-top-2 duration-200">
             <div className="space-y-1.5">
               {navLinks.map((link) => {
                 const active = isActive(link.href);
@@ -184,41 +206,39 @@ export default function Navigation() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`block rounded-xl px-4 py-2.5 text-[16px] font-bold transition-colors ${
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold transition-colors ${
                       active
                         ? "bg-[#101F35] text-[#FCFAF5]"
-                        : "text-[#101F35] hover:bg-[#E7E4DC]/50"
+                        : "text-[#101F35] hover:bg-[#E7E4DC]/60"
                     }`}
                   >
-                    {link.name}
+                    <span>{link.name}</span>
+                    {active && <span className="h-2 w-2 rounded-full bg-[#C6A66B]" />}
                   </Link>
                 );
               })}
             </div>
 
             <div className="mt-6 pt-5 border-t border-[#E7E4DC] flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  openSearch();
-                }}
-                className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-[#E7E4DC] bg-white py-3 text-[16px] font-bold text-[#101F35] shadow-xs cursor-pointer hover:border-[#C6A66B] transition-colors"
-              >
-                <Search className="h-4 w-4 text-[#C6A66B]" />
-                <span>Search News, Reviews &amp; Comparisons</span>
-              </button>
-
               <Link
                 href="/reviews"
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#101F35] py-3 text-[16px] font-bold text-[#FCFAF5] shadow-sm hover:bg-[#172B46] transition-colors"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full text-center rounded-xl bg-[#101F35] py-3 text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46]"
               >
-                <span>Browse Software Directory</span>
-                <ArrowUpRight className="h-4 w-4 text-[#C6A66B]" />
+                Browse Software Reviews
+              </Link>
+              <Link
+                href="/compare"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="w-full text-center rounded-xl border border-[#E7E4DC] bg-white py-3 text-sm font-bold text-[#101F35] hover:border-[#C6A66B]"
+              >
+                Side-by-Side Comparisons
               </Link>
             </div>
           </div>
         )}
-      </div>
+      </nav>
     </header>
   );
 }

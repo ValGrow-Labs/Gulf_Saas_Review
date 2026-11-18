@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import GccMap from "./GccMap";
+import GulfSkylinesAnimation from "./GulfSkylinesAnimation";
 import { newsArticles, gccCountries } from "@/data/news";
 import { GccCountryCode } from "@/types";
 import { ArrowRight, Clock, User, Sparkles, Building2, Globe2 } from "lucide-react";
@@ -45,8 +45,8 @@ export default function HomeNewsSection() {
           </Link>
         </div>
 
-        {/* Section 4: Interactive GCC Geographical Animated Map */}
-        <GccMap
+        {/* Section 4: Interactive Gulf Countries Skylines & Moving Buildings Animation */}
+        <GulfSkylinesAnimation
           selectedCountry={selectedCountry}
           onSelectCountry={(country) => setSelectedCountry(country)}
         />
@@ -129,3 +129,4 @@ export default function HomeNewsSection() {
     </section>
   );
 }
+

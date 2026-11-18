@@ -186,39 +186,16 @@ export default function ReviewsClient() {
             </div>
           </div>
 
-          {/* Filter Pills: Country, Arabic, Pricing, Category */}
+          {/* Filter Pills: Category, Pricing, Country Scope */}
           <div className="mt-5 pt-4 border-t border-[#E7E4DC]/80 flex flex-wrap items-center gap-3 text-[15px] sm:text-[16px]">
-            <span className="text-[14px] font-bold uppercase tracking-wider text-[#697386] mr-1">
-              Country:
-            </span>
-            {["all", "Saudi Arabia", "UAE", "GCC"].map((c) => (
-              <button
-                key={c}
-                onClick={() => setSelectedCountry(c)}
-                className={`rounded-xl px-4 py-2.5 font-bold transition-all min-h-[44px] cursor-pointer ${
-                  selectedCountry === c
-                    ? "bg-[#101F35] text-[#FCFAF5] shadow-xs"
-                    : "bg-[#F6F1E7] text-[#101F35] hover:bg-[#E7E4DC]"
-                }`}
-              >
-                {c === "all" ? "All GCC" : c}
-              </button>
-            ))}
-
-            <div className="h-5 w-[1px] bg-[#E7E4DC] mx-1 hidden sm:block" />
-
-            {/* Arabic Language Toggle */}
-            <button
-              onClick={() => setArabicOnly(!arabicOnly)}
-              className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 font-bold transition-all min-h-[44px] cursor-pointer ${
-                arabicOnly
-                  ? "bg-[#C6A66B] text-[#101F35] shadow-xs"
-                  : "bg-[#F6F1E7] text-[#101F35] hover:bg-[#E7E4DC]"
-              }`}
-            >
-              {arabicOnly && <Check className="h-4 w-4 stroke-[3]" />}
-              <span>Arabic UI / RTL Support</span>
-            </button>
+            <div className="flex items-center gap-2">
+              <span className="text-[13.5px] font-bold uppercase tracking-wider text-[#697386]">
+                Country:
+              </span>
+              <span className="rounded-xl px-4 py-2 font-bold bg-[#101F35] text-[#FCFAF5] text-sm shadow-xs min-h-[40px] inline-flex items-center">
+                All GCC
+              </span>
+            </div>
 
             <div className="h-5 w-[1px] bg-[#E7E4DC] mx-1 hidden sm:block" />
 

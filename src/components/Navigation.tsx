@@ -11,9 +11,6 @@ import {
   X,
   ArrowUpRight,
   Scale,
-  TrendingUp,
-  Globe2,
-  Calendar,
 } from "lucide-react";
 
 export default function Navigation() {
@@ -54,43 +51,7 @@ export default function Navigation() {
 
   return (
     <header className="w-full bg-[#FCFAF5]">
-      {/* 1. Top Editorial Markets & Date Bar */}
-      <div className="w-full bg-[#101F35] text-[#E7E4DC] text-xs py-2 border-b border-[#172B46]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Left: Date & Edition Info */}
-          <div className="flex items-center gap-3 text-[11.5px] text-[#E7E4DC]/80">
-            <span className="flex items-center gap-1.5 text-[#C6A66B] font-semibold">
-              <Calendar className="h-3 w-3" />
-              <span>Wednesday, November 18, 2026</span>
-            </span>
-            <span className="text-[#697386] hidden sm:inline">•</span>
-            <span className="hidden sm:inline text-[#E7E4DC]/70">
-              Middle East Time (UTC+3)
-            </span>
-            <span className="text-[#697386] hidden md:inline">•</span>
-            <span className="hidden md:inline text-[#DFCA9B] font-medium">
-              Daily Executive Edition
-            </span>
-          </div>
-
-          {/* Right: GCC Financial & Tech Markets */}
-          <div className="hidden lg:flex items-center gap-4 text-[11.5px] font-semibold text-[#E7E4DC]/80">
-            <span className="flex items-center gap-1.5 text-[#C6A66B]">
-              <TrendingUp className="h-3 w-3" />
-              <span>GCC Markets:</span>
-            </span>
-            <span>TASI (Riyadh) <span className="text-emerald-400 font-bold">+0.48%</span></span>
-            <span className="text-[#697386]">•</span>
-            <span>DFM (Dubai) <span className="text-emerald-400 font-bold">+0.32%</span></span>
-            <span className="text-[#697386]">•</span>
-            <span>ADX (Abu Dhabi) <span className="text-emerald-400 font-bold">+0.26%</span></span>
-            <span className="text-[#697386]">•</span>
-            <span className="text-[#DFCA9B]">Middle East B2B SaaS Index</span>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Main Newspaper Masthead (Clean, Authoritative, High-End) */}
+      {/* Main Newspaper Masthead (Clean, Authoritative, High-End) */}
       <div className="border-b border-[#E7E4DC] bg-[#FCFAF5] py-4 sm:py-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Left: Prominent Newspaper Brand */}

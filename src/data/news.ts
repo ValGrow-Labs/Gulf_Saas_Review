@@ -190,9 +190,9 @@ export const newsArticles: NewsArticle[] = [
       role: "Head of Regional ERP & AI Research",
       avatar: "/authors/tariq.jpg"
     },
-    image: "/articles/ai-gulf.jpg",
-    featuredImage: "/articles/ai-gulf.jpg",
-    imageCaption: "Executives at the Global AI Summit in Riyadh analyze generative model integration in Gulf supply chains.",
+    image: "/articles/enterprise-saas-platform.jpg",
+    featuredImage: "/articles/enterprise-saas-platform.jpg",
+    imageCaption: "Enterprise software analytics dashboard evaluating cloud SaaS adoption across Middle East commercial hubs.",
     isHeroFeatured: true,
     isTrending: true,
     trendingRank: 1,

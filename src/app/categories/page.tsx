@@ -40,7 +40,7 @@ export default function CategoriesPage() {
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#C6A66B] mb-2.5">
               <Layers className="h-4 w-4" />
-              <span>Functional Taxonomy</span>
+              <span>Browse by Business Need</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
               Software Categories

@@ -118,9 +118,9 @@ export default function SoftwareCard({ software }: SoftwareCardProps) {
         {/* Key Compliance Bullet points */}
         <div className="mt-4 space-y-2 pt-3.5 border-t border-[#E7E4DC]/80 text-[15px] sm:text-[16px]">
           {software.localCompliance.slice(0, 2).map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-[#1E293B] font-medium">
+            <div key={idx} className="flex items-center gap-2 text-[#1E293B] font-medium" title={item}>
               <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-700" />
-              <span className="truncate">{item}</span>
+              <span className="line-clamp-1">{item}</span>
             </div>
           ))}
         </div>
@@ -174,7 +174,7 @@ export default function SoftwareCard({ software }: SoftwareCardProps) {
             href={`/reviews/${software.slug}`}
             className="inline-flex items-center gap-1.5 rounded-xl bg-[#101F35] px-4 py-2.5 text-[15px] font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-colors min-h-[44px]"
           >
-            <span>Review</span>
+            <span>Read Review</span>
             <ArrowRight className="h-4 w-4 text-[#C6A66B]" />
           </Link>
         </div>

@@ -22,6 +22,8 @@ import {
   Flame,
   FileText,
   Calendar,
+  Compass,
+  Layers,
 } from "lucide-react";
 
 export default function HomePage() {
@@ -63,6 +65,50 @@ export default function HomePage() {
             <div className="flex items-center gap-1.5 text-[#C6A66B]">
               <Flame className="h-4 w-4" />
               <span>Daily Lead Dispatch</span>
+            </div>
+          </div>
+
+          {/* User-Friendly Quick Discovery & Wayfinding Hub */}
+          <div className="mb-8 rounded-2xl border border-[#E7E4DC] bg-white p-4 sm:p-5 shadow-xs">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#101F35] text-[#C6A66B]">
+                  <Compass className="h-5 w-5" />
+                </div>
+                <div>
+                  <span className="block text-xs font-bold uppercase tracking-wider text-[#697386]">
+                    What are you looking for today?
+                  </span>
+                  <span className="text-sm sm:text-base font-bold text-[#101F35]">
+                    Find business software, compare solutions, or explore GCC tech news
+                  </span>
+                </div>
+              </div>
+
+              {/* 3 Quick Action Shortcuts */}
+              <div className="flex flex-wrap items-center gap-2.5">
+                <Link
+                  href="/reviews"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#101F35] px-4 py-2.5 text-xs sm:text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46] transition-colors shadow-2xs"
+                >
+                  <ShieldCheck className="h-4 w-4 text-[#C6A66B]" />
+                  <span>Browse Software</span>
+                </Link>
+                <Link
+                  href="/categories"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] px-4 py-2.5 text-xs sm:text-sm font-bold text-[#101F35] hover:border-[#C6A66B] transition-colors"
+                >
+                  <Layers className="h-4 w-4 text-[#C6A66B]" />
+                  <span>Explore Categories</span>
+                </Link>
+                <Link
+                  href="/compare"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] px-4 py-2.5 text-xs sm:text-sm font-bold text-[#101F35] hover:border-[#C6A66B] transition-colors"
+                >
+                  <Scale className="h-4 w-4 text-[#C6A66B]" />
+                  <span>Compare Tools</span>
+                </Link>
+              </div>
             </div>
           </div>
 

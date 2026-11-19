@@ -236,6 +236,36 @@ export default function ReviewsClient() {
               </button>
             )}
           </div>
+
+          {/* 1-Click Quick Category Filter Chips */}
+          <div className="mt-4 pt-3.5 border-t border-[#E7E4DC]/60 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#697386] shrink-0 mr-1">
+              Popular Needs:
+            </span>
+            <button
+              onClick={() => setSelectedCategory("all")}
+              className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                selectedCategory === "all"
+                  ? "bg-[#101F35] text-[#FCFAF5] shadow-xs"
+                  : "bg-white text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B]"
+              }`}
+            >
+              All Tools ({softwares.length})
+            </button>
+            {categories.slice(0, 5).map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.slug)}
+                className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all shrink-0 cursor-pointer ${
+                  selectedCategory === cat.slug
+                    ? "bg-[#101F35] text-[#FCFAF5] shadow-xs"
+                    : "bg-white text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B]"
+                }`}
+              >
+                {cat.name}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Results Counter */}

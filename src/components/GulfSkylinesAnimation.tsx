@@ -186,13 +186,13 @@ export default function GulfSkylinesAnimation({
   return (
     <div className="w-full space-y-6">
       {/* Top Controller Strip: City & Panorama Selectors */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E7E4DC]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#E5DFD3]">
         <div>
-          <span className="text-sm font-bold uppercase tracking-wider text-[#C6A66B] flex items-center gap-1.5 mb-1">
+          <span className="text-sm font-bold uppercase tracking-wider text-[#FF6B5B] flex items-center gap-1.5 mb-1">
             <Compass className="h-4.5 w-4.5" />
             <span>Interactive GCC Architectural Metropolises</span>
           </span>
-          <h3 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35]">
+          <h3 className="text-2xl sm:text-3xl font-bold font-editorial text-[#0A2E36]">
             Gulf Innovation Capitals &amp; Real Landmark Buildings
           </h3>
         </div>
@@ -203,8 +203,8 @@ export default function GulfSkylinesAnimation({
             onClick={() => handleCountryClick("all")}
             className={`rounded-xl px-4 py-2.5 text-sm font-bold transition-all shrink-0 cursor-pointer ${
               activeTab === "all"
-                ? "bg-[#101F35] text-[#FCFAF5] shadow-sm"
-                : "bg-white text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B]"
+                ? "bg-[#0A2E36] text-[#F7F4EC] shadow-sm"
+                : "bg-white text-[#0A2E36] border border-[#E5DFD3] hover:border-[#FF6B5B]"
             }`}
           >
             🏙️ All GCC Panorama
@@ -215,8 +215,8 @@ export default function GulfSkylinesAnimation({
               onClick={() => handleCountryClick(country.id)}
               className={`inline-flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-sm font-bold transition-all shrink-0 cursor-pointer ${
                 activeTab === country.id
-                  ? "bg-[#101F35] text-[#FCFAF5] shadow-sm"
-                  : "bg-white text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B]"
+                  ? "bg-[#0A2E36] text-[#F7F4EC] shadow-sm"
+                  : "bg-white text-[#0A2E36] border border-[#E5DFD3] hover:border-[#FF6B5B]"
               }`}
             >
               <span>{country.flagEmoji}</span>
@@ -227,18 +227,18 @@ export default function GulfSkylinesAnimation({
       </div>
 
       {/* Main Skyline Canvas Box */}
-      <div className="relative w-full rounded-3xl overflow-hidden border border-[#172B46] bg-gradient-to-b from-[#091322] via-[#0E1E36] to-[#12233D] shadow-2xl text-[#FCFAF5] select-none">
+      <div className="relative w-full rounded-3xl overflow-hidden border border-[#0F3F4A] bg-gradient-to-b from-[#062127] via-[#0A2E36] to-[#0D353E] shadow-2xl text-[#F7F4EC] select-none">
         {/* Ambient Sky: Real Stars, Lasers & Clouds */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
           {/* Subtle star field */}
           <div className="absolute top-4 left-1/4 h-1 w-1 rounded-full bg-white opacity-80 shadow-[0_0_8px_white]" />
           <div className="absolute top-10 left-1/2 h-1 w-1 rounded-full bg-white opacity-60" />
-          <div className="absolute top-6 right-1/4 h-1.5 w-1.5 rounded-full bg-[#DFCA9B] opacity-90 shadow-[0_0_6px_#C6A66B]" />
+          <div className="absolute top-6 right-1/4 h-1.5 w-1.5 rounded-full bg-[#FF8A7C] opacity-90 shadow-[0_0_6px_#FF6B5B]" />
           <div className="absolute top-14 right-1/10 h-1 w-1 rounded-full bg-white opacity-70" />
 
           {/* Sweeping laser searchlights */}
-          <div className="absolute -bottom-10 left-[22%] w-16 h-80 bg-gradient-to-t from-[#C6A66B]/20 via-[#C6A66B]/5 to-transparent blur-md animate-beam pointer-events-none" />
-          <div className="absolute -bottom-10 right-[35%] w-20 h-96 bg-gradient-to-t from-sky-400/20 via-sky-400/5 to-transparent blur-md animate-beam pointer-events-none [animation-delay:3.5s]" />
+          <div className="absolute -bottom-10 left-[22%] w-16 h-80 bg-gradient-to-t from-[#FF6B5B]/20 via-[#FF6B5B]/5 to-transparent blur-md animate-beam pointer-events-none" />
+          <div className="absolute -bottom-10 right-[35%] w-20 h-96 bg-gradient-to-t from-emerald-400/20 via-emerald-400/5 to-transparent blur-md animate-beam pointer-events-none [animation-delay:3.5s]" />
 
           {/* Drifting Clouds */}
           <div className="absolute top-6 w-full h-20 bg-gradient-to-r from-transparent via-white/5 to-transparent blur-2xl animate-cloud-drift pointer-events-none" />
@@ -247,11 +247,11 @@ export default function GulfSkylinesAnimation({
         {/* Status Bar */}
         <div className="relative z-20 px-6 pt-6 pb-2 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#101F35]/90 border border-[#C6A66B]/50 px-4 py-1.5 text-sm font-bold text-[#C6A66B] backdrop-blur-md">
-              <span className="h-2 w-2 rounded-full bg-[#C6A66B] animate-ping" />
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A2E36]/90 border border-[#FF6B5B]/50 px-4 py-1.5 text-sm font-bold text-[#FF6B5B] backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-[#FF6B5B] animate-ping" />
               {activeTab === "all" ? "Continuous Real Building Parallax Fly-Through" : `${currentCountry?.name} Architectural Showcase`}
             </span>
-            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-[#E7E4DC] backdrop-blur-xs">
+            <span className="hidden sm:inline-flex items-center gap-1 rounded-full bg-white/10 px-3.5 py-1.5 text-sm font-medium text-[#F7F4EC] backdrop-blur-xs">
               {activeTab === "all" ? "8 Iconic GCC Skylines in Motion" : `Tech Capital: ${currentCountry?.capital}`}
             </span>
           </div>
@@ -259,7 +259,7 @@ export default function GulfSkylinesAnimation({
           {activeTab === "all" && (
             <button
               onClick={() => setIsMarqueePaused(!isMarqueePaused)}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-[#142642] border border-[#25406B] px-3.5 py-1.5 text-sm font-semibold text-[#DFCA9B] hover:bg-[#1A3358] transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#0F3F4A] border border-[#16535E] px-3.5 py-1.5 text-sm font-semibold text-[#FF8A7C] hover:bg-[#134E5B] transition-colors cursor-pointer"
             >
               {isMarqueePaused ? <Play className="h-3.5 w-3.5" /> : <Pause className="h-3.5 w-3.5" />}
               <span>{isMarqueePaused ? "Resume Motion" : "Pause Motion"}</span>
@@ -300,15 +300,15 @@ export default function GulfSkylinesAnimation({
             </div>
 
             {/* Bottom Boulevard / Marina Water Strip */}
-            <div className="relative mt-6 h-14 bg-gradient-to-t from-[#060D18] to-[#0A1628] border-t border-[#1C3354] flex items-center justify-between px-6 text-xs text-[#8BA0BD] z-10">
+            <div className="relative mt-6 h-14 bg-gradient-to-t from-[#062127] to-[#0A2E36] border-t border-[#0F3F4A] flex items-center justify-between px-6 text-xs text-[#8BA4A9] z-10">
               <div className="flex items-center gap-2">
                 <div className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="font-semibold text-white">Live Regional Enterprise Innovation Corridors</span>
-                <span className="hidden md:inline text-[#697386]">
+                <span className="hidden md:inline text-[#8BA4A9]">
                   • High-Velocity Sovereign Clouds &amp; AI Clusters
                 </span>
               </div>
-              <div className="text-[11px] text-[#C6A66B] font-semibold">
+              <div className="text-[11px] text-[#FF6B5B] font-semibold">
                 Hover any landmark to pause &amp; inspect • Click to explore city
               </div>
             </div>
@@ -322,10 +322,10 @@ export default function GulfSkylinesAnimation({
                 {countryBuildings.map((b) => (
                   <div
                     key={b.id}
-                    className="group relative w-full sm:w-[320px] rounded-2xl overflow-hidden border border-[#2B4670] bg-[#0E1E34] shadow-xl transition-all duration-300 hover:border-[#C6A66B] hover:shadow-[0_12px_36px_rgba(198,166,107,0.25)] hover:-translate-y-1"
+                    className="group relative w-full sm:w-[320px] rounded-2xl overflow-hidden border border-[#16535E] bg-[#07262D] shadow-xl transition-all duration-300 hover:border-[#FF6B5B] hover:shadow-[0_12px_36px_rgba(255,107,91,0.25)] hover:-translate-y-1"
                   >
                     {/* Real Building Image with Altitude overlay */}
-                    <div className="relative aspect-4/5 w-full overflow-hidden bg-[#0A1628]">
+                    <div className="relative aspect-4/5 w-full overflow-hidden bg-[#062127]">
                       <Image
                         src={b.image}
                         alt={b.name}
@@ -333,10 +333,10 @@ export default function GulfSkylinesAnimation({
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                         sizes="320px"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0E1E34] via-[#0E1E34]/30 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#07262D] via-[#07262D]/30 to-transparent" />
 
                       {/* Beacon Strobe Top Left */}
-                      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-[#101F35]/90 border border-[#C6A66B]/50 px-2.5 py-0.5 text-[11px] font-bold text-[#C6A66B] backdrop-blur-md">
+                      <div className="absolute top-3 left-3 flex items-center gap-1.5 rounded-full bg-[#0A2E36]/90 border border-[#FF6B5B]/50 px-2.5 py-0.5 text-[11px] font-bold text-[#FF6B5B] backdrop-blur-md">
                         <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-beacon" />
                         <span>{b.height}</span>
                       </div>
@@ -351,7 +351,7 @@ export default function GulfSkylinesAnimation({
                         <h4 className="text-xl font-bold font-editorial text-white leading-tight">
                           {b.name}
                         </h4>
-                        <span className="text-xs text-[#C6A66B] font-semibold block mt-0.5">
+                        <span className="text-xs text-[#FF6B5B] font-semibold block mt-0.5">
                           {b.techDistrict}
                         </span>
                       </div>
@@ -361,7 +361,7 @@ export default function GulfSkylinesAnimation({
                       <p className="text-[#C8D5E5] leading-relaxed">
                         {b.highlight}
                       </p>
-                      <div className="pt-2 border-t border-[#1C3354] flex items-center justify-between text-[#8BA0BD]">
+                      <div className="pt-2 border-t border-[#0F3F4A] flex items-center justify-between text-[#8BA4A9]">
                         <span>Completed: {b.completed}</span>
                         <span>{b.floors}</span>
                       </div>
@@ -372,7 +372,7 @@ export default function GulfSkylinesAnimation({
 
               {/* Right: National Tech Transformation Metrics Card (Col 5) */}
               {currentCountry && (
-                <div className="lg:col-span-5 rounded-2xl border border-[#22395C] bg-[#0A1628]/90 backdrop-blur-md p-6 space-y-5">
+                <div className="lg:col-span-5 rounded-2xl border border-[#16535E] bg-[#062127]/90 backdrop-blur-md p-6 space-y-5">
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="flex items-center gap-2">
@@ -381,11 +381,11 @@ export default function GulfSkylinesAnimation({
                           {currentCountry.name}
                         </h4>
                       </div>
-                      <span className="text-xs text-[#C6A66B] font-semibold block mt-1">
+                      <span className="text-xs text-[#FF6B5B] font-semibold block mt-1">
                         Capital: {currentCountry.capital} • {currentCountry.nativeName}
                       </span>
                     </div>
-                    <span className="rounded-lg bg-[#C6A66B]/20 border border-[#C6A66B]/40 px-3 py-1 text-xs font-bold text-[#DFCA9B]">
+                    <span className="rounded-lg bg-[#FF6B5B]/20 border border-[#FF6B5B]/40 px-3 py-1 text-xs font-bold text-[#FF8A7C]">
                       {currentCountry.metrics.aiRank}
                     </span>
                   </div>
@@ -394,8 +394,8 @@ export default function GulfSkylinesAnimation({
                     {currentCountry.summary}
                   </p>
 
-                  <div className="rounded-xl bg-[#102038] border border-[#1C3252] p-3.5 text-xs">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#C6A66B] block mb-1">
+                  <div className="rounded-xl bg-[#0F3F4A] border border-[#16535E] p-3.5 text-xs">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF6B5B] block mb-1">
                       National Vision &amp; Policy Mandate:
                     </span>
                     <span className="font-semibold text-white text-sm">
@@ -405,26 +405,26 @@ export default function GulfSkylinesAnimation({
 
                   {/* 4 Quantitative Metrics */}
                   <div className="grid grid-cols-2 gap-3 pt-1">
-                    <div className="rounded-xl bg-[#0F223D] border border-[#1F3A60] p-3 text-center">
-                      <span className="text-xs text-[#8BA0BD] block">Startups</span>
+                    <div className="rounded-xl bg-[#0A2E36] border border-[#16535E] p-3 text-center">
+                      <span className="text-xs text-[#8BA4A9] block">Startups</span>
                       <strong className="text-lg font-extrabold text-white">
                         {currentCountry.metrics.startups}
                       </strong>
                     </div>
-                    <div className="rounded-xl bg-[#0F223D] border border-[#1F3A60] p-3 text-center">
-                      <span className="text-xs text-[#8BA0BD] block">Cloud Regions</span>
-                      <strong className="text-lg font-extrabold text-[#C6A66B]">
+                    <div className="rounded-xl bg-[#0A2E36] border border-[#16535E] p-3 text-center">
+                      <span className="text-xs text-[#8BA4A9] block">Cloud Regions</span>
+                      <strong className="text-lg font-extrabold text-[#FF6B5B]">
                         {currentCountry.metrics.cloudRegions}
                       </strong>
                     </div>
-                    <div className="rounded-xl bg-[#0F223D] border border-[#1F3A60] p-3 text-center">
-                      <span className="text-xs text-[#8BA0BD] block">SaaS YoY</span>
+                    <div className="rounded-xl bg-[#0A2E36] border border-[#16535E] p-3 text-center">
+                      <span className="text-xs text-[#8BA4A9] block">SaaS YoY</span>
                       <strong className="text-lg font-extrabold text-emerald-400">
                         {currentCountry.metrics.saasGrowth}
                       </strong>
                     </div>
-                    <div className="rounded-xl bg-[#0F223D] border border-[#1F3A60] p-3 text-center">
-                      <span className="text-xs text-[#8BA0BD] block">Tech District</span>
+                    <div className="rounded-xl bg-[#0A2E36] border border-[#16535E] p-3 text-center">
+                      <span className="text-xs text-[#8BA4A9] block">Tech District</span>
                       <strong className="text-xs font-bold text-white truncate block">
                         {currentCountry.techHubs[0]}
                       </strong>
@@ -435,14 +435,14 @@ export default function GulfSkylinesAnimation({
             </div>
 
             {/* Bottom Strip */}
-            <div className="h-12 bg-gradient-to-t from-[#060D18] to-[#0A1628] -mx-4 sm:-mx-8 -mb-6 px-6 flex items-center justify-between text-xs text-[#8BA0BD] border-t border-[#1C3354]">
+            <div className="h-12 bg-gradient-to-t from-[#062127] to-[#0A2E36] -mx-4 sm:-mx-8 -mb-6 px-6 flex items-center justify-between text-xs text-[#8BA4A9] border-t border-[#0F3F4A]">
               <span className="flex items-center gap-1.5 text-white font-medium">
-                <MapPin className="h-3.5 w-3.5 text-[#C6A66B]" />
+                <MapPin className="h-3.5 w-3.5 text-[#FF6B5B]" />
                 Key Hubs: {currentCountry?.techHubs.slice(0, 3).join(" • ")}
               </span>
               <button
                 onClick={() => handleCountryClick("all")}
-                className="text-[#C6A66B] hover:text-white font-bold cursor-pointer"
+                className="text-[#FF6B5B] hover:text-white font-bold cursor-pointer"
               >
                 Return to Full Panorama &rarr;
               </button>
@@ -465,10 +465,10 @@ function BuildingRealCard({
   return (
     <div
       onClick={onSelect}
-      className="group relative w-64 sm:w-72 shrink-0 rounded-2xl overflow-hidden border border-[#233C61] bg-[#0B182B] shadow-lg transition-all duration-300 hover:border-[#C6A66B] hover:shadow-[0_16px_40px_rgba(198,166,107,0.3)] hover:-translate-y-2 cursor-pointer"
+      className="group relative w-64 sm:w-72 shrink-0 rounded-2xl overflow-hidden border border-[#16535E] bg-[#07262D] shadow-lg transition-all duration-300 hover:border-[#FF6B5B] hover:shadow-[0_16px_40px_rgba(255,107,91,0.3)] hover:-translate-y-2 cursor-pointer"
     >
       {/* Real Building Photo */}
-      <div className="relative aspect-4/5 w-full overflow-hidden bg-[#081220]">
+      <div className="relative aspect-4/5 w-full overflow-hidden bg-[#062127]">
         <Image
           src={building.image}
           alt={building.name}
@@ -476,11 +476,11 @@ function BuildingRealCard({
           className="object-cover transition-transform duration-500 group-hover:scale-108"
           sizes="288px"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B182B] via-[#0B182B]/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07262D] via-[#07262D]/20 to-transparent" />
 
         {/* Top Badges */}
         <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between z-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#101F35]/90 border border-[#C6A66B]/50 px-3 py-1 text-xs font-bold text-[#C6A66B] backdrop-blur-md">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0A2E36]/90 border border-[#FF6B5B]/50 px-3 py-1 text-xs font-bold text-[#FF6B5B] backdrop-blur-md">
             <span className="h-1.5 w-1.5 rounded-full bg-rose-500 animate-beacon" />
             <span>{building.height}</span>
           </span>
@@ -491,23 +491,23 @@ function BuildingRealCard({
 
         {/* Building Name on bottom of photo */}
         <div className="absolute bottom-3 left-3 right-3 z-10">
-          <h4 className="text-xl font-bold font-editorial text-white leading-tight group-hover:text-[#DFCA9B] transition-colors">
+          <h4 className="text-xl font-bold font-editorial text-white leading-tight group-hover:text-[#FF8A7C] transition-colors">
             {building.name}
           </h4>
-          <span className="text-xs text-[#C6A66B] font-semibold block mt-0.5 truncate">
+          <span className="text-xs text-[#FF6B5B] font-semibold block mt-0.5 truncate">
             {building.techDistrict}
           </span>
         </div>
       </div>
 
       {/* Building Facts Strip */}
-      <div className="p-4 space-y-2 text-[13px] border-t border-[#1C3354]">
+      <div className="p-4 space-y-2 text-[13px] border-t border-[#0F3F4A]">
         <p className="text-[#C8D5E5] line-clamp-2 leading-relaxed">
           {building.highlight}
         </p>
-        <div className="pt-2 border-t border-[#1C3354]/60 flex items-center justify-between text-xs text-[#8BA0BD]">
+        <div className="pt-2 border-t border-[#0F3F4A]/60 flex items-center justify-between text-xs text-[#8BA4A9]">
           <span>{building.floors}</span>
-          <span className="text-[#C6A66B] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-0.5">
+          <span className="text-[#FF6B5B] font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-0.5">
             Explore &rarr;
           </span>
         </div>

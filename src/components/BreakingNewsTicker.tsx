@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { breakingNewsHeadlines } from "@/data/news";
-import { ChevronLeft, ChevronRight, Zap } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function BreakingNewsTicker() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -27,7 +27,7 @@ export default function BreakingNewsTicker() {
 
   return (
     <aside
-      className="w-full bg-[#FCFAF5] border-b border-[#E7E4DC] relative z-20"
+      className="w-full bg-[#FAF7F0] border-b border-[#E5DFD3] relative z-20"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Breaking Technology News"
@@ -36,11 +36,11 @@ export default function BreakingNewsTicker() {
         <div className="flex h-11 items-center justify-between gap-3 text-sm sm:text-[14.5px]">
           {/* Breaking News Label */}
           <div className="flex items-center gap-2.5 shrink-0">
-            <span className="inline-flex items-center gap-1.5 rounded-md bg-[#101F35] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
-              <span className="h-2 w-2 rounded-full bg-[#C6A66B] animate-ping" />
+            <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#0A2E36] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#FF6B5B]">
+              <span className="h-2 w-2 rounded-full bg-[#FF6B5B] animate-ping" />
               <span>Flash News</span>
             </span>
-            <span className="text-[#C6A66B] font-bold hidden sm:inline">•</span>
+            <span className="text-[#FF6B5B] font-bold hidden sm:inline">•</span>
           </div>
 
           {/* Cycling Dynamic Headline */}
@@ -48,7 +48,7 @@ export default function BreakingNewsTicker() {
             <div className="flex items-center">
               <Link
                 href="/news"
-                className="truncate font-semibold text-sm sm:text-base text-[#101F35] hover:text-[#C6A66B] transition-colors flex items-center gap-2"
+                className="truncate font-semibold text-sm sm:text-base text-[#0A2E36] hover:text-[#FF6B5B] transition-colors flex items-center gap-2"
                 title={breakingNewsHeadlines[currentIndex]}
               >
                 <span className="truncate">{breakingNewsHeadlines[currentIndex]}</span>
@@ -57,20 +57,20 @@ export default function BreakingNewsTicker() {
           </div>
 
           {/* Controls: Counter & Prev/Next Arrows */}
-          <div className="flex items-center gap-2 shrink-0 text-[#697386] pl-3 border-l border-[#E7E4DC]">
-            <span className="text-xs font-mono font-medium hidden sm:inline text-[#101F35]">
+          <div className="flex items-center gap-2 shrink-0 text-[#526A70] pl-3 border-l border-[#E5DFD3]">
+            <span className="text-xs font-mono font-medium hidden sm:inline text-[#0A2E36]">
               {currentIndex + 1} / {breakingNewsHeadlines.length}
             </span>
             <button
               onClick={handlePrev}
-              className="p-1.5 rounded hover:bg-[#F6F1E7] hover:text-[#101F35] transition-colors cursor-pointer"
+              className="p-1.5 rounded-md hover:bg-[#F7F4EC] hover:text-[#0A2E36] transition-colors cursor-pointer"
               aria-label="Previous breaking headline"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
             <button
               onClick={handleNext}
-              className="p-1.5 rounded hover:bg-[#F6F1E7] hover:text-[#101F35] transition-colors cursor-pointer"
+              className="p-1.5 rounded-md hover:bg-[#F7F4EC] hover:text-[#0A2E36] transition-colors cursor-pointer"
               aria-label="Next breaking headline"
             >
               <ChevronRight className="h-4 w-4" />

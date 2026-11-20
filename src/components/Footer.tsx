@@ -5,20 +5,20 @@ import { ShieldCheck, MapPin, Newspaper, Layers, Scale, Sparkles } from "lucide-
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-[#101F35] text-[#FCFAF5] border-t border-[#172B46]">
+    <footer className="w-full bg-[#0A2E36] text-[#F7F4EC] border-t border-[#0F3F4A]">
       {/* Top Editorial Authority Strip */}
-      <div className="border-b border-[#172B46] bg-[#0C1728]/70">
+      <div className="border-b border-[#0F3F4A] bg-[#062127]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="flex items-center gap-2.5 text-sm text-[#E7E4DC]">
-            <span className="flex h-2 w-2 rounded-full bg-[#C6A66B]" />
+          <div className="flex items-center gap-2.5 text-sm text-[#F7F4EC]">
+            <span className="flex h-2 w-2 rounded-full bg-[#FF6B5B]" />
             <span className="font-semibold text-white">Independent GCC Software &amp; Tech Intelligence</span>
-            <span className="text-[#697386] hidden sm:inline">•</span>
-            <span className="text-[#E7E4DC]/80 hidden sm:inline">Unbiased evaluations for Saudi Arabia, the UAE, and the GCC</span>
+            <span className="text-[#526A70] hidden sm:inline">•</span>
+            <span className="text-[#F7F4EC]/80 hidden sm:inline">Unbiased evaluations for Saudi Arabia, the UAE, and the GCC</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-[#E7E4DC]/80">
+          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-[#F7F4EC]/80">
             <span className="inline-flex items-center gap-1.5">
-              <MapPin className="h-3.5 w-3.5 text-[#C6A66B]" />
+              <MapPin className="h-3.5 w-3.5 text-[#FF6B5B]" />
               Bureaus: Riyadh • Dubai • Doha • Manama
             </span>
           </div>
@@ -27,29 +27,29 @@ export default function Footer() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Main 5-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 pb-12 border-b border-[#172B46]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 pb-12 border-b border-[#0F3F4A]">
           {/* Brand Info (2 Columns) */}
           <div className="lg:col-span-2 space-y-4">
             <Logo variant="light" showTagline={false} />
-            <p className="text-[16px] text-[#E7E4DC]/90 leading-relaxed max-w-sm">
-              GulfSaasReview is the premier independent business technology publication and software evaluation authority for the Middle East.
+            <p className="text-[16px] text-[#F7F4EC]/90 leading-relaxed max-w-sm">
+              GulfSaasReview is the premier independent business software directory and regional technology evaluation authority for the Middle East.
             </p>
-            <div className="pt-2 flex items-center gap-2 text-sm text-[#C6A66B] font-semibold">
-              <ShieldCheck className="h-4 w-4 shrink-0 text-[#C6A66B]" />
+            <div className="pt-2 flex items-center gap-2 text-sm text-[#FF6B5B] font-semibold">
+              <ShieldCheck className="h-4 w-4 shrink-0 text-[#FF6B5B]" />
               <span>ZATCA Phase 2 • UAE Corporate Tax • Bilingual RTL</span>
             </div>
-            <div className="pt-2 text-xs text-[#697386] leading-relaxed">
+            <div className="pt-2 text-xs text-[#8BA4A9] leading-relaxed">
               Published by Gulf Business Intelligence Media FZ-LLC. Free from vendor sponsorship bias.
             </div>
           </div>
 
           {/* Col 1: Gulf Tech News */}
           <div className="space-y-3.5">
-            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B]">
               <Newspaper className="h-3.5 w-3.5" />
               <span>Gulf News</span>
             </div>
-            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
+            <ul className="space-y-2.5 text-[15px] text-[#F7F4EC]/90">
               <li>
                 <Link href="/news" className="hover:text-white transition-colors">
                   Latest Technology News
@@ -80,11 +80,11 @@ export default function Footer() {
 
           {/* Col 2: Software Directory */}
           <div className="space-y-3.5">
-            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B]">
               <Layers className="h-3.5 w-3.5" />
               <span>SaaS Reviews</span>
             </div>
-            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
+            <ul className="space-y-2.5 text-[15px] text-[#F7F4EC]/90">
               <li>
                 <Link href="/reviews" className="hover:text-white transition-colors">
                   All Software Reviews
@@ -115,11 +115,11 @@ export default function Footer() {
 
           {/* Col 3: Key Categories */}
           <div className="space-y-3.5">
-            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B]">
               <Scale className="h-3.5 w-3.5" />
               <span>Categories</span>
             </div>
-            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
+            <ul className="space-y-2.5 text-[15px] text-[#F7F4EC]/90">
               <li>
                 <Link href="/categories/erp-business-management" className="hover:text-white transition-colors">
                   ERP &amp; Operations
@@ -150,11 +150,11 @@ export default function Footer() {
 
           {/* Col 4: Editorial & Bureaus */}
           <div className="space-y-3.5">
-            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B]">
               <Sparkles className="h-3.5 w-3.5" />
               <span>Publication</span>
             </div>
-            <ul className="space-y-2.5 text-[15px] text-[#E7E4DC]">
+            <ul className="space-y-2.5 text-[15px] text-[#F7F4EC]/90">
               <li>
                 <Link href="/about" className="hover:text-white transition-colors">
                   About Our Mission
@@ -185,15 +185,15 @@ export default function Footer() {
         </div>
 
         {/* Regional Bureaus & Transparency Statement */}
-        <div className="py-6 border-b border-[#172B46] grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-[#697386] leading-relaxed">
+        <div className="py-6 border-b border-[#0F3F4A] grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-[#8BA4A9] leading-relaxed">
           <div>
-            <span className="font-bold text-[#E7E4DC] uppercase tracking-wider block mb-1">
+            <span className="font-bold text-[#F7F4EC] uppercase tracking-wider block mb-1">
               Regional Editorial Coverage
             </span>
             Reporting from Riyadh (King Abdullah Financial District), Dubai (DIFC &amp; Dubai Internet City), Doha (Lusail), and Manama (Seef District).
           </div>
           <div>
-            <span className="font-bold text-[#E7E4DC] uppercase tracking-wider block mb-1">
+            <span className="font-bold text-[#F7F4EC] uppercase tracking-wider block mb-1">
               Editorial Independence Notice
             </span>
             GulfSaasReview does not accept paid placements to alter software ratings or editorial conclusions. Ratings reflect independent feature audits and local compliance verification.
@@ -201,7 +201,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal & Copyright Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#697386]">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-[#8BA4A9]">
           <div>
             &copy; 2026 GulfSaasReview. All rights reserved.
           </div>
@@ -224,7 +224,7 @@ export default function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-[#172B46] text-[#E7E4DC] hover:text-[#C6A66B] transition-colors"
+              className="p-2 rounded-lg bg-[#0F3F4A] text-[#F7F4EC] hover:text-[#FF6B5B] transition-colors"
               aria-label="LinkedIn"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
@@ -235,7 +235,7 @@ export default function Footer() {
               href="https://x.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 rounded-lg bg-[#172B46] text-[#E7E4DC] hover:text-[#C6A66B] transition-colors"
+              className="p-2 rounded-lg bg-[#0F3F4A] text-[#F7F4EC] hover:text-[#FF6B5B] transition-colors"
               aria-label="X (Twitter)"
             >
               <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">

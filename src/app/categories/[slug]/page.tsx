@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categories, categoryLookup } from "@/data/categories";
@@ -53,25 +53,25 @@ export default async function CategoryDetailPage({
   );
 
   return (
-    <div className="min-h-screen bg-[#F6F1E7] pb-24">
+    <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header */}
-      <div className="bg-[#FCFAF5] border-b border-[#E7E4DC] pt-10 pb-14">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Link
             href="/categories"
-            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#101F35] mb-6"
+            className="inline-flex items-center gap-2 text-[15px] font-bold text-[#64748B] hover:text-[#0B3D2E] mb-6"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>All Categories</span>
           </Link>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#C6A66B]/50 bg-[#F6F1E7] px-4 py-1.5 text-[14px] font-bold text-[#101F35] mb-3">
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/50 bg-[#FFF8EF] px-4 py-1.5 text-[14px] font-bold text-[#0B3D2E] mb-3">
               <Layers className="h-4 w-4" />
               <span>{matchingSoftware.length} Evaluated Solutions</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#101F35] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
               {category.name} Software in the Gulf
             </h1>
 
@@ -79,8 +79,8 @@ export default async function CategoryDetailPage({
               {category.description}
             </p>
 
-            <div className="mt-6 rounded-2xl bg-[#F6F1E7] border border-[#E7E4DC] p-5 text-[17px]">
-              <span className="font-bold text-[#101F35] block mb-1">
+            <div className="mt-6 rounded-2xl bg-[#FFF8EF] border border-[#EAE2D5] p-5 text-[17px]">
+              <span className="font-bold text-[#0B3D2E] block mb-1">
                 Regional Gulf Context &amp; Relevance:
               </span>
               <p className="text-[#334155] leading-relaxed">
@@ -94,7 +94,7 @@ export default async function CategoryDetailPage({
       {/* Software Listings in this Category */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35]">
+          <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#0B3D2E]">
             Reviewed {category.name} Tools
           </h2>
           <span className="text-[15px] font-semibold text-[#64748B]">
@@ -109,8 +109,8 @@ export default async function CategoryDetailPage({
         </div>
 
         {/* Category Key Criteria Box */}
-        <div className="mt-16 rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8">
-          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#101F35] mb-5">
+        <div className="mt-16 rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E] mb-5">
             Buyer&apos;s Checklist for {category.name} in Saudi Arabia &amp; UAE
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

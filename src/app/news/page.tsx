@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function NewsPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#F6F1E7] p-12 text-center text-[#101F35]">Loading GCC technology news...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-[#FFF8EF] p-12 text-center text-[#0B3D2E]">Loading GCC technology news...</div>}>
       <NewsClient />
     </Suspense>
   );

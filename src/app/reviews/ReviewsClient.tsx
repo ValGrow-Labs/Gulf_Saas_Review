@@ -126,19 +126,19 @@ export default function ReviewsClient() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC] pb-24">
+    <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Page Header */}
-      <div className="bg-[#FAF7F0] border-b border-[#E5DFD3] pt-12 pb-14">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-12 pb-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#FF6B5B] mb-2.5">
+            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
               <Sparkles className="h-4 w-4" />
               <span>Independent Directory</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0A2E36] tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
               Software Reviews Directory
             </h1>
-            <p className="mt-3 text-[18px] sm:text-[19px] text-[#384D52] leading-relaxed">
+            <p className="mt-3 text-[18px] sm:text-[19px] text-[#354F44] leading-relaxed">
               Explore independent evaluations of enterprise and small business software tailored for businesses in Saudi Arabia, the UAE, and the GCC. Filter by regulatory readiness, Arabic UI, and pricing models.
             </p>
           </div>
@@ -147,22 +147,22 @@ export default function ReviewsClient() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
         {/* Search & Quick Controls Bar */}
-        <div className="rounded-2xl border border-[#E5DFD3] bg-white p-6 shadow-xs mb-8">
+        <div className="rounded-2xl border border-[#EAE2D5] bg-white p-6 shadow-xs mb-8">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             {/* Search Input */}
             <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#526A70]" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#5E7A6E]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search software (e.g. Odoo, Zoho, ZATCA Phase 2, WhatsApp, WPS, Payroll)..."
-                className="w-full rounded-xl border border-[#E5DFD3] bg-[#FAF7F0] pl-12 pr-10 py-3.5 text-[17px] sm:text-[18px] text-[#0A2E36] placeholder-[#8BA4A9] focus:border-[#FF6B5B] focus:outline-none focus:ring-1 focus:ring-[#FF6B5B] shadow-2xs"
+                className="w-full rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] pl-12 pr-10 py-3.5 text-[17px] sm:text-[18px] text-[#0B3D2E] placeholder-[#8BA4A9] focus:border-[#16A34A] focus:outline-none focus:ring-1 focus:ring-[#16A34A] shadow-2xs"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#526A70] hover:text-[#0A2E36] cursor-pointer"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-[#5E7A6E] hover:text-[#0B3D2E] cursor-pointer"
                 >
                   <X className="h-4 w-4" />
                 </button>
@@ -171,14 +171,14 @@ export default function ReviewsClient() {
 
             {/* Quick Sort Dropdown */}
             <div className="flex items-center gap-3 shrink-0">
-              <label htmlFor="sort-by" className="text-[15px] font-bold text-[#0A2E36] shrink-0">
+              <label htmlFor="sort-by" className="text-[15px] font-bold text-[#0B3D2E] shrink-0">
                 Sort By:
               </label>
               <select
                 id="sort-by"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="rounded-xl border border-[#E5DFD3] bg-[#FAF7F0] px-4 py-3 text-[15px] sm:text-[16px] font-bold text-[#0A2E36] focus:border-[#FF6B5B] focus:outline-none shadow-2xs cursor-pointer min-h-[48px]"
+                className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-4 py-3 text-[15px] sm:text-[16px] font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none shadow-2xs cursor-pointer min-h-[48px]"
               >
                 <option value="rating">Highest Rated</option>
                 <option value="reviews">Most Reviewed</option>
@@ -188,23 +188,23 @@ export default function ReviewsClient() {
           </div>
 
           {/* Filter Pills: Category, Pricing, Country Scope */}
-          <div className="mt-5 pt-4 border-t border-[#E5DFD3]/80 flex flex-wrap items-center gap-3 text-[15px] sm:text-[16px]">
+          <div className="mt-5 pt-4 border-t border-[#EAE2D5]/80 flex flex-wrap items-center gap-3 text-[15px] sm:text-[16px]">
             <div className="flex items-center gap-2">
-              <span className="text-[13.5px] font-bold uppercase tracking-wider text-[#526A70]">
+              <span className="text-[13.5px] font-bold uppercase tracking-wider text-[#5E7A6E]">
                 Country:
               </span>
-              <span className="rounded-xl px-4 py-2 font-bold bg-[#0A2E36] text-white text-sm shadow-xs min-h-[40px] inline-flex items-center">
+              <span className="rounded-xl px-4 py-2 font-bold bg-[#0B3D2E] text-white text-sm shadow-xs min-h-[40px] inline-flex items-center">
                 All GCC
               </span>
             </div>
 
-            <div className="h-5 w-[1px] bg-[#E5DFD3] mx-1 hidden sm:block" />
+            <div className="h-5 w-[1px] bg-[#EAE2D5] mx-1 hidden sm:block" />
 
             {/* Category Dropdown Filter */}
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="rounded-xl border border-[#E5DFD3] bg-[#FAF7F0] px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#0A2E36] focus:border-[#FF6B5B] focus:outline-none min-h-[44px] cursor-pointer"
+              className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none min-h-[44px] cursor-pointer"
             >
               <option value="all">All Categories ({categories.length})</option>
               {categories.map((cat) => (
@@ -218,7 +218,7 @@ export default function ReviewsClient() {
             <select
               value={selectedPricing}
               onChange={(e) => setSelectedPricing(e.target.value)}
-              className="rounded-xl border border-[#E5DFD3] bg-[#FAF7F0] px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#0A2E36] focus:border-[#FF6B5B] focus:outline-none min-h-[44px] cursor-pointer"
+              className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none min-h-[44px] cursor-pointer"
             >
               <option value="all">All Pricing Models</option>
               <option value="free">Free Tier Available</option>
@@ -230,7 +230,7 @@ export default function ReviewsClient() {
             {hasActiveFilters && (
               <button
                 onClick={handleResetFilters}
-                className="ml-auto inline-flex items-center gap-1.5 text-[15px] font-bold text-[#FF6B5B] hover:text-[#E85747] hover:underline cursor-pointer py-1"
+                className="ml-auto inline-flex items-center gap-1.5 text-[15px] font-bold text-[#16A34A] hover:text-[#0B3D2E] hover:underline cursor-pointer py-1"
               >
                 <RotateCcw className="h-4 w-4" />
                 <span>Reset All Filters</span>
@@ -239,16 +239,16 @@ export default function ReviewsClient() {
           </div>
 
           {/* 1-Click Quick Category Filter Chips */}
-          <div className="mt-4 pt-3.5 border-t border-[#E5DFD3]/60 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-            <span className="text-xs font-bold uppercase tracking-wider text-[#526A70] shrink-0 mr-1">
+          <div className="mt-4 pt-3.5 border-t border-[#EAE2D5]/60 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#5E7A6E] shrink-0 mr-1">
               Popular Needs:
             </span>
             <button
               onClick={() => setSelectedCategory("all")}
               className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all shrink-0 cursor-pointer ${
                 selectedCategory === "all"
-                  ? "bg-[#0A2E36] text-white shadow-xs"
-                  : "bg-[#FAF7F0] text-[#0A2E36] border border-[#E5DFD3] hover:border-[#FF6B5B] hover:text-[#FF6B5B]"
+                  ? "bg-[#0B3D2E] text-white shadow-xs"
+                  : "bg-[#FFF8EF] text-[#0B3D2E] border border-[#EAE2D5] hover:border-[#16A34A] hover:text-[#16A34A]"
               }`}
             >
               All Tools ({softwares.length})
@@ -259,8 +259,8 @@ export default function ReviewsClient() {
                 onClick={() => setSelectedCategory(cat.slug)}
                 className={`rounded-xl px-3.5 py-1.5 text-xs font-bold transition-all shrink-0 cursor-pointer ${
                   selectedCategory === cat.slug
-                    ? "bg-[#0A2E36] text-white shadow-xs"
-                    : "bg-[#FAF7F0] text-[#0A2E36] border border-[#E5DFD3] hover:border-[#FF6B5B] hover:text-[#FF6B5B]"
+                    ? "bg-[#0B3D2E] text-white shadow-xs"
+                    : "bg-[#FFF8EF] text-[#0B3D2E] border border-[#EAE2D5] hover:border-[#16A34A] hover:text-[#16A34A]"
                 }`}
               >
                 {cat.name}
@@ -270,14 +270,14 @@ export default function ReviewsClient() {
         </div>
 
         {/* Results Counter */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 text-[16px] text-[#526A70]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 text-[16px] text-[#5E7A6E]">
           <div>
-            Showing <strong className="text-[#0A2E36] text-[18px]">{filteredSoftwares.length}</strong> software {filteredSoftwares.length === 1 ? "solution" : "solutions"}
+            Showing <strong className="text-[#0B3D2E] text-[18px]">{filteredSoftwares.length}</strong> software {filteredSoftwares.length === 1 ? "solution" : "solutions"}
             {selectedCategory !== "all" && ` in ${categories.find(c => c.slug === selectedCategory)?.name}`}
             {selectedCountry !== "all" && ` for ${selectedCountry}`}
           </div>
-          <div className="flex items-center gap-2 text-[#0A2E36] font-semibold text-[15px]">
-            <ShieldCheck className="h-4 w-4 text-[#FF6B5B] shrink-0" />
+          <div className="flex items-center gap-2 text-[#0B3D2E] font-semibold text-[15px]">
+            <ShieldCheck className="h-4 w-4 text-[#16A34A] shrink-0" />
             <span>Sample review directory compiled under GulfSaasReview regional standards.</span>
           </div>
         </div>
@@ -290,15 +290,15 @@ export default function ReviewsClient() {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-dashed border-[#E5DFD3] bg-white p-12 text-center max-w-xl mx-auto my-12">
-            <SlidersHorizontal className="mx-auto h-12 w-12 text-[#526A70] mb-3" />
-            <h3 className="text-2xl font-bold font-editorial text-[#0A2E36]">No software matches your criteria</h3>
-            <p className="mt-2 text-[17px] text-[#526A70]">
+          <div className="rounded-2xl border border-dashed border-[#EAE2D5] bg-white p-12 text-center max-w-xl mx-auto my-12">
+            <SlidersHorizontal className="mx-auto h-12 w-12 text-[#5E7A6E] mb-3" />
+            <h3 className="text-2xl font-bold font-editorial text-[#0B3D2E]">No software matches your criteria</h3>
+            <p className="mt-2 text-[17px] text-[#5E7A6E]">
               Try clearing your search query or loosening your category and country filters.
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#FF6B5B] px-6 py-3.5 text-[16px] font-bold text-white hover:bg-[#E85747] cursor-pointer shadow-md"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#0B3D2E] px-6 py-3.5 text-[16px] font-bold text-white hover:bg-[#16A34A] cursor-pointer shadow-md"
             >
               <RotateCcw className="h-4 w-4" />
               <span>Reset Filters</span>

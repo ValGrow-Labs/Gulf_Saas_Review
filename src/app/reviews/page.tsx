@@ -1,4 +1,4 @@
-﻿import React, { Suspense } from "react";
+import React, { Suspense } from "react";
 import ReviewsClient from "./ReviewsClient";
 
 export const metadata = {
@@ -11,8 +11,8 @@ export default function ReviewsPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-[#FCFAF5]">
-          <div className="text-sm font-semibold text-[#101F35]">
+        <div className="min-h-screen flex items-center justify-center bg-[#FFF8EF]">
+          <div className="text-sm font-semibold text-[#0B3D2E]">
             Loading Gulf software directory...
           </div>
         </div>

@@ -57,28 +57,28 @@ export default function HomePage() {
     .filter((s): s is (typeof softwares)[0] => Boolean(s));
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F7F4EC]">
+    <div className="flex flex-col min-h-screen bg-[#FFF8EF]">
       {/* ---------------------------------------------------- */}
       {/* SECTION 1: VALUE PROPOSITION HERO & TRENDING DISPATCHES */}
       {/* ---------------------------------------------------- */}
-      <section className="bg-[#FAF7F0] py-7 sm:py-9 border-b border-[#E5DFD3]">
+      <section className="bg-[#FFF8EF] py-7 sm:py-9 border-b border-[#EAE2D5]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             {/* Left Column: Hero Value Proposition (lg:col-span-7) */}
             <div className="lg:col-span-7 flex flex-col justify-center text-left space-y-3">
               {/* Regional Territory Pill */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#E5DFD3] bg-white px-3 py-0.5 text-xs font-bold text-[#0A2E36] shadow-2xs w-fit">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B5B] animate-pulse" />
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#C8E6D2] bg-[#EAF5ED] px-3 py-0.5 text-xs font-bold text-[#0B3D2E] shadow-2xs w-fit">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] animate-pulse" />
                 <span>The Independent Software Guide for Saudi Arabia, UAE &amp; GCC</span>
               </div>
 
               {/* Simple, Bold Headline */}
-              <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-editorial text-[#0A2E36] tracking-tight leading-[1.2]">
+              <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-editorial text-[#0B3D2E] tracking-tight leading-[1.2]">
                 Find the Right Software for Your Business in the Gulf
               </h1>
 
               {/* Subtitle */}
-              <p className="text-sm sm:text-[15px] text-[#384D52] leading-relaxed font-normal">
+              <p className="text-sm sm:text-[15px] text-[#354F44] leading-relaxed font-normal">
                 Independent reviews, side-by-side comparisons, and regional compliance checks for Accounting, CRM, HR, Payroll, and ERP software across the Middle East.
               </p>
 
@@ -86,23 +86,23 @@ export default function HomePage() {
               <div className="pt-2 flex flex-wrap items-center gap-2.5">
                 <Link
                   href="/reviews"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#FF6B5B] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#E85747] transition-all shadow-xs"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#0B3D2E] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-all shadow-xs"
                 >
                   <span>Browse Software Reviews</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/categories"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5DFD3] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B] hover:text-[#FF6B5B] transition-colors shadow-2xs"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#EAE2D5] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A] transition-colors shadow-2xs"
                 >
-                  <Layers className="h-4 w-4 text-[#FF6B5B]" />
+                  <Layers className="h-4 w-4 text-[#16A34A]" />
                   <span>Explore Categories</span>
                 </Link>
                 <Link
                   href="/compare"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5DFD3] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B] hover:text-[#FF6B5B] transition-colors shadow-2xs"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#EAE2D5] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A] transition-colors shadow-2xs"
                 >
-                  <Scale className="h-4 w-4 text-[#FF6B5B]" />
+                  <Scale className="h-4 w-4 text-[#16A34A]" />
                   <span>Compare Tools</span>
                 </Link>
               </div>
@@ -110,18 +110,18 @@ export default function HomePage() {
 
             {/* Right Column: Trending Regional Dispatches (lg:col-span-5) */}
             <div className="lg:col-span-5 flex flex-col justify-center">
-              <div className="rounded-2xl border border-[#E5DFD3] bg-white p-4.5 sm:p-5 shadow-xs flex flex-col justify-between">
+              <div className="rounded-2xl border border-[#EAE2D5] bg-white p-4.5 sm:p-5 shadow-xs flex flex-col justify-between">
                 {/* Header */}
-                <div className="flex items-center justify-between pb-3 border-b border-[#E5DFD3]">
+                <div className="flex items-center justify-between pb-3 border-b border-[#EAE2D5]">
                   <div className="flex items-center gap-2">
-                    <span className="h-2 w-2 rounded-full bg-[#FF6B5B]" />
-                    <h2 className="text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#0A2E36]">
+                    <span className="h-2 w-2 rounded-full bg-[#16A34A]" />
+                    <h2 className="text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#0B3D2E]">
                       Trending Regional Dispatches
                     </h2>
                   </div>
                   <Link
                     href="/news"
-                    className="text-xs font-bold text-[#FF6B5B] hover:text-[#0A2E36] transition-colors flex items-center gap-1"
+                    className="text-xs font-bold text-[#16A34A] hover:text-[#0B3D2E] transition-colors flex items-center gap-1"
                   >
                     <span>All News</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -133,9 +133,9 @@ export default function HomePage() {
                   {sideArticles.map((article) => (
                     <article
                       key={article.id}
-                      className="group flex items-center gap-3 pb-3 border-b border-[#E5DFD3]/80 last:border-b-0 last:pb-0"
+                      className="group flex items-center gap-3 pb-3 border-b border-[#EAE2D5]/80 last:border-b-0 last:pb-0"
                     >
-                      <div className="relative h-15 w-20 shrink-0 overflow-hidden rounded-lg border border-[#E5DFD3] bg-[#0A2E36]/5">
+                      <div className="relative h-15 w-20 shrink-0 overflow-hidden rounded-lg border border-[#EAE2D5] bg-[#0B3D2E]/5">
                         <Image
                           src={article.featuredImage || article.image}
                           alt={article.title}
@@ -147,20 +147,20 @@ export default function HomePage() {
 
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center gap-1.5 text-[11px] mb-0.5">
-                          <span className="font-bold uppercase tracking-wider text-[#FF6B5B]">
+                          <span className="font-bold uppercase tracking-wider text-[#16A34A]">
                             {article.country}
                           </span>
-                          <span className="text-[#526A70]">•</span>
-                          <span className="text-[#526A70]">{article.readTime}</span>
+                          <span className="text-[#5E7A6E]">•</span>
+                          <span className="text-[#5E7A6E]">{article.readTime}</span>
                         </div>
 
-                        <h3 className="font-editorial text-xs sm:text-[13px] font-bold text-[#0A2E36] group-hover:text-[#FF6B5B] transition-colors leading-snug line-clamp-2">
+                        <h3 className="font-editorial text-xs sm:text-[13px] font-bold text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors leading-snug line-clamp-2">
                           <Link href={`/news/${article.slug}`}>
                             {article.title}
                           </Link>
                         </h3>
 
-                        <span className="text-[10px] text-[#526A70] mt-0.5 block">
+                        <span className="text-[10px] text-[#5E7A6E] mt-0.5 block">
                           {article.publishedDate}
                         </span>
                       </div>
@@ -176,28 +176,28 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 2: BROWSE SOFTWARE BY CATEGORY               */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FAF7F0] border-b border-[#E5DFD3]">
+      <section className="py-8 sm:py-10 bg-[#FBF4E8] border-b border-[#EAE2D5]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#E5DFD3]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B] mb-1">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
                 <Layers className="h-3.5 w-3.5" />
                 <span>Browse by Business Need</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0A2E36] tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
                 Software Categories for Gulf Businesses
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-[#526A70] max-w-2xl leading-relaxed">
+              <p className="mt-1 text-xs sm:text-sm text-[#5E7A6E] max-w-2xl leading-relaxed">
                 Explore dedicated directories grouped by organizational function, verified for Middle Eastern legal and commercial standards.
               </p>
             </div>
 
             <Link
               href="/categories"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0A2E36] hover:text-[#FF6B5B] transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:text-[#16A34A] transition-colors shrink-0"
             >
               <span>View All Categories</span>
-              <ArrowRight className="h-4 w-4 text-[#FF6B5B]" />
+              <ArrowRight className="h-4 w-4 text-[#16A34A]" />
             </Link>
           </div>
 
@@ -209,30 +209,30 @@ export default function HomePage() {
                 <Link
                   key={cat.id}
                   href={`/reviews?category=${cat.slug}`}
-                  className="group flex flex-col justify-between rounded-xl border border-[#E5DFD3] bg-white p-4 transition-all duration-200 hover:border-[#FF6B5B] hover:shadow-xs hover:-translate-y-0.5"
+                  className="group flex flex-col justify-between rounded-xl border border-[#EAE2D5] bg-white p-4 transition-all duration-200 hover:border-[#16A34A] hover:shadow-xs hover:-translate-y-0.5"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0A2E36] text-[#FF6B5B] group-hover:bg-[#FF6B5B] group-hover:text-white transition-colors duration-200 shadow-2xs">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0B3D2E] text-[#22C55E] group-hover:bg-[#16A34A] group-hover:text-white transition-colors duration-200 shadow-2xs">
                         <IconComponent className="h-5 w-5" />
                       </div>
-                      <span className="rounded-md bg-[#FAF7F0] border border-[#E5DFD3] px-2 py-0.5 text-[11px] font-bold text-[#526A70]">
+                      <span className="rounded-md bg-[#EAF5ED] border border-[#C8E6D2] px-2 py-0.5 text-[11px] font-bold text-[#0B3D2E]">
                         {cat.count}+ tools
                       </span>
                     </div>
 
-                    <h3 className="text-sm sm:text-base font-bold text-[#0A2E36] group-hover:text-[#FF6B5B] transition-colors leading-snug">
+                    <h3 className="text-sm sm:text-base font-bold text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors leading-snug">
                       {cat.name}
                     </h3>
 
-                    <p className="mt-1 text-xs text-[#526A70] leading-relaxed line-clamp-2">
+                    <p className="mt-1 text-xs text-[#5E7A6E] leading-relaxed line-clamp-2">
                       {cat.description}
                     </p>
                   </div>
 
-                  <div className="mt-3 pt-2.5 border-t border-[#E5DFD3]/80 flex items-center justify-between text-xs font-bold text-[#0A2E36] group-hover:text-[#FF6B5B] transition-colors">
+                  <div className="mt-3 pt-2.5 border-t border-[#EAE2D5]/80 flex items-center justify-between text-xs font-bold text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors">
                     <span>Explore Tools</span>
-                    <ArrowRight className="h-3.5 w-3.5 text-[#FF6B5B] transform group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="h-3.5 w-3.5 text-[#16A34A] transform group-hover:translate-x-1 transition-transform" />
                   </div>
                 </Link>
               );
@@ -244,18 +244,18 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 3: TOP-RATED BUSINESS SOFTWARE DIRECTORY     */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#F7F4EC] border-b border-[#E5DFD3]">
+      <section className="py-8 sm:py-10 bg-[#FFF8EF] border-b border-[#EAE2D5]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#E5DFD3]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B] mb-1">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
                 <ShieldCheck className="h-3.5 w-3.5" />
                 <span>Featured Independent Evaluations</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0A2E36] tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
                 Top-Rated Software for Gulf Enterprises &amp; SMBs
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-[#526A70] max-w-2xl leading-relaxed">
+              <p className="mt-1 text-xs sm:text-sm text-[#5E7A6E] max-w-2xl leading-relaxed">
                 Independently audited for Saudi Arabia ZATCA Phase 2, UAE FTA VAT filing, multi-currency support, and localized client portals.
               </p>
             </div>
@@ -263,17 +263,17 @@ export default function HomePage() {
             <div className="flex items-center gap-2.5 shrink-0">
               <Link
                 href="/compare"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5DFD3] bg-white px-3.5 py-2 text-xs sm:text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B] hover:text-[#FF6B5B] transition-colors shadow-2xs"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-[#EAE2D5] bg-white px-3.5 py-2 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A] transition-colors shadow-2xs"
               >
-                <Scale className="h-4 w-4 text-[#FF6B5B]" />
+                <Scale className="h-4 w-4 text-[#16A34A]" />
                 <span>Compare Tools</span>
               </Link>
               <Link
                 href="/reviews"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-[#0A2E36] px-3.5 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#0D3B43] transition-colors shadow-xs"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-[#0B3D2E] px-3.5 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-colors shadow-xs"
               >
                 <span>Full Directory ({softwares.length}+)</span>
-                <ArrowRight className="h-4 w-4 text-[#FF6B5B]" />
+                <ArrowRight className="h-4 w-4 text-[#22C55E]" />
               </Link>
             </div>
           </div>
@@ -286,16 +286,16 @@ export default function HomePage() {
           </div>
 
           {/* Callout Strip to Browse All Reviews */}
-          <div className="rounded-xl border border-[#E5DFD3] bg-white p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xs">
+          <div className="rounded-xl border border-[#EAE2D5] bg-white p-4 sm:p-5 flex flex-col md:flex-row items-center justify-between gap-4 shadow-2xs">
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#FFF0EE] text-[#FF6B5B]">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#EAF5ED] text-[#16A34A]">
                 <ShieldCheck className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="text-sm sm:text-base font-bold text-[#0A2E36]">
+                <h4 className="text-sm sm:text-base font-bold text-[#0B3D2E]">
                   Looking for specialized software or niche Gulf integrations?
                 </h4>
-                <p className="text-xs sm:text-sm text-[#526A70]">
+                <p className="text-xs sm:text-sm text-[#5E7A6E]">
                   Filter 50+ business applications by country suitability (KSA, UAE, Qatar), Arabic RTL readiness, and pricing models.
                 </p>
               </div>
@@ -303,7 +303,7 @@ export default function HomePage() {
 
             <Link
               href="/reviews"
-              className="inline-flex items-center gap-1.5 rounded-xl bg-[#FF6B5B] px-4.5 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#E85747] transition-all shadow-xs shrink-0"
+              className="inline-flex items-center gap-1.5 rounded-xl bg-[#0B3D2E] px-4.5 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-all shadow-xs shrink-0"
             >
               <span>Explore All Software</span>
               <ArrowRight className="h-4 w-4" />
@@ -315,28 +315,28 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 4: HEAD-TO-HEAD COMPARISON MATRIX TEASERS    */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FAF7F0] border-b border-[#E5DFD3]">
+      <section className="py-8 sm:py-10 bg-[#FBF4E8] border-b border-[#EAE2D5]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#E5DFD3]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B] mb-1">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
                 <Scale className="h-3.5 w-3.5" />
                 <span>Side-by-Side Analysis</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0A2E36] tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
                 Featured Head-to-Head Comparisons
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-[#526A70] max-w-2xl leading-relaxed">
+              <p className="mt-1 text-xs sm:text-sm text-[#5E7A6E] max-w-2xl leading-relaxed">
                 Direct benchmark evaluations comparing implementation costs, regional tax integration, and team adoption friction.
               </p>
             </div>
 
             <Link
               href="/compare"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0A2E36] hover:text-[#FF6B5B] transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:text-[#16A34A] transition-colors shrink-0"
             >
               <span>All Comparisons</span>
-              <ArrowRight className="h-4 w-4 text-[#FF6B5B]" />
+              <ArrowRight className="h-4 w-4 text-[#16A34A]" />
             </Link>
           </div>
 
@@ -344,32 +344,32 @@ export default function HomePage() {
             {comparisons.slice(0, 2).map((comp) => (
               <div
                 key={comp.id}
-                className="rounded-xl border border-[#E5DFD3] bg-white p-5 hover:border-[#FF6B5B] transition-all duration-200 shadow-2xs flex flex-col justify-between"
+                className="rounded-xl border border-[#EAE2D5] bg-white p-5 hover:border-[#16A34A] transition-all duration-200 shadow-2xs flex flex-col justify-between"
               >
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF6B5B] bg-[#FFF0EE] px-2.5 py-0.5 rounded-md">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#0B3D2E] bg-[#EAF5ED] px-2.5 py-0.5 rounded-md border border-[#C8E6D2]">
                     {comp.categories?.[0] || "Head-to-Head"}
                   </span>
-                  <h3 className="font-editorial text-lg sm:text-xl font-bold text-[#0A2E36] mt-2 leading-snug">
-                    <Link href={`/compare/${comp.slug}`} className="hover:text-[#FF6B5B] transition-colors">
+                  <h3 className="font-editorial text-lg sm:text-xl font-bold text-[#0B3D2E] mt-2 leading-snug">
+                    <Link href={`/compare/${comp.slug}`} className="hover:text-[#16A34A] transition-colors">
                       {comp.title}
                     </Link>
                   </h3>
-                  <p className="mt-1.5 text-xs sm:text-sm text-[#384D52] leading-relaxed">
+                  <p className="mt-1.5 text-xs sm:text-sm text-[#354F44] leading-relaxed">
                     {comp.shortDescription}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-[#E5DFD3] flex items-center justify-between text-xs">
-                  <span className="text-[#526A70]">
+                <div className="mt-4 pt-3 border-t border-[#EAE2D5] flex items-center justify-between text-xs">
+                  <span className="text-[#5E7A6E]">
                     GCC Verdict &amp; Pricing Breakdown
                   </span>
                   <Link
                     href={`/compare/${comp.slug}`}
-                    className="inline-flex items-center gap-1 font-bold text-[#0A2E36] hover:text-[#FF6B5B] transition-colors"
+                    className="inline-flex items-center gap-1 font-bold text-[#0B3D2E] hover:text-[#16A34A] transition-colors"
                   >
                     <span>Compare Solutions</span>
-                    <ArrowRight className="h-3.5 w-3.5 text-[#FF6B5B]" />
+                    <ArrowRight className="h-3.5 w-3.5 text-[#16A34A]" />
                   </Link>
                 </div>
               </div>
@@ -381,37 +381,37 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 5: LATEST GULF TECH & AI NEWS (PRESERVED)    */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#F7F4EC] border-b border-[#E5DFD3]">
+      <section className="py-8 sm:py-10 bg-[#FFF8EF] border-b border-[#EAE2D5]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#E5DFD3]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
-              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FF6B5B] mb-1">
+              <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
                 <FileText className="h-3.5 w-3.5" />
                 <span>Editorial Intelligence &amp; Analysis</span>
               </div>
-              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0A2E36] tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
                 Latest Gulf Technology &amp; Enterprise News
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-[#526A70] max-w-2xl leading-relaxed">
+              <p className="mt-1 text-xs sm:text-sm text-[#5E7A6E] max-w-2xl leading-relaxed">
                 Independent reporting on Middle Eastern artificial intelligence, sovereign cloud infrastructure, and enterprise software acquisitions.
               </p>
             </div>
 
             <Link
               href="/news"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0A2E36] hover:text-[#FF6B5B] transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:text-[#16A34A] transition-colors shrink-0"
             >
               <span>Explore All News</span>
-              <ArrowRight className="h-4 w-4 text-[#FF6B5B]" />
+              <ArrowRight className="h-4 w-4 text-[#16A34A]" />
             </Link>
           </div>
 
           {/* Primary Lead Story (Full-Width Horizontal Editorial Feature) */}
-          <article className="group rounded-2xl border border-[#E5DFD3] bg-white p-5 sm:p-6 shadow-2xs hover:border-[#FF6B5B] transition-all">
+          <article className="group rounded-2xl border border-[#EAE2D5] bg-white p-5 sm:p-6 shadow-2xs hover:border-[#16A34A] transition-all">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
               {/* Lead Image (col-span-7) */}
               <div className="lg:col-span-7">
-                <div className="relative aspect-16/10 w-full overflow-hidden rounded-xl border border-[#E5DFD3] bg-[#0A2E36]/5">
+                <div className="relative aspect-16/10 w-full overflow-hidden rounded-xl border border-[#EAE2D5] bg-[#0B3D2E]/5">
                   <Image
                     src={heroArticle.featuredImage || heroArticle.image}
                     alt={heroArticle.title}
@@ -421,11 +421,11 @@ export default function HomePage() {
                     sizes="(max-width: 1024px) 100vw, 750px"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap items-center gap-2 z-10">
-                    <span className="inline-flex items-center gap-1 rounded-md bg-[#0A2E36] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#FF6B5B] shadow-md">
+                    <span className="inline-flex items-center gap-1 rounded-md bg-[#0B3D2E] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#22C55E] shadow-md">
                       <Sparkles className="h-3 w-3" />
                       {heroArticle.category}
                     </span>
-                    <span className="rounded-md bg-white/95 backdrop-blur-xs px-2.5 py-1 text-xs font-semibold text-[#0A2E36] shadow-xs">
+                    <span className="rounded-md bg-white/95 backdrop-blur-xs px-2.5 py-1 text-xs font-semibold text-[#0B3D2E] shadow-xs">
                       {heroArticle.country}
                     </span>
                   </div>
@@ -435,29 +435,29 @@ export default function HomePage() {
               {/* Story Content (col-span-5) */}
               <div className="lg:col-span-5 flex flex-col justify-between space-y-3.5">
                 <div className="space-y-2">
-                  <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FF6B5B]">
+                  <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16A34A]">
                     <span>Lead Story &amp; Analysis</span>
                     <span>•</span>
                     <span>Executive Intelligence</span>
                   </div>
 
-                  <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#0A2E36] tracking-tight leading-snug group-hover:text-[#FF6B5B] transition-colors">
+                  <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E] tracking-tight leading-snug group-hover:text-[#16A34A] transition-colors">
                     <Link href={`/news/${heroArticle.slug}`}>
                       {heroArticle.title}
                     </Link>
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-[#384D52] leading-relaxed line-clamp-3 font-normal">
+                  <p className="text-xs sm:text-sm text-[#354F44] leading-relaxed line-clamp-3 font-normal">
                     {heroArticle.subtitle || heroArticle.excerpt}
                   </p>
                 </div>
 
                 {/* Key takeaways bullets */}
                 {heroArticle.keyTakeaways && heroArticle.keyTakeaways.length > 0 && (
-                  <div className="space-y-1.5 pt-2 border-t border-[#E5DFD3]/80">
+                  <div className="space-y-1.5 pt-2 border-t border-[#EAE2D5]/80">
                     {heroArticle.keyTakeaways.slice(0, 2).map((takeaway, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-xs text-[#1E3A40]">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B5B] mt-1.5 shrink-0" />
+                      <div key={idx} className="flex items-start gap-2 text-xs text-[#2D4A3E]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] mt-1.5 shrink-0" />
                         <span className="line-clamp-1">{takeaway}</span>
                       </div>
                     ))}
@@ -465,19 +465,19 @@ export default function HomePage() {
                 )}
 
                 {/* Byline & Read Button */}
-                <div className="pt-3 border-t border-[#E5DFD3] flex items-center justify-between gap-3 text-xs text-[#526A70]">
+                <div className="pt-3 border-t border-[#EAE2D5] flex items-center justify-between gap-3 text-xs text-[#5E7A6E]">
                   <div className="flex items-center gap-2">
-                    <div className="h-7 w-7 rounded-full bg-[#0A2E36] text-[#FF6B5B] font-bold flex items-center justify-center text-[11px]">
+                    <div className="h-7 w-7 rounded-full bg-[#0B3D2E] text-[#22C55E] font-bold flex items-center justify-center text-[11px]">
                       {heroArticle.author.name
                         .split(" ")
                         .map((n) => n[0])
                         .join("")}
                     </div>
                     <div>
-                      <span className="font-bold text-[#0A2E36] block leading-tight text-xs">
+                      <span className="font-bold text-[#0B3D2E] block leading-tight text-xs">
                         {heroArticle.author.name}
                       </span>
-                      <span className="text-[11px] text-[#526A70]">
+                      <span className="text-[11px] text-[#5E7A6E]">
                         {heroArticle.publishedDate} • {heroArticle.readTime}
                       </span>
                     </div>
@@ -485,7 +485,7 @@ export default function HomePage() {
 
                   <Link
                     href={`/news/${heroArticle.slug}`}
-                    className="inline-flex items-center gap-1 font-bold text-white bg-[#0A2E36] hover:bg-[#FF6B5B] px-3.5 py-1.5 rounded-lg transition-colors shadow-2xs shrink-0"
+                    className="inline-flex items-center gap-1 font-bold text-white bg-[#0B3D2E] hover:bg-[#16A34A] px-3.5 py-1.5 rounded-lg transition-colors shadow-2xs shrink-0"
                   >
                     <span>Read Briefing</span>
                     <ArrowRight className="h-3.5 w-3.5" />
@@ -496,20 +496,20 @@ export default function HomePage() {
           </article>
 
           {/* Sub-Hero 4-Column Regional Spotlight Strip */}
-          <div className="pt-6 border-t border-[#E5DFD3]">
-            <div className="text-xs font-bold uppercase tracking-wider text-[#526A70] mb-3 flex items-center justify-between">
+          <div className="pt-6 border-t border-[#EAE2D5]">
+            <div className="text-xs font-bold uppercase tracking-wider text-[#5E7A6E] mb-3 flex items-center justify-between">
               <span>National Innovation Spotlights</span>
-              <span className="text-[#0A2E36]">KSA • UAE • Qatar • Kuwait</span>
+              <span className="text-[#0B3D2E]">KSA • UAE • Qatar • Kuwait</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {spotlightArticles.map((item) => (
                 <article
                   key={item.id}
-                  className="group rounded-xl border border-[#E5DFD3] bg-white p-3.5 transition-all duration-200 hover:border-[#FF6B5B] hover:shadow-xs flex flex-col justify-between"
+                  className="group rounded-xl border border-[#EAE2D5] bg-white p-3.5 transition-all duration-200 hover:border-[#16A34A] hover:shadow-xs flex flex-col justify-between"
                 >
                   <div>
-                    <div className="relative aspect-16/10 w-full overflow-hidden rounded-lg mb-2.5 bg-[#0A2E36]/5">
+                    <div className="relative aspect-16/10 w-full overflow-hidden rounded-lg mb-2.5 bg-[#0B3D2E]/5">
                       <Image
                         src={item.featuredImage || item.image}
                         alt={item.title}
@@ -517,21 +517,21 @@ export default function HomePage() {
                         className="object-cover transition-transform duration-300 group-hover:scale-105"
                         sizes="(max-width: 768px) 100vw, 300px"
                       />
-                      <span className="absolute bottom-1.5 left-1.5 rounded bg-[#0A2E36]/90 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FF6B5B] backdrop-blur-xs">
+                      <span className="absolute bottom-1.5 left-1.5 rounded bg-[#0B3D2E]/90 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#22C55E] backdrop-blur-xs">
                         {item.country}
                       </span>
                     </div>
 
-                    <h5 className="font-editorial text-xs sm:text-sm font-bold text-[#0A2E36] group-hover:text-[#FF6B5B] transition-colors leading-snug line-clamp-2">
+                    <h5 className="font-editorial text-xs sm:text-sm font-bold text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors leading-snug line-clamp-2">
                       <Link href={`/news/${item.slug}`}>
                         {item.title}
                       </Link>
                     </h5>
                   </div>
 
-                  <div className="mt-2.5 pt-2 border-t border-[#E5DFD3] flex items-center justify-between text-[11px] text-[#526A70]">
+                  <div className="mt-2.5 pt-2 border-t border-[#EAE2D5] flex items-center justify-between text-[11px] text-[#5E7A6E]">
                     <span className="font-medium">{item.category}</span>
-                    <span className="font-semibold text-[#0A2E36] group-hover:text-[#FF6B5B]">
+                    <span className="font-semibold text-[#0B3D2E] group-hover:text-[#16A34A]">
                       Read &rarr;
                     </span>
                   </div>
@@ -545,10 +545,10 @@ export default function HomePage() {
             {latestArticles.map((article) => (
               <article
                 key={article.id}
-                className="group flex flex-col justify-between rounded-xl border border-[#E5DFD3] bg-white p-4 transition-all duration-200 hover:border-[#FF6B5B] hover:shadow-sm"
+                className="group flex flex-col justify-between rounded-xl border border-[#EAE2D5] bg-white p-4 transition-all duration-200 hover:border-[#16A34A] hover:shadow-sm"
               >
                 <div>
-                  <div className="relative aspect-16/10 w-full overflow-hidden rounded-lg border border-[#E5DFD3] bg-[#0A2E36]/5 mb-3">
+                  <div className="relative aspect-16/10 w-full overflow-hidden rounded-lg border border-[#EAE2D5] bg-[#0B3D2E]/5 mb-3">
                     <Image
                       src={article.featuredImage || article.image}
                       alt={article.title}
@@ -556,38 +556,38 @@ export default function HomePage() {
                       className="object-cover transition-transform duration-300 group-hover:scale-103"
                       sizes="(max-width: 768px) 100vw, 400px"
                     />
-                    <span className="absolute top-2 left-2 rounded bg-[#0A2E36]/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#FF6B5B]">
+                    <span className="absolute top-2 left-2 rounded bg-[#0B3D2E]/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#22C55E]">
                       {article.country}
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between gap-2 mb-1.5">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#D44435] bg-[#FFF0EE] px-2 py-0.5 rounded">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#15803D] bg-[#EAF5ED] px-2 py-0.5 rounded border border-[#C8E6D2]">
                       {article.category}
                     </span>
-                    <span className="text-[11px] text-[#526A70]">
+                    <span className="text-[11px] text-[#5E7A6E]">
                       {article.publishedDate}
                     </span>
                   </div>
 
-                  <h4 className="text-sm sm:text-base font-bold font-editorial text-[#0A2E36] group-hover:text-[#FF6B5B] transition-colors leading-snug line-clamp-2">
+                  <h4 className="text-sm sm:text-base font-bold font-editorial text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors leading-snug line-clamp-2">
                     <Link href={`/news/${article.slug}`}>
                       {article.title}
                     </Link>
                   </h4>
 
-                  <p className="mt-1 text-xs text-[#384D52] leading-relaxed line-clamp-2">
+                  <p className="mt-1 text-xs text-[#354F44] leading-relaxed line-clamp-2">
                     {article.excerpt}
                   </p>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-[#E5DFD3] flex items-center justify-between text-[11px] text-[#526A70]">
+                <div className="mt-3 pt-2.5 border-t border-[#EAE2D5] flex items-center justify-between text-[11px] text-[#5E7A6E]">
                   <div className="flex items-center gap-1 font-medium">
-                    <User className="h-3 w-3 text-[#FF6B5B]" />
+                    <User className="h-3 w-3 text-[#16A34A]" />
                     <span>{article.author.name}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <Clock className="h-3 w-3 text-[#FF6B5B]" />
+                    <Clock className="h-3 w-3 text-[#16A34A]" />
                     <span>{article.readTime}</span>
                   </div>
                 </div>
@@ -598,64 +598,64 @@ export default function HomePage() {
       </section>
 
       {/* ---------------------------------------------------- */}
-      {/* SECTION 6: WHAT'S TRENDING IN THE GULF (DEEP TEAL)   */}
+      {/* SECTION 6: WHAT'S TRENDING IN THE GULF (FOREST GREEN) */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#0A2E36] text-[#F7F4EC] border-b border-[#0F3F4A]">
+      <section className="py-8 sm:py-10 bg-[#0B3D2E] text-[#FFF8EF] border-b border-[#0E4B39]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#0F3F4A]">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#0E4B39]">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full border border-[#FF6B5B]/50 bg-[#0F3F4A] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#FF6B5B] mb-1.5">
+              <div className="inline-flex items-center gap-1.5 rounded-full border border-[#22C55E]/40 bg-[#0E4B39] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#22C55E] mb-1.5">
                 <TrendingUp className="h-3.5 w-3.5" />
                 <span>Executive Pulse</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-bold font-editorial text-white tracking-tight">
                 What&apos;s Trending in the Gulf
               </h2>
-              <p className="mt-1 text-xs sm:text-sm text-[#F7F4EC]/80 max-w-2xl leading-relaxed">
+              <p className="mt-1 text-xs sm:text-sm text-[#FFF8EF]/80 max-w-2xl leading-relaxed">
                 High-interest technology topics dominating boardrooms and ministerial agendas across Riyadh, Dubai, Doha, and Kuwait City.
               </p>
             </div>
 
             <Link
               href="/news"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#FF6B5B] hover:text-white transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#22C55E] hover:text-white transition-colors shrink-0"
             >
               <span>Explore All Trends</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
 
-          {/* Numbered Trend Cards (01 to 06) with Coral numbers */}
+          {/* Numbered Trend Cards (01 to 06) with vibrant green numbers */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {trendingTopics.map((item) => (
               <div
                 key={item.rank}
-                className="group relative rounded-xl border border-[#0F3F4A] bg-[#062127] p-4.5 hover:border-[#FF6B5B] transition-all flex flex-col justify-between"
+                className="group relative rounded-xl border border-[#0E4B39] bg-[#07261D] p-4.5 hover:border-[#22C55E] transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between pb-2 border-b border-[#0F3F4A]">
-                    <span className="font-editorial text-2xl sm:text-3xl font-extrabold text-[#FF6B5B]/90 group-hover:text-[#FF6B5B] transition-colors">
+                  <div className="flex items-center justify-between pb-2 border-b border-[#0E4B39]">
+                    <span className="font-editorial text-2xl sm:text-3xl font-extrabold text-[#22C55E]/90 group-hover:text-[#22C55E] transition-colors">
                       {item.rank}
                     </span>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF8A7C] bg-[#FF6B5B]/15 px-2.5 py-0.5 rounded">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#34D399] bg-[#16A34A]/20 px-2.5 py-0.5 rounded">
                       {item.tag}
                     </span>
                   </div>
 
-                  <h3 className="mt-2.5 text-sm sm:text-base font-bold font-editorial text-white group-hover:text-[#FF8A7C] transition-colors leading-snug">
+                  <h3 className="mt-2.5 text-sm sm:text-base font-bold font-editorial text-white group-hover:text-[#34D399] transition-colors leading-snug">
                     <Link href="/news">
                       {item.headline}
                     </Link>
                   </h3>
 
-                  <p className="mt-1.5 text-xs text-[#C2D4D7] leading-relaxed line-clamp-2">
+                  <p className="mt-1.5 text-xs text-[#C2DED4] leading-relaxed line-clamp-2">
                     {item.summary}
                   </p>
                 </div>
 
-                <div className="mt-3 pt-2.5 border-t border-[#0F3F4A] flex items-center justify-between text-[11px] text-[#8BA4A9]">
+                <div className="mt-3 pt-2.5 border-t border-[#0E4B39] flex items-center justify-between text-[11px] text-[#A3C2B8]">
                   <span>{item.category}</span>
-                  <span className="font-mono text-[#FF6B5B]">{item.reads}</span>
+                  <span className="font-mono text-[#22C55E]">{item.reads}</span>
                 </div>
               </div>
             ))}

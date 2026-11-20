@@ -53,18 +53,18 @@ export default function Navigation() {
   };
 
   return (
-    <header className="w-full bg-[#FAF7F0]">
-      {/* Main Masthead in Cream with Deep Teal and Coral */}
-      <div className="border-b border-[#E5DFD3] bg-[#FAF7F0] py-2.5 sm:py-3">
+    <header className="w-full bg-[#FFF8EF]">
+      {/* Main Masthead in Cream White with Forest Green */}
+      <div className="border-b border-[#EAE2D5] bg-[#FFF8EF] py-2.5 sm:py-3">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Left: Brand Logo & Subtitle */}
           <div className="flex items-center gap-4">
             <Logo showTagline={false} />
-            <div className="hidden md:block pl-4 border-l border-[#E5DFD3]">
-              <span className="block text-[11px] font-bold uppercase tracking-widest text-[#526A70]">
+            <div className="hidden md:block pl-4 border-l border-[#EAE2D5]">
+              <span className="block text-[11px] font-bold uppercase tracking-widest text-[#5E7A6E]">
                 Middle East Software &amp; Tech Intelligence
               </span>
-              <span className="text-xs text-[#0A2E36] font-semibold">
+              <span className="text-xs text-[#0B3D2E] font-semibold">
                 Independent Reviews • Regional Compliance • Vision 2030
               </span>
             </div>
@@ -76,7 +76,7 @@ export default function Navigation() {
             {compareSlugs.length > 0 && (
               <button
                 onClick={() => setIsCompareTrayOpen(true)}
-                className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-xs font-bold bg-[#0A2E36] text-[#FF6B5B] border border-[#FF6B5B]/50 hover:bg-[#0D3B43] transition-all shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-xs font-bold bg-[#0B3D2E] text-[#22C55E] border border-[#16A34A]/50 hover:bg-[#0E4B39] transition-all shadow-xs cursor-pointer"
                 title="View selected software to compare"
               >
                 <Scale className="h-3.5 w-3.5" />
@@ -88,21 +88,21 @@ export default function Navigation() {
             <button
               type="button"
               onClick={openSearch}
-              className="flex items-center justify-center h-9 rounded-lg border border-[#E5DFD3] bg-white px-3 text-xs sm:text-[13px] font-medium text-[#526A70] hover:border-[#FF6B5B] hover:text-[#0A2E36] transition-all shadow-2xs cursor-pointer whitespace-nowrap"
+              className="flex items-center justify-center h-9 rounded-lg border border-[#EAE2D5] bg-white px-3 text-xs sm:text-[13px] font-medium text-[#5E7A6E] hover:border-[#16A34A] hover:text-[#0B3D2E] transition-all shadow-2xs cursor-pointer whitespace-nowrap"
               aria-label="Search news, reviews and comparisons"
               title="Search (⌘K)"
             >
-              <Search className="h-3.5 w-3.5 text-[#0A2E36]" />
-              <span className="hidden sm:inline ml-2 text-xs text-[#526A70]">Search 50+ software...</span>
-              <kbd className="hidden sm:inline-flex ml-2 items-center rounded border border-[#E5DFD3] bg-[#F7F4EC] px-1 py-0.2 text-[10px] text-[#526A70] font-mono">
+              <Search className="h-3.5 w-3.5 text-[#0B3D2E]" />
+              <span className="hidden sm:inline ml-2 text-xs text-[#5E7A6E]">Search 50+ software...</span>
+              <kbd className="hidden sm:inline-flex ml-2 items-center rounded border border-[#EAE2D5] bg-[#FFF8EF] px-1 py-0.2 text-[10px] text-[#5E7A6E] font-mono">
                 ⌘K
               </kbd>
             </button>
 
-            {/* Primary Action Button in Coral */}
+            {/* Primary Action Button in Forest Green */}
             <Link
               href="/reviews"
-              className="hidden sm:inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg bg-[#FF6B5B] text-xs font-bold text-white hover:bg-[#E85747] transition-all shadow-xs"
+              className="hidden sm:inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg bg-[#0B3D2E] text-xs font-bold text-white hover:bg-[#16A34A] transition-all shadow-xs"
             >
               <span>Browse Reviews</span>
               <ArrowUpRight className="h-3.5 w-3.5 text-white" />
@@ -112,7 +112,7 @@ export default function Navigation() {
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg text-[#0A2E36] hover:bg-[#E5DFD3]/60 border border-[#E5DFD3] bg-white transition-colors cursor-pointer"
+              className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg text-[#0B3D2E] hover:bg-[#EAE2D5]/60 border border-[#EAE2D5] bg-white transition-colors cursor-pointer"
               aria-expanded={isMobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
@@ -127,7 +127,7 @@ export default function Navigation() {
       </div>
 
       {/* Primary Section Navigation Strip */}
-      <nav className="sticky top-0 z-30 w-full bg-[#FAF7F0]/98 backdrop-blur-md border-b border-[#E5DFD3]">
+      <nav className="sticky top-0 z-30 w-full bg-[#FFF8EF]/98 backdrop-blur-md border-b border-[#EAE2D5]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="hidden lg:flex items-center h-10 sm:h-11">
             <div className="flex items-center gap-6 lg:gap-8 xl:gap-9 h-full">
@@ -139,13 +139,13 @@ export default function Navigation() {
                     href={link.href}
                     className={`relative h-full flex items-center px-1 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-150 ${
                       active
-                        ? "text-[#0A2E36]"
-                        : "text-[#526A70] hover:text-[#0A2E36]"
+                        ? "text-[#0B3D2E]"
+                        : "text-[#5E7A6E] hover:text-[#0B3D2E]"
                     }`}
                   >
                     <span>{link.name}</span>
                     {active && (
-                      <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#FF6B5B] rounded-full" />
+                      <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-[#16A34A] rounded-full" />
                     )}
                   </Link>
                 );
@@ -156,7 +156,7 @@ export default function Navigation() {
 
         {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-b border-[#E5DFD3] bg-[#FAF7F0] px-5 pt-4 pb-8 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+          <div className="lg:hidden border-b border-[#EAE2D5] bg-[#FFF8EF] px-5 pt-4 pb-8 shadow-2xl animate-in slide-in-from-top-2 duration-200">
             <div className="space-y-1.5">
               {navLinks.map((link) => {
                 const active = isActive(link.href);
@@ -167,29 +167,29 @@ export default function Navigation() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${
                       active
-                        ? "bg-[#0A2E36] text-[#F7F4EC]"
-                        : "text-[#0A2E36] hover:bg-[#E5DFD3]/60"
+                        ? "bg-[#0B3D2E] text-[#FFF8EF]"
+                        : "text-[#0B3D2E] hover:bg-[#EAE2D5]/60"
                     }`}
                   >
                     <span>{link.name}</span>
-                    {active && <span className="h-2 w-2 rounded-full bg-[#FF6B5B]" />}
+                    {active && <span className="h-2 w-2 rounded-full bg-[#16A34A]" />}
                   </Link>
                 );
               })}
             </div>
 
-            <div className="mt-6 pt-5 border-t border-[#E5DFD3] flex flex-col gap-3">
+            <div className="mt-6 pt-5 border-t border-[#EAE2D5] flex flex-col gap-3">
               <Link
                 href="/reviews"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center rounded-xl bg-[#FF6B5B] py-3 text-sm font-bold text-white hover:bg-[#E85747]"
+                className="w-full text-center rounded-xl bg-[#0B3D2E] py-3 text-sm font-bold text-white hover:bg-[#16A34A]"
               >
                 Browse Software Reviews
               </Link>
               <Link
                 href="/compare"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center rounded-xl border border-[#E5DFD3] bg-white py-3 text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B]"
+                className="w-full text-center rounded-xl border border-[#EAE2D5] bg-white py-3 text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A]"
               >
                 Side-by-Side Comparisons
               </Link>

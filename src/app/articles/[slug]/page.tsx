@@ -62,23 +62,23 @@ export default async function ArticleDetailPage({
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
 
   return (
-    <article className="min-h-screen bg-[#F6F1E7] pb-24">
+    <article className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Breadcrumb Strip */}
-      <div className="border-b border-[#E7E4DC] bg-[#FCFAF5]/80">
+      <div className="border-b border-[#EAE2D5] bg-[#FFF8EF]/80">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-3.5">
           <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#697386] overflow-x-auto">
-            <Link href="/" className="hover:text-[#101F35] transition-colors shrink-0">
+            <Link href="/" className="hover:text-[#0B3D2E] transition-colors shrink-0">
               Home
             </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-[#C6A66B] shrink-0" />
-            <Link href="/articles" className="hover:text-[#101F35] transition-colors shrink-0">
+            <ChevronRight className="h-3.5 w-3.5 text-[#16A34A] shrink-0" />
+            <Link href="/articles" className="hover:text-[#0B3D2E] transition-colors shrink-0">
               Insights
             </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-[#C6A66B] shrink-0" />
-            <span className="text-[#101F35] font-semibold shrink-0">
+            <ChevronRight className="h-3.5 w-3.5 text-[#16A34A] shrink-0" />
+            <span className="text-[#0B3D2E] font-semibold shrink-0">
               {article.category}
             </span>
-            <ChevronRight className="h-3.5 w-3.5 text-[#C6A66B] shrink-0" />
+            <ChevronRight className="h-3.5 w-3.5 text-[#16A34A] shrink-0" />
             <span className="text-[#697386] truncate max-w-xs">
               {article.title}
             </span>
@@ -87,33 +87,33 @@ export default async function ArticleDetailPage({
       </div>
 
       {/* Header */}
-      <header className="border-b border-[#E7E4DC] bg-[#FCFAF5] pt-8 sm:pt-12 pb-10 sm:pb-14">
+      <header className="border-b border-[#EAE2D5] bg-[#FFF8EF] pt-8 sm:pt-12 pb-10 sm:pb-14">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center gap-2.5 mb-5">
-            <span className="inline-flex items-center rounded-md bg-[#101F35] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#C6A66B]">
+            <span className="inline-flex items-center rounded-md bg-[#0B3D2E] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#16A34A]">
               {article.category}
             </span>
             {(article as any).country && (
-              <span className="inline-flex items-center rounded-md bg-[#E7E4DC] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#101F35]">
+              <span className="inline-flex items-center rounded-md bg-[#EAE2D5] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#0B3D2E]">
                 {(article as any).country}
               </span>
             )}
           </div>
 
-          <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-bold text-[#101F35] tracking-tight leading-[1.18]">
+          <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-bold text-[#0B3D2E] tracking-tight leading-[1.18]">
             {article.title}
           </h1>
 
-          <div className="mt-8 pt-6 border-t border-[#E7E4DC] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="mt-8 pt-6 border-t border-[#EAE2D5] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3.5">
-              <div className="h-12 w-12 rounded-full bg-[#101F35] text-[#C6A66B] font-bold flex items-center justify-center text-sm border-2 border-[#C6A66B]/30 shrink-0">
+              <div className="h-12 w-12 rounded-full bg-[#0B3D2E] text-[#16A34A] font-bold flex items-center justify-center text-sm border-2 border-[#16A34A]/30 shrink-0">
                 {article.author.name
                   .split(" ")
                   .map((n) => n[0])
                   .join("")}
               </div>
               <div>
-                <div className="font-bold text-[#101F35] text-base">
+                <div className="font-bold text-[#0B3D2E] text-base">
                   {article.author.name}
                 </div>
                 <div className="text-xs sm:text-sm text-[#697386]">
@@ -124,19 +124,19 @@ export default async function ArticleDetailPage({
 
             <div className="flex items-center gap-4 text-xs sm:text-sm text-[#697386]">
               <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4 text-[#C6A66B]" />
+                <Calendar className="h-4 w-4 text-[#16A34A]" />
                 {article.publishedDate}
               </span>
               <span>•</span>
               <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4 text-[#C6A66B]" />
+                <Clock className="h-4 w-4 text-[#16A34A]" />
                 {article.readTime}
               </span>
             </div>
           </div>
 
           {/* Social Share Bar */}
-          <div className="mt-6 pt-4 border-t border-[#E7E4DC]/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="mt-6 pt-4 border-t border-[#EAE2D5]/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <span className="text-xs uppercase tracking-wider font-bold text-[#697386]">
               Share this briefing:
             </span>
@@ -149,8 +149,8 @@ export default async function ArticleDetailPage({
       <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
         {/* Featured Image */}
         {article.image && (
-          <figure className="mb-10 overflow-hidden rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] shadow-xs">
-            <div className="relative aspect-16/9 w-full bg-[#101F35]/5">
+          <figure className="mb-10 overflow-hidden rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] shadow-xs">
+            <div className="relative aspect-16/9 w-full bg-[#0B3D2E]/5">
               <Image
                 src={article.image}
                 alt={article.title}
@@ -161,7 +161,7 @@ export default async function ArticleDetailPage({
               />
             </div>
             {(article as any).imageCaption && (
-              <figcaption className="p-4 sm:p-5 text-xs sm:text-sm text-[#697386] italic border-t border-[#E7E4DC]">
+              <figcaption className="p-4 sm:p-5 text-xs sm:text-sm text-[#697386] italic border-t border-[#EAE2D5]">
                 {(article as any).imageCaption}
               </figcaption>
             )}
@@ -170,19 +170,19 @@ export default async function ArticleDetailPage({
 
         {/* Executive Takeaways */}
         {(article as any).keyTakeaways && (article as any).keyTakeaways.length > 0 && (
-          <div className="mb-10 rounded-2xl border-l-4 border-l-[#C6A66B] border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-8 shadow-xs">
+          <div className="mb-10 rounded-2xl border-l-4 border-l-[#16A34A] border border-[#EAE2D5] bg-[#FFF8EF] p-6 sm:p-8 shadow-xs">
             <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#101F35] text-[#C6A66B]">
+              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#0B3D2E] text-[#16A34A]">
                 <FileText className="h-4 w-4" />
               </div>
-              <h2 className="text-lg sm:text-xl font-bold font-editorial text-[#101F35] tracking-tight">
+              <h2 className="text-lg sm:text-xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
                 Executive Takeaways &amp; Strategic Implications
               </h2>
             </div>
             <ul className="space-y-3">
               {(article as any).keyTakeaways.map((takeaway: string, idx: number) => (
                 <li key={idx} className="flex items-start gap-3 text-base sm:text-lg text-[#1E293B]">
-                  <CheckCircle2 className="h-5 w-5 text-[#C6A66B] shrink-0 mt-0.5" />
+                  <CheckCircle2 className="h-5 w-5 text-[#16A34A] shrink-0 mt-0.5" />
                   <span className="leading-relaxed">{takeaway}</span>
                 </li>
               ))}
@@ -191,8 +191,8 @@ export default async function ArticleDetailPage({
         )}
 
         {/* Article Body */}
-        <div className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-6 sm:p-10 md:p-12 shadow-xs">
-          <p className="text-xl sm:text-2xl text-[#101F35] font-editorial leading-relaxed pb-8 border-b border-[#E7E4DC]">
+        <div className="rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-6 sm:p-10 md:p-12 shadow-xs">
+          <p className="text-xl sm:text-2xl text-[#0B3D2E] font-editorial leading-relaxed pb-8 border-b border-[#EAE2D5]">
             {article.excerpt}
           </p>
 
@@ -207,8 +207,8 @@ export default async function ArticleDetailPage({
             {(article as any).subheadings && (article as any).subheadings.length > 0 && (
               <div className="space-y-8 pt-6">
                 {(article as any).subheadings.map((sub: any, sIdx: number) => (
-                  <section key={sIdx} className="space-y-4 pt-4 border-t border-[#E7E4DC]">
-                    <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35]">
+                  <section key={sIdx} className="space-y-4 pt-4 border-t border-[#EAE2D5]">
+                    <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#0B3D2E]">
                       {sub.title}
                     </h2>
                     {sub.paragraphs?.map((p: string, pIdx: number) => (
@@ -222,8 +222,8 @@ export default async function ArticleDetailPage({
             )}
 
             {/* Pull Quote */}
-            <blockquote className="my-10 border-l-4 border-[#C6A66B] bg-[#F6F1E7] p-6 sm:p-8 rounded-r-2xl">
-              <p className="font-editorial italic text-xl sm:text-2xl text-[#101F35] leading-relaxed">
+            <blockquote className="my-10 border-l-4 border-[#16A34A] bg-[#FFF8EF] p-6 sm:p-8 rounded-r-2xl">
+              <p className="font-editorial italic text-xl sm:text-2xl text-[#0B3D2E] leading-relaxed">
                 &ldquo;When procuring business software across the Gulf, verify vendor adherence to regional regulatory milestones (such as Phase 2 ZATCA or UAE Corporate Tax) as hard contract deliverables.&rdquo;
               </p>
               <cite className="block mt-4 text-sm font-bold uppercase tracking-wider text-[#697386] not-italic">
@@ -236,7 +236,7 @@ export default async function ArticleDetailPage({
         {/* Mentioned Software */}
         {mentionedSoftwares.length > 0 && (
           <section className="mt-14">
-            <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35] mb-6">
+            <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#0B3D2E] mb-6">
               Mentioned Software &amp; Solutions
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -249,14 +249,14 @@ export default async function ArticleDetailPage({
 
         {/* Related Articles */}
         {relatedArticles.length > 0 && (
-          <section className="mt-16 pt-12 border-t border-[#E7E4DC]">
+          <section className="mt-16 pt-12 border-t border-[#EAE2D5]">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#101F35]">
+              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#0B3D2E]">
                 Related Intelligence
               </h2>
               <Link
                 href="/news"
-                className="text-sm font-bold text-[#101F35] hover:text-[#C6A66B] transition-colors"
+                className="text-sm font-bold text-[#0B3D2E] hover:text-[#16A34A] transition-colors"
               >
                 View All News &rarr;
               </Link>
@@ -265,13 +265,13 @@ export default async function ArticleDetailPage({
               {relatedArticles.map((rel) => (
                 <article
                   key={rel.id}
-                  className="rounded-2xl border border-[#E7E4DC] bg-[#FCFAF5] p-5 hover:border-[#C6A66B] transition-all"
+                  className="rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-5 hover:border-[#16A34A] transition-all"
                 >
-                  <span className="text-xs font-bold uppercase text-[#C6A66B]">
+                  <span className="text-xs font-bold uppercase text-[#16A34A]">
                     {rel.category}
                   </span>
                   <Link href={`/news/${rel.slug}`}>
-                    <h3 className="font-editorial text-lg font-bold text-[#101F35] hover:text-[#C6A66B] mt-2 line-clamp-2">
+                    <h3 className="font-editorial text-lg font-bold text-[#0B3D2E] hover:text-[#16A34A] mt-2 line-clamp-2">
                       {rel.title}
                     </h3>
                   </Link>
@@ -285,17 +285,17 @@ export default async function ArticleDetailPage({
         )}
 
         {/* Back Link */}
-        <div className="mt-14 pt-8 border-t border-[#E7E4DC] flex items-center justify-between">
+        <div className="mt-14 pt-8 border-t border-[#EAE2D5] flex items-center justify-between">
           <Link
             href="/news"
-            className="inline-flex items-center gap-2 text-base font-bold text-[#101F35] hover:text-[#C6A66B]"
+            className="inline-flex items-center gap-2 text-base font-bold text-[#0B3D2E] hover:text-[#16A34A]"
           >
-            <ArrowLeft className="h-4 w-4 text-[#C6A66B]" />
+            <ArrowLeft className="h-4 w-4 text-[#16A34A]" />
             <span>Return to News Feed</span>
           </Link>
           <Link
             href="/reviews"
-            className="rounded-xl bg-[#101F35] px-5 py-2.5 text-sm font-bold text-[#FCFAF5] hover:bg-[#172B46]"
+            className="rounded-xl bg-[#0B3D2E] px-5 py-2.5 text-sm font-bold text-[#FFF8EF] hover:bg-[#172B46]"
           >
             Explore Software Reviews
           </Link>

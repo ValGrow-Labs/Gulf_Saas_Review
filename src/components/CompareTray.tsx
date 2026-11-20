@@ -30,19 +30,19 @@ export default function CompareTray() {
 
   return (
     <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-3xl animate-in slide-in-from-bottom-6 duration-300">
-      <div className="rounded-2xl border border-[#FF6B5B]/50 bg-[#0A2E36] p-3.5 sm:p-4 text-[#F7F4EC] shadow-[0_20px_50px_rgba(10,46,54,0.45)] backdrop-blur-xl">
+      <div className="rounded-2xl border border-[#16A34A]/50 bg-[#0B3D2E] p-3.5 sm:p-4 text-[#FFF8EF] shadow-[0_20px_50px_rgba(11,61,46,0.45)] backdrop-blur-xl">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
           {/* Left: Indicator & Items */}
           <div className="flex items-center gap-3 overflow-x-auto w-full sm:w-auto py-1">
-            <div className="flex items-center gap-2 border-r border-[#0F3F4A] pr-3 shrink-0">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#FF6B5B]/20 text-[#FF6B5B]">
+            <div className="flex items-center gap-2 border-r border-[#0E4B39] pr-3 shrink-0">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#16A34A]/20 text-[#22C55E]">
                 <Scale className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
                 <span className="text-xs font-bold leading-tight">
                   Comparing ({compareSlugs.length}/3)
                 </span>
-                <span className="text-[10px] text-[#F7F4EC]/70">
+                <span className="text-[10px] text-[#FFF8EF]/70">
                   Select up to 3 tools
                 </span>
               </div>
@@ -53,16 +53,16 @@ export default function CompareTray() {
               {comparedSoftwares.map((sw) => (
                 <div
                   key={sw.id}
-                  className="flex items-center gap-2 rounded-lg bg-[#0F3F4A] border border-[#16535E] px-2.5 py-1 text-xs"
+                  className="flex items-center gap-2 rounded-lg bg-[#0E4B39] border border-[#135944] px-2.5 py-1 text-xs"
                 >
                   <span
                     className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: sw.accentColor || "#FF6B5B" }}
+                    style={{ backgroundColor: sw.accentColor || "#16A34A" }}
                   />
                   <span className="font-semibold text-white">{sw.name}</span>
                   <button
                     onClick={() => removeFromCompare(sw.slug)}
-                    className="text-[#8BA4A9] hover:text-[#F7F4EC] transition-colors"
+                    className="text-[#A3C2B8] hover:text-[#FFF8EF] transition-colors"
                     aria-label={`Remove ${sw.name}`}
                   >
                     <X className="h-3 w-3" />
@@ -71,7 +71,7 @@ export default function CompareTray() {
               ))}
 
               {compareSlugs.length < 2 && (
-                <span className="text-xs text-[#F7F4EC]/60 italic pl-1">
+                <span className="text-xs text-[#FFF8EF]/60 italic pl-1">
                   + Add 1 more to compare
                 </span>
               )}
@@ -82,7 +82,7 @@ export default function CompareTray() {
           <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
             <button
               onClick={clearCompare}
-              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[#F7F4EC]/70 hover:text-white transition-colors"
+              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[#FFF8EF]/70 hover:text-white transition-colors"
               title="Clear all"
             >
               <Trash2 className="h-3.5 w-3.5" />
@@ -93,8 +93,8 @@ export default function CompareTray() {
               href={compareUrl}
               className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-bold transition-all shadow-md ${
                 compareSlugs.length >= 2
-                  ? "bg-[#FF6B5B] text-white hover:bg-[#E85747] active:scale-95"
-                  : "bg-[#0F3F4A] text-[#F7F4EC]/60 pointer-events-none opacity-60"
+                  ? "bg-[#16A34A] text-white hover:bg-[#22C55E] active:scale-95"
+                  : "bg-[#0E4B39] text-[#FFF8EF]/60 pointer-events-none opacity-60"
               }`}
             >
               <span>Compare Side-by-Side</span>

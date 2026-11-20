@@ -57,30 +57,30 @@ export default function SearchModal() {
     : comparisons.slice(0, 2);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-20 px-4 bg-[#0A2E36]/75 backdrop-blur-sm animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-14 sm:pt-20 px-4 bg-[#0B3D2E]/75 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="fixed inset-0" onClick={closeSearch} />
 
-      <div className="relative w-full max-w-2xl rounded-2xl border border-[#FF6B5B]/40 bg-[#FAF7F0] shadow-[0_25px_60px_rgba(10,46,54,0.4)] overflow-hidden z-10 flex flex-col max-h-[82vh]">
+      <div className="relative w-full max-w-2xl rounded-2xl border border-[#16A34A]/40 bg-[#FFF8EF] shadow-[0_25px_60px_rgba(11,61,46,0.4)] overflow-hidden z-10 flex flex-col max-h-[82vh]">
         {/* Search Header Bar */}
-        <div className="relative flex items-center border-b border-[#E5DFD3] px-5 py-4 bg-white">
-          <Search className="h-6 w-6 text-[#FF6B5B] shrink-0 mr-3" />
+        <div className="relative flex items-center border-b border-[#EAE2D5] px-5 py-4 bg-white">
+          <Search className="h-6 w-6 text-[#16A34A] shrink-0 mr-3" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search news, AI, software (e.g. Saudi Vision, Odoo, ZATCA, UAE VAT)..."
-            className="w-full bg-transparent text-[17px] sm:text-[18px] text-[#0A2E36] placeholder-[#8BA4A9] focus:outline-none font-medium"
+            className="w-full bg-transparent text-[17px] sm:text-[18px] text-[#0B3D2E] placeholder-[#8BA4A9] focus:outline-none font-medium"
           />
           {query ? (
             <button
               onClick={() => setQuery("")}
-              className="p-1.5 text-[#526A70] hover:text-[#0A2E36] cursor-pointer"
+              className="p-1.5 text-[#5E7A6E] hover:text-[#0B3D2E] cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
           ) : (
-            <kbd className="hidden sm:inline-block rounded border border-[#E5DFD3] bg-[#F7F4EC] px-2 py-0.5 text-[12px] font-mono text-[#526A70]">
+            <kbd className="hidden sm:inline-block rounded border border-[#EAE2D5] bg-[#FFF8EF] px-2 py-0.5 text-[12px] font-mono text-[#5E7A6E]">
               ESC
             </kbd>
           )}
@@ -91,12 +91,12 @@ export default function SearchModal() {
           {/* Software Reviews */}
           {filteredSoftware.length > 0 && (
             <div>
-              <div className="flex items-center justify-between pb-2 text-[14px] font-bold uppercase tracking-wider text-[#526A70]">
+              <div className="flex items-center justify-between pb-2 text-[14px] font-bold uppercase tracking-wider text-[#5E7A6E]">
                 <span>Software Reviews</span>
                 <Link
                   href="/reviews"
                   onClick={closeSearch}
-                  className="text-[#0A2E36] hover:text-[#FF6B5B] font-bold normal-case text-[14px]"
+                  className="text-[#0B3D2E] hover:text-[#16A34A] font-bold normal-case text-[14px]"
                 >
                   View All &rarr;
                 </Link>
@@ -107,35 +107,35 @@ export default function SearchModal() {
                     key={item.id}
                     href={`/reviews/${item.slug}`}
                     onClick={closeSearch}
-                    className="group flex items-center justify-between rounded-xl border border-[#E5DFD3] bg-white p-3.5 hover:border-[#FF6B5B] hover:bg-[#FAF7F0] transition-all"
+                    className="group flex items-center justify-between rounded-xl border border-[#EAE2D5] bg-white p-3.5 hover:border-[#16A34A] hover:bg-[#FFF8EF] transition-all"
                   >
                     <div className="flex items-center gap-3.5">
                       <div
                         className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-sm font-bold text-white shadow-2xs"
-                        style={{ backgroundColor: item.accentColor || "#0A2E36" }}
+                        style={{ backgroundColor: item.accentColor || "#0B3D2E" }}
                       >
                         {item.name.substring(0, 2).toUpperCase()}
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <span className="text-[17px] font-bold text-[#0A2E36] group-hover:text-[#FF6B5B]">
+                          <span className="text-[17px] font-bold text-[#0B3D2E] group-hover:text-[#16A34A]">
                             {item.name}
                           </span>
-                          <span className="text-[12px] font-bold text-[#526A70] bg-[#FAF7F0] border border-[#E5DFD3] px-2 py-0.5 rounded">
+                          <span className="text-[12px] font-bold text-[#0B3D2E] bg-[#EAF5ED] border border-[#C8E6D2] px-2 py-0.5 rounded">
                             {item.categoryName}
                           </span>
                         </div>
-                        <p className="text-[14px] text-[#384D52] line-clamp-1 mt-0.5">
+                        <p className="text-[14px] text-[#354F44] line-clamp-1 mt-0.5">
                           {item.tagline}
                         </p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2.5 shrink-0">
-                      <div className="flex items-center gap-1 text-[15px] font-bold text-[#0A2E36]">
-                        <Star className="h-4 w-4 fill-[#FF6B5B] text-[#FF6B5B]" />
+                      <div className="flex items-center gap-1 text-[15px] font-bold text-[#0B3D2E]">
+                        <Star className="h-4 w-4 fill-[#16A34A] text-[#16A34A]" />
                         <span>{item.rating.toFixed(1)}</span>
                       </div>
-                      <ArrowRight className="h-4 w-4 text-[#FF6B5B] opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ArrowRight className="h-4 w-4 text-[#16A34A] opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                   </Link>
                 ))}
@@ -146,12 +146,12 @@ export default function SearchModal() {
           {/* Comparisons */}
           {filteredComparisons.length > 0 && (
             <div>
-              <div className="flex items-center justify-between pb-2 text-[14px] font-bold uppercase tracking-wider text-[#526A70]">
+              <div className="flex items-center justify-between pb-2 text-[14px] font-bold uppercase tracking-wider text-[#5E7A6E]">
                 <span>Side-by-Side Comparisons</span>
                 <Link
                   href="/compare"
                   onClick={closeSearch}
-                  className="text-[#0A2E36] hover:text-[#FF6B5B] font-bold normal-case text-[14px]"
+                  className="text-[#0B3D2E] hover:text-[#16A34A] font-bold normal-case text-[14px]"
                 >
                   All Comparisons &rarr;
                 </Link>
@@ -162,22 +162,22 @@ export default function SearchModal() {
                     key={c.id}
                     href={`/compare/${c.slug}`}
                     onClick={closeSearch}
-                    className="group flex items-center justify-between rounded-xl border border-[#E5DFD3] bg-white p-3.5 hover:border-[#FF6B5B] hover:bg-[#FAF7F0] transition-all"
+                    className="group flex items-center justify-between rounded-xl border border-[#EAE2D5] bg-white p-3.5 hover:border-[#16A34A] hover:bg-[#FFF8EF] transition-all"
                   >
                     <div className="flex items-center gap-3.5">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0A2E36] text-[#FF6B5B]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#0B3D2E] text-[#22C55E]">
                         <Scale className="h-5 w-5" />
                       </div>
                       <div>
-                        <span className="text-[16px] font-bold text-[#0A2E36] group-hover:text-[#FF6B5B]">
+                        <span className="text-[16px] font-bold text-[#0B3D2E] group-hover:text-[#16A34A]">
                           {c.title}
                         </span>
-                        <p className="text-[14px] text-[#384D52] line-clamp-1">
+                        <p className="text-[14px] text-[#354F44] line-clamp-1">
                           {c.shortDescription}
                         </p>
                       </div>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-[#FF6B5B] shrink-0" />
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] shrink-0" />
                   </Link>
                 ))}
               </div>
@@ -187,15 +187,15 @@ export default function SearchModal() {
           {/* News Dispatches */}
           {filteredNews.length > 0 && (
             <div>
-              <div className="flex items-center justify-between pb-2 text-[14px] font-bold uppercase tracking-wider text-[#526A70]">
+              <div className="flex items-center justify-between pb-2 text-[14px] font-bold uppercase tracking-wider text-[#5E7A6E]">
                 <span className="flex items-center gap-1.5">
-                  <Newspaper className="h-4 w-4 text-[#FF6B5B]" />
+                  <Newspaper className="h-4 w-4 text-[#16A34A]" />
                   <span>Gulf Tech News &amp; Briefings</span>
                 </span>
                 <Link
                   href="/news"
                   onClick={closeSearch}
-                  className="text-[#0A2E36] hover:text-[#FF6B5B] font-bold normal-case text-[14px]"
+                  className="text-[#0B3D2E] hover:text-[#16A34A] font-bold normal-case text-[14px]"
                 >
                   All News &rarr;
                 </Link>
@@ -206,20 +206,20 @@ export default function SearchModal() {
                     key={item.id}
                     href={`/news/${item.slug}`}
                     onClick={closeSearch}
-                    className="group flex items-center justify-between rounded-xl border border-[#E5DFD3] bg-white p-3.5 hover:border-[#FF6B5B] hover:bg-[#FAF7F0] transition-all"
+                    className="group flex items-center justify-between rounded-xl border border-[#EAE2D5] bg-white p-3.5 hover:border-[#16A34A] hover:bg-[#FFF8EF] transition-all"
                   >
                     <div className="min-w-0 pr-3">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#FF6B5B]">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#16A34A]">
                           {item.country}
                         </span>
-                        <span className="text-xs text-[#526A70]">• {item.category}</span>
+                        <span className="text-xs text-[#5E7A6E]">• {item.category}</span>
                       </div>
-                      <h4 className="text-[16px] font-bold font-editorial text-[#0A2E36] group-hover:text-[#FF6B5B] line-clamp-1">
+                      <h4 className="text-[16px] font-bold font-editorial text-[#0B3D2E] group-hover:text-[#16A34A] line-clamp-1">
                         {item.title}
                       </h4>
                     </div>
-                    <ArrowRight className="h-4 w-4 text-[#FF6B5B] shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ArrowRight className="h-4 w-4 text-[#16A34A] shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </Link>
                 ))}
               </div>
@@ -227,7 +227,7 @@ export default function SearchModal() {
           )}
         </div>
 
-        <div className="border-t border-[#E5DFD3] bg-[#FAF7F0] px-5 py-3 text-[14px] text-[#526A70] flex items-center justify-between">
+        <div className="border-t border-[#EAE2D5] bg-[#FFF8EF] px-5 py-3 text-[14px] text-[#5E7A6E] flex items-center justify-between">
           <span>Independent software directory for Saudi Arabia, UAE &amp; GCC</span>
           <span className="hidden sm:inline">Press ESC to dismiss</span>
         </div>

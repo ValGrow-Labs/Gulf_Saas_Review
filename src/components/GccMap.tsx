@@ -114,8 +114,8 @@ export default function GccMap({
           onClick={() => handleSelect("all")}
           className={`px-4 py-2 rounded-xl text-sm font-bold tracking-tight whitespace-nowrap transition-all duration-200 cursor-pointer ${
             activeId === "all"
-              ? "bg-[#101F35] text-[#FCFAF5] shadow-md border border-[#101F35]"
-              : "bg-[#FCFAF5] text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B] hover:bg-[#F6F1E7]"
+              ? "bg-[#0B3D2E] text-[#FFF8EF] shadow-md border border-[#0B3D2E]"
+              : "bg-[#FFF8EF] text-[#0B3D2E] border border-[#EAE2D5] hover:border-[#16A34A] hover:bg-[#FFF8EF]"
           }`}
         >
           🌐 All GCC Countries
@@ -130,8 +130,8 @@ export default function GccMap({
               onMouseLeave={() => setHoveredCountryId(null)}
               className={`px-4 py-2 rounded-xl text-sm font-bold tracking-tight whitespace-nowrap transition-all duration-200 cursor-pointer flex items-center gap-2 ${
                 isSelected
-                  ? "bg-[#101F35] text-[#FCFAF5] shadow-md border border-[#C6A66B]"
-                  : "bg-[#FCFAF5] text-[#101F35] border border-[#E7E4DC] hover:border-[#C6A66B] hover:bg-[#F6F1E7]"
+                  ? "bg-[#0B3D2E] text-[#FFF8EF] shadow-md border border-[#16A34A]"
+                  : "bg-[#FFF8EF] text-[#0B3D2E] border border-[#EAE2D5] hover:border-[#16A34A] hover:bg-[#FFF8EF]"
               }`}
             >
               <span>{c.flagEmoji}</span>
@@ -142,10 +142,10 @@ export default function GccMap({
       </div>
 
       {/* Main Interactive Map & Executive Briefing Card */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#FCFAF5] rounded-3xl border border-[#E7E4DC] p-6 sm:p-8 lg:p-10 shadow-sm relative overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-[#FFF8EF] rounded-3xl border border-[#EAE2D5] p-6 sm:p-8 lg:p-10 shadow-sm relative overflow-hidden">
         {/* Subtle background ambient watermarks */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#C6A66B]/5 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#101F35]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#16A34A]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#0B3D2E]/5 rounded-full blur-3xl pointer-events-none" />
 
         {/* Left Column: Interactive GCC SVG Map */}
         <div className="lg:col-span-7 relative flex flex-col items-center justify-center">
@@ -158,19 +158,19 @@ export default function GccMap({
               <defs>
                 {/* Gradient for water body (Arabian Gulf / Red Sea subtle background) */}
                 <radialGradient id="gulfWaterGrad" cx="65%" cy="35%" r="60%">
-                  <stop offset="0%" stopColor="#101F35" stopOpacity="0.06" />
-                  <stop offset="100%" stopColor="#101F35" stopOpacity="0.01" />
+                  <stop offset="0%" stopColor="#0B3D2E" stopOpacity="0.06" />
+                  <stop offset="100%" stopColor="#0B3D2E" stopOpacity="0.01" />
                 </radialGradient>
 
                 {/* Country highlight gradient */}
                 <linearGradient id="activeCountryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#101F35" />
+                  <stop offset="0%" stopColor="#0B3D2E" />
                   <stop offset="100%" stopColor="#172B46" />
                 </linearGradient>
 
                 <linearGradient id="hoverCountryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#C6A66B" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="#C6A66B" stopOpacity="0.15" />
+                  <stop offset="0%" stopColor="#16A34A" stopOpacity="0.3" />
+                  <stop offset="100%" stopColor="#16A34A" stopOpacity="0.15" />
                 </linearGradient>
 
                 <filter id="glowGold" x="-20%" y="-20%" width="140%" height="140%">
@@ -198,7 +198,7 @@ export default function GccMap({
                       y1={arc.from.y}
                       x2={arc.to.x}
                       y2={arc.to.y}
-                      stroke="#C6A66B"
+                      stroke="#16A34A"
                       strokeWidth="1.6"
                       strokeDasharray="4 4"
                       strokeOpacity="0.75"
@@ -213,17 +213,17 @@ export default function GccMap({
                 const isSelected = activeId === countryKey;
                 const isHovered = hoveredCountryId === countryKey;
 
-                let fillColor = "#F6F1E7";
-                let strokeColor = "#E7E4DC";
+                let fillColor = "#FFF8EF";
+                let strokeColor = "#EAE2D5";
                 let strokeWidth = "1.8";
 
                 if (isSelected) {
-                  fillColor = "#101F35";
-                  strokeColor = "#C6A66B";
+                  fillColor = "#0B3D2E";
+                  strokeColor = "#16A34A";
                   strokeWidth = "2.8";
                 } else if (isHovered) {
-                  fillColor = "#E7E4DC";
-                  strokeColor = "#C6A66B";
+                  fillColor = "#EAE2D5";
+                  strokeColor = "#16A34A";
                   strokeWidth = "2.2";
                 }
 
@@ -250,7 +250,7 @@ export default function GccMap({
                       y={countrySvgPaths[countryKey].labelPos.y}
                       textAnchor="middle"
                       className={`text-[13px] font-bold tracking-wider uppercase pointer-events-none transition-colors duration-200 select-none ${
-                        isSelected ? "fill-[#FCFAF5]" : isHovered ? "fill-[#101F35]" : "fill-[#697386]"
+                        isSelected ? "fill-[#FFF8EF]" : isHovered ? "fill-[#0B3D2E]" : "fill-[#697386]"
                       }`}
                     >
                       {info?.shortName || countryKey}
@@ -277,7 +277,7 @@ export default function GccMap({
                       cx={pin.x}
                       cy={pin.y}
                       r="9"
-                      fill="#C6A66B"
+                      fill="#16A34A"
                       fillOpacity="0.25"
                       className={isCountryActive || isHovered ? "animate-ping-slow" : "opacity-0"}
                     />
@@ -286,8 +286,8 @@ export default function GccMap({
                       cx={pin.x}
                       cy={pin.y}
                       r="5.5"
-                      fill={isHovered ? "#C6A66B" : isCountryActive ? "#101F35" : "#697386"}
-                      stroke="#FCFAF5"
+                      fill={isHovered ? "#16A34A" : isCountryActive ? "#0B3D2E" : "#697386"}
+                      stroke="#FFF8EF"
                       strokeWidth="1.8"
                     />
                     {/* Inner Core */}
@@ -295,7 +295,7 @@ export default function GccMap({
                       cx={pin.x}
                       cy={pin.y}
                       r="2.4"
-                      fill="#C6A66B"
+                      fill="#16A34A"
                     />
 
                     {/* City Name Label */}
@@ -304,7 +304,7 @@ export default function GccMap({
                       y={pin.y - 9}
                       textAnchor="middle"
                       className={`text-[10.5px] font-extrabold tracking-tight pointer-events-none select-none transition-colors ${
-                        isHovered || isCountryActive ? "fill-[#101F35]" : "fill-[#697386]"
+                        isHovered || isCountryActive ? "fill-[#0B3D2E]" : "fill-[#697386]"
                       }`}
                     >
                       {pin.city}
@@ -316,33 +316,33 @@ export default function GccMap({
           </div>
 
           <p className="mt-2 text-xs text-[#697386] font-semibold text-center flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-[#C6A66B] inline-block animate-pulse" />
+            <span className="h-2 w-2 rounded-full bg-[#16A34A] inline-block animate-pulse" />
             Interactive GCC Technology Corridor • Hover or tap any country to explore regional news
           </p>
         </div>
 
         {/* Right Column: Country Executive Intelligence Card */}
-        <div className="lg:col-span-5 flex flex-col justify-between space-y-6 bg-white rounded-2xl border border-[#E7E4DC] p-6 lg:p-7 shadow-sm">
+        <div className="lg:col-span-5 flex flex-col justify-between space-y-6 bg-white rounded-2xl border border-[#EAE2D5] p-6 lg:p-7 shadow-sm">
           <div>
             {/* Header: Flag, Name, Native Arabic */}
-            <div className="flex items-start justify-between pb-4 border-b border-[#E7E4DC]">
+            <div className="flex items-start justify-between pb-4 border-b border-[#EAE2D5]">
               <div className="flex items-center gap-3.5">
-                <span className="text-4xl shadow-2xs rounded-lg p-1 bg-[#F6F1E7]">
+                <span className="text-4xl shadow-2xs rounded-lg p-1 bg-[#FFF8EF]">
                   {currentCountry.flagEmoji}
                 </span>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-2xl font-bold font-editorial text-[#101F35]">
+                    <h3 className="text-2xl font-bold font-editorial text-[#0B3D2E]">
                       {currentCountry.name}
                     </h3>
                   </div>
-                  <p className="text-sm font-semibold text-[#C6A66B] mt-0.5" dir="rtl">
+                  <p className="text-sm font-semibold text-[#16A34A] mt-0.5" dir="rtl">
                     {currentCountry.nativeName}
                   </p>
                 </div>
               </div>
 
-              <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#101F35] text-[#FCFAF5]">
+              <span className="px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#0B3D2E] text-[#FFF8EF]">
                 {currentCountry.capital}
               </span>
             </div>
@@ -353,46 +353,46 @@ export default function GccMap({
             </p>
 
             {/* Key Initiative Highlight */}
-            <div className="mt-4 rounded-xl bg-[#F6F1E7] border border-[#E7E4DC] p-3.5">
+            <div className="mt-4 rounded-xl bg-[#FFF8EF] border border-[#EAE2D5] p-3.5">
               <span className="text-xs font-bold uppercase tracking-wider text-[#697386] block mb-1">
                 National Transformation Mandate:
               </span>
-              <p className="text-sm font-bold text-[#101F35] flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-[#C6A66B] shrink-0" />
+              <p className="text-sm font-bold text-[#0B3D2E] flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-[#16A34A] shrink-0" />
                 <span>{currentCountry.keyInitiative}</span>
               </p>
             </div>
 
             {/* 4 Key Metrics */}
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-3">
+              <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
                 <span className="text-xs font-semibold text-[#697386] block">
                   B2B Tech Startups
                 </span>
-                <span className="text-lg font-extrabold text-[#101F35]">
+                <span className="text-lg font-extrabold text-[#0B3D2E]">
                   {currentCountry.metrics.startups}
                 </span>
               </div>
 
-              <div className="rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-3">
+              <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
                 <span className="text-xs font-semibold text-[#697386] block">
                   Cloud Regions
                 </span>
-                <span className="text-lg font-extrabold text-[#101F35]">
+                <span className="text-lg font-extrabold text-[#0B3D2E]">
                   {currentCountry.metrics.cloudRegions}
                 </span>
               </div>
 
-              <div className="rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-3">
+              <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
                 <span className="text-xs font-semibold text-[#697386] block">
                   AI Hub Ranking
                 </span>
-                <span className="text-sm font-bold text-[#C6A66B]">
+                <span className="text-sm font-bold text-[#16A34A]">
                   {currentCountry.metrics.aiRank}
                 </span>
               </div>
 
-              <div className="rounded-xl border border-[#E7E4DC] bg-[#FCFAF5] p-3">
+              <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
                 <span className="text-xs font-semibold text-[#697386] block">
                   Annual SaaS Growth
                 </span>
@@ -411,9 +411,9 @@ export default function GccMap({
                 {currentCountry.techHubs.map((hub, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 rounded-md bg-[#F6F1E7] border border-[#E7E4DC] px-2.5 py-1 text-xs font-semibold text-[#101F35]"
+                    className="inline-flex items-center gap-1 rounded-md bg-[#FFF8EF] border border-[#EAE2D5] px-2.5 py-1 text-xs font-semibold text-[#0B3D2E]"
                   >
-                    <Building2 className="h-3 w-3 text-[#C6A66B]" />
+                    <Building2 className="h-3 w-3 text-[#16A34A]" />
                     {hub}
                   </span>
                 ))}
@@ -422,13 +422,13 @@ export default function GccMap({
           </div>
 
           {/* Action CTA Link */}
-          <div className="pt-4 border-t border-[#E7E4DC]">
+          <div className="pt-4 border-t border-[#EAE2D5]">
             <button
               onClick={() => handleSelect(currentCountry.id)}
-              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#101F35] px-5 py-3.5 text-[15px] font-bold text-[#FCFAF5] hover:bg-[#172B46] active:scale-[0.99] transition-all shadow-sm cursor-pointer"
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3D2E] px-5 py-3.5 text-[15px] font-bold text-[#FFF8EF] hover:bg-[#172B46] active:scale-[0.99] transition-all shadow-sm cursor-pointer"
             >
               <span>Explore {currentCountry.name} News &amp; SaaS Reviews</span>
-              <ArrowRight className="h-4 w-4 text-[#C6A66B]" />
+              <ArrowRight className="h-4 w-4 text-[#16A34A]" />
             </button>
           </div>
         </div>

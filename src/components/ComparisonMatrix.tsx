@@ -53,7 +53,7 @@ export default function ComparisonMatrix({
               Customize Compared Solutions
             </h2>
           </div>
-          <span className="text-xs sm:text-sm text-[#697386]">
+          <span className="text-xs sm:text-sm text-[#5E7A6E]">
             Select different software to compare side-by-side
           </span>
         </div>
@@ -61,7 +61,7 @@ export default function ComparisonMatrix({
         <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Selector A */}
           <div>
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] block mb-2">
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#5E7A6E] block mb-2">
               Solution 1:
             </label>
             <select
@@ -82,7 +82,7 @@ export default function ComparisonMatrix({
 
           {/* Selector B */}
           <div>
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] block mb-2">
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#5E7A6E] block mb-2">
               Solution 2:
             </label>
             <select
@@ -103,7 +103,7 @@ export default function ComparisonMatrix({
 
           {/* Selector C (Optional 3rd) */}
           <div>
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] block mb-2">
+            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#5E7A6E] block mb-2">
               Solution 3 (Optional):
             </label>
             <select
@@ -133,7 +133,7 @@ export default function ComparisonMatrix({
 
       {/* Curated Editorial Verdict Note if available */}
       {curatedVerdict && (
-        <div className="rounded-2xl border border-[#172B46] bg-[#0B3D2E] text-[#FFF8EF] p-6 sm:p-8 shadow-md">
+        <div className="rounded-2xl border border-[#16A34A]/40 bg-[#0B3D2E] text-[#FFF8EF] p-6 sm:p-8 shadow-md">
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#16A34A] mb-2">
             <Sparkles className="h-4 w-4" />
             <span>GulfSaasReview Comparative Analysis</span>
@@ -154,7 +154,7 @@ export default function ComparisonMatrix({
         {activeProducts.map((p) => (
           <div
             key={p.id}
-            className="rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-5 shadow-xs space-y-4"
+            className="rounded-2xl border border-[#EAE2D5] bg-white p-5 shadow-xs space-y-4"
           >
             <div className="flex items-center justify-between pb-3 border-b border-[#EAE2D5]">
               <div className="flex items-center gap-3">
@@ -166,10 +166,10 @@ export default function ComparisonMatrix({
                 </div>
                 <div>
                   <h4 className="font-bold text-lg text-[#0B3D2E]">{p.name}</h4>
-                  <span className="text-xs text-[#697386]">{p.categoryName}</span>
+                  <span className="text-xs text-[#5E7A6E]">{p.categoryName}</span>
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-sm font-bold text-[#0B3D2E] bg-white px-2.5 py-1 rounded-lg border border-[#EAE2D5]">
+              <div className="flex items-center gap-1 text-sm font-bold text-[#0B3D2E] bg-[#FFF8EF] px-2.5 py-1 rounded-lg border border-[#EAE2D5]">
                 <Star className="h-4 w-4 fill-[#16A34A] text-[#16A34A]" />
                 <span>{p.rating.toFixed(1)}</span>
               </div>
@@ -177,38 +177,38 @@ export default function ComparisonMatrix({
 
             <div className="space-y-3 text-sm">
               <div className="flex justify-between py-2 border-b border-[#EAE2D5]/60">
-                <span className="font-semibold text-[#697386]">Starting Price:</span>
+                <span className="font-semibold text-[#5E7A6E]">Starting Price:</span>
                 <span className="font-extrabold text-[#0B3D2E] text-base">{p.pricing.startingPrice}</span>
               </div>
               <div className="flex justify-between py-2 border-b border-[#EAE2D5]/60">
-                <span className="font-semibold text-[#697386]">Regional Est:</span>
+                <span className="font-semibold text-[#5E7A6E]">Regional Est:</span>
                 <span className="font-bold text-[#0B3D2E]">{p.pricing.tiers[0]?.regionalEstimateSAR || "See Tiers"}</span>
               </div>
               <div className="flex justify-between py-2 border-b border-[#EAE2D5]/60">
-                <span className="font-semibold text-[#697386]">ZATCA E-Invoicing:</span>
+                <span className="font-semibold text-[#5E7A6E]">ZATCA E-Invoicing:</span>
                 <span className="font-bold text-right text-[#0B3D2E]">{p.gulfSuitabilityAnalysis.zatcaStatus || "Check third-party"}</span>
               </div>
               <div className="flex justify-between py-2 border-b border-[#EAE2D5]/60">
-                <span className="font-semibold text-[#697386]">Arabic Support:</span>
+                <span className="font-semibold text-[#5E7A6E]">Arabic Support:</span>
                 <span className="font-bold text-right text-[#0B3D2E]">{p.arabicSupport}</span>
               </div>
               <div className="flex justify-between py-2 border-b border-[#EAE2D5]/60">
-                <span className="font-semibold text-[#697386]">Ease of Use:</span>
+                <span className="font-semibold text-[#5E7A6E]">Ease of Use:</span>
                 <span className="font-bold text-[#0B3D2E]">{p.easeOfUse} / 10</span>
               </div>
               <div className="py-2 border-b border-[#EAE2D5]/60">
-                <span className="font-semibold text-[#697386] block mb-1">Best Suited For:</span>
-                <p className="font-medium text-emerald-800 text-xs sm:text-sm">{p.verdict.bestFor}</p>
+                <span className="font-semibold text-[#5E7A6E] block mb-1">Best Suited For:</span>
+                <p className="font-medium text-[#16A34A] text-xs sm:text-sm">{p.verdict.bestFor}</p>
               </div>
             </div>
 
             <div className="pt-2">
               <Link
                 href={`/reviews/${p.slug}`}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3D2E] py-3 text-sm font-bold text-[#FFF8EF] hover:bg-[#172B46] transition-colors"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3D2E] py-3 text-sm font-bold text-white hover:bg-[#16A34A] transition-colors shadow-xs"
               >
                 <span>Read Full {p.name} Review</span>
-                <ArrowRight className="h-4 w-4 text-[#16A34A]" />
+                <ArrowRight className="h-4 w-4 text-[#22C55E]" />
               </Link>
             </div>
           </div>
@@ -229,7 +229,7 @@ export default function ComparisonMatrix({
           {/* Header Row: Products */}
           <thead>
             <tr className="border-b border-[#EAE2D5] bg-white">
-              <th className="p-5 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] align-top">
+              <th className="p-5 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#5E7A6E] align-top">
                 Specification
               </th>
               {activeProducts.map((p) => (
@@ -245,7 +245,7 @@ export default function ComparisonMatrix({
                       <h4 className="font-bold text-base sm:text-lg text-[#0B3D2E] leading-tight truncate" title={p.name}>
                         {p.name}
                       </h4>
-                      <span className="text-xs sm:text-sm text-[#697386] block truncate">
+                      <span className="text-xs sm:text-sm text-[#5E7A6E] block truncate">
                         {p.categoryName}
                       </span>
                     </div>
@@ -256,7 +256,7 @@ export default function ComparisonMatrix({
                       <Star className="h-4 w-4 fill-[#16A34A] text-[#16A34A]" />
                       <span>{p.rating.toFixed(1)}</span>
                     </div>
-                    <span className="text-xs sm:text-sm text-[#697386]">
+                    <span className="text-xs sm:text-sm text-[#5E7A6E]">
                       (Score: {p.verdict.score}/10)
                     </span>
                   </div>
@@ -264,10 +264,10 @@ export default function ComparisonMatrix({
                   <div className="mt-4 flex items-center gap-2">
                     <Link
                       href={`/reviews/${p.slug}`}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#0B3D2E] px-4 py-2 text-xs sm:text-sm font-bold text-[#FFF8EF] hover:bg-[#172B46] transition-colors whitespace-nowrap shadow-xs"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#0B3D2E] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-colors whitespace-nowrap shadow-xs"
                     >
                       <span>Read Review</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-[#16A34A]" />
+                      <ArrowRight className="h-3.5 w-3.5 text-[#22C55E]" />
                     </Link>
                   </div>
                 </th>
@@ -284,7 +284,7 @@ export default function ComparisonMatrix({
                   <div className="text-lg font-extrabold text-[#0B3D2E]">
                     {p.pricing.startingPrice}
                   </div>
-                  <div className="text-xs sm:text-sm text-[#697386]">
+                  <div className="text-xs sm:text-sm text-[#5E7A6E]">
                     {p.pricing.billingPeriod}
                   </div>
                 </td>
@@ -299,7 +299,7 @@ export default function ComparisonMatrix({
                   <div className="font-bold text-[#0B3D2E] text-sm sm:text-base">
                     {p.pricing.tiers[0]?.regionalEstimateSAR || "See tier breakdown"}
                   </div>
-                  <div className="text-xs text-[#697386] mt-0.5">
+                  <div className="text-xs text-[#5E7A6E] mt-0.5">
                     {p.pricing.tiers[0]?.regionalEstimateAED}
                   </div>
                 </td>

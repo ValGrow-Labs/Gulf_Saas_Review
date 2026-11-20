@@ -18,24 +18,24 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header Banner */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-14 pb-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 sm:pt-14 pb-12 sm:pb-16">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#16A34A] mb-3">
+            <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#16A34A] mb-3">
               <ShieldCheck className="h-4 w-4" />
               <span>Independent Platform Mission</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0B3D2E] tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight leading-tight">
               Making business software decisions easier for companies across the Middle East.
             </h1>
-            <p className="mt-4 text-[19px] sm:text-[20px] text-[#334155] leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-[#354F44] leading-relaxed">
               GulfSaasReview was founded on a simple observation: global software review sites rarely evaluate whether a tool supports Saudi ZATCA e-invoicing, understands UAE Wage Protection Systems, or renders authentic Arabic typography.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 space-y-16">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-12 space-y-12 sm:space-y-16">
         {/* Three Core Pillars */}
         <section>
           <div className="text-center max-w-2xl mx-auto mb-12">

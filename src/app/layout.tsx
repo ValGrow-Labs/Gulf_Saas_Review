@@ -23,6 +23,12 @@ const serif = Lora({
   style: ["normal", "italic"],
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
   title: {
     default: "GulfSaasReview | Gulf Business Technology & SaaS News Journal",
@@ -62,7 +68,7 @@ export default function RootLayout({
       className={`${sans.variable} ${serif.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-screen flex flex-col bg-[#FFF8EF] text-[#0B3D2E] font-sans antialiased selection:bg-[#16A34A]/25 selection:text-[#0B3D2E]">
+      <body className="min-h-screen flex flex-col bg-[#FFF8EF] text-[#0B3D2E] font-sans antialiased overflow-x-hidden selection:bg-[#16A34A]/25 selection:text-[#0B3D2E]">
         <AppProvider>
           <Navigation />
           <BreakingNewsTicker />

@@ -250,7 +250,7 @@ export default function GccMap({
                       y={countrySvgPaths[countryKey].labelPos.y}
                       textAnchor="middle"
                       className={`text-[13px] font-bold tracking-wider uppercase pointer-events-none transition-colors duration-200 select-none ${
-                        isSelected ? "fill-[#FFF8EF]" : isHovered ? "fill-[#0B3D2E]" : "fill-[#697386]"
+                        isSelected ? "fill-[#FFF8EF]" : isHovered ? "fill-[#0B3D2E]" : "fill-[#5E7A6E]"
                       }`}
                     >
                       {info?.shortName || countryKey}
@@ -286,7 +286,7 @@ export default function GccMap({
                       cx={pin.x}
                       cy={pin.y}
                       r="5.5"
-                      fill={isHovered ? "#16A34A" : isCountryActive ? "#0B3D2E" : "#697386"}
+                      fill={isHovered ? "#16A34A" : isCountryActive ? "#0B3D2E" : "#5E7A6E"}
                       stroke="#FFF8EF"
                       strokeWidth="1.8"
                     />
@@ -304,7 +304,7 @@ export default function GccMap({
                       y={pin.y - 9}
                       textAnchor="middle"
                       className={`text-[10.5px] font-extrabold tracking-tight pointer-events-none select-none transition-colors ${
-                        isHovered || isCountryActive ? "fill-[#0B3D2E]" : "fill-[#697386]"
+                        isHovered || isCountryActive ? "fill-[#0B3D2E]" : "fill-[#5E7A6E]"
                       }`}
                     >
                       {pin.city}
@@ -315,7 +315,7 @@ export default function GccMap({
             </svg>
           </div>
 
-          <p className="mt-2 text-xs text-[#697386] font-semibold text-center flex items-center gap-1.5">
+          <p className="mt-2 text-xs text-[#5E7A6E] font-semibold text-center flex items-center gap-1.5">
             <span className="h-2 w-2 rounded-full bg-[#16A34A] inline-block animate-pulse" />
             Interactive GCC Technology Corridor • Hover or tap any country to explore regional news
           </p>
@@ -354,7 +354,7 @@ export default function GccMap({
 
             {/* Key Initiative Highlight */}
             <div className="mt-4 rounded-xl bg-[#FFF8EF] border border-[#EAE2D5] p-3.5">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#697386] block mb-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#5E7A6E] block mb-1">
                 National Transformation Mandate:
               </span>
               <p className="text-sm font-bold text-[#0B3D2E] flex items-center gap-2">
@@ -366,7 +366,7 @@ export default function GccMap({
             {/* 4 Key Metrics */}
             <div className="mt-5 grid grid-cols-2 gap-3">
               <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
-                <span className="text-xs font-semibold text-[#697386] block">
+                <span className="text-xs font-semibold text-[#5E7A6E] block">
                   B2B Tech Startups
                 </span>
                 <span className="text-lg font-extrabold text-[#0B3D2E]">
@@ -375,7 +375,7 @@ export default function GccMap({
               </div>
 
               <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
-                <span className="text-xs font-semibold text-[#697386] block">
+                <span className="text-xs font-semibold text-[#5E7A6E] block">
                   Cloud Regions
                 </span>
                 <span className="text-lg font-extrabold text-[#0B3D2E]">
@@ -384,7 +384,7 @@ export default function GccMap({
               </div>
 
               <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
-                <span className="text-xs font-semibold text-[#697386] block">
+                <span className="text-xs font-semibold text-[#5E7A6E] block">
                   AI Hub Ranking
                 </span>
                 <span className="text-sm font-bold text-[#16A34A]">
@@ -393,7 +393,7 @@ export default function GccMap({
               </div>
 
               <div className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] p-3">
-                <span className="text-xs font-semibold text-[#697386] block">
+                <span className="text-xs font-semibold text-[#5E7A6E] block">
                   Annual SaaS Growth
                 </span>
                 <span className="text-lg font-extrabold text-emerald-700">
@@ -404,7 +404,7 @@ export default function GccMap({
 
             {/* Tech Hub Districts */}
             <div className="mt-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#697386] block mb-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#5E7A6E] block mb-2">
                 Major Innovation Districts:
               </span>
               <div className="flex flex-wrap gap-1.5">

@@ -13,25 +13,25 @@ export default function ArticlesPage() {
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-12 pb-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 sm:pt-12 pb-12 sm:pb-14">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
+            <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
               <FileText className="h-4 w-4" />
               <span>Editorial Intelligence</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
               Insights for Smarter Business Technology
             </h1>
-            <p className="mt-3 text-[18px] sm:text-[19px] text-[#475569] leading-relaxed">
+            <p className="mt-2.5 text-sm sm:text-base text-[#354F44] leading-relaxed">
               In-depth research, regulatory compliance breakdowns (ZATCA, UAE VAT, WPS), and executive software selection guides for the Gulf market.
             </p>
-            <div className="mt-6 flex items-center gap-3">
+            <div className="mt-5 flex items-center gap-3">
               <Link
                 href="/news"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#0B3D2E] px-4 py-2 text-sm font-bold text-[#FFF8EF] hover:bg-[#172B46] transition-colors"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#0B3D2E] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-colors shadow-xs"
               >
-                <Newspaper className="h-4 w-4 text-[#16A34A]" />
+                <Newspaper className="h-4 w-4 text-[#22C55E]" />
                 <span>Switch to Gulf Tech News Feed</span>
               </Link>
             </div>
@@ -39,7 +39,7 @@ export default function ArticlesPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {articles.map((art) => (
             <article
@@ -57,7 +57,7 @@ export default function ArticlesPage() {
                 </div>
 
                 <div className="p-6">
-                  <div className="flex items-center gap-3 text-sm text-[#697386] mb-3">
+                  <div className="flex items-center gap-3 text-sm text-[#5E7A6E] mb-3">
                     <span>{art.publishedDate}</span>
                     <span>•</span>
                     <span className="flex items-center gap-1">

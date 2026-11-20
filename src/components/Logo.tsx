@@ -21,10 +21,10 @@ export default function Logo({
       aria-label="GulfSaasReview Homepage"
     >
       {/* Custom Geometric Gulf-inspired Emblem in Forest Green & Leaf Green */}
-      <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B3D2E] border border-[#16A34A]/50 shadow-sm transition-transform duration-300 group-hover:scale-105">
+      <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B3D2E] border border-[#16A34A]/50 shadow-sm transition-transform duration-300 group-hover:scale-105">
         <svg
           viewBox="0 0 40 40"
-          className="h-6.5 w-6.5"
+          className="h-5 w-5 sm:h-6 sm:w-6 md:h-6.5 md:w-6.5"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -69,13 +69,13 @@ export default function Logo({
       <div className="flex flex-col">
         <div className="flex items-baseline tracking-tight leading-none">
           <span
-            className={`font-extrabold text-[1.38rem] tracking-tight ${
+            className={`font-extrabold text-[1.18rem] sm:text-[1.3rem] md:text-[1.38rem] tracking-tight ${
               isLight ? "text-[#FFF8EF]" : "text-[#0B3D2E]"
             }`}
           >
             GulfSaas
           </span>
-          <span className="font-sans font-bold text-[#16A34A] ml-1 text-[1.44rem] tracking-tight">
+          <span className="font-sans font-bold text-[#16A34A] ml-1 text-[1.22rem] sm:text-[1.35rem] md:text-[1.44rem] tracking-tight">
             Review
           </span>
         </div>

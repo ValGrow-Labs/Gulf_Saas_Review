@@ -128,27 +128,27 @@ export default function ReviewsClient() {
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Page Header */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-12 pb-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 sm:pt-12 pb-12 sm:pb-14">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
+            <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
               <Sparkles className="h-4 w-4" />
               <span>Independent Directory</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
               Software Reviews Directory
             </h1>
-            <p className="mt-3 text-[18px] sm:text-[19px] text-[#354F44] leading-relaxed">
+            <p className="mt-2.5 text-sm sm:text-base text-[#354F44] leading-relaxed">
               Explore independent evaluations of enterprise and small business software tailored for businesses in Saudi Arabia, the UAE, and the GCC. Filter by regulatory readiness, Arabic UI, and pricing models.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-8">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-6 sm:pt-8">
         {/* Search & Quick Controls Bar */}
-        <div className="rounded-2xl border border-[#EAE2D5] bg-white p-6 shadow-xs mb-8">
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+        <div className="rounded-2xl border border-[#EAE2D5] bg-white p-4 sm:p-6 shadow-xs mb-8">
+          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 sm:gap-4">
             {/* Search Input */}
             <div className="relative flex-1">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#5E7A6E]" />
@@ -157,7 +157,7 @@ export default function ReviewsClient() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search software (e.g. Odoo, Zoho, ZATCA Phase 2, WhatsApp, WPS, Payroll)..."
-                className="w-full rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] pl-12 pr-10 py-3.5 text-[17px] sm:text-[18px] text-[#0B3D2E] placeholder-[#8BA4A9] focus:border-[#16A34A] focus:outline-none focus:ring-1 focus:ring-[#16A34A] shadow-2xs"
+                className="w-full rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] pl-12 pr-10 py-3 text-sm sm:text-base text-[#0B3D2E] placeholder-[#8BA4A9] focus:border-[#16A34A] focus:outline-none focus:ring-1 focus:ring-[#16A34A] shadow-2xs"
               />
               {searchQuery && (
                 <button
@@ -170,15 +170,15 @@ export default function ReviewsClient() {
             </div>
 
             {/* Quick Sort Dropdown */}
-            <div className="flex items-center gap-3 shrink-0">
-              <label htmlFor="sort-by" className="text-[15px] font-bold text-[#0B3D2E] shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <label htmlFor="sort-by" className="text-xs sm:text-sm font-bold text-[#0B3D2E] shrink-0">
                 Sort By:
               </label>
               <select
                 id="sort-by"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-4 py-3 text-[15px] sm:text-[16px] font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none shadow-2xs cursor-pointer min-h-[48px]"
+                className="w-full sm:w-auto rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-3.5 py-2.5 text-xs sm:text-sm font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none shadow-2xs cursor-pointer min-h-[44px]"
               >
                 <option value="rating">Highest Rated</option>
                 <option value="reviews">Most Reviewed</option>
@@ -188,12 +188,12 @@ export default function ReviewsClient() {
           </div>
 
           {/* Filter Pills: Category, Pricing, Country Scope */}
-          <div className="mt-5 pt-4 border-t border-[#EAE2D5]/80 flex flex-wrap items-center gap-3 text-[15px] sm:text-[16px]">
+          <div className="mt-4 sm:mt-5 pt-4 border-t border-[#EAE2D5]/80 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
-              <span className="text-[13.5px] font-bold uppercase tracking-wider text-[#5E7A6E]">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#5E7A6E]">
                 Country:
               </span>
-              <span className="rounded-xl px-4 py-2 font-bold bg-[#0B3D2E] text-white text-sm shadow-xs min-h-[40px] inline-flex items-center">
+              <span className="rounded-xl px-3.5 py-2 font-bold bg-[#0B3D2E] text-white text-xs shadow-xs min-h-[38px] inline-flex items-center">
                 All GCC
               </span>
             </div>
@@ -204,7 +204,7 @@ export default function ReviewsClient() {
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none min-h-[44px] cursor-pointer"
+              className="w-full sm:w-auto rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-3.5 py-2 text-xs sm:text-sm font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none min-h-[40px] cursor-pointer"
             >
               <option value="all">All Categories ({categories.length})</option>
               {categories.map((cat) => (
@@ -218,7 +218,7 @@ export default function ReviewsClient() {
             <select
               value={selectedPricing}
               onChange={(e) => setSelectedPricing(e.target.value)}
-              className="rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-4 py-2.5 text-[15px] sm:text-[16px] font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none min-h-[44px] cursor-pointer"
+              className="w-full sm:w-auto rounded-xl border border-[#EAE2D5] bg-[#FFF8EF] px-3.5 py-2 text-xs sm:text-sm font-bold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none min-h-[40px] cursor-pointer"
             >
               <option value="all">All Pricing Models</option>
               <option value="free">Free Tier Available</option>

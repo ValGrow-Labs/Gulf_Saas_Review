@@ -19,8 +19,8 @@ export default function HomeNewsSection() {
     : null;
 
   return (
-    <section className="py-8 sm:py-10 bg-[#F7F4EC] border-b border-[#E5DFD3]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+    <section className="py-7 sm:py-9 bg-[#FBF4E8] border-b border-[#EAE2D5]">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#E5DFD3]">
           <div>

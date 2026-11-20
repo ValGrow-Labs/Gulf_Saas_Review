@@ -63,10 +63,10 @@ export default async function IndividualReviewPage({
       {/* ---------------------------------------------------- */}
       {/* BREADCRUMBS & TOP HERO BANNER                        */}
       {/* ---------------------------------------------------- */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-8 pb-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-8 pb-12 sm:pb-14">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           {/* Breadcrumb Navigation */}
-          <nav className="flex items-center space-x-2 text-xs sm:text-sm text-[#697386] mb-6">
+          <nav className="flex items-center space-x-2 text-xs sm:text-sm text-[#5E7A6E] mb-6">
             <Link href="/" className="hover:text-[#0B3D2E] font-medium">
               Home
             </Link>
@@ -101,7 +101,7 @@ export default async function IndividualReviewPage({
                   <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E]">
                     {software.name}
                   </h1>
-                  <span className="inline-flex items-center gap-1 rounded-lg bg-[#FFF8EF] px-3 py-1 text-xs sm:text-sm font-semibold text-[#697386] border border-[#EAE2D5]">
+                  <span className="inline-flex items-center gap-1 rounded-lg bg-[#FFF8EF] px-3 py-1 text-xs sm:text-sm font-semibold text-[#5E7A6E] border border-[#EAE2D5]">
                     <ShieldCheck className="h-4 w-4 text-[#16A34A]" />
                     Sample Review Profile
                   </span>
@@ -113,7 +113,7 @@ export default async function IndividualReviewPage({
 
                 {/* Country Suitability Tags */}
                 <div className="mt-4 flex flex-wrap items-center gap-2">
-                  <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] mr-1">
+                  <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#5E7A6E] mr-1">
                     Suited For:
                   </span>
                   {software.countrySuitability.map((c) => (
@@ -143,7 +143,7 @@ export default async function IndividualReviewPage({
                 </div>
                 <div className="text-left text-xs sm:text-sm text-[#556070]">
                   <div className="font-bold text-[#0B3D2E]">Score: {software.verdict.score}/10</div>
-                  <div className="text-[11px] text-[#697386]">Regional GCC Criteria</div>
+                  <div className="text-[11px] text-[#5E7A6E]">Regional GCC Criteria</div>
                 </div>
               </div>
 
@@ -174,7 +174,7 @@ export default async function IndividualReviewPage({
       {/* ---------------------------------------------------- */}
       {/* MAIN REVIEW BODY & SIDEBAR                           */}
       {/* ---------------------------------------------------- */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Main Review Content (Col Span 8) */}
           <div className="lg:col-span-8 space-y-10">
@@ -193,7 +193,7 @@ export default async function IndividualReviewPage({
               {/* Quick Metrics Bar */}
               <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 border-t border-[#EAE2D5]">
                 <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#697386] block">
+                  <span className="text-xs uppercase font-bold text-[#5E7A6E] block">
                     Ease of Use
                   </span>
                   <span className="text-xl font-extrabold text-[#0B3D2E] block mt-1">
@@ -201,7 +201,7 @@ export default async function IndividualReviewPage({
                   </span>
                 </div>
                 <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#697386] block">
+                  <span className="text-xs uppercase font-bold text-[#5E7A6E] block">
                     Deployment
                   </span>
                   <span className="text-sm sm:text-base font-bold text-[#0B3D2E] block mt-1">
@@ -209,7 +209,7 @@ export default async function IndividualReviewPage({
                   </span>
                 </div>
                 <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#697386] block">
+                  <span className="text-xs uppercase font-bold text-[#5E7A6E] block">
                     Starting At
                   </span>
                   <span className="text-base sm:text-lg font-bold text-[#0B3D2E] block mt-1">
@@ -217,7 +217,7 @@ export default async function IndividualReviewPage({
                   </span>
                 </div>
                 <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#697386] block">
+                  <span className="text-xs uppercase font-bold text-[#5E7A6E] block">
                     Arabic Support
                   </span>
                   <span className="text-xs sm:text-sm font-bold text-[#0B3D2E] block mt-1 truncate">
@@ -394,7 +394,7 @@ export default async function IndividualReviewPage({
                         <span className="text-2xl sm:text-3xl font-extrabold text-[#0B3D2E]">
                           {tier.price}
                         </span>
-                        <span className="text-xs sm:text-sm text-[#697386]">
+                        <span className="text-xs sm:text-sm text-[#5E7A6E]">
                           /{tier.period}
                         </span>
                       </div>
@@ -497,7 +497,7 @@ export default async function IndividualReviewPage({
 
               {/* Verified Integrations List */}
               <div className="mt-6 pt-5 border-t border-[#EAE2D5]">
-                <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] mb-3">
+                <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#5E7A6E] mb-3">
                   Verified Local Integrations
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -514,7 +514,7 @@ export default async function IndividualReviewPage({
 
               {/* Regulatory Compliance Badges */}
               <div className="mt-6 pt-5 border-t border-[#EAE2D5]">
-                <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#697386] mb-3">
+                <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#5E7A6E] mb-3">
                   Regional Regulatory Badges
                 </h4>
                 <div className="space-y-2">
@@ -531,7 +531,7 @@ export default async function IndividualReviewPage({
               </div>
 
               {/* Research Disclaimer */}
-              <div className="mt-6 pt-5 border-t border-[#EAE2D5] text-xs text-[#697386] leading-relaxed">
+              <div className="mt-6 pt-5 border-t border-[#EAE2D5] text-xs text-[#5E7A6E] leading-relaxed">
                 <span className="font-bold text-[#0B3D2E] block mb-1">
                   Editorial Research Note:
                 </span>

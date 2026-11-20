@@ -44,7 +44,7 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
 
   return (
     <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-      <span className="text-[#697386] uppercase tracking-wider font-bold mr-1 flex items-center gap-1">
+      <span className="text-[#5E7A6E] uppercase tracking-wider font-bold mr-1 flex items-center gap-1">
         <Share2 className="h-3.5 w-3.5" />
         <span>Share:</span>
       </span>
@@ -61,7 +61,7 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
           </>
         ) : (
           <>
-            <Copy className="h-3.5 w-3.5 text-[#697386]" />
+            <Copy className="h-3.5 w-3.5 text-[#5E7A6E]" />
             <span>Copy Link</span>
           </>
         )}

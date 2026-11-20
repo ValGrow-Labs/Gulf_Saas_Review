@@ -66,7 +66,7 @@ export default async function ArticleDetailPage({
       {/* Breadcrumb Strip */}
       <div className="border-b border-[#EAE2D5] bg-[#FFF8EF]/80">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-3.5">
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#697386] overflow-x-auto">
+          <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#5E7A6E] overflow-x-auto">
             <Link href="/" className="hover:text-[#0B3D2E] transition-colors shrink-0">
               Home
             </Link>
@@ -79,7 +79,7 @@ export default async function ArticleDetailPage({
               {article.category}
             </span>
             <ChevronRight className="h-3.5 w-3.5 text-[#16A34A] shrink-0" />
-            <span className="text-[#697386] truncate max-w-xs">
+            <span className="text-[#5E7A6E] truncate max-w-xs">
               {article.title}
             </span>
           </nav>
@@ -116,13 +116,13 @@ export default async function ArticleDetailPage({
                 <div className="font-bold text-[#0B3D2E] text-base">
                   {article.author.name}
                 </div>
-                <div className="text-xs sm:text-sm text-[#697386]">
+                <div className="text-xs sm:text-sm text-[#5E7A6E]">
                   {article.author.role}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 text-xs sm:text-sm text-[#697386]">
+            <div className="flex items-center gap-4 text-xs sm:text-sm text-[#5E7A6E]">
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-4 w-4 text-[#16A34A]" />
                 {article.publishedDate}
@@ -137,7 +137,7 @@ export default async function ArticleDetailPage({
 
           {/* Social Share Bar */}
           <div className="mt-6 pt-4 border-t border-[#EAE2D5]/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <span className="text-xs uppercase tracking-wider font-bold text-[#697386]">
+            <span className="text-xs uppercase tracking-wider font-bold text-[#5E7A6E]">
               Share this briefing:
             </span>
             <ShareButtons title={article.title} />
@@ -161,7 +161,7 @@ export default async function ArticleDetailPage({
               />
             </div>
             {(article as any).imageCaption && (
-              <figcaption className="p-4 sm:p-5 text-xs sm:text-sm text-[#697386] italic border-t border-[#EAE2D5]">
+              <figcaption className="p-4 sm:p-5 text-xs sm:text-sm text-[#5E7A6E] italic border-t border-[#EAE2D5]">
                 {(article as any).imageCaption}
               </figcaption>
             )}
@@ -226,7 +226,7 @@ export default async function ArticleDetailPage({
               <p className="font-editorial italic text-xl sm:text-2xl text-[#0B3D2E] leading-relaxed">
                 &ldquo;When procuring business software across the Gulf, verify vendor adherence to regional regulatory milestones (such as Phase 2 ZATCA or UAE Corporate Tax) as hard contract deliverables.&rdquo;
               </p>
-              <cite className="block mt-4 text-sm font-bold uppercase tracking-wider text-[#697386] not-italic">
+              <cite className="block mt-4 text-sm font-bold uppercase tracking-wider text-[#5E7A6E] not-italic">
                 — {article.author.name}, {article.author.role}
               </cite>
             </blockquote>

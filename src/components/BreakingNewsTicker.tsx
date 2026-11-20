@@ -32,7 +32,7 @@ export default function BreakingNewsTicker() {
       onMouseLeave={() => setIsPaused(false)}
       aria-label="Breaking Technology News"
     >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex h-9 sm:h-10 items-center justify-between gap-3 text-xs sm:text-sm">
           {/* Breaking News Label */}
           <div className="flex items-center gap-2 shrink-0">

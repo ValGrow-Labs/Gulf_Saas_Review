@@ -125,7 +125,7 @@ export default function SoftwareCard({ software }: SoftwareCardProps) {
       </div>
 
       {/* Bottom Footer: Pricing & Action Buttons */}
-      <div className="mt-4 pt-3 border-t border-[#EAE2D5] flex items-center justify-between gap-2">
+      <div className="mt-4 pt-3 border-t border-[#EAE2D5] flex flex-wrap sm:flex-nowrap items-center justify-between gap-2.5">
         <div className="flex flex-col">
           <span className="text-[10px] uppercase tracking-wider font-bold text-[#5E7A6E]">
             Starting From
@@ -142,12 +142,12 @@ export default function SoftwareCard({ software }: SoftwareCardProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 shrink-0">
           {/* Quick Compare Button */}
           <button
             type="button"
             onClick={handleCompareClick}
-            className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-bold transition-all min-h-[34px] cursor-pointer ${
+            className={`inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-bold transition-all min-h-[36px] cursor-pointer shrink-0 ${
               compared
                 ? "bg-[#0B3D2E] text-white shadow-2xs"
                 : "border border-[#EAE2D5] bg-white text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A]"
@@ -170,7 +170,7 @@ export default function SoftwareCard({ software }: SoftwareCardProps) {
           {/* Read Review Link */}
           <Link
             href={`/reviews/${software.slug}`}
-            className="inline-flex items-center gap-1 rounded-lg bg-[#0B3D2E] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#16A34A] transition-colors min-h-[34px] shadow-2xs"
+            className="inline-flex items-center gap-1 rounded-lg bg-[#0B3D2E] px-3 py-1.5 text-xs font-bold text-white hover:bg-[#16A34A] transition-colors min-h-[36px] shadow-2xs shrink-0"
           >
             <span>Read Review</span>
             <ArrowRight className="h-3.5 w-3.5 text-[#22C55E]" />

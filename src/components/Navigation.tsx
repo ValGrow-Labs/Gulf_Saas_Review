@@ -55,13 +55,13 @@ export default function Navigation() {
   return (
     <header className="w-full bg-[#FFF8EF]">
       {/* Main Masthead in Cream White with Forest Green */}
-      <div className="border-b border-[#EAE2D5] bg-[#FFF8EF] py-2.5 sm:py-3">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <div className="border-b border-[#EAE2D5] bg-[#FFF8EF] py-2 sm:py-2.5">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between gap-3 sm:gap-4">
           {/* Left: Brand Logo & Subtitle */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <Logo showTagline={false} />
-            <div className="hidden md:block pl-4 border-l border-[#EAE2D5]">
-              <span className="block text-[11px] font-bold uppercase tracking-widest text-[#5E7A6E]">
+            <div className="hidden md:block pl-3 sm:pl-4 border-l border-[#EAE2D5]">
+              <span className="block text-[10px] sm:text-[11px] font-bold uppercase tracking-widest text-[#5E7A6E]">
                 Middle East Software &amp; Tech Intelligence
               </span>
               <span className="text-xs text-[#0B3D2E] font-semibold">
@@ -71,16 +71,17 @@ export default function Navigation() {
           </div>
 
           {/* Right: Search, Comparison Tray & Action CTA */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Compare Counter Pill */}
             {compareSlugs.length > 0 && (
               <button
                 onClick={() => setIsCompareTrayOpen(true)}
-                className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-xs font-bold bg-[#0B3D2E] text-[#22C55E] border border-[#16A34A]/50 hover:bg-[#0E4B39] transition-all shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-1.5 h-9 px-2.5 sm:px-3 rounded-lg text-xs font-bold bg-[#0B3D2E] text-[#22C55E] border border-[#16A34A]/50 hover:bg-[#0E4B39] transition-all shadow-xs cursor-pointer"
                 title="View selected software to compare"
               >
                 <Scale className="h-3.5 w-3.5" />
-                <span>Compare ({compareSlugs.length})</span>
+                <span className="hidden sm:inline">Compare</span>
+                <span>({compareSlugs.length})</span>
               </button>
             )}
 
@@ -88,13 +89,13 @@ export default function Navigation() {
             <button
               type="button"
               onClick={openSearch}
-              className="flex items-center justify-center h-9 rounded-lg border border-[#EAE2D5] bg-white px-3 text-xs sm:text-[13px] font-medium text-[#5E7A6E] hover:border-[#16A34A] hover:text-[#0B3D2E] transition-all shadow-2xs cursor-pointer whitespace-nowrap"
+              className="flex items-center justify-center h-9 px-2.5 sm:px-3 rounded-lg border border-[#EAE2D5] bg-white text-xs sm:text-[13px] font-medium text-[#5E7A6E] hover:border-[#16A34A] hover:text-[#0B3D2E] transition-all shadow-2xs cursor-pointer whitespace-nowrap"
               aria-label="Search news, reviews and comparisons"
               title="Search (⌘K)"
             >
               <Search className="h-3.5 w-3.5 text-[#0B3D2E]" />
-              <span className="hidden sm:inline ml-2 text-xs text-[#5E7A6E]">Search 50+ software...</span>
-              <kbd className="hidden sm:inline-flex ml-2 items-center rounded border border-[#EAE2D5] bg-[#FFF8EF] px-1 py-0.2 text-[10px] text-[#5E7A6E] font-mono">
+              <span className="hidden md:inline ml-2 text-xs text-[#5E7A6E]">Search 50+ software...</span>
+              <kbd className="hidden lg:inline-flex ml-2 items-center rounded border border-[#EAE2D5] bg-[#FFF8EF] px-1 py-0.2 text-[10px] text-[#5E7A6E] font-mono">
                 ⌘K
               </kbd>
             </button>
@@ -128,7 +129,7 @@ export default function Navigation() {
 
       {/* Primary Section Navigation Strip */}
       <nav className="sticky top-0 z-30 w-full bg-[#FFF8EF]/98 backdrop-blur-md border-b border-[#EAE2D5]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="hidden lg:flex items-center h-10 sm:h-11">
             <div className="flex items-center gap-6 lg:gap-8 xl:gap-9 h-full">
               {navLinks.map((link) => {
@@ -156,8 +157,8 @@ export default function Navigation() {
 
         {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-b border-[#EAE2D5] bg-[#FFF8EF] px-5 pt-4 pb-8 shadow-2xl animate-in slide-in-from-top-2 duration-200">
-            <div className="space-y-1.5">
+          <div className="lg:hidden border-b border-[#EAE2D5] bg-[#FFF8EF] px-4 pt-3 pb-6 shadow-2xl animate-in slide-in-from-top-2 duration-200">
+            <div className="space-y-1">
               {navLinks.map((link) => {
                 const active = isActive(link.href);
                 return (
@@ -165,7 +166,7 @@ export default function Navigation() {
                     key={link.name}
                     href={link.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center justify-between rounded-xl px-4 py-3 text-sm font-bold uppercase tracking-wider transition-colors ${
+                    className={`flex items-center justify-between rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider transition-colors min-h-[44px] ${
                       active
                         ? "bg-[#0B3D2E] text-[#FFF8EF]"
                         : "text-[#0B3D2E] hover:bg-[#EAE2D5]/60"
@@ -178,20 +179,22 @@ export default function Navigation() {
               })}
             </div>
 
-            <div className="mt-6 pt-5 border-t border-[#EAE2D5] flex flex-col gap-3">
+            <div className="mt-4 pt-4 border-t border-[#EAE2D5] flex flex-col gap-2.5">
               <Link
                 href="/reviews"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center rounded-xl bg-[#0B3D2E] py-3 text-sm font-bold text-white hover:bg-[#16A34A]"
+                className="w-full rounded-xl bg-[#0B3D2E] py-2.5 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] min-h-[44px] flex items-center justify-center gap-1.5 shadow-xs"
               >
-                Browse Software Reviews
+                <span>Browse Software Reviews</span>
+                <ArrowUpRight className="h-3.5 w-3.5" />
               </Link>
               <Link
                 href="/compare"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full text-center rounded-xl border border-[#EAE2D5] bg-white py-3 text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A]"
+                className="w-full rounded-xl border border-[#EAE2D5] bg-white py-2.5 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] min-h-[44px] flex items-center justify-center gap-1.5 shadow-2xs"
               >
-                Side-by-Side Comparisons
+                <Scale className="h-3.5 w-3.5 text-[#16A34A]" />
+                <span>Side-by-Side Comparisons</span>
               </Link>
             </div>
           </div>

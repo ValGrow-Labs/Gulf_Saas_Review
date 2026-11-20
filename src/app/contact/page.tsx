@@ -12,24 +12,24 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-12 pb-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 sm:pt-12 pb-12 sm:pb-14">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-[15px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
+            <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
               <Mail className="h-4 w-4" />
               <span>Get in Touch</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
               Contact Our Research Team
             </h1>
-            <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] leading-relaxed">
+            <p className="mt-2.5 text-sm sm:text-base text-[#354F44] leading-relaxed">
               Have questions regarding our regional software reviews? Are you a SaaS vendor seeking an independent evaluation for the Saudi or UAE market? We welcome your inquiry.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-12">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column: Contact Form (Col 7) */}
           <div className="lg:col-span-7">

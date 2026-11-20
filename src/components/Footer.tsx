@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="w-full bg-[#0B3D2E] text-[#FFF8EF] border-t border-[#0E4B39]">
       {/* Top Editorial Authority Strip */}
       <div className="border-b border-[#0E4B39] bg-[#07261D]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 py-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-center gap-2.5 text-sm text-[#FFF8EF]">
             <span className="flex h-2 w-2 rounded-full bg-[#22C55E]" />
             <span className="font-semibold text-white">Independent GCC Software &amp; Tech Intelligence</span>
@@ -25,7 +25,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 py-12 sm:py-16">
         {/* Main 5-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 pb-12 border-b border-[#0E4B39]">
           {/* Brand Info (2 Columns) */}

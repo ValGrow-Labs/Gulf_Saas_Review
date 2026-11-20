@@ -61,46 +61,46 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 1: VALUE PROPOSITION HERO & TRENDING DISPATCHES */}
       {/* ---------------------------------------------------- */}
-      <section className="bg-[#FFF8EF] py-7 sm:py-9 border-b border-[#EAE2D5]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <section className="bg-[#FFF8EF] py-6 sm:py-8 lg:py-10 border-b border-[#EAE2D5]">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
             {/* Left Column: Hero Value Proposition (lg:col-span-7) */}
-            <div className="lg:col-span-7 flex flex-col justify-center text-left space-y-3">
+            <div className="lg:col-span-7 flex flex-col justify-center text-left space-y-3.5 sm:space-y-4">
               {/* Regional Territory Pill */}
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#C8E6D2] bg-[#EAF5ED] px-3 py-0.5 text-xs font-bold text-[#0B3D2E] shadow-2xs w-fit">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] animate-pulse" />
-                <span>The Independent Software Guide for Saudi Arabia, UAE &amp; GCC</span>
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#C8E6D2] bg-[#EAF5ED] px-3 py-1 text-[11px] sm:text-xs font-bold text-[#0B3D2E] shadow-2xs w-fit max-w-full">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A] animate-pulse shrink-0" />
+                <span className="truncate">The Independent Software Guide for Saudi Arabia, UAE &amp; GCC</span>
               </div>
 
               {/* Simple, Bold Headline */}
-              <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-editorial text-[#0B3D2E] tracking-tight leading-[1.2]">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[38px] xl:text-[42px] font-bold font-editorial text-[#0B3D2E] tracking-tight leading-[1.2]">
                 Find the Right Software for Your Business in the Gulf
               </h1>
 
               {/* Subtitle */}
-              <p className="text-sm sm:text-[15px] text-[#354F44] leading-relaxed font-normal">
+              <p className="text-sm sm:text-base text-[#354F44] leading-relaxed font-normal max-w-2xl">
                 Independent reviews, side-by-side comparisons, and regional compliance checks for Accounting, CRM, HR, Payroll, and ERP software across the Middle East.
               </p>
 
-              {/* Left-aligned Quick Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center gap-2.5">
+              {/* Responsive Action Buttons: full-width on mobile, auto on sm+ */}
+              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                 <Link
                   href="/reviews"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#0B3D2E] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-all shadow-xs"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3D2E] px-5 py-2.5 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-all shadow-xs min-h-[44px]"
                 >
                   <span>Browse Software Reviews</span>
                   <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/categories"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#EAE2D5] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A] transition-colors shadow-2xs"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#EAE2D5] bg-white px-5 py-2.5 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A] transition-colors shadow-2xs min-h-[44px]"
                 >
                   <Layers className="h-4 w-4 text-[#16A34A]" />
                   <span>Explore Categories</span>
                 </Link>
                 <Link
                   href="/compare"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#EAE2D5] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A] transition-colors shadow-2xs"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#EAE2D5] bg-white px-5 py-2.5 text-xs sm:text-sm font-bold text-[#0B3D2E] hover:border-[#16A34A] hover:text-[#16A34A] transition-colors shadow-2xs min-h-[44px]"
                 >
                   <Scale className="h-4 w-4 text-[#16A34A]" />
                   <span>Compare Tools</span>
@@ -110,7 +110,7 @@ export default function HomePage() {
 
             {/* Right Column: Trending Regional Dispatches (lg:col-span-5) */}
             <div className="lg:col-span-5 flex flex-col justify-center">
-              <div className="rounded-2xl border border-[#EAE2D5] bg-white p-4.5 sm:p-5 shadow-xs flex flex-col justify-between">
+              <div className="rounded-2xl border border-[#EAE2D5] bg-white p-4.5 sm:p-5 shadow-xs flex flex-col justify-between h-full">
                 {/* Header */}
                 <div className="flex items-center justify-between pb-3 border-b border-[#EAE2D5]">
                   <div className="flex items-center gap-2">
@@ -135,13 +135,13 @@ export default function HomePage() {
                       key={article.id}
                       className="group flex items-center gap-3 pb-3 border-b border-[#EAE2D5]/80 last:border-b-0 last:pb-0"
                     >
-                      <div className="relative h-15 w-20 shrink-0 overflow-hidden rounded-lg border border-[#EAE2D5] bg-[#0B3D2E]/5">
+                      <div className="relative h-16 w-20 sm:h-[72px] sm:w-[92px] shrink-0 overflow-hidden rounded-lg border border-[#EAE2D5] bg-[#0B3D2E]/5">
                         <Image
                           src={article.featuredImage || article.image}
                           alt={article.title}
                           fill
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          sizes="80px"
+                          sizes="(max-width: 640px) 80px, 92px"
                         />
                       </div>
 
@@ -176,8 +176,8 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 2: BROWSE SOFTWARE BY CATEGORY               */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FBF4E8] border-b border-[#EAE2D5]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="py-7 sm:py-9 bg-[#FBF4E8] border-b border-[#EAE2D5]">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
@@ -244,8 +244,8 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 3: TOP-RATED BUSINESS SOFTWARE DIRECTORY     */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FFF8EF] border-b border-[#EAE2D5]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="py-7 sm:py-9 bg-[#FFF8EF] border-b border-[#EAE2D5]">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
@@ -315,8 +315,8 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 4: HEAD-TO-HEAD COMPARISON MATRIX TEASERS    */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FBF4E8] border-b border-[#EAE2D5]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="py-7 sm:py-9 bg-[#FBF4E8] border-b border-[#EAE2D5]">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
@@ -381,8 +381,8 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 5: LATEST GULF TECH & AI NEWS (PRESERVED)    */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FFF8EF] border-b border-[#EAE2D5]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="py-7 sm:py-9 bg-[#FFF8EF] border-b border-[#EAE2D5]">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#EAE2D5]">
             <div>
               <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-1">
@@ -600,8 +600,8 @@ export default function HomePage() {
       {/* ---------------------------------------------------- */}
       {/* SECTION 6: WHAT'S TRENDING IN THE GULF (FOREST GREEN) */}
       {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#0B3D2E] text-[#FFF8EF] border-b border-[#0E4B39]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6">
+      <section className="py-7 sm:py-9 bg-[#0B3D2E] text-[#FFF8EF] border-b border-[#0E4B39]">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b border-[#0E4B39]">
             <div>
               <div className="inline-flex items-center gap-1.5 rounded-full border border-[#22C55E]/40 bg-[#0E4B39] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#22C55E] mb-1.5">

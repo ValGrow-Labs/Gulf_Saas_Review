@@ -60,32 +60,32 @@ export default function NewsClient() {
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header Banner */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-12 pb-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 sm:pt-12 pb-12 sm:pb-14">
+        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
               <Globe2 className="h-4 w-4" />
               <span>Middle East Technology Journal</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
               Gulf Technology &amp; SaaS News
             </h1>
-            <p className="mt-3 text-[18px] sm:text-[19px] text-[#334155] leading-relaxed">
+            <p className="mt-2.5 text-sm sm:text-base text-[#354F44] leading-relaxed">
               Comprehensive coverage of artificial intelligence, sovereign cloud data centers, software compliance, and B2B SaaS across Saudi Arabia, UAE, and the wider GCC.
             </p>
           </div>
 
           {/* Filter Bar */}
-          <div className="mt-8 pt-6 border-t border-[#EAE2D5] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-[#EAE2D5] flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 sm:gap-4">
             {/* Search Input */}
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#697386]" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#5E7A6E]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search headlines, keywords, or topics..."
-                className="w-full rounded-xl border border-[#EAE2D5] bg-white pl-10 pr-4 py-2.5 text-sm font-medium text-[#0B3D2E] placeholder-[#697386] focus:border-[#16A34A] focus:outline-none"
+                className="w-full rounded-xl border border-[#EAE2D5] bg-white pl-10 pr-4 py-2.5 text-xs sm:text-sm font-medium text-[#0B3D2E] placeholder-[#5E7A6E] focus:border-[#16A34A] focus:outline-none min-h-[42px]"
               />
             </div>
 
@@ -93,10 +93,10 @@ export default function NewsClient() {
             <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
               <button
                 onClick={() => setSelectedCountry("all")}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap cursor-pointer transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap cursor-pointer transition-colors min-h-[38px] ${
                   selectedCountry === "all"
                     ? "bg-[#0B3D2E] text-[#FFF8EF]"
-                    : "bg-white text-[#475569] border border-[#EAE2D5] hover:border-[#16A34A]"
+                    : "bg-white text-[#354F44] border border-[#EAE2D5] hover:border-[#16A34A]"
                 }`}
               >
                 All GCC
@@ -105,10 +105,10 @@ export default function NewsClient() {
                 <button
                   key={c.id}
                   onClick={() => setSelectedCountry(c.id)}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap cursor-pointer transition-colors flex items-center gap-1.5 ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap cursor-pointer transition-colors flex items-center gap-1.5 min-h-[38px] ${
                     selectedCountry === c.id
                       ? "bg-[#0B3D2E] text-[#FFF8EF]"
-                      : "bg-white text-[#475569] border border-[#EAE2D5] hover:border-[#16A34A]"
+                      : "bg-white text-[#354F44] border border-[#EAE2D5] hover:border-[#16A34A]"
                   }`}
                 >
                   <span>{c.flagEmoji}</span>
@@ -119,15 +119,15 @@ export default function NewsClient() {
           </div>
 
           {/* Category Tabs */}
-          <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
+          <div className="mt-3 sm:mt-4 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
             {categories.map((cat) => (
               <button
                 key={cat.value}
                 onClick={() => setSelectedCategory(cat.value)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors min-h-[34px] ${
                   selectedCategory === cat.value
-                    ? "bg-[#16A34A] text-[#0B3D2E] font-bold"
-                    : "bg-transparent text-[#697386] hover:text-[#0B3D2E]"
+                    ? "bg-[#0B3D2E] text-white font-bold"
+                    : "bg-transparent text-[#5E7A6E] hover:text-[#0B3D2E]"
                 }`}
               >
                 {cat.label}
@@ -138,7 +138,7 @@ export default function NewsClient() {
       </div>
 
       {/* Main Content Area */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-10">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-10">
         <div className="flex items-center justify-between pb-4 border-b border-[#EAE2D5] mb-8">
           <span className="text-sm font-bold text-[#0B3D2E]">
             Showing {filteredArticles.length} {filteredArticles.length === 1 ? "Story" : "Stories"}
@@ -183,27 +183,27 @@ export default function NewsClient() {
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#8C6D33] bg-[#16A34A]/15 px-2.5 py-1 rounded-md">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#16A34A] bg-[#EAF5ED] px-2.5 py-1 rounded-md border border-[#C8E6D2]">
                       {article.category}
                     </span>
-                    <span className="text-xs font-semibold text-[#697386] flex items-center gap-1">
+                    <span className="text-xs font-semibold text-[#5E7A6E] flex items-center gap-1">
                       <span className="h-1.5 w-1.5 rounded-full bg-[#16A34A]" />
                       {article.country}
                     </span>
                   </div>
 
-                  <h2 className="text-xl font-bold font-editorial text-[#0B3D2E] group-hover:text-[#8C6D33] transition-colors leading-snug line-clamp-2">
+                  <h2 className="text-lg sm:text-xl font-bold font-editorial text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors leading-snug line-clamp-2">
                     <Link href={`/news/${article.slug}`}>
                       {article.title}
                     </Link>
                   </h2>
 
-                  <p className="mt-3 text-[15px] text-[#475569] leading-relaxed line-clamp-3">
+                  <p className="mt-2.5 text-xs sm:text-sm text-[#354F44] leading-relaxed line-clamp-3">
                     {article.excerpt}
                   </p>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-[#EAE2D5] flex items-center justify-between text-xs text-[#697386]">
+                <div className="mt-5 pt-3.5 border-t border-[#EAE2D5] flex items-center justify-between text-xs text-[#5E7A6E]">
                   <div className="flex items-center gap-1.5 font-medium">
                     <User className="h-3.5 w-3.5 text-[#16A34A]" />
                     <span>{article.author.name}</span>

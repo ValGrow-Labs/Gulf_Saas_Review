@@ -6,7 +6,6 @@ import { softwares } from "@/data/software";
 import { comparisons } from "@/data/comparisons";
 import { categories } from "@/data/categories";
 import SoftwareCard from "@/components/SoftwareCard";
-import HomeNewsSection from "@/components/HomeNewsSection";
 import NewsletterSection from "@/components/NewsletterSection";
 import {
   ArrowRight,
@@ -60,50 +59,115 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F4EC]">
       {/* ---------------------------------------------------- */}
-      {/* SECTION 1: VALUE PROPOSITION HERO (LEFT-ALIGNED)     */}
+      {/* SECTION 1: VALUE PROPOSITION HERO & TRENDING DISPATCHES */}
       {/* ---------------------------------------------------- */}
       <section className="bg-[#FAF7F0] py-7 sm:py-9 border-b border-[#E5DFD3]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-2xl text-left space-y-3">
-            {/* Regional Territory Pill */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#E5DFD3] bg-white px-3 py-0.5 text-xs font-bold text-[#0A2E36] shadow-2xs">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B5B] animate-pulse" />
-              <span>The Independent Software Guide for Saudi Arabia, UAE &amp; GCC</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+            {/* Left Column: Hero Value Proposition (lg:col-span-7) */}
+            <div className="lg:col-span-7 flex flex-col justify-center text-left space-y-3">
+              {/* Regional Territory Pill */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-[#E5DFD3] bg-white px-3 py-0.5 text-xs font-bold text-[#0A2E36] shadow-2xs w-fit">
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B5B] animate-pulse" />
+                <span>The Independent Software Guide for Saudi Arabia, UAE &amp; GCC</span>
+              </div>
+
+              {/* Simple, Bold Headline */}
+              <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-editorial text-[#0A2E36] tracking-tight leading-[1.2]">
+                Find the Right Software for Your Business in the Gulf
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-sm sm:text-[15px] text-[#384D52] leading-relaxed font-normal">
+                Independent reviews, side-by-side comparisons, and regional compliance checks for Accounting, CRM, HR, Payroll, and ERP software across the Middle East.
+              </p>
+
+              {/* Left-aligned Quick Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-2.5">
+                <Link
+                  href="/reviews"
+                  className="inline-flex items-center gap-1.5 rounded-xl bg-[#FF6B5B] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#E85747] transition-all shadow-xs"
+                >
+                  <span>Browse Software Reviews</span>
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/categories"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5DFD3] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B] hover:text-[#FF6B5B] transition-colors shadow-2xs"
+                >
+                  <Layers className="h-4 w-4 text-[#FF6B5B]" />
+                  <span>Explore Categories</span>
+                </Link>
+                <Link
+                  href="/compare"
+                  className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5DFD3] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B] hover:text-[#FF6B5B] transition-colors shadow-2xs"
+                >
+                  <Scale className="h-4 w-4 text-[#FF6B5B]" />
+                  <span>Compare Tools</span>
+                </Link>
+              </div>
             </div>
 
-            {/* Simple, Bold Headline */}
-            <h1 className="text-2xl sm:text-3xl lg:text-[34px] font-bold font-editorial text-[#0A2E36] tracking-tight leading-[1.2]">
-              Find the Right Software for Your Business in the Gulf
-            </h1>
+            {/* Right Column: Trending Regional Dispatches (lg:col-span-5) */}
+            <div className="lg:col-span-5 flex flex-col justify-center">
+              <div className="rounded-2xl border border-[#E5DFD3] bg-white p-4.5 sm:p-5 shadow-xs flex flex-col justify-between">
+                {/* Header */}
+                <div className="flex items-center justify-between pb-3 border-b border-[#E5DFD3]">
+                  <div className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-[#FF6B5B]" />
+                    <h2 className="text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#0A2E36]">
+                      Trending Regional Dispatches
+                    </h2>
+                  </div>
+                  <Link
+                    href="/news"
+                    className="text-xs font-bold text-[#FF6B5B] hover:text-[#0A2E36] transition-colors flex items-center gap-1"
+                  >
+                    <span>All News</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
 
-            {/* Subtitle */}
-            <p className="text-sm sm:text-[15px] text-[#384D52] leading-relaxed font-normal">
-              Independent reviews, side-by-side comparisons, and regional compliance checks for Accounting, CRM, HR, Payroll, and ERP software across the Middle East.
-            </p>
+                {/* List of 3 Curated Dispatches */}
+                <div className="mt-3 space-y-3">
+                  {sideArticles.map((article) => (
+                    <article
+                      key={article.id}
+                      className="group flex items-center gap-3 pb-3 border-b border-[#E5DFD3]/80 last:border-b-0 last:pb-0"
+                    >
+                      <div className="relative h-15 w-20 shrink-0 overflow-hidden rounded-lg border border-[#E5DFD3] bg-[#0A2E36]/5">
+                        <Image
+                          src={article.featuredImage || article.image}
+                          alt={article.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          sizes="80px"
+                        />
+                      </div>
 
-            {/* Left-aligned Quick Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-2.5">
-              <Link
-                href="/reviews"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-[#FF6B5B] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#E85747] transition-all shadow-xs"
-              >
-                <span>Browse Software Reviews</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/categories"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5DFD3] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B] hover:text-[#FF6B5B] transition-colors shadow-2xs"
-              >
-                <Layers className="h-4 w-4 text-[#FF6B5B]" />
-                <span>Explore Categories</span>
-              </Link>
-              <Link
-                href="/compare"
-                className="inline-flex items-center gap-1.5 rounded-xl border border-[#E5DFD3] bg-white px-4 py-2 text-xs sm:text-sm font-bold text-[#0A2E36] hover:border-[#FF6B5B] hover:text-[#FF6B5B] transition-colors shadow-2xs"
-              >
-                <Scale className="h-4 w-4 text-[#FF6B5B]" />
-                <span>Compare Tools</span>
-              </Link>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5 text-[11px] mb-0.5">
+                          <span className="font-bold uppercase tracking-wider text-[#FF6B5B]">
+                            {article.country}
+                          </span>
+                          <span className="text-[#526A70]">•</span>
+                          <span className="text-[#526A70]">{article.readTime}</span>
+                        </div>
+
+                        <h3 className="font-editorial text-xs sm:text-[13px] font-bold text-[#0A2E36] group-hover:text-[#FF6B5B] transition-colors leading-snug line-clamp-2">
+                          <Link href={`/news/${article.slug}`}>
+                            {article.title}
+                          </Link>
+                        </h3>
+
+                        <span className="text-[10px] text-[#526A70] mt-0.5 block">
+                          {article.publishedDate}
+                        </span>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -342,19 +406,19 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Lead Story + Trending Stories Column */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Left: Primary Lead Story with Photo (col-span-8) */}
-            <div className="lg:col-span-8 flex flex-col justify-between">
-              <article className="group">
-                <div className="relative aspect-16/9 w-full overflow-hidden rounded-xl border border-[#E5DFD3] bg-[#0A2E36]/5 shadow-xs mb-4">
+          {/* Primary Lead Story (Full-Width Horizontal Editorial Feature) */}
+          <article className="group rounded-2xl border border-[#E5DFD3] bg-white p-5 sm:p-6 shadow-2xs hover:border-[#FF6B5B] transition-all">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+              {/* Lead Image (col-span-7) */}
+              <div className="lg:col-span-7">
+                <div className="relative aspect-16/10 w-full overflow-hidden rounded-xl border border-[#E5DFD3] bg-[#0A2E36]/5">
                   <Image
                     src={heroArticle.featuredImage || heroArticle.image}
                     alt={heroArticle.title}
                     fill
                     priority
                     className="object-cover transition-transform duration-500 group-hover:scale-102"
-                    sizes="(max-width: 1024px) 100vw, 800px"
+                    sizes="(max-width: 1024px) 100vw, 750px"
                   />
                   <div className="absolute top-3 left-3 flex flex-wrap items-center gap-2 z-10">
                     <span className="inline-flex items-center gap-1 rounded-md bg-[#0A2E36] px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-[#FF6B5B] shadow-md">
@@ -366,116 +430,70 @@ export default function HomePage() {
                     </span>
                   </div>
                 </div>
+              </div>
 
+              {/* Story Content (col-span-5) */}
+              <div className="lg:col-span-5 flex flex-col justify-between space-y-3.5">
                 <div className="space-y-2">
+                  <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FF6B5B]">
+                    <span>Lead Story &amp; Analysis</span>
+                    <span>•</span>
+                    <span>Executive Intelligence</span>
+                  </div>
+
                   <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#0A2E36] tracking-tight leading-snug group-hover:text-[#FF6B5B] transition-colors">
                     <Link href={`/news/${heroArticle.slug}`}>
                       {heroArticle.title}
                     </Link>
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-[#384D52] leading-relaxed line-clamp-2 font-normal">
+                  <p className="text-xs sm:text-sm text-[#384D52] leading-relaxed line-clamp-3 font-normal">
                     {heroArticle.subtitle || heroArticle.excerpt}
                   </p>
+                </div>
 
-                  <div className="pt-3 border-t border-[#E5DFD3] flex flex-wrap items-center justify-between gap-3 text-xs text-[#526A70]">
-                    <div className="flex items-center gap-2.5">
-                      <div className="h-7 w-7 rounded-full bg-[#0A2E36] text-[#FF6B5B] font-bold flex items-center justify-center text-[11px]">
-                        {heroArticle.author.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
+                {/* Key takeaways bullets */}
+                {heroArticle.keyTakeaways && heroArticle.keyTakeaways.length > 0 && (
+                  <div className="space-y-1.5 pt-2 border-t border-[#E5DFD3]/80">
+                    {heroArticle.keyTakeaways.slice(0, 2).map((takeaway, idx) => (
+                      <div key={idx} className="flex items-start gap-2 text-xs text-[#1E3A40]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[#FF6B5B] mt-1.5 shrink-0" />
+                        <span className="line-clamp-1">{takeaway}</span>
                       </div>
-                      <div>
-                        <span className="font-bold text-[#0A2E36] block leading-tight text-xs">
-                          {heroArticle.author.name}
-                        </span>
-                        <span className="text-[11px] text-[#526A70]">
-                          {heroArticle.author.role}
-                        </span>
-                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Byline & Read Button */}
+                <div className="pt-3 border-t border-[#E5DFD3] flex items-center justify-between gap-3 text-xs text-[#526A70]">
+                  <div className="flex items-center gap-2">
+                    <div className="h-7 w-7 rounded-full bg-[#0A2E36] text-[#FF6B5B] font-bold flex items-center justify-center text-[11px]">
+                      {heroArticle.author.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
                     </div>
-
-                    <div className="flex items-center gap-3">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="h-3.5 w-3.5 text-[#FF6B5B]" />
-                        {heroArticle.publishedDate}
+                    <div>
+                      <span className="font-bold text-[#0A2E36] block leading-tight text-xs">
+                        {heroArticle.author.name}
                       </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3.5 w-3.5 text-[#FF6B5B]" />
-                        {heroArticle.readTime}
+                      <span className="text-[11px] text-[#526A70]">
+                        {heroArticle.publishedDate} • {heroArticle.readTime}
                       </span>
-                      <Link
-                        href={`/news/${heroArticle.slug}`}
-                        className="inline-flex items-center gap-1 font-bold text-[#0A2E36] hover:text-[#FF6B5B] transition-colors pl-1"
-                      >
-                        <span>Full Briefing</span>
-                        <ArrowRight className="h-3.5 w-3.5 text-[#FF6B5B]" />
-                      </Link>
                     </div>
                   </div>
-                </div>
-              </article>
-            </div>
 
-            {/* Right: Curated Top Stories Column (col-span-4) */}
-            <div className="lg:col-span-4 flex flex-col justify-between space-y-3">
-              <div className="flex items-center justify-between pb-2 border-b border-[#E5DFD3]">
-                <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#0A2E36] flex items-center gap-1.5">
-                  <span className="h-2 w-2 rounded-full bg-[#FF6B5B]" />
-                  <span>Trending Regional Dispatches</span>
-                </h3>
-                <Link
-                  href="/news"
-                  className="text-xs font-bold text-[#FF6B5B] hover:text-[#0A2E36]"
-                >
-                  All &rarr;
-                </Link>
-              </div>
-
-              {/* 3 Side Editorial Stories with Thumbnails */}
-              <div className="space-y-3 flex-1 flex flex-col justify-between">
-                {sideArticles.map((article) => (
-                  <article
-                    key={article.id}
-                    className="group flex gap-3 pb-3 border-b border-[#E5DFD3] last:border-b-0 last:pb-0"
+                  <Link
+                    href={`/news/${heroArticle.slug}`}
+                    className="inline-flex items-center gap-1 font-bold text-white bg-[#0A2E36] hover:bg-[#FF6B5B] px-3.5 py-1.5 rounded-lg transition-colors shadow-2xs shrink-0"
                   >
-                    <div className="relative h-18 w-22 shrink-0 overflow-hidden rounded-lg border border-[#E5DFD3] bg-white">
-                      <Image
-                        src={article.featuredImage || article.image}
-                        alt={article.title}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        sizes="90px"
-                      />
-                    </div>
-
-                    <div className="min-w-0 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-center gap-1.5 text-[11px] mb-0.5">
-                          <span className="font-bold uppercase tracking-wider text-[#FF6B5B]">
-                            {article.country}
-                          </span>
-                          <span className="text-[#526A70]">•</span>
-                          <span className="text-[#526A70]">{article.readTime}</span>
-                        </div>
-                        <h4 className="font-editorial text-xs sm:text-sm font-bold text-[#0A2E36] group-hover:text-[#FF6B5B] transition-colors leading-snug line-clamp-2">
-                          <Link href={`/news/${article.slug}`}>
-                            {article.title}
-                          </Link>
-                        </h4>
-                      </div>
-
-                      <span className="text-[11px] text-[#526A70]">
-                        {article.publishedDate}
-                      </span>
-                    </div>
-                  </article>
-                ))}
+                    <span>Read Briefing</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          </article>
 
           {/* Sub-Hero 4-Column Regional Spotlight Strip */}
           <div className="pt-6 border-t border-[#E5DFD3]">
@@ -646,12 +664,7 @@ export default function HomePage() {
       </section>
 
       {/* ---------------------------------------------------- */}
-      {/* SECTION 7: GULF COUNTRIES MOVING BUILDINGS ANIMATION  */}
-      {/* ---------------------------------------------------- */}
-      <HomeNewsSection />
-
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 8: EDITORIAL NEWSLETTER BRIEFING             */}
+      {/* SECTION 7: EDITORIAL NEWSLETTER BRIEFING             */}
       {/* ---------------------------------------------------- */}
       <NewsletterSection />
     </div>

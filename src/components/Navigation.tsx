@@ -55,31 +55,31 @@ export default function Navigation() {
   return (
     <header className="w-full bg-[#FAF7F0]">
       {/* Main Masthead in Cream with Deep Teal and Coral */}
-      <div className="border-b border-[#E5DFD3] bg-[#FAF7F0] py-3.5 sm:py-4">
+      <div className="border-b border-[#E5DFD3] bg-[#FAF7F0] py-2.5 sm:py-3">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
           {/* Left: Brand Logo & Subtitle */}
           <div className="flex items-center gap-4">
             <Logo showTagline={false} />
             <div className="hidden md:block pl-4 border-l border-[#E5DFD3]">
-              <span className="block text-xs font-bold uppercase tracking-widest text-[#526A70]">
+              <span className="block text-[11px] font-bold uppercase tracking-widest text-[#526A70]">
                 Middle East Software &amp; Tech Intelligence
               </span>
-              <span className="text-[13px] text-[#0A2E36] font-semibold">
+              <span className="text-xs text-[#0A2E36] font-semibold">
                 Independent Reviews • Regional Compliance • Vision 2030
               </span>
             </div>
           </div>
 
           {/* Right: Search, Comparison Tray & Action CTA */}
-          <div className="flex items-center gap-2.5 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-2.5">
             {/* Compare Counter Pill */}
             {compareSlugs.length > 0 && (
               <button
                 onClick={() => setIsCompareTrayOpen(true)}
-                className="inline-flex items-center gap-1.5 h-10 px-3.5 rounded-xl text-xs sm:text-[13px] font-bold bg-[#0A2E36] text-[#FF6B5B] border border-[#FF6B5B]/50 hover:bg-[#0D3B43] transition-all shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-1.5 h-9 px-3 rounded-lg text-xs font-bold bg-[#0A2E36] text-[#FF6B5B] border border-[#FF6B5B]/50 hover:bg-[#0D3B43] transition-all shadow-xs cursor-pointer"
                 title="View selected software to compare"
               >
-                <Scale className="h-4 w-4" />
+                <Scale className="h-3.5 w-3.5" />
                 <span>Compare ({compareSlugs.length})</span>
               </button>
             )}
@@ -88,13 +88,13 @@ export default function Navigation() {
             <button
               type="button"
               onClick={openSearch}
-              className="flex items-center justify-center h-10 rounded-xl border border-[#E5DFD3] bg-white px-3 sm:px-3.5 text-sm font-medium text-[#526A70] hover:border-[#FF6B5B] hover:text-[#0A2E36] transition-all shadow-2xs cursor-pointer whitespace-nowrap"
+              className="flex items-center justify-center h-9 rounded-lg border border-[#E5DFD3] bg-white px-3 text-xs sm:text-[13px] font-medium text-[#526A70] hover:border-[#FF6B5B] hover:text-[#0A2E36] transition-all shadow-2xs cursor-pointer whitespace-nowrap"
               aria-label="Search news, reviews and comparisons"
               title="Search (⌘K)"
             >
-              <Search className="h-4 w-4 text-[#0A2E36]" />
-              <span className="hidden sm:inline ml-2 text-xs sm:text-sm text-[#526A70]">Search 50+ software...</span>
-              <kbd className="hidden sm:inline-flex ml-2 items-center rounded border border-[#E5DFD3] bg-[#F7F4EC] px-1.5 py-0.5 text-[10px] text-[#526A70] font-mono">
+              <Search className="h-3.5 w-3.5 text-[#0A2E36]" />
+              <span className="hidden sm:inline ml-2 text-xs text-[#526A70]">Search 50+ software...</span>
+              <kbd className="hidden sm:inline-flex ml-2 items-center rounded border border-[#E5DFD3] bg-[#F7F4EC] px-1 py-0.2 text-[10px] text-[#526A70] font-mono">
                 ⌘K
               </kbd>
             </button>
@@ -102,24 +102,24 @@ export default function Navigation() {
             {/* Primary Action Button in Coral */}
             <Link
               href="/reviews"
-              className="hidden sm:inline-flex items-center gap-1.5 h-10 px-4 rounded-xl bg-[#FF6B5B] text-xs sm:text-sm font-bold text-white hover:bg-[#E85747] transition-all shadow-xs"
+              className="hidden sm:inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg bg-[#FF6B5B] text-xs font-bold text-white hover:bg-[#E85747] transition-all shadow-xs"
             >
               <span>Browse Reviews</span>
-              <ArrowUpRight className="h-4 w-4 text-white" />
+              <ArrowUpRight className="h-3.5 w-3.5 text-white" />
             </Link>
 
             {/* Mobile Hamburger Toggle (< lg) */}
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl text-[#0A2E36] hover:bg-[#E5DFD3]/60 border border-[#E5DFD3] bg-white transition-colors cursor-pointer"
+              className="lg:hidden inline-flex items-center justify-center h-9 w-9 rounded-lg text-[#0A2E36] hover:bg-[#E5DFD3]/60 border border-[#E5DFD3] bg-white transition-colors cursor-pointer"
               aria-expanded={isMobileMenuOpen}
               aria-label="Toggle navigation menu"
             >
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
+                <X className="h-4 w-4" />
               ) : (
-                <Menu className="h-5 w-5" />
+                <Menu className="h-4 w-4" />
               )}
             </button>
           </div>
@@ -129,15 +129,15 @@ export default function Navigation() {
       {/* Primary Section Navigation Strip */}
       <nav className="sticky top-0 z-30 w-full bg-[#FAF7F0]/98 backdrop-blur-md border-b border-[#E5DFD3]">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="hidden lg:flex items-center h-12">
-            <div className="flex items-center gap-6 lg:gap-8 xl:gap-10 2xl:gap-12 h-full">
+          <div className="hidden lg:flex items-center h-10 sm:h-11">
+            <div className="flex items-center gap-6 lg:gap-8 xl:gap-9 h-full">
               {navLinks.map((link) => {
                 const active = isActive(link.href);
                 return (
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`relative h-full flex items-center px-1 text-xs sm:text-[13px] xl:text-[14px] font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-150 ${
+                    className={`relative h-full flex items-center px-1 text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-colors duration-150 ${
                       active
                         ? "text-[#0A2E36]"
                         : "text-[#526A70] hover:text-[#0A2E36]"

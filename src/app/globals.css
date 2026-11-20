@@ -42,23 +42,17 @@
   --color-gold-hover: #E85747;
 }
 
-/* Base font size: comfortably readable for common users */
+/* Base document settings: standard well-balanced typography scale */
 html {
-  font-size: 19px;
   background-color: #F7F4EC;
-}
-
-@media (min-width: 1536px) {
-  html {
-    font-size: 20px;
-  }
+  scroll-behavior: smooth;
 }
 
 body {
   background-color: #F7F4EC;
   color: #0A2E36;
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.6;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

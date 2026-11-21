@@ -2,13 +2,12 @@ import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categories, categoryLookup } from "@/data/categories";
-import { softwares } from "@/data/software";
+import { softwares, softwareLookup } from "@/data/software";
+import { comparisons } from "@/data/comparisons";
 import SoftwareCard from "@/components/SoftwareCard";
-import {
-  Layers,
-  ArrowLeft,
-  CheckCircle2,
-} from "lucide-react";
+import Monogram from "@/components/Monogram";
+import Sadu from "@/components/Sadu";
+import { pad2 } from "@/lib/format";
 
 export const dynamicParams = false;
 
@@ -33,6 +32,21 @@ export async function generateMetadata({
   };
 }
 
+const C = {
+  paper: "#FFFCF6",
+  terracotta: "#C24E2A",
+  teal: "#0E4B48",
+  sand: "#F1D39C",
+  sandSoft: "#FAEBCF",
+};
+
+/** Header band colour, cycled by the category's position so neighbouring categories differ. */
+const bands = [
+  { hex: C.terracotta, cls: "bg-terracotta text-white", muted: "text-white/80", kicker: "text-sand", crumb: "text-white/70", panel: "bg-terracotta-deep" },
+  { hex: C.teal, cls: "bg-teal text-teal-soft", muted: "text-teal-soft/85", kicker: "text-sand", crumb: "text-teal-soft/70", panel: "bg-teal-deep" },
+  { hex: C.sand, cls: "bg-sand text-ink", muted: "text-ink-2", kicker: "text-terracotta", crumb: "text-ink-2", panel: "bg-paper" },
+] as const;
+
 export default async function CategoryDetailPage({
   params,
 }: {
@@ -45,84 +59,194 @@ export default async function CategoryDetailPage({
     notFound();
   }
 
-  // Filter software in this category
-  const matchingSoftware = softwares.filter(
-    (s) =>
-      s.category === category.id ||
-      category.popularSoftwareSlugs.includes(s.slug)
-  );
+  // Products filed in this category, plus the ones we list as popular for it — best score first.
+  const matchingSoftware = softwares
+    .filter((s) => s.category === category.id || category.popularSoftwareSlugs.includes(s.slug))
+    .sort((a, b) => b.verdict.score - a.verdict.score);
+
+  const relatedComparisons = comparisons.filter((c) => c.categories.includes(category.name));
+  const otherCategories = categories.filter((c) => c.slug !== category.slug);
+  const band = bands[Math.max(0, categories.findIndex((c) => c.slug === category.slug)) % bands.length];
+  const onDark = band.hex !== C.sand;
+
+  const compareHref =
+    matchingSoftware.length >= 2
+      ? `/compare?a=${matchingSoftware[0].slug}&b=${matchingSoftware[1].slug}${
+          matchingSoftware[2] ? `&c=${matchingSoftware[2].slug}` : ""
+        }`
+      : null;
 
   return (
-    <div className="min-h-screen bg-[#FFF8EF] pb-24">
-      {/* Header */}
-      <div className="bg-[#FFF8EF] border-b border-[#E5DAC8] pt-10 pb-12 sm:pb-14">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
-          <Link
-            href="/categories"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#4A6D5F] hover:text-[#064734] mb-5 transition-colors"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>All Categories</span>
-          </Link>
+    <>
+      {/* ------------------------------------------------ Header band */}
+      <section className={band.cls}>
+        <div className="wrap pt-10 pb-14 lg:pt-14 lg:pb-20">
+          <nav aria-label="Breadcrumb" className={`num text-[0.75rem] ${band.crumb}`}>
+            <Link href="/categories" className={`underline decoration-1 underline-offset-4 ${onDark ? "hover:text-sand" : "hover:text-terracotta"}`}>
+              Categories
+            </Link>
+            <span aria-hidden="true" className="mx-2">/</span>
+            <span aria-current="page">{category.name}</span>
+          </nav>
 
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#064734]/50 bg-[#E0FFC2] px-3.5 py-1 text-xs font-bold text-[#064734] mb-3">
-              <Layers className="h-4 w-4 text-[#15803D]" />
-              <span>{matchingSoftware.length} Evaluated Solutions</span>
+          <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-end">
+            <div className="rise lg:col-span-7">
+              <p className={`font-mono text-[0.7rem] font-semibold uppercase tracking-[0.08em] ${band.kicker}`}>
+                Category · {matchingSoftware.length} reviewed · {category.count} tracked
+              </p>
+              <h1 className={`display mt-4 text-[clamp(2.5rem,1.4rem+4vw,4.6rem)] ${onDark ? "text-paper" : ""}`}>
+                {category.name} software for the Gulf.
+              </h1>
+              <p className={`mt-6 max-w-[56ch] text-[1.1rem] leading-relaxed ${band.muted}`}>{category.description}</p>
+              {compareHref && (
+                <Link href={compareHref} className={`btn mt-8 ${onDark ? "btn-sand" : "btn-primary"}`}>
+                  Compare the top {Math.min(3, matchingSoftware.length)} →
+                </Link>
+              )}
             </div>
+            <aside aria-labelledby="why-title" className="rise [animation-delay:120ms] lg:col-span-5">
+              <div className={`rounded-[28px] p-6 sm:p-8 ${band.panel}`}>
+                <h2 id="why-title" className={`font-mono text-[0.7rem] font-semibold uppercase tracking-[0.08em] ${band.kicker}`}>
+                  Why it matters here
+                </h2>
+                <p className={`mt-4 font-display text-[1.3rem] font-semibold leading-snug tracking-[-0.015em] ${onDark ? "text-paper" : "text-ink"}`}>
+                  {category.gulfRelevance}
+                </p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+      <Sadu from={band.hex} to={C.paper} accent={band.hex === C.teal ? C.sand : C.teal} />
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#064734] tracking-tight">
-              {category.name} Software in the Gulf
-            </h1>
-
-            <p className="mt-2.5 text-sm sm:text-base text-[#163A2E] leading-relaxed">
-              {category.description}
-            </p>
-
-            <div className="mt-5 rounded-2xl bg-white border border-[#E5DAC8] p-4 sm:p-5 text-xs sm:text-sm shadow-2xs">
-              <span className="font-bold text-[#064734] block mb-1">
-                Regional Gulf Context &amp; Relevance:
-              </span>
-              <p className="text-[#163A2E] leading-relaxed">
-                {category.gulfRelevance}
+      {/* ------------------------------------------------ Products */}
+      <section aria-labelledby="products-title">
+        <div className="wrap py-16 lg:py-24">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-end">
+            <div className="lg:col-span-7">
+              <span className="tag tag-teal">Reviewed</span>
+              <h2 id="products-title" className="h-section mt-4">
+                {category.name} products we have tested.
+              </h2>
+            </div>
+            <div className="lg:col-span-5 lg:text-right">
+              <p className="text-ink-2 lg:ml-auto lg:max-w-[42ch]">
+                Sorted by our score. Tick Compare on any two or three to line them up.
               </p>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Software Listings in this Category */}
-      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-10">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#064734]">
-            Reviewed {category.name} Tools
-          </h2>
-          <span className="text-xs sm:text-sm font-semibold text-[#4A6D5F]">
-            Sorted by Gulf regional suitability
-          </span>
+          {matchingSoftware.length > 0 ? (
+            <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {matchingSoftware.map((software) => (
+                <SoftwareCard key={software.id} software={software} />
+              ))}
+            </div>
+          ) : (
+            <div className="mt-10 rounded-[28px] bg-paper-2 px-6 py-10 sm:px-10">
+              <p className="h-card text-[1.5rem]">No full reviews in this category yet.</p>
+              <p className="mt-2 text-ink-2">
+                We track {category.count} products here and publish reviews as testing finishes.
+              </p>
+              <Link href="/reviews" className="arrow-link mt-5">
+                Browse all reviews
+              </Link>
+            </div>
+          )}
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {matchingSoftware.map((software) => (
-            <SoftwareCard key={software.id} software={software} />
-          ))}
-        </div>
-
-        {/* Category Key Criteria Box */}
-        <div className="mt-16 rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-8">
-          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#064734] mb-5">
-            Buyer&apos;s Checklist for {category.name} in Saudi Arabia &amp; UAE
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* ------------------------------------------------ Buyer's checklist */}
+      <Sadu from={C.paper} to={C.sand} accent={C.terracotta} />
+      <section aria-labelledby="checklist-title" className="bg-sand">
+        <div className="wrap py-16 lg:py-20">
+          <div className="max-w-[44rem]">
+            <span className="tag bg-paper text-terracotta-deep">Buyer&rsquo;s checklist</span>
+            <h2 id="checklist-title" className="h-section mt-4">
+              What to check before you sign in Saudi Arabia or the UAE.
+            </h2>
+          </div>
+          <ol className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
             {category.keyCriteria.map((crit, idx) => (
-              <div key={idx} className="flex items-start gap-2.5 text-[17px] text-[#1E293B]">
-                <CheckCircle2 className="h-5 w-5 text-emerald-600 shrink-0 mt-0.5" />
-                <span>{crit}</span>
-              </div>
+              <li key={crit} className="flex items-start gap-5 rounded-[24px] bg-paper p-6 sm:p-7">
+                <span className="display shrink-0 text-[2.6rem] leading-[0.85] text-terracotta">{pad2(idx + 1)}</span>
+                <p className="h-card pt-1 text-[1.2rem]">{crit}</p>
+              </li>
             ))}
+          </ol>
+        </div>
+      </section>
+      <Sadu from={C.sand} to={C.paper} accent={C.teal} />
+
+      {/* ------------------------------------------------ Related comparisons */}
+      {relatedComparisons.length > 0 && (
+        <section aria-labelledby="vs-title">
+          <div className="wrap pt-16 lg:pt-24">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <h2 id="vs-title" className="h-section">
+                {category.name} head to heads
+              </h2>
+              <Link href="/compare#head-to-heads" className="arrow-link">
+                All comparisons
+              </Link>
+            </div>
+            <ul className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {relatedComparisons.map((comp) => {
+                const a = softwareLookup[comp.productAId];
+                const b = softwareLookup[comp.productBId];
+                return (
+                  <li key={comp.id}>
+                    <Link href={`/compare/${comp.slug}`} className="card card-hover group flex h-full flex-col p-6">
+                      {a && b && (
+                        <span className="flex items-center">
+                          <Monogram name={a.name} color={a.accentColor} />
+                          <span className="z-10 -mx-2 grid h-8 w-8 place-items-center rounded-full bg-terracotta font-display text-[0.72rem] font-bold text-white ring-[3px] ring-surface">
+                            vs
+                          </span>
+                          <Monogram name={b.name} color={b.accentColor} />
+                        </span>
+                      )}
+                      <span className="h-card mt-5 text-[1.35rem] transition-colors group-hover:text-terracotta">
+                        {a?.name ?? comp.title.split(" vs ")[0]} vs {b?.name ?? comp.title.split(" vs ")[1]}
+                      </span>
+                      <span className="mt-2 text-[0.92rem] leading-relaxed text-ink-2 line-clamp-3">
+                        {comp.shortDescription}
+                      </span>
+                      {a && b && (
+                        <span className="mt-auto flex items-center gap-2 pt-5">
+                          <span className="num rounded-full bg-paper-2 px-2.5 py-1 text-[0.78rem]">{a.verdict.score.toFixed(1)}</span>
+                          <span className="h-px flex-1 bg-rule" />
+                          <span className="num rounded-full bg-paper-2 px-2.5 py-1 text-[0.78rem]">{b.verdict.score.toFixed(1)}</span>
+                        </span>
+                      )}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {/* ------------------------------------------------ Other categories */}
+      <nav aria-labelledby="other-cats">
+        <div className="wrap py-14 lg:py-20">
+          <div className="rounded-[28px] bg-teal-soft p-6 sm:p-8">
+            <h2 id="other-cats" className="h-card text-[1.4rem]">
+              Other categories
+            </h2>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {otherCategories.map((c) => (
+                <li key={c.id}>
+                  <Link href={`/categories/${c.slug}`} className="chip !bg-paper">
+                    {c.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </div>
-    </div>
+      </nav>
+    </>
   );
 }

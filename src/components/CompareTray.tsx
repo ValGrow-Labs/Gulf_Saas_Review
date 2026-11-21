@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useApp } from "@/context/AppContext";
-import { Scale, X, ArrowRight, Trash2 } from "lucide-react";
+import Monogram from "./Monogram";
 
 export default function CompareTray() {
   const {
@@ -12,97 +12,67 @@ export default function CompareTray() {
     removeFromCompare,
     clearCompare,
     isCompareTrayOpen,
+    setIsCompareTrayOpen,
   } = useApp();
 
-  if (compareSlugs.length === 0 || !isCompareTrayOpen) {
-    return null;
-  }
+  if (compareSlugs.length === 0 || !isCompareTrayOpen) return null;
 
-  // Construct target comparison link
   let compareUrl = "/compare";
   if (compareSlugs.length >= 2) {
-    compareUrl = `/compare?a=${compareSlugs[0]}&b=${compareSlugs[1]}${
-      compareSlugs[2] ? `&c=${compareSlugs[2]}` : ""
-    }`;
+    compareUrl = `/compare?a=${compareSlugs[0]}&b=${compareSlugs[1]}${compareSlugs[2] ? `&c=${compareSlugs[2]}` : ""}`;
   } else if (compareSlugs.length === 1) {
     compareUrl = `/compare?a=${compareSlugs[0]}`;
   }
+  const ready = compareSlugs.length >= 2;
 
   return (
-    <div className="fixed bottom-3 sm:bottom-4 left-3 right-3 sm:left-1/2 sm:-translate-x-1/2 z-50 w-auto sm:w-[92%] sm:max-w-3xl animate-in slide-in-from-bottom-6 duration-300">
-      <div className="rounded-2xl border border-[#E0FFC2]/50 bg-[#064734] p-3 sm:p-4 text-[#FFF8EF] shadow-[0_20px_50px_rgba(11,61,46,0.45)] backdrop-blur-xl">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
-          {/* Left: Indicator & Items */}
-          <div className="flex items-center gap-3 overflow-x-auto w-full sm:w-auto py-1">
-            <div className="flex items-center gap-2 border-r border-[#0A5C44] pr-3 shrink-0">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E0FFC2]/20 text-[#E0FFC2]">
-                <Scale className="h-4 w-4" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-xs font-bold leading-tight">
-                  Comparing ({compareSlugs.length}/3)
-                </span>
-                <span className="text-[10px] text-[#FFF8EF]/70">
-                  Select up to 3 tools
-                </span>
-              </div>
-            </div>
-
-            {/* Selected Tool Chips */}
-            <div className="flex items-center gap-2 shrink-0">
-              {comparedSoftwares.map((sw) => (
-                <div
-                  key={sw.id}
-                  className="flex items-center gap-2 rounded-lg bg-[#0A5C44] border border-[#0E6E52] px-2.5 py-1 text-xs"
+    <aside
+      aria-label="Comparison tray"
+      className="fixed inset-x-3 bottom-3 z-50 sm:inset-x-auto sm:left-1/2 sm:w-[min(780px,94vw)] sm:-translate-x-1/2 rise [animation-duration:400ms]"
+    >
+      <div className="rounded-[22px] border border-ink-3 bg-surface/95 p-2.5 shadow-[0_24px_50px_-20px_rgba(31,25,21,0.4)] backdrop-blur-xl">
+        <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
+          <ul className="flex flex-1 items-center gap-2 overflow-x-auto scrollbar-none">
+            {comparedSoftwares.map((sw) => (
+              <li key={sw.id} className="flex shrink-0 items-center gap-2 rounded-full bg-paper-2 py-1 pl-1 pr-2">
+                <Monogram name={sw.name} color={sw.accentColor} size="sm" className="!rounded-full" />
+                <span className="text-[0.85rem] text-ink">{sw.name}</span>
+                <button
+                  type="button"
+                  onClick={() => removeFromCompare(sw.slug)}
+                  className="grid h-6 w-6 place-items-center rounded-full text-ink-3 hover:bg-paper hover:text-ink"
+                  aria-label={`Remove ${sw.name}`}
                 >
-                  <span
-                    className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: sw.accentColor || "#E0FFC2" }}
-                  />
-                  <span className="font-semibold text-white">{sw.name}</span>
-                  <button
-                    onClick={() => removeFromCompare(sw.slug)}
-                    className="text-[#A5C2B6] hover:text-[#FFF8EF] transition-colors cursor-pointer"
-                    aria-label={`Remove ${sw.name}`}
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </div>
-              ))}
-
-              {compareSlugs.length < 2 && (
-                <span className="text-xs text-[#FFF8EF]/60 italic pl-1">
-                  + Add 1 more to compare
-                </span>
-              )}
-            </div>
-          </div>
-
-          {/* Right: Actions */}
-          <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto justify-end">
-            <button
-              onClick={clearCompare}
-              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-xs font-medium text-[#FFF8EF]/70 hover:text-white transition-colors cursor-pointer"
-              title="Clear all"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-              <span>Clear</span>
+                  ×
+                </button>
+              </li>
+            ))}
+            {!ready && <li className="shrink-0 px-2 text-[0.82rem] text-ink-3">Add one more to compare</li>}
+            {compareSlugs.length >= 3 && <li className="shrink-0 px-2 text-[0.82rem] text-ink-3">3 of 3 — remove one to swap</li>}
+          </ul>
+          <div className="flex items-center justify-end gap-1">
+            <button type="button" onClick={clearCompare} className="h-9 rounded-full px-3 text-[0.82rem] text-ink-3 hover:text-ink">
+              Clear
             </button>
-
-            <Link
-              href={compareUrl}
-              className={`inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-xs font-extrabold transition-all shadow-md w-full sm:w-auto min-h-[36px] ${
-                compareSlugs.length >= 2
-                  ? "bg-[#E0FFC2] text-[#064734] hover:bg-white hover:text-[#064734] active:scale-95"
-                  : "bg-[#0A5C44] text-[#FFF8EF]/60 pointer-events-none opacity-60"
-              }`}
+            <button
+              type="button"
+              onClick={() => setIsCompareTrayOpen(false)}
+              className="h-9 rounded-full px-3 text-[0.82rem] text-ink-3 hover:text-ink"
             >
-              <span>Compare Side-by-Side</span>
-              <ArrowRight className="h-3.5 w-3.5 text-[#064734]" />
-            </Link>
+              Hide
+            </button>
+            {ready ? (
+              <Link href={compareUrl} className="btn btn-accent btn-sm">
+                Compare {compareSlugs.length} →
+              </Link>
+            ) : (
+              <span aria-disabled="true" className="btn btn-sm cursor-not-allowed bg-paper-2 text-ink-3">
+                Compare
+              </span>
+            )}
           </div>
         </div>
       </div>
-    </div>
+    </aside>
   );
 }

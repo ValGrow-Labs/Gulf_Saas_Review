@@ -1,204 +1,258 @@
 "use client";
 
-import React, { useState } from "react";
-import { CheckCircle2, Send, AlertCircle } from "lucide-react";
+import React, { useRef, useState } from "react";
+import Link from "next/link";
 
-export default function ContactForm() {
-  const [formData, setFormData] = useState({
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+const inquiryTypes = [
+  { value: "Vendor Review Request", label: "Vendor review request (listing)" },
+  { value: "Editorial Inquiry", label: "Editorial or research question" },
+  { value: "Regional Compliance Update", label: "Report a compliance or ZATCA change" },
+  { value: "Partnership & Press", label: "Partnership or press" },
+  { value: "General Inquiry", label: "General question" },
+];
+
+type FieldName = "name" | "email" | "message";
+type Errors = Partial<Record<FieldName, string>>;
+
+interface ContactFormProps {
+  initialType?: string;
+}
+
+export default function ContactForm({ initialType = "General Inquiry" }: ContactFormProps) {
+  const emptyForm = {
     name: "",
     email: "",
     company: "",
-    inquiryType: "General Inquiry",
+    inquiryType: inquiryTypes.some((t) => t.value === initialType) ? initialType : "General Inquiry",
     subject: "",
     message: "",
-  });
+  };
 
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [formData, setFormData] = useState(emptyForm);
+  const [errors, setErrors] = useState<Errors>({});
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const validate = (data: typeof formData): Errors => {
+    const e: Errors = {};
+    if (!data.name.trim()) e.name = "Enter your name.";
+    if (!data.email.trim()) e.email = "Enter your work email.";
+    else if (!EMAIL_RE.test(data.email.trim())) e.email = "Enter a valid email, e.g. name@company.sa.";
+    if (!data.message.trim()) e.message = "Tell us what your message is about.";
+    return e;
+  };
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name in errors) {
+      setErrors((prev) => {
+        const next = { ...prev };
+        delete next[name as FieldName];
+        return next;
+      });
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
-      setStatus("error");
-      setErrorMessage("Please complete all required fields (Name, Email, Message).");
+    const found = validate(formData);
+    setErrors(found);
+    const first = (["name", "email", "message"] as FieldName[]).find((f) => found[f]);
+    if (first) {
+      formRef.current?.querySelector<HTMLElement>(`[name="${first}"]`)?.focus();
       return;
     }
-
-    if (!formData.email.includes("@")) {
-      setStatus("error");
-      setErrorMessage("Please enter a valid corporate email address.");
-      return;
-    }
-
     setStatus("loading");
-
-    // Simulate instant secure processing
-    setTimeout(() => {
-      setStatus("success");
-    }, 600);
+    setTimeout(() => setStatus("success"), 600);
   };
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-emerald-500/50 bg-emerald-50/70 p-8 text-center animate-in zoom-in-95 duration-200">
-        <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600 mb-3" />
-        <h3 className="text-2xl font-bold font-editorial text-[#064734]">
-          Message Successfully Received
-        </h3>
-        <p className="mt-2 text-[17px] text-[#334155] max-w-md mx-auto leading-relaxed">
-          Thank you, <strong className="text-[#064734]">{formData.name}</strong>. Your inquiry regarding &ldquo;{formData.subject || formData.inquiryType}&rdquo; has been routed to our regional editorial desk in Riyadh and Dubai.
+      <div role="status" className="rounded-[22px] bg-teal-soft p-6 sm:p-8">
+        <span
+          aria-hidden="true"
+          className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-teal text-[1.2rem] font-bold text-paper"
+        >
+          ✓
+        </span>
+        <p className="h-card mt-4 text-[1.6rem]">Message received.</p>
+        <p className="mt-3 max-w-[56ch] text-ink-2">
+          Thank you, {formData.name.trim()}. Your message about &ldquo;{formData.subject.trim() || formData.inquiryType}&rdquo; has gone to our editorial desk. We will reply to{" "}
+          <span className="font-semibold text-ink">{formData.email.trim()}</span>.
         </p>
-        <p className="mt-2 text-[16px] text-[#475569]">
-          We will contact you at <strong className="text-[#064734]">{formData.email}</strong> shortly.
-        </p>
-
         <button
+          type="button"
           onClick={() => {
             setStatus("idle");
-            setFormData({
-              name: "",
-              email: "",
-              company: "",
-              inquiryType: "General Inquiry",
-              subject: "",
-              message: "",
-            });
+            setFormData(emptyForm);
+            setErrors({});
           }}
-          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#064734] px-6 py-3.5 text-[16px] font-bold text-white hover:bg-[#043224] transition-colors"
+          className="btn btn-primary btn-sm mt-6"
         >
-          <span>Send Another Message</span>
+          Send another message
         </button>
       </div>
     );
   }
 
-  return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      {status === "error" && (
-        <div className="flex items-center gap-2.5 rounded-xl border border-rose-300 bg-rose-50 p-4 text-[15px] text-rose-800">
-          <AlertCircle className="h-5 w-5 shrink-0" />
-          <span>{errorMessage}</span>
-        </div>
-      )}
+  const labelCls = "block text-[0.875rem] font-medium text-ink";
+  const errCls = "mt-1.5 flex items-center gap-1.5 text-[0.84rem] font-medium text-terracotta-deep";
+  const fieldCls = (f?: FieldName) =>
+    `field mt-2 ${f && errors[f] ? "!border-terracotta !bg-terracotta-soft/40" : ""}`;
+  const required = (
+    <span className="text-accent" aria-hidden="true">
+      {" "}
+      *
+    </span>
+  );
 
-      {/* Row 1: Name & Email */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+  return (
+    <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div>
-          <label className="text-[16px] font-bold text-[#064734] block mb-2">
-            Full Name <span className="text-rose-500">*</span>
+          <label htmlFor="cf-name" className={labelCls}>
+            Full name{required}
           </label>
           <input
+            id="cf-name"
             type="text"
             name="name"
+            autoComplete="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="e.g. Faisal Al-Harbi"
-            required
-            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
+            placeholder="Faisal Al-Harbi"
+            aria-required="true"
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "cf-name-error" : undefined}
+            className={fieldCls("name")}
           />
+          {errors.name && (
+            <p id="cf-name-error" className={errCls}>
+              {errors.name}
+            </p>
+          )}
         </div>
 
         <div>
-          <label className="text-[16px] font-bold text-[#064734] block mb-2">
-            Business Email <span className="text-rose-500">*</span>
+          <label htmlFor="cf-email" className={labelCls}>
+            Work email{required}
           </label>
           <input
+            id="cf-email"
             type="email"
             name="email"
+            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
             placeholder="faisal@company.sa"
-            required
-            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
+            aria-required="true"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "cf-email-error" : undefined}
+            className={fieldCls("email")}
           />
+          {errors.email && (
+            <p id="cf-email-error" className={errCls}>
+              {errors.email}
+            </p>
+          )}
         </div>
       </div>
 
-      {/* Row 2: Company & Inquiry Type */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div>
-          <label className="text-[16px] font-bold text-[#064734] block mb-2">
-            Company Name
+          <label htmlFor="cf-company" className={labelCls}>
+            Company
           </label>
           <input
+            id="cf-company"
             type="text"
             name="company"
+            autoComplete="organization"
             value={formData.company}
             onChange={handleChange}
-            placeholder="e.g. Al-Riyadh Logistics"
-            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
+            placeholder="Al-Riyadh Logistics"
+            className={fieldCls()}
           />
         </div>
 
         <div>
-          <label className="text-[16px] font-bold text-[#064734] block mb-2">
-            Inquiry Topic
+          <label htmlFor="cf-type" className={labelCls}>
+            Topic
           </label>
           <select
+            id="cf-type"
             name="inquiryType"
             value={formData.inquiryType}
             onChange={handleChange}
-            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[16px] font-semibold text-[#064734] focus:border-[#064734] focus:outline-none min-h-[48px]"
+            className={`${fieldCls()} cursor-pointer`}
           >
-            <option value="Vendor Review Request">Vendor Review Request (Listing)</option>
-            <option value="Editorial Inquiry">Editorial &amp; Research Inquiry</option>
-            <option value="Regional Compliance Update">Report Compliance / ZATCA Update</option>
-            <option value="Partnership & Press">Partnership &amp; Media</option>
-            <option value="General Inquiry">General Question</option>
+            {inquiryTypes.map((t) => (
+              <option key={t.value} value={t.value}>
+                {t.label}
+              </option>
+            ))}
           </select>
         </div>
       </div>
 
-      {/* Subject */}
       <div>
-        <label className="text-[16px] font-bold text-[#064734] block mb-2">
+        <label htmlFor="cf-subject" className={labelCls}>
           Subject
         </label>
         <input
+          id="cf-subject"
           type="text"
           name="subject"
           value={formData.subject}
           onChange={handleChange}
-          placeholder="Brief summary of your inquiry"
-          className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
+          placeholder={
+            formData.inquiryType === "Vendor Review Request" ? "Product name and category" : "One line on what this is about"
+          }
+          className={fieldCls()}
         />
       </div>
 
-      {/* Message */}
       <div>
-        <label className="text-[16px] font-bold text-[#064734] block mb-2">
-          Message <span className="text-rose-500">*</span>
+        <label htmlFor="cf-message" className={labelCls}>
+          Message{required}
         </label>
         <textarea
+          id="cf-message"
           name="message"
-          rows={5}
+          rows={6}
           value={formData.message}
           onChange={handleChange}
-          placeholder="Please share details regarding your inquiry, regional market questions, or software specifications..."
-          required
-          className="w-full rounded-xl border border-[#E5DAC8] bg-white p-4 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none"
+          placeholder={
+            formData.inquiryType === "Vendor Review Request"
+              ? "Markets you support, Arabic and RTL status, ZATCA or FTA certification, local integrations."
+              : "The details of your question, the product or rule involved, and any links."
+          }
+          aria-required="true"
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "cf-message-error" : undefined}
+          className={`${fieldCls("message")} resize-y leading-relaxed`}
         />
+        {errors.message && (
+          <p id="cf-message-error" className={errCls}>
+            {errors.message}
+          </p>
+        )}
       </div>
 
-      {/* Submit Button */}
-      <div className="pt-2">
-        <button
-          type="submit"
-          disabled={status === "loading"}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#064734] px-8 py-4 text-[17px] font-bold text-[#FFF8EF] hover:bg-[#043224] active:scale-98 transition-all shadow-sm w-full sm:w-auto cursor-pointer min-h-[50px]"
-        >
-          <Send className="h-5 w-5 text-[#15803D]" />
-          <span>{status === "loading" ? "Submitting..." : "Send Message to Editorial Desk"}</span>
+      <div className="flex flex-col gap-4 border-t-[1.5px] border-dashed border-rule pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[0.82rem] text-ink-3">
+          We use your details only to reply.{" "}
+          <Link href="/privacy" className="link text-ink-3">
+            Privacy policy
+          </Link>
+        </p>
+        <button type="submit" disabled={status === "loading"} className="btn btn-accent disabled:opacity-60">
+          {status === "loading" ? "Sending…" : "Send message →"}
         </button>
       </div>
     </form>

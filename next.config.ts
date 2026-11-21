@@ -13,20 +13,6 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  async redirects() {
-    return [
-      {
-        source: "/news",
-        destination: "/reviews",
-        permanent: false,
-      },
-      {
-        source: "/news/:slug",
-        destination: "/reviews",
-        permanent: false,
-      },
-    ];
-  },
 };
 
 export default nextConfig;

@@ -1,97 +1,69 @@
 "use client";
 
 import React, { useState } from "react";
-import { Share2, Check, Copy, MessageCircle } from "lucide-react";
 
 interface ShareButtonsProps {
   title: string;
   url?: string;
 }
 
-export default function ShareButtons({ title }: ShareButtonsProps) {
-  const [copied, setCopied] = useState(false);
+export default function ShareButtons({ title, url }: ShareButtonsProps) {
+  const [copied, setCopied] = useState<"idle" | "copied" | "failed">("idle");
 
-  const handleCopy = () => {
-    if (typeof window !== "undefined") {
-      navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2500);
-    }
+  const currentUrl = () => url || (typeof window !== "undefined" ? window.location.href : "");
+
+  const openShare = (href: string) => {
+    window.open(href, "_blank", "noopener,noreferrer");
   };
 
-  const handleShareTwitter = () => {
-    if (typeof window !== "undefined") {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(`${title} — via @GulfSaasReview`);
-      window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, "_blank");
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(currentUrl());
+      setCopied("copied");
+    } catch {
+      setCopied("failed");
     }
+    setTimeout(() => setCopied("idle"), 2500);
   };
 
-  const handleShareLinkedIn = () => {
-    if (typeof window !== "undefined") {
-      const url = encodeURIComponent(window.location.href);
-      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, "_blank");
-    }
-  };
+  const shareLinkedIn = () =>
+    openShare(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl())}`);
 
-  const handleShareWhatsApp = () => {
-    if (typeof window !== "undefined") {
-      const url = encodeURIComponent(window.location.href);
-      const text = encodeURIComponent(`${title}\n${url}`);
-      window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
-    }
-  };
+  const shareX = () =>
+    openShare(
+      `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(currentUrl())}`
+    );
+
+  const shareWhatsApp = () =>
+    openShare(`https://api.whatsapp.com/send?text=${encodeURIComponent(`${title}\n${currentUrl()}`)}`);
+
+  const pill =
+    "inline-flex min-h-9 cursor-pointer items-center gap-1.5 rounded-full border-[1.5px] border-rule bg-surface px-3.5 text-[0.84rem] font-semibold text-ink-2 transition-colors hover:border-ink hover:text-ink";
 
   return (
-    <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-      <span className="text-[#4A6D5F] uppercase tracking-wider font-bold mr-1 flex items-center gap-1">
-        <Share2 className="h-3.5 w-3.5" />
-        <span>Share:</span>
-      </span>
-
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="kicker mr-1">Share</span>
+      <button type="button" onClick={shareLinkedIn} className={pill}>
+        LinkedIn <span aria-hidden="true">↗</span>
+      </button>
+      <button type="button" onClick={shareX} className={pill}>
+        X <span aria-hidden="true">↗</span>
+      </button>
+      <button type="button" onClick={shareWhatsApp} className={pill}>
+        WhatsApp <span aria-hidden="true">↗</span>
+      </button>
       <button
+        type="button"
         onClick={handleCopy}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-[#15803D] hover:bg-[#FFF8EF] transition-colors cursor-pointer"
-        title="Copy article link"
+        className={`${pill} ${
+          copied === "copied" ? "!border-teal !bg-teal !text-paper" : copied === "failed" ? "!border-terracotta !text-terracotta" : ""
+        }`}
       >
-        {copied ? (
-          <>
-            <Check className="h-3.5 w-3.5 text-emerald-600" />
-            <span className="text-emerald-700 font-bold">Link Copied!</span>
-          </>
-        ) : (
-          <>
-            <Copy className="h-3.5 w-3.5 text-[#4A6D5F]" />
-            <span>Copy Link</span>
-          </>
-        )}
+        {copied === "copied" ? "Copied ✓" : copied === "failed" ? "Copy failed" : "Copy link"}
       </button>
-
-      <button
-        onClick={handleShareLinkedIn}
-        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-[#0077b5] hover:text-[#0077b5] transition-colors cursor-pointer"
-        title="Share on LinkedIn"
-      >
-        <span>LinkedIn</span>
-      </button>
-
-      <button
-        onClick={handleShareTwitter}
-        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-black hover:text-black transition-colors cursor-pointer"
-        title="Share on X"
-      >
-        <span>X (Twitter)</span>
-      </button>
-
-      <button
-        onClick={handleShareWhatsApp}
-        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer"
-        title="Share on WhatsApp"
-      >
-        <MessageCircle className="h-3.5 w-3.5 text-emerald-600" />
-        <span>WhatsApp</span>
-      </button>
+      <span role="status" aria-live="polite" className="sr-only">
+        {copied === "copied" ? "Link copied to clipboard" : copied === "failed" ? "Could not copy the link" : ""}
+      </span>
     </div>
   );
 }
-

@@ -2,481 +2,578 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Software } from "@/types";
 import { softwares } from "@/data/software";
-import {
-  Star,
-  Check,
-  X,
-  Globe2,
-  ArrowRight,
-  Scale,
-  Sparkles,
-} from "lucide-react";
+import Monogram from "./Monogram";
+import ScoreDial from "./ScoreDial";
+import { arabicLabel, billingSuffix, countryShort } from "@/lib/format";
 
 interface ComparisonMatrixProps {
-  initialProductA: Software;
-  initialProductB: Software;
+  initialProductA: Software | null;
+  initialProductB: Software | null;
   initialProductC?: Software | null;
   curatedVerdict?: {
     winnerSummary: string;
     gulfContext: string;
   };
+  /** Mirror picker changes into ?a=&b=&c= on /compare so the view can be shared. */
+  syncUrl?: boolean;
 }
+
+type Slots = [Software | null, Software | null, Software | null];
+
+/* ---------- Local helpers (derived from the data, no invented values) ---------- */
+
+/** Numeric entry price in the listed currency, or null when it is a quote. */
+function entryPrice(sw: Software): number | null {
+  const raw = sw.pricing.startingPrice.toLowerCase();
+  if (raw.includes("free")) return 0;
+  const m = raw.replace(/,/g, "").match(/(\d+(?:\.\d+)?)/);
+  return m ? parseFloat(m[1]) : null;
+}
+
+/** Upper bound of the typical deployment window, in days. */
+function deployDays(sw: Software): number | null {
+  const s = sw.deploymentTime.toLowerCase();
+  const nums = s.match(/\d+(?:\.\d+)?/g);
+  if (!nums) return null;
+  const n = parseFloat(nums[nums.length - 1]);
+  if (s.includes("month")) return n * 30;
+  if (s.includes("week")) return n * 7;
+  return n;
+}
+
+type Status = "yes" | "partial" | "no" | "na";
+
+/** Classify a free-text compliance status. The original text is always shown beside it. */
+function classify(text?: string): Status {
+  if (!text) return "na";
+  const t = text.toLowerCase();
+  if (t.startsWith("n/a")) return "na";
+  if (/\bnot\b|\bno native\b|\bno direct\b/.test(t)) return "no";
+  if (/fully certified|officially certified|certified fta|pre-configured|full fta|native tax|solid fta|^supported/.test(t))
+    return "yes";
+  return "partial";
+}
+
+const statusGlyph: Record<Status, { glyph: string; label: string; cls: string }> = {
+  yes: { glyph: "✓", label: "Yes", cls: "bg-teal-soft text-positive" },
+  partial: { glyph: "~", label: "Via partner or connector", cls: "bg-sand-soft text-[#7A5418]" },
+  no: { glyph: "—", label: "No", cls: "bg-terracotta-soft text-terracotta-deep" },
+  na: { glyph: "n/a", label: "Not applicable", cls: "bg-paper-2 text-ink-3" },
+};
+
+/** Indexes of the best value(s). No winner when every value ties or fewer than two are comparable. */
+function winners(values: (number | null)[], prefer: "high" | "low"): Set<number> {
+  const valid = values.map((v, i) => ({ v, i })).filter((x): x is { v: number; i: number } => x.v !== null);
+  if (valid.length < 2) return new Set();
+  const best = prefer === "high" ? Math.max(...valid.map((x) => x.v)) : Math.min(...valid.map((x) => x.v));
+  const top = valid.filter((x) => x.v === best);
+  if (top.length === valid.length) return new Set();
+  return new Set(top.map((x) => x.i));
+}
+
+const slotLabels = ["First product", "Second product", "Third product (optional)"];
+
+/* ---------- Component ---------- */
 
 export default function ComparisonMatrix({
   initialProductA,
   initialProductB,
   initialProductC = null,
   curatedVerdict,
+  syncUrl = false,
 }: ComparisonMatrixProps) {
-  const [productA, setProductA] = useState<Software>(initialProductA);
-  const [productB, setProductB] = useState<Software>(initialProductB);
-  const [productC, setProductC] = useState<Software | null>(initialProductC);
+  const router = useRouter();
+  const initialKey = [initialProductA, initialProductB, initialProductC].map((p) => p?.slug ?? "").join("|");
 
-  const activeProducts = [productA, productB, productC].filter(
-    (p): p is Software => Boolean(p)
+  const [slots, setSlots] = useState<Slots>([initialProductA, initialProductB, initialProductC]);
+  const [prevKey, setPrevKey] = useState(initialKey);
+
+  // Re-sync when the incoming products change (e.g. the compare tray navigates here with new params).
+  if (initialKey !== prevKey) {
+    setPrevKey(initialKey);
+    setSlots([initialProductA, initialProductB, initialProductC]);
+  }
+
+  const setSlot = (index: number, slug: string) => {
+    const next = [...slots] as Slots;
+    next[index] = slug ? softwares.find((s) => s.slug === slug) ?? null : null;
+    setSlots(next);
+    if (syncUrl) {
+      const params = new URLSearchParams();
+      (["a", "b", "c"] as const).forEach((k, i) => {
+        if (next[i]) params.set(k, next[i]!.slug);
+      });
+      const qs = params.toString();
+      setPrevKey(next.map((p) => p?.slug ?? "").join("|"));
+      router.replace(qs ? `/compare?${qs}` : "/compare", { scroll: false });
+    }
+  };
+
+  const active = slots.filter((p): p is Software => Boolean(p));
+  const n = active.length;
+
+  /* Winner rows */
+  const scoreWin = winners(active.map((p) => p.verdict.score), "high");
+  const easeWin = winners(active.map((p) => p.easeOfUse), "high");
+  const priceWin = winners(active.map(entryPrice), "low");
+  const deployWin = winners(active.map(deployDays), "low");
+  const leads = active.map(
+    (_, i) => [scoreWin, easeWin, priceWin, deployWin].filter((set) => set.has(i)).length
   );
 
-  const isThreeSolutions = activeProducts.length === 3;
-  const specColWidth = isThreeSolutions ? "22%" : "26%";
-  const productColWidth = isThreeSolutions ? "26%" : "37%";
+  const sameCategory =
+    n === 1
+      ? softwares.filter((s) => s.category === active[0].category && s.slug !== active[0].slug)
+      : [];
+  const suggestions = (sameCategory.length ? sameCategory : softwares.filter((s) => !active.some((a) => a.slug === s.slug)))
+    .slice()
+    .sort((a, b) => b.verdict.score - a.verdict.score)
+    .slice(0, 4);
+
+  /* Cell primitives */
+  const thRow =
+    "sticky left-0 z-10 w-[8.5rem] min-w-[8.5rem] bg-surface py-4 pl-4 pr-3 text-left align-top text-[0.85rem] font-semibold text-ink sm:w-[13rem] sm:min-w-[13rem] sm:pl-6";
+  const td = "px-4 py-4 align-top text-[0.9rem] text-ink sm:px-5";
+  const row = "border-t-[1.5px] border-dashed border-rule";
+
+  /** Leader highlight: the value sits in a terracotta-soft pill with a "Best" label. */
+  const lead = (on: boolean, children: React.ReactNode, cls = "") =>
+    on ? (
+      <span className={`inline-flex flex-wrap items-baseline gap-x-2 rounded-full bg-terracotta-soft px-3 py-1 text-terracotta-deep ${cls}`}>
+        {children}
+        <span className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.08em]">Best</span>
+      </span>
+    ) : (
+      <span className={cls}>{children}</span>
+    );
+
+  const group = (label: string) => (
+    <tr>
+      <th scope="colgroup" colSpan={n + 1} className="bg-sand-soft py-2.5 text-left font-normal">
+        <span className="sticky left-0 inline-block px-4 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-[#7A5418] sm:px-6">
+          {label}
+        </span>
+      </th>
+    </tr>
+  );
+
+  const statusCell = (text?: string) => {
+    const s = statusGlyph[classify(text)];
+    return (
+      <>
+        <span className={`num inline-grid h-7 min-w-7 place-items-center rounded-full px-1.5 text-[0.85rem] font-semibold ${s.cls}`}>
+          {s.glyph}
+          <span className="sr-only"> {s.label}</span>
+        </span>
+        <p className="mt-2 text-[0.82rem] leading-relaxed text-ink-2">{text || "Not stated by the vendor."}</p>
+      </>
+    );
+  };
 
   return (
-    <div className="space-y-10">
-      {/* Product Selectors Header */}
-      <div className="rounded-2xl border border-[#15803D]/50 bg-[#FFF8EF] p-5 sm:p-7 shadow-xs">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-[#E5DAC8]">
-          <div className="flex items-center gap-2.5">
-            <Scale className="h-6 w-6 text-[#15803D]" />
-            <h2 className="text-lg sm:text-xl font-bold font-editorial text-[#064734]">
-              Customize Compared Solutions
-            </h2>
-          </div>
-          <span className="text-xs sm:text-sm text-[#4A6D5F]">
-            Select different software to compare side-by-side
-          </span>
+    <div>
+      {/* ------------------------------------------------ Pickers */}
+      <fieldset className="rounded-[28px] bg-sand-soft p-5 sm:p-7">
+        <legend className="sr-only">Choose products to compare</legend>
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+          {slots.map((current, i) => {
+            const taken = slots.filter((p, j) => p && j !== i).map((p) => p!.slug);
+            const id = `compare-slot-${i}`;
+            return (
+              <div key={i}>
+                <label htmlFor={id} className="flex items-baseline gap-2.5">
+                  <span className="display text-[1.7rem] leading-none text-terracotta">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-ink-2">
+                    {slotLabels[i]}
+                  </span>
+                </label>
+                <div className="mt-3 flex items-center gap-2">
+                  <div className="relative min-w-0 flex-1">
+                    {current && (
+                      <span className="pointer-events-none absolute left-2.5 top-1/2 z-10 flex -translate-y-1/2">
+                        <Monogram name={current.name} color={current.accentColor} size="sm" className="!rounded-full" />
+                      </span>
+                    )}
+                    <select
+                      id={id}
+                      value={current?.slug ?? ""}
+                      onChange={(e) => setSlot(i, e.target.value)}
+                      className={`field !min-h-[56px] cursor-pointer appearance-none !rounded-full !border-transparent pr-11 text-[1rem] font-semibold shadow-[0_1px_0_rgba(31,25,21,0.06)] hover:!border-ink-3 focus:!border-ink ${
+                        current ? "!pl-14" : "!pl-5 text-ink-2"
+                      }`}
+                    >
+                      <option value="">{i === 2 ? "None" : "Choose a product"}</option>
+                      {softwares
+                        .filter((s) => !taken.includes(s.slug))
+                        .map((s) => (
+                          <option key={s.id} value={s.slug}>
+                            {s.name} · {s.categoryName}
+                          </option>
+                        ))}
+                    </select>
+                    <span aria-hidden="true" className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-[0.75rem] text-ink-3">
+                      ▼
+                    </span>
+                  </div>
+                  {current && (
+                    <button
+                      type="button"
+                      onClick={() => setSlot(i, "")}
+                      aria-label={`Remove ${current.name}`}
+                      className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-paper text-[1.2rem] text-ink-2 transition-colors hover:bg-terracotta hover:text-white"
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
+      </fieldset>
 
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Selector A */}
-          <div>
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A6D5F] block mb-2">
-              Solution 1:
-            </label>
-            <select
-              value={productA.slug}
-              onChange={(e) => {
-                const found = softwares.find((s) => s.slug === e.target.value);
-                if (found) setProductA(found);
-              }}
-              className="w-full rounded-xl border border-[#E5DAC8] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#064734] focus:border-[#15803D] focus:outline-none min-h-[46px] shadow-2xs cursor-pointer truncate"
-            >
-              {softwares.map((s) => (
-                <option key={s.id} value={s.slug}>
-                  {s.name} ({s.categoryName})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Selector B */}
-          <div>
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A6D5F] block mb-2">
-              Solution 2:
-            </label>
-            <select
-              value={productB.slug}
-              onChange={(e) => {
-                const found = softwares.find((s) => s.slug === e.target.value);
-                if (found) setProductB(found);
-              }}
-              className="w-full rounded-xl border border-[#E5DAC8] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#064734] focus:border-[#15803D] focus:outline-none min-h-[46px] shadow-2xs cursor-pointer truncate"
-            >
-              {softwares.map((s) => (
-                <option key={s.id} value={s.slug}>
-                  {s.name} ({s.categoryName})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Selector C (Optional 3rd) */}
-          <div>
-            <label className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A6D5F] block mb-2">
-              Solution 3 (Optional):
-            </label>
-            <select
-              value={productC ? productC.slug : "none"}
-              onChange={(e) => {
-                if (e.target.value === "none") {
-                  setProductC(null);
-                } else {
-                  const found = softwares.find((s) => s.slug === e.target.value);
-                  if (found) setProductC(found);
-                }
-              }}
-              className="w-full rounded-xl border border-[#E5DAC8] bg-white px-3.5 py-3 text-sm sm:text-base font-bold text-[#064734] focus:border-[#15803D] focus:outline-none min-h-[46px] shadow-2xs cursor-pointer truncate"
-            >
-              <option value="none">-- None (2-way comparison) --</option>
-              {softwares
-                .filter((s) => s.slug !== productA.slug && s.slug !== productB.slug)
-                .map((s) => (
-                  <option key={s.id} value={s.slug}>
-                    {s.name} ({s.categoryName})
-                  </option>
-                ))}
-            </select>
-          </div>
-        </div>
-      </div>
-
-      {/* Curated Editorial Verdict Note if available */}
       {curatedVerdict && (
-        <div className="rounded-2xl border border-[#15803D]/40 bg-[#064734] text-[#FFF8EF] p-6 sm:p-8 shadow-md">
-          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#15803D] mb-2">
-            <Sparkles className="h-4 w-4" />
-            <span>GulfSaasReview Comparative Analysis</span>
+        <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-12">
+          <div className="rounded-[24px] bg-teal p-6 text-teal-soft lg:col-span-7">
+            <p className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-sand">Our verdict</p>
+            <p className="mt-3 font-display text-[1.35rem] font-semibold leading-snug text-paper">{curatedVerdict.winnerSummary}</p>
           </div>
-          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-white mb-3">
-            {curatedVerdict.winnerSummary}
-          </h3>
-          <p className="text-sm sm:text-base text-[#E5DAC8]/90 leading-relaxed">
-            {curatedVerdict.gulfContext}
-          </p>
+          <div className="rounded-[24px] bg-terracotta-soft p-6 lg:col-span-5">
+            <p className="kicker kicker-accent">The Gulf angle</p>
+            <p className="mt-3 text-ink-2">{curatedVerdict.gulfContext}</p>
+          </div>
         </div>
       )}
 
-      {/* ---------------------------------------------------- */}
-      {/* MOBILE RWD COMPARISON VIEW (Cards for < md screens)  */}
-      {/* ---------------------------------------------------- */}
-      <div className="block md:hidden space-y-6">
-        {activeProducts.map((p) => (
-          <div
-            key={p.id}
-            className="rounded-2xl border border-[#E5DAC8] bg-white p-5 shadow-xs space-y-4"
-          >
-            <div className="flex items-center justify-between pb-3 border-b border-[#E5DAC8]">
-              <div className="flex items-center gap-3">
-                <div
-                  className="h-12 w-12 rounded-xl flex items-center justify-center font-bold text-white text-base"
-                  style={{ backgroundColor: p.accentColor || "#064734" }}
+      {/* ------------------------------------------------ Empty state */}
+      {n < 2 && (
+        <div className="mt-8 rounded-[28px] border-[1.5px] border-dashed border-sand bg-surface px-5 py-10 sm:px-10 sm:py-12">
+          <span className="tag tag-accent">{n === 0 ? "Nothing picked yet" : "One more to go"}</span>
+          <p className="h-card mt-4 max-w-[36ch] text-[1.7rem]">
+            {n === 0
+              ? "Pick two or three products above to see them side by side."
+              : `Pick a second product to compare with ${active[0].name}.`}
+          </p>
+          <p className="mt-7 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-ink-3">
+            {n === 1 && sameCategory.length ? `Also in ${active[0].categoryName}` : "Quick picks · highest scores"}
+          </p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {suggestions.map((s) => (
+              <li key={s.id}>
+                <button
+                  type="button"
+                  onClick={() => setSlot(slots.findIndex((p) => !p), s.slug)}
+                  className="group inline-flex items-center gap-2.5 rounded-full border-[1.5px] border-rule bg-paper py-1.5 pl-1.5 pr-4 transition-colors hover:border-ink"
                 >
-                  {p.name.substring(0, 2).toUpperCase()}
-                </div>
-                <div>
-                  <h4 className="font-bold text-lg text-[#064734]">{p.name}</h4>
-                  <span className="text-xs text-[#4A6D5F]">{p.categoryName}</span>
-                </div>
-              </div>
-              <div className="flex items-center gap-1 text-sm font-bold text-[#064734] bg-[#FFF8EF] px-2.5 py-1 rounded-lg border border-[#E5DAC8]">
-                <Star className="h-4 w-4 fill-[#D97706] text-[#15803D]" />
-                <span>{p.rating.toFixed(1)}</span>
-              </div>
-            </div>
-
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between py-2 border-b border-[#E5DAC8]/60">
-                <span className="font-semibold text-[#4A6D5F]">Starting Price:</span>
-                <span className="font-extrabold text-[#064734] text-base">{p.pricing.startingPrice}</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-[#E5DAC8]/60">
-                <span className="font-semibold text-[#4A6D5F]">Regional Est:</span>
-                <span className="font-bold text-[#064734]">{p.pricing.tiers[0]?.regionalEstimateSAR || "See Tiers"}</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-[#E5DAC8]/60">
-                <span className="font-semibold text-[#4A6D5F]">ZATCA E-Invoicing:</span>
-                <span className="font-bold text-right text-[#064734]">{p.gulfSuitabilityAnalysis.zatcaStatus || "Check third-party"}</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-[#E5DAC8]/60">
-                <span className="font-semibold text-[#4A6D5F]">Arabic Support:</span>
-                <span className="font-bold text-right text-[#064734]">{p.arabicSupport}</span>
-              </div>
-              <div className="flex justify-between py-2 border-b border-[#E5DAC8]/60">
-                <span className="font-semibold text-[#4A6D5F]">Ease of Use:</span>
-                <span className="font-bold text-[#064734]">{p.easeOfUse} / 10</span>
-              </div>
-              <div className="py-2 border-b border-[#E5DAC8]/60">
-                <span className="font-semibold text-[#4A6D5F] block mb-1">Best Suited For:</span>
-                <p className="font-medium text-[#15803D] text-xs sm:text-sm">{p.verdict.bestFor}</p>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href={`/reviews/${p.slug}`}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[#064734] py-3 text-sm font-bold text-white hover:bg-[#043224] transition-colors shadow-xs"
-              >
-                <span>Read Full {p.name} Review</span>
-                <ArrowRight className="h-4 w-4 text-[#15803D]" />
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* ---------------------------------------------------- */}
-      {/* DESKTOP TABLE COMPARISON VIEW (Hidden on small screens) */}
-      {/* ---------------------------------------------------- */}
-      <div className="hidden md:block overflow-x-auto rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] shadow-xs">
-        <table className="w-full table-fixed text-left border-collapse min-w-[780px] lg:min-w-[880px]">
-          <colgroup>
-            <col style={{ width: specColWidth }} />
-            {activeProducts.map((p) => (
-              <col key={p.id} style={{ width: productColWidth }} />
+                  <Monogram name={s.name} color={s.accentColor} size="sm" className="!rounded-full" />
+                  <span className="font-semibold transition-colors group-hover:text-terracotta">{s.name}</span>
+                  <span className="num rounded-full bg-sand-soft px-2 py-0.5 text-[0.75rem]">{s.verdict.score.toFixed(1)}</span>
+                </button>
+              </li>
             ))}
-          </colgroup>
-          {/* Header Row: Products */}
-          <thead>
-            <tr className="border-b border-[#E5DAC8] bg-white">
-              <th className="p-5 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A6D5F] align-top">
-                Specification
-              </th>
-              {activeProducts.map((p) => (
-                <th key={p.id} className="p-5 align-top border-l border-[#E5DAC8]">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="h-11 w-11 sm:h-12 sm:w-12 rounded-xl flex items-center justify-center font-bold text-white text-base shrink-0 shadow-xs"
-                      style={{ backgroundColor: p.accentColor || "#064734" }}
-                    >
-                      {p.name.substring(0, 2).toUpperCase()}
+          </ul>
+        </div>
+      )}
+
+      {/* ------------------------------------------------ Table */}
+      {n >= 2 && (
+        <p className="num mt-8 text-[0.72rem] text-ink-3 sm:hidden">Scroll sideways to see each product →</p>
+      )}
+      {n >= 2 && (
+        <div className="mt-4 overflow-x-auto rounded-[28px] border-[1.5px] border-rule bg-surface sm:mt-8">
+          <table className={`w-full border-collapse text-left ${n === 3 ? "min-w-[900px]" : "min-w-[640px]"}`}>
+            <caption className="sr-only">
+              {active.map((p) => p.name).join(" compared with ")}. Values marked Best lead their row.
+            </caption>
+            <thead>
+              <tr>
+                <td className="sticky left-0 z-10 bg-surface pb-6 pl-4 pt-6 align-bottom sm:pl-6">
+                  <span className="tag tag-sand hidden sm:inline-flex">{n} products</span>
+                </td>
+                {active.map((p, i) => (
+                  <th key={p.id} scope="col" className="px-4 pb-6 pt-6 text-left align-bottom font-normal sm:px-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex min-w-0 items-center gap-3">
+                        <Monogram name={p.name} color={p.accentColor} />
+                        <div className="min-w-0">
+                          <Link
+                            href={`/reviews/${p.slug}`}
+                            className="h-card block text-[1.25rem] leading-tight transition-colors hover:text-terracotta"
+                          >
+                            {p.name}
+                          </Link>
+                          <span className="block truncate text-[0.78rem] text-ink-3">{p.categoryName}</span>
+                        </div>
+                      </div>
+                      <ScoreDial
+                        score={p.verdict.score}
+                        size={54}
+                        color={scoreWin.has(i) ? "#C24E2A" : "#0E4B48"}
+                      />
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-bold text-base sm:text-lg text-[#064734] leading-tight truncate" title={p.name}>
-                        {p.name}
-                      </h4>
-                      <span className="text-xs sm:text-sm text-[#4A6D5F] block truncate">
-                        {p.categoryName}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="mt-3 flex items-center flex-wrap gap-2">
-                    <div className="flex items-center gap-1 text-base font-bold text-[#064734]">
-                      <Star className="h-4 w-4 fill-[#D97706] text-[#15803D]" />
-                      <span>{p.rating.toFixed(1)}</span>
-                    </div>
-                    <span className="text-xs sm:text-sm text-[#4A6D5F]">
-                      (Score: {p.verdict.score}/10)
-                    </span>
-                  </div>
-
-                  <div className="mt-4 flex items-center gap-2">
-                    <Link
-                      href={`/reviews/${p.slug}`}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-[#064734] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#043224] transition-colors whitespace-nowrap shadow-xs"
-                    >
-                      <span>Read Review</span>
-                      <ArrowRight className="h-3.5 w-3.5 text-[#15803D]" />
-                    </Link>
-                  </div>
-                </th>
-              ))}
-            </tr>
-          </thead>
-
-          <tbody className="divide-y divide-[#E5DAC8] text-sm">
-            {/* 1. Starting Price & Model */}
-            <tr className="bg-[#FFF8EF]">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Starting Price</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="text-lg font-extrabold text-[#064734]">
-                    {p.pricing.startingPrice}
-                  </div>
-                  <div className="text-xs sm:text-sm text-[#4A6D5F]">
-                    {p.pricing.billingPeriod}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 2. GCC Regional Cost Estimate */}
-            <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">SAR / AED Estimate</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="font-bold text-[#064734] text-sm sm:text-base">
-                    {p.pricing.tiers[0]?.regionalEstimateSAR || "See tier breakdown"}
-                  </div>
-                  <div className="text-xs text-[#4A6D5F] mt-0.5">
-                    {p.pricing.tiers[0]?.regionalEstimateAED}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 3. Saudi Arabia ZATCA E-Invoicing */}
-            <tr className="bg-[#FFF8EF]">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">
-                Saudi ZATCA E-Invoicing
-              </td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="font-semibold text-[#064734] leading-relaxed">
-                    {p.gulfSuitabilityAnalysis.zatcaStatus || "Check third-party sync"}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 4. UAE VAT 5% Compliance */}
-            <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">
-                UAE FTA VAT Readiness
-              </td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="font-semibold text-[#064734] leading-relaxed">
-                    {p.gulfSuitabilityAnalysis.uaeVatStatus || "Standard tax fields supported"}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 5. Arabic Language & RTL */}
-            <tr className="bg-[#FFF8EF]">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Arabic Support</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#E0FFC2] text-[#064734]/20 px-2.5 py-1 text-xs font-bold text-[#064734]">
-                    <Globe2 className="h-3.5 w-3.5 text-[#15803D]" />
-                    {p.arabicSupport}
-                  </span>
-                  <p className="text-xs sm:text-sm text-[#475569] mt-2 leading-relaxed">
-                    {p.gulfSuitabilityAnalysis.arabicExperience}
-                  </p>
-                </td>
-              ))}
-            </tr>
-
-            {/* 6. Country Suitability */}
-            <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Country Suitability</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.countrySuitability.map((c) => (
-                      <span
-                        key={c}
-                        className="rounded-lg bg-[#064734]/5 px-2.5 py-1 text-xs font-semibold text-[#064734]"
-                      >
-                        {c}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 7. Ease of Use */}
-            <tr className="bg-[#FFF8EF]">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Ease of Use</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="font-extrabold text-base text-[#064734]">
-                    {p.easeOfUse} / 10
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 8. Deployment Time */}
-            <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Typical Deployment</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="font-semibold text-[#064734]">
-                    {p.deploymentTime}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 9. Local Integrations */}
-            <tr className="bg-[#FFF8EF]">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Local Integrations</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="flex flex-wrap gap-1.5">
-                    {p.localIntegrations.map((item, idx) => (
-                      <span
-                        key={idx}
-                        className="rounded-md bg-white border border-[#E5DAC8] px-2 py-1 text-xs text-[#064734] font-medium"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 10. Pros */}
-            <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Key Pros</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <ul className="space-y-2">
-                    {p.pros.slice(0, 3).map((pro, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <Check className="h-4 w-4 text-emerald-600 shrink-0 mt-0.5" />
-                        <span className="text-xs sm:text-sm text-[#064734] font-medium leading-relaxed">{pro}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              ))}
-            </tr>
-
-            {/* 11. Cons */}
-            <tr className="bg-[#FFF8EF]">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Key Cons</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <ul className="space-y-2">
-                    {p.cons.slice(0, 3).map((con, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <X className="h-4 w-4 text-rose-600 shrink-0 mt-0.5" />
-                        <span className="text-xs sm:text-sm text-[#064734] font-medium leading-relaxed">{con}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </td>
-              ))}
-            </tr>
-
-            {/* 12. Best Suited For */}
-            <tr className="bg-white">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Best Suited For</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="font-bold text-emerald-800 text-xs sm:text-sm leading-relaxed">
-                    {p.verdict.bestFor}
-                  </div>
-                </td>
-              ))}
-            </tr>
-
-            {/* 13. Final Recommendation */}
-            <tr className="bg-[#FFF8EF]">
-              <td className="p-4 sm:p-5 font-bold text-[#064734] align-top">Verdict Summary</td>
-              {activeProducts.map((p) => (
-                <td key={p.id} className="p-4 sm:p-5 border-l border-[#E5DAC8] align-top break-words">
-                  <div className="rounded-xl bg-white p-4 border border-[#E5DAC8]">
-                    <span className="font-bold text-[#064734] text-sm sm:text-base block mb-1">
-                      {p.verdict.badge}
-                    </span>
-                    <p className="text-xs sm:text-sm text-[#475569] leading-relaxed">
-                      {p.verdict.summary}
+                    <p className="mt-4">
+                      <span className={`tag ${leads[i] > 0 ? "tag-accent" : ""}`}>Leads {leads[i]} of 4 measured rows</span>
                     </p>
-                  </div>
-                </td>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+
+            <tbody>
+              {group("Score")}
+              <tr className={row}>
+                <th scope="row" className={thRow}>Our score</th>
+                {active.map((p, i) => (
+                  <td key={p.id} className={td}>
+                    {lead(
+                      scoreWin.has(i),
+                      <>
+                        <span className="num text-[1.35rem] font-semibold leading-none">{p.verdict.score.toFixed(1)}</span>
+                        <span className="num text-[0.75rem] opacity-70">/10</span>
+                      </>
+                    )}
+                    <span aria-hidden="true" className="mt-3 block h-1.5 w-full max-w-[10rem] overflow-hidden rounded-full bg-paper-2">
+                      <span
+                        className={`block h-full rounded-full ${scoreWin.has(i) ? "bg-terracotta" : "bg-teal"}`}
+                        style={{ width: `${p.verdict.score * 10}%` }}
+                      />
+                    </span>
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Ease of use</th>
+                {active.map((p, i) => (
+                  <td key={p.id} className={td}>
+                    {lead(
+                      easeWin.has(i),
+                      <>
+                        <span className="num">{p.easeOfUse.toFixed(1)}</span>
+                        <span className="num text-[0.75rem] opacity-70">/10</span>
+                      </>
+                    )}
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Reader rating</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    <span className="num">{p.rating.toFixed(1)} / 5</span>
+                    <span className="num ml-2 text-[0.75rem] text-ink-3">n={p.reviewCount}</span>
+                  </td>
+                ))}
+              </tr>
+
+              {group("Price")}
+              <tr className={row}>
+                <th scope="row" className={thRow}>Entry price</th>
+                {active.map((p, i) => (
+                  <td key={p.id} className={td}>
+                    {lead(
+                      priceWin.has(i),
+                      <span>
+                        <span className="num text-[1.05rem] font-semibold">{p.pricing.startingPrice}</span>
+                        <span className="num text-[0.8rem] opacity-70">{billingSuffix(p)}</span>
+                      </span>
+                    )}
+                    <p className="mt-1.5 text-[0.78rem] text-ink-3">{p.pricing.billingPeriod}</p>
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>SAR / AED estimate</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    <span className="num block text-[0.88rem]">
+                      {p.pricing.tiers[0]?.regionalEstimateSAR || "See plans"}
+                    </span>
+                    {p.pricing.tiers[0]?.regionalEstimateAED && (
+                      <span className="num block text-[0.88rem] text-ink-2">{p.pricing.tiers[0].regionalEstimateAED}</span>
+                    )}
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Pricing model</th>
+                {active.map((p) => (
+                  <td key={p.id} className={`${td} text-ink-2`}>{p.pricing.model}</td>
+                ))}
+              </tr>
+
+              {group("Compliance")}
+              <tr className={row}>
+                <th scope="row" className={thRow}>ZATCA e-invoicing</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    {statusCell(p.gulfSuitabilityAnalysis.zatcaStatus)}
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>UAE VAT</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    {statusCell(p.gulfSuitabilityAnalysis.uaeVatStatus)}
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Data residency</th>
+                {active.map((p) => (
+                  <td key={p.id} className={`${td} text-[0.85rem] text-ink-2`}>
+                    {p.gulfSuitabilityAnalysis.dataResidency}
+                  </td>
+                ))}
+              </tr>
+
+              {group("Language and markets")}
+              <tr className={row}>
+                <th scope="row" className={thRow}>Arabic</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    <span className="tag tag-teal">{arabicLabel(p.arabicSupport)}</span>
+                    <p className="mt-2 text-[0.82rem] leading-relaxed text-ink-2">
+                      {p.gulfSuitabilityAnalysis.arabicExperience}
+                    </p>
+                  </td>
+                ))}
+              </tr>
+              {(["Saudi Arabia", "UAE", "GCC"] as const).map((c) => (
+                <tr key={c} className={row}>
+                  <th scope="row" className={thRow}>
+                    {c === "GCC" ? "Wider GCC" : c}
+                    <span className="num ml-1.5 text-[0.7rem] font-normal text-ink-3">{countryShort[c]}</span>
+                  </th>
+                  {active.map((p) => {
+                    const yes = p.countrySuitability.includes(c);
+                    return (
+                      <td key={p.id} className={td}>
+                        <span
+                          className={`num inline-grid h-7 w-7 place-items-center rounded-full text-[0.85rem] font-semibold ${
+                            yes ? "bg-teal-soft text-positive" : "bg-paper-2 text-ink-3"
+                          }`}
+                        >
+                          {yes ? "✓" : "—"}
+                          <span className="sr-only">{yes ? " Supported" : " Not listed"}</span>
+                        </span>
+                      </td>
+                    );
+                  })}
+                </tr>
               ))}
-            </tr>
-          </tbody>
-        </table>
-      </div>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Local integrations</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    <ul className="flex flex-wrap gap-1.5">
+                      {p.localIntegrations.map((item) => (
+                        <li key={item} className="rounded-full bg-paper-2 px-2.5 py-1 text-[0.78rem] text-ink-2">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                ))}
+              </tr>
+
+              {group("Rollout")}
+              <tr className={row}>
+                <th scope="row" className={thRow}>Typical deployment</th>
+                {active.map((p, i) => (
+                  <td key={p.id} className={td}>
+                    {lead(deployWin.has(i), <span className="num">{p.deploymentTime}</span>)}
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Regional support</th>
+                {active.map((p) => (
+                  <td key={p.id} className={`${td} text-[0.85rem] text-ink-2`}>
+                    {p.gulfSuitabilityAnalysis.regionalSupport}
+                  </td>
+                ))}
+              </tr>
+
+              {group("Our assessment")}
+              <tr className={row}>
+                <th scope="row" className={thRow}>Strengths</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    <ul className="space-y-2 text-[0.85rem] leading-relaxed text-ink-2">
+                      {p.pros.slice(0, 3).map((pro) => (
+                        <li key={pro} className="grid grid-cols-[1.1rem_1fr]">
+                          <span aria-hidden="true" className="num font-semibold text-positive">+</span>
+                          {pro}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Weaknesses</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    <ul className="space-y-2 text-[0.85rem] leading-relaxed text-ink-2">
+                      {p.cons.slice(0, 3).map((con) => (
+                        <li key={con} className="grid grid-cols-[1.1rem_1fr]">
+                          <span aria-hidden="true" className="num font-semibold text-negative">−</span>
+                          {con}
+                        </li>
+                      ))}
+                    </ul>
+                  </td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Best for</th>
+                {active.map((p) => (
+                  <td key={p.id} className={`${td} text-[0.88rem]`}>{p.verdict.bestFor}</td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Not for</th>
+                {active.map((p) => (
+                  <td key={p.id} className={`${td} text-[0.88rem] text-ink-2`}>{p.verdict.notRecommendedFor}</td>
+                ))}
+              </tr>
+              <tr className={row}>
+                <th scope="row" className={thRow}>Verdict</th>
+                {active.map((p) => (
+                  <td key={p.id} className={td}>
+                    <p className="h-card text-[1.1rem]">{p.verdict.badge}</p>
+                    <p className="mt-2 text-[0.85rem] leading-relaxed text-ink-2">{p.verdict.summary}</p>
+                  </td>
+                ))}
+              </tr>
+              <tr className="bg-paper-2">
+                <td className="sticky left-0 z-10 bg-paper-2 py-5" />
+                {active.map((p) => (
+                  <td key={p.id} className="px-4 py-5 sm:px-5">
+                    <Link href={`/reviews/${p.slug}`} className="btn btn-sm btn-light">
+                      Read the {p.name} review →
+                    </Link>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {n >= 2 && (
+        <p className="mt-4 max-w-[70ch] text-[0.8rem] text-ink-3">
+          <span className="mr-1.5 inline-flex rounded-full bg-terracotta-soft px-2 py-0.5 font-mono text-[0.6rem] font-semibold uppercase tracking-[0.08em] text-terracotta-deep">
+            Best
+          </span>
+          marks the leader on score, ease of use, lowest entry price and shortest deployment. Entry prices use different
+          billing units, so check the plans before deciding on price alone.
+        </p>
+      )}
     </div>
   );
 }

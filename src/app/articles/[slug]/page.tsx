@@ -6,15 +6,10 @@ import { articles, articleLookup } from "@/data/articles";
 import { softwares, softwareLookup } from "@/data/software";
 import ShareButtons from "@/components/ShareButtons";
 import SoftwareCard from "@/components/SoftwareCard";
-import {
-  Clock,
-  Calendar,
-  ChevronRight,
-  ArrowLeft,
-  ArrowRight,
-  FileText,
-  CheckCircle2,
-} from "lucide-react";
+import Monogram from "@/components/Monogram";
+import ScoreDial from "@/components/ScoreDial";
+import Sadu from "@/components/Sadu";
+import { pad2 } from "@/lib/format";
 
 export const dynamicParams = false;
 
@@ -39,6 +34,25 @@ export async function generateMetadata({
   };
 }
 
+const C = {
+  paper: "#FFFCF6",
+  terracotta: "#C24E2A",
+  teal: "#0E4B48",
+  sand: "#F1D39C",
+};
+
+/** Splits "Title: subtitle" or "Title (subtitle)" so the headline can set the tail in a lighter tone. */
+function splitTitle(title: string): [string, string | null] {
+  const paren = title.match(/^(.*?)\s*\((.+)\)\s*$/);
+  if (paren) return [paren[1], paren[2]];
+  const idx = title.indexOf(": ");
+  if (idx > 0) return [title.slice(0, idx), title.slice(idx + 2)];
+  return [title, null];
+}
+
+const dropCap =
+  "first-letter:float-left first-letter:mt-[0.06em] first-letter:mr-3 first-letter:font-display first-letter:text-[4.4em] first-letter:font-bold first-letter:leading-[0.8] first-letter:text-teal";
+
 export default async function ArticleDetailPage({
   params,
 }: {
@@ -51,256 +65,282 @@ export default async function ArticleDetailPage({
     notFound();
   }
 
-  // Related articles (filter out current)
-  const relatedArticles = articles
-    .filter((a) => a.slug !== article.slug)
-    .slice(0, 3);
+  const relatedArticles = articles.filter((a) => a.slug !== article.slug).slice(0, 3);
 
-  // Mentioned software if any
-  const mentionedSoftwares = ((article.relatedSoftwareSlugs || []) as string[])
-    .map((s: string) => softwareLookup[s] || softwares.find((item) => item.slug === s || item.id === s))
+  const mentionedSoftwares = (article.relatedSoftwareSlugs || [])
+    .map((s) => softwareLookup[s] || softwares.find((item) => item.slug === s || item.id === s))
     .filter((s): s is NonNullable<typeof s> => Boolean(s));
 
+  const [headline, subhead] = splitTitle(article.title);
+  const paragraphs = article.content || [];
+  // Pull quote sits after the second paragraph (or at the end of a short piece).
+  const quoteAfter = Math.min(1, Math.max(paragraphs.length - 1, 0));
+  const takeaways = article.keyTakeaways || [];
+
+  const pullQuote = (
+    <figure className="my-12 rounded-[28px] bg-teal-soft p-7 sm:my-14 sm:p-9">
+      <span aria-hidden="true" className="display block text-[4rem] leading-[0.6] text-teal">
+        &ldquo;
+      </span>
+      <blockquote className="mt-4">
+        <p className="!max-w-none font-display !text-[clamp(1.35rem,1.1rem+1vw,1.8rem)] font-semibold !leading-[1.25] tracking-[-0.02em] !text-teal-deep">
+          Treat regional compliance milestones, such as ZATCA Phase 2 or UAE corporate tax, as contract deliverables
+          rather than roadmap promises.
+        </p>
+      </blockquote>
+      <figcaption className="mt-5 text-[0.88rem] font-semibold text-teal">
+        {article.author.name}, <span className="font-normal">{article.author.role}</span>
+      </figcaption>
+    </figure>
+  );
+
   return (
-    <article className="min-h-screen bg-[#FFF8EF] pb-24">
-      {/* Breadcrumb Strip */}
-      <div className="border-b border-[#E5DAC8] bg-[#FFF8EF]/80">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-3.5">
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-[#4A6D5F] overflow-x-auto">
-            <Link href="/" className="hover:text-[#064734] transition-colors shrink-0">
-              Home
-            </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-[#15803D] shrink-0" />
-            <Link href="/articles" className="hover:text-[#064734] transition-colors shrink-0">
-              Insights
-            </Link>
-            <ChevronRight className="h-3.5 w-3.5 text-[#15803D] shrink-0" />
-            <span className="text-[#064734] font-semibold shrink-0">
-              {article.category}
-            </span>
-            <ChevronRight className="h-3.5 w-3.5 text-[#15803D] shrink-0" />
-            <span className="text-[#4A6D5F] truncate max-w-xs">
-              {article.title}
-            </span>
+    <>
+      <article>
+        {/* ============================================================ HERO */}
+        <header className="wrap pt-8 pb-10 lg:pt-10 lg:pb-12">
+          <nav aria-label="Breadcrumb">
+            <ol className="flex flex-wrap items-center gap-2 text-[0.82rem] font-semibold">
+              <li>
+                <Link href="/" className="inline-flex min-h-8 items-center rounded-full bg-paper-2 px-3 text-ink-2 transition-colors hover:text-teal">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden="true" className="text-ink-3">
+                /
+              </li>
+              <li>
+                <Link href="/articles" className="inline-flex min-h-8 items-center rounded-full bg-paper-2 px-3 text-ink-2 transition-colors hover:text-teal">
+                  Buyer guides
+                </Link>
+              </li>
+              <li aria-hidden="true" className="text-ink-3">
+                /
+              </li>
+              <li aria-current="page" className="inline-flex min-h-8 items-center rounded-full bg-teal-soft px-3 text-teal">
+                {article.category}
+              </li>
+            </ol>
           </nav>
-        </div>
-      </div>
 
-      {/* Header */}
-      <header className="border-b border-[#E5DAC8] bg-[#FFF8EF] pt-8 sm:pt-12 pb-10 sm:pb-14">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-2.5 mb-5">
-            <span className="inline-flex items-center rounded-md bg-[#064734] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#15803D]">
-              {article.category}
-            </span>
-            {(article as any).country && (
-              <span className="inline-flex items-center rounded-md bg-[#E5DAC8] px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#064734]">
-                {(article as any).country}
-              </span>
-            )}
+          <div className="mt-10 max-w-[62rem] rise lg:mt-12">
+            <p className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.07em] text-ink-3">
+              <span className="text-teal">Buyer guide</span>
+              <span aria-hidden="true"> · </span>
+              {article.readTime}
+            </p>
+            <h1 className="display mt-4 text-[clamp(2.2rem,1.3rem+3.6vw,4.4rem)]">
+              {headline}
+              {subhead && (
+                <>
+                  <span className="sr-only">: </span>
+                  <span className="mt-3 block text-[0.55em] leading-[1.15] tracking-[-0.02em] text-teal">{subhead}</span>
+                </>
+              )}
+            </h1>
+            <p className="mt-6 max-w-[58ch] text-[1.2rem] leading-relaxed text-ink-2 sm:text-[1.32rem]">{article.excerpt}</p>
           </div>
 
-          <h1 className="font-editorial text-3xl sm:text-4xl md:text-5xl lg:text-[50px] font-bold text-[#064734] tracking-tight leading-[1.18]">
-            {article.title}
-          </h1>
-
-          <div className="mt-8 pt-6 border-t border-[#E5DAC8] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-3.5">
-              <div className="h-12 w-12 rounded-full bg-[#064734] text-[#15803D] font-bold flex items-center justify-center text-sm border-2 border-[#064734]/30 shrink-0">
-                {article.author.name
-                  .split(" ")
-                  .map((n) => n[0])
-                  .join("")}
-              </div>
-              <div>
-                <div className="font-bold text-[#064734] text-base">
-                  {article.author.name}
-                </div>
-                <div className="text-xs sm:text-sm text-[#4A6D5F]">
-                  {article.author.role}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 text-xs sm:text-sm text-[#4A6D5F]">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4 text-[#15803D]" />
-                {article.publishedDate}
+          <div className="mt-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-paper-2 ring-2 ring-teal-soft ring-offset-2 ring-offset-paper">
+                <Image src={article.author.avatar} alt="" fill sizes="48px" className="object-cover" />
               </span>
-              <span>•</span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4 text-[#15803D]" />
-                {article.readTime}
-              </span>
+              <p className="text-[0.9rem] leading-tight">
+                <span className="block font-semibold text-ink">By {article.author.name}</span>
+                <span className="text-ink-3">
+                  {article.author.role} ·{" "}
+                  {article.isoDate ? (
+                    <time dateTime={article.isoDate}>{article.publishedDate}</time>
+                  ) : (
+                    <span>{article.publishedDate}</span>
+                  )}
+                </span>
+              </p>
             </div>
-          </div>
-
-          {/* Social Share Bar */}
-          <div className="mt-6 pt-4 border-t border-[#E5DAC8]/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <span className="text-xs uppercase tracking-wider font-bold text-[#4A6D5F]">
-              Share this briefing:
-            </span>
             <ShareButtons title={article.title} />
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main Content */}
-      <main className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
-        {/* Featured Image */}
+        {/* ============================================================ LEAD IMAGE */}
         {article.image && (
-          <figure className="mb-10 overflow-hidden rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] shadow-xs">
-            <div className="relative aspect-16/9 w-full bg-[#064734]/5">
+          <figure className="wrap">
+            <div className="media aspect-[16/10] !rounded-[28px] sm:aspect-[21/9]">
               <Image
                 src={article.image}
-                alt={article.title}
+                alt=""
                 fill
                 priority
+                sizes="(min-width: 1536px) 1440px, 100vw"
                 className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 1024px"
               />
             </div>
-            {(article as any).imageCaption && (
-              <figcaption className="p-4 sm:p-5 text-xs sm:text-sm text-[#4A6D5F] italic border-t border-[#E5DAC8]">
-                {(article as any).imageCaption}
-              </figcaption>
-            )}
           </figure>
         )}
 
-        {/* Executive Takeaways */}
-        {(article as any).keyTakeaways && (article as any).keyTakeaways.length > 0 && (
-          <div className="mb-10 rounded-2xl border-l-4 border-l-[#064734] border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-8 shadow-xs">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#064734] text-[#15803D]">
-                <FileText className="h-4 w-4" />
-              </div>
-              <h2 className="text-lg sm:text-xl font-bold font-editorial text-[#064734] tracking-tight">
-                Executive Takeaways &amp; Strategic Implications
-              </h2>
-            </div>
-            <ul className="space-y-3">
-              {(article as any).keyTakeaways.map((takeaway: string, idx: number) => (
-                <li key={idx} className="flex items-start gap-3 text-base sm:text-lg text-[#1E293B]">
-                  <CheckCircle2 className="h-5 w-5 text-[#15803D] shrink-0 mt-0.5" />
-                  <span className="leading-relaxed">{takeaway}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {/* Article Body */}
-        <div className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-10 md:p-12 shadow-xs">
-          <p className="text-xl sm:text-2xl text-[#064734] font-editorial leading-relaxed pb-8 border-b border-[#E5DAC8]">
-            {article.excerpt}
-          </p>
-
-          <div className="pt-8 space-y-6 text-[18px] sm:text-[19px] md:text-[20px] text-[#1E293B] leading-[1.8]">
-            {article.content?.map((paragraph, idx) => (
-              <p key={idx} className="leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
-
-            {/* Subheadings */}
-            {(article as any).subheadings && (article as any).subheadings.length > 0 && (
-              <div className="space-y-8 pt-6">
-                {(article as any).subheadings.map((sub: any, sIdx: number) => (
-                  <section key={sIdx} className="space-y-4 pt-4 border-t border-[#E5DAC8]">
-                    <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734]">
-                      {sub.title}
-                    </h2>
-                    {sub.paragraphs?.map((p: string, pIdx: number) => (
-                      <p key={pIdx} className="leading-relaxed">
-                        {p}
-                      </p>
+        {/* ============================================================ BODY + RAIL */}
+        <div className="wrap grid grid-cols-1 gap-12 py-12 lg:grid-cols-12 lg:gap-10 lg:py-16">
+          {/* Rail: takeaways + products. Comes first on mobile so the summary is read first. */}
+          <aside aria-label="Summary" className="lg:col-span-4 lg:col-start-9 lg:row-start-1">
+            <div className="space-y-6 lg:sticky lg:top-28">
+              {takeaways.length > 0 && (
+                <section aria-labelledby="takeaways-title" className="rounded-[28px] bg-teal p-6 text-teal-soft sm:p-8">
+                  <h2 id="takeaways-title" className="h-card text-[1.5rem] text-paper">
+                    Key takeaways
+                  </h2>
+                  <ol className="mt-4">
+                    {takeaways.map((t, i) => (
+                      <li
+                        key={i}
+                        className="grid grid-cols-[2.2rem_1fr] gap-2 border-t-[1.5px] border-dashed border-white/20 py-4 first:border-t-0 first:pt-2"
+                      >
+                        <span className="num pt-[0.2rem] text-[0.82rem] font-semibold text-sand">{pad2(i + 1)}</span>
+                        <span className="text-[0.98rem] leading-[1.55] text-paper">{t}</span>
+                      </li>
                     ))}
-                  </section>
+                  </ol>
+                </section>
+              )}
+
+              {mentionedSoftwares.length > 0 && (
+                <section aria-labelledby="rail-products-title" className="hidden rounded-[28px] bg-sand-soft p-6 sm:p-8 lg:block">
+                  <h2 id="rail-products-title" className="h-card text-[1.5rem]">
+                    Products in this guide
+                  </h2>
+                  <ul className="mt-4 space-y-2">
+                    {mentionedSoftwares.map((sw) => (
+                      <li key={sw.id}>
+                        <Link
+                          href={`/reviews/${sw.slug}`}
+                          className="group grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-[18px] bg-paper p-2.5 pr-3 transition-colors hover:bg-white"
+                        >
+                          <Monogram name={sw.name} color={sw.accentColor} size="sm" />
+                          <span className="min-w-0">
+                            <span className="block truncate text-[0.95rem] font-semibold text-ink transition-colors group-hover:text-teal">
+                              {sw.name}
+                            </span>
+                            <span className="block truncate text-[0.78rem] text-ink-3">{sw.categoryName}</span>
+                          </span>
+                          <ScoreDial score={sw.verdict.score} size={40} color={C.teal} />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
+            </div>
+          </aside>
+
+          <div className="min-w-0 lg:col-span-7 lg:col-start-1 lg:row-start-1">
+            <div className="prose-gsr mx-auto max-w-[66ch] lg:mx-0">
+              {paragraphs.map((paragraph, idx) => (
+                <React.Fragment key={idx}>
+                  <p className={idx === 0 ? dropCap : undefined}>{paragraph}</p>
+                  {idx === quoteAfter && pullQuote}
+                </React.Fragment>
+              ))}
+              {paragraphs.length === 0 && pullQuote}
+
+              {article.subheadings?.map((sub, sIdx) => (
+                <section key={sIdx}>
+                  <h2>{sub.title}</h2>
+                  {sub.paragraphs?.map((p, pIdx) => (
+                    <p key={pIdx}>{p}</p>
+                  ))}
+                </section>
+              ))}
+            </div>
+
+            <p className="mx-auto mt-12 max-w-[66ch] rounded-[18px] bg-paper-2 px-5 py-4 text-[0.88rem] text-ink-2 lg:mx-0">
+              Scores and compliance notes referenced here follow our published{" "}
+              <Link href="/about#methodology" className="link font-semibold">
+                review method
+              </Link>
+              . Spotted something out of date?{" "}
+              <Link href="/contact" className="link font-semibold">
+                Tell the editors
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </article>
+
+      {/* ============================================================ PRODUCTS — sand band */}
+      {mentionedSoftwares.length > 0 && (
+        <>
+          <Sadu from={C.paper} to={C.sand} accent={C.teal} />
+          <section aria-labelledby="mentioned-title" className="bg-sand">
+            <div className="wrap py-14 lg:py-20">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <span className="tag bg-paper text-teal">Products in this guide</span>
+                  <h2 id="mentioned-title" className="h-section mt-4 max-w-[22ch]">
+                    Read the full reviews before you shortlist.
+                  </h2>
+                </div>
+                <Link href="/reviews" className="arrow-link">
+                  All reviews
+                </Link>
+              </div>
+              <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {mentionedSoftwares.map((sw) => (
+                  <SoftwareCard key={sw.id} software={sw} />
                 ))}
               </div>
-            )}
-
-            {/* Pull Quote */}
-            <blockquote className="my-10 border-l-4 border-[#064734] bg-[#FFF8EF] p-6 sm:p-8 rounded-r-2xl">
-              <p className="font-editorial italic text-xl sm:text-2xl text-[#064734] leading-relaxed">
-                &ldquo;When procuring business software across the Gulf, verify vendor adherence to regional regulatory milestones (such as Phase 2 ZATCA or UAE Corporate Tax) as hard contract deliverables.&rdquo;
-              </p>
-              <cite className="block mt-4 text-sm font-bold uppercase tracking-wider text-[#4A6D5F] not-italic">
-                — {article.author.name}, {article.author.role}
-              </cite>
-            </blockquote>
-          </div>
-        </div>
-
-        {/* Mentioned Software */}
-        {mentionedSoftwares.length > 0 && (
-          <section className="mt-14">
-            <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734] mb-6">
-              Mentioned Software &amp; Solutions
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {mentionedSoftwares.map((sw: any) => (
-                <SoftwareCard key={sw.id} software={sw} />
-              ))}
             </div>
           </section>
-        )}
+          <Sadu from={C.sand} to={relatedArticles.length > 0 ? C.teal : C.paper} accent={C.terracotta} />
+        </>
+      )}
 
-        {/* Related Articles */}
-        {relatedArticles.length > 0 && (
-          <section className="mt-16 pt-12 border-t border-[#E5DAC8]">
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734]">
-                Related Guides &amp; Playbooks
-              </h2>
-              <Link
-                href="/articles"
-                className="text-sm font-bold text-[#064734] hover:text-[#15803D] transition-colors"
-              >
-                All Guides &rarr;
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {relatedArticles.map((rel) => (
-                <article
-                  key={rel.id}
-                  className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-5 hover:border-[#064734] transition-all"
-                >
-                  <span className="text-xs font-bold uppercase text-[#15803D]">
-                    {rel.category}
-                  </span>
-                  <Link href={`/articles/${rel.slug}`}>
-                    <h3 className="font-editorial text-lg font-bold text-[#064734] hover:text-[#15803D] mt-2 line-clamp-2">
-                      {rel.title}
-                    </h3>
-                  </Link>
-                  <p className="mt-2 text-sm text-[#475569] line-clamp-2">
-                    {rel.excerpt}
-                  </p>
-                </article>
-              ))}
+      {/* ============================================================ MORE GUIDES — teal band */}
+      {relatedArticles.length > 0 && (
+        <>
+          {mentionedSoftwares.length === 0 && <Sadu from={C.paper} to={C.teal} accent={C.sand} />}
+          <section aria-labelledby="more-guides-title" className="bg-teal text-teal-soft">
+            <div className="wrap py-14 lg:py-20">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <h2 id="more-guides-title" className="h-section text-paper">
+                  More buyer guides
+                </h2>
+                <Link href="/articles" className="arrow-link text-paper hover:!text-sand">
+                  All guides
+                </Link>
+              </div>
+
+              <ul className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
+                {relatedArticles.map((rel) => (
+                  <li key={rel.id}>
+                    <article className="group h-full">
+                      <Link
+                        href={`/articles/${rel.slug}`}
+                        className="grid h-full grid-cols-[1fr_104px] items-start gap-5 rounded-[24px] bg-teal-deep p-4 transition-transform duration-300 hover:-translate-y-1 sm:grid-cols-[1fr_150px] sm:p-5"
+                      >
+                        <span className="min-w-0">
+                          <span className="block font-mono text-[0.68rem] font-semibold uppercase tracking-[0.07em] text-sand">
+                            {rel.category}
+                          </span>
+                          <span className="mt-2 block font-display text-[1.2rem] font-bold leading-snug tracking-[-0.02em] text-paper sm:text-[1.35rem]">
+                            {rel.title}
+                          </span>
+                          <span className="mt-3 block text-[0.82rem] text-teal-soft/75">
+                            {rel.author.name} · {rel.readTime}
+                          </span>
+                        </span>
+                        <span className="media aspect-square !bg-teal">
+                          <Image src={rel.image} alt="" fill sizes="150px" className="object-cover" />
+                        </span>
+                      </Link>
+                    </article>
+                  </li>
+                ))}
+              </ul>
             </div>
           </section>
-        )}
-
-        {/* Back Link */}
-        <div className="mt-14 pt-8 border-t border-[#E5DAC8] flex items-center justify-between">
-          <Link
-            href="/articles"
-            className="inline-flex items-center gap-2 text-base font-bold text-[#064734] hover:text-[#15803D]"
-          >
-            <ArrowLeft className="h-4 w-4 text-[#15803D]" />
-            <span>Return to Selection Guides</span>
-          </Link>
-          <Link
-            href="/reviews"
-            className="rounded-xl bg-[#064734] px-5 py-2.5 text-sm font-bold text-[#FFF8EF] hover:bg-[#15803D] transition-colors"
-          >
-            Explore Software Reviews
-          </Link>
-        </div>
-      </main>
-    </article>
+          <Sadu from={C.teal} to={C.paper} accent={C.sand} />
+        </>
+      )}
+    </>
   );
 }

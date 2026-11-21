@@ -67,7 +67,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const addToCompare = (slug: string): boolean => {
     if (compareSlugs.includes(slug)) return false;
     if (compareSlugs.length >= 3) {
-      alert("You can compare up to 3 software platforms simultaneously.");
+      // Tray shows the 3/3 limit; the user removes one to add another.
+      setIsCompareTrayOpen(true);
       return false;
     }
     setCompareSlugs((prev) => [...prev, slug]);

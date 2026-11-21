@@ -1,720 +1,420 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { softwares } from "@/data/software";
 import { comparisons } from "@/data/comparisons";
-import { categories } from "@/data/categories";
 import { articles } from "@/data/articles";
-import SoftwareCard from "@/components/SoftwareCard";
+import type { NewsArticle } from "@/types";
 import NewsletterSection from "@/components/NewsletterSection";
-import SoftwareSlider from "@/components/SoftwareSlider";
+import Monogram from "@/components/Monogram";
+import Sadu from "@/components/Sadu";
+import { getNewsFeed } from "@/lib/news-store";
 import {
-  ArrowRight,
-  Scale,
-  User,
-  ShieldCheck,
-  FileText,
-  Layers,
-  Calculator,
-  Users,
-  Briefcase,
-  CheckSquare,
-  Send,
-  ShoppingBag,
-  Headphones,
-  Star,
-  CheckCircle2,
-  Check,
-  Table,
-  ChevronRight,
-} from "lucide-react";
+  newsSections,
+  newsCountries,
+  newsHref,
+  sectionLabel,
+  countryLabel,
+  shortDate,
+} from "@/lib/news";
 
-const categoryIcons: Record<string, React.ElementType> = {
-  Calculator,
-  Users,
-  Briefcase,
-  CheckSquare,
-  Send,
-  ShoppingBag,
-  Layers,
-  Headphones,
+/* Section colour coding — each news section owns a band colour. */
+const sectionTone: Record<string, { bar: string; text: string; dot: string }> = {
+  "ai-innovation": { bar: "bg-terracotta text-white", text: "text-terracotta", dot: "bg-terracotta" },
+  "saas-cloud": { bar: "bg-teal text-paper", text: "text-teal", dot: "bg-teal" },
+  fintech: { bar: "bg-sand text-ink", text: "text-[#8A5A12]", dot: "bg-sand" },
+  "digital-transformation": { bar: "bg-teal-deep text-paper", text: "text-teal", dot: "bg-teal-deep" },
+  "vision-strategy": { bar: "bg-terracotta-deep text-white", text: "text-terracotta-deep", dot: "bg-terracotta-deep" },
+  cybersecurity: { bar: "bg-ink text-paper", text: "text-ink", dot: "bg-ink" },
 };
 
-export default function HomePage() {
-  const featuredSlugs = [
-    "zoho-one",
-    "odoo",
-    "quickbooks-online",
-    "hubspot-crm",
-    "xero",
-    "freshdesk",
-    "zenhr",
-    "sap-business-one",
-  ];
-  const featuredSoftware = featuredSlugs
-    .map((slug) => softwares.find((s) => s.slug === slug))
-    .filter((s): s is (typeof softwares)[0] => Boolean(s));
+function Kicker({ story }: { story: NewsArticle }) {
+  const tone = sectionTone[story.categorySlug];
+  return (
+    <p className="font-mono text-[0.66rem] font-semibold uppercase tracking-[0.07em] text-ink-3">
+      <span className={tone?.text ?? "text-terracotta"}>{sectionLabel(story.categorySlug)}</span>
+      <span aria-hidden="true"> · </span>
+      {countryLabel(story.countryCode)}
+    </p>
+  );
+}
 
-  // GCC Software Market Index Table (Simpler, Shorter, 2 Sizes Bigger)
-  const marketIndexRows = [
-    {
-      name: "Zoho One",
-      slug: "zoho-one",
-      category: "ERP & Operations",
-      country: "KSA, UAE",
-      compliance: "ZATCA Phase 2 Certified",
-      arabic: "Native RTL",
-      price: "SAR 139 / mo",
-      rating: 4.8,
-      accentColor: "#0F8265",
-    },
-    {
-      name: "Odoo ERP",
-      slug: "odoo",
-      category: "Business Suite",
-      country: "KSA, UAE",
-      compliance: "UAE 9% Corporate Tax",
-      arabic: "Native RTL",
-      price: "SAR 75 / mo",
-      rating: 4.7,
-      accentColor: "#714B67",
-    },
-    {
-      name: "HubSpot CRM",
-      slug: "hubspot-crm",
-      category: "CRM & Sales",
-      country: "Pan-GCC",
-      compliance: "WhatsApp API Sync",
-      arabic: "Bilingual",
-      price: "$20 / mo",
-      rating: 4.8,
-      accentColor: "#FF7A59",
-    },
-    {
-      name: "QuickBooks",
-      slug: "quickbooks-online",
-      category: "Accounting",
-      country: "UAE, KSA",
-      compliance: "VAT Filing Apps",
-      arabic: "English/Partial",
-      price: "SAR 80 / mo",
-      rating: 4.4,
-      accentColor: "#2CA01C",
-    },
-    {
-      name: "Xero",
-      slug: "xero",
-      category: "Cloud Accounts",
-      country: "UAE, Qatar",
-      compliance: "Multi-Currency Bank Feeds",
-      arabic: "Add-on RTL",
-      price: "$15 / mo",
-      rating: 4.5,
-      accentColor: "#13B5EA",
-    },
-    {
-      name: "Freshdesk",
-      slug: "freshdesk",
-      category: "Customer Support",
-      country: "Pan-GCC",
-      compliance: "WhatsApp Helpdesk",
-      arabic: "Native RTL",
-      price: "$18 / mo",
-      rating: 4.6,
-      accentColor: "#0066CC",
-    },
-    {
-      name: "ZenHR",
-      slug: "zenhr",
-      category: "HR & Payroll",
-      country: "Saudi, UAE",
-      compliance: "Saudi Mudad & WPS",
-      arabic: "Native RTL",
-      price: "SAR 25 / user",
-      rating: 4.7,
-      accentColor: "#10B981",
-    },
-    {
-      name: "SAP Business One",
-      slug: "sap-business-one",
-      category: "Enterprise ERP",
-      country: "Pan-GCC",
-      compliance: "ZATCA & Multi-Entity",
-      arabic: "Native RTL",
-      price: "Custom Quote",
-      rating: 4.5,
-      accentColor: "#0070F2",
-    },
-  ];
+function Meta({ story }: { story: NewsArticle }) {
+  return (
+    <p className="mt-2 text-[0.76rem] text-ink-3">
+      <time dateTime={story.isoDate}>{shortDate(story)}</time> · {story.readTime}
+    </p>
+  );
+}
 
-  const standards = [
-    {
-      rank: "01",
-      tag: "Saudi Mandate",
-      title: "ZATCA Phase 2 E-Invoicing",
-      summary: "Real-time XML clearance and cryptographic stamps for Saudi businesses.",
-      badge: "Mandatory KSA",
-    },
-    {
-      rank: "02",
-      tag: "UAE Federal Tax",
-      title: "UAE Corporate Tax & VAT",
-      summary: "FTA-compliant 9% corporate tax computation and bilingual audit files.",
-      badge: "Mandatory UAE",
-    },
-    {
-      rank: "03",
-      tag: "Labor Compliance",
-      title: "Wage Protection (WPS)",
-      summary: "Automated SIF payroll files for Saudi Mudad, UAE MOHRE, and regional banks.",
-      badge: "Pan-GCC WPS",
-    },
-    {
-      rank: "04",
-      tag: "Data Privacy",
-      title: "Sovereign Cloud Residency",
-      summary: "In-country data hosting adhering to Saudi and UAE national PDPL laws.",
-      badge: "Sovereign Cloud",
-    },
-    {
-      rank: "05",
-      tag: "Localization",
-      title: "Authentic Arabic RTL",
-      summary: "True right-to-left layout architecture with bilingual Arabic invoices.",
-      badge: "Native Arabic",
-    },
-    {
-      rank: "06",
-      tag: "Regional Channels",
-      title: "WhatsApp Business API",
-      summary: "Direct WhatsApp messaging for invoices, quotes, and customer support.",
-      badge: "WhatsApp First",
-    },
-  ];
+function ModuleTitle({ id, children, href, link }: { id: string; children: React.ReactNode; href?: string; link?: string }) {
+  return (
+    <div className="flex items-center justify-between gap-3">
+      <h2 id={id} className="flex items-center gap-2.5 font-display text-[1.35rem] font-bold tracking-[-0.025em]">
+        <span aria-hidden="true" className="h-3 w-3 rotate-45 rounded-[2px] bg-terracotta" />
+        {children}
+      </h2>
+      {href && (
+        <Link href={href} className="arrow-link text-[0.82rem] text-ink-2">
+          {link}
+        </Link>
+      )}
+    </div>
+  );
+}
+
+export default async function FrontPage() {
+  const { latestNews, leadStory, mostRead } = await getNewsFeed();
+  if (!leadStory) {
+    return (
+      <section className="wrap py-24 text-center">
+        <h1 className="display text-[2.4rem]">No stories published yet.</h1>
+        <p className="mt-3 text-ink-2">Publish a story from the admin to fill the front page.</p>
+      </section>
+    );
+  }
+  const rest = latestNews.filter((s) => s.id !== leadStory.id);
+  const leftCol = rest.slice(0, 3);
+  const moreTop = rest.slice(3, 7);
+  const wire = latestNews.slice(0, 7);
+  const briefing = latestNews.slice(0, 6);
+
+  const sectionBlocks = newsSections
+    .map((sec) => ({ ...sec, stories: latestNews.filter((s) => s.categorySlug === sec.slug) }))
+    .filter((b) => b.stories.length > 0);
+
+  const scoreboard = [...softwares].sort((a, b) => b.verdict.score - a.verdict.score).slice(0, 6);
+  const bySlug = (slug: string) => softwares.find((s) => s.slug === slug);
+  const countryLead = newsCountries.map((c) => ({ ...c, story: latestNews.find((s) => s.countryCode === c.code) }));
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FFF8EF]">
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 1: FLOATING HERO SPOTLIGHT WITH MOVING GRADIENT ANIMATION */}
-      {/* ---------------------------------------------------- */}
-      <section className="bg-[#FFF8EF] py-14 sm:py-18 lg:py-24 border-b-2 border-[#E5DAC8] relative overflow-hidden">
-        {/* Animated Moving Gradient Base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8EF] via-[#F4ECE1]/70 to-[#FFF8EF] animate-gradient-shift pointer-events-none" />
+    <>
+      <h1 className="sr-only">Gulf SaaS Review — business software and technology news from the Gulf</h1>
 
-        {/* Subtle Tech Dot Matrix Grid Overlay */}
-        <div className="absolute inset-0 hero-dot-grid opacity-70 [mask-image:radial-gradient(ellipse_at_center,black_35%,transparent_80%)] pointer-events-none" />
+      {/* ================================================== BREAKING TICKER */}
+      <div className="border-b-[1.5px] border-rule bg-sand-soft">
+        <div className="wrap flex h-11 items-center gap-4 overflow-hidden">
+          <span className="flex shrink-0 items-center gap-2 font-mono text-[0.68rem] font-bold uppercase tracking-[0.08em] text-terracotta">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inset-0 animate-ping rounded-full bg-terracotta opacity-60" />
+              <span className="relative h-2 w-2 rounded-full bg-terracotta" />
+            </span>
+            Briefing
+          </span>
+          <div className="relative min-w-0 flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_3%,black_95%,transparent)]">
+            <ul className="animate-ticker flex w-max items-center gap-8 whitespace-nowrap text-[0.88rem] text-ink">
+              {[...briefing, ...briefing].map((story, i) => (
+                <li key={i} aria-hidden={i >= briefing.length} className="flex items-center gap-8">
+                  <Link href={newsHref(story)} tabIndex={i >= briefing.length ? -1 : undefined} className="hover:text-terracotta hover:underline">
+                    {story.title}
+                  </Link>
+                  <span aria-hidden="true" className="text-[0.6rem] text-terracotta">◆</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
 
-        {/* Left Moving Fluid Gradient Orb (Vibrant Coral Glow) */}
-        <div
-          aria-hidden="true"
-          className="absolute -left-28 sm:-left-16 top-12 sm:top-8 w-[480px] sm:w-[660px] h-[480px] sm:h-[660px] rounded-full bg-gradient-to-tr from-[#E0FFC2]/50 via-[#E0FFC2]/25 to-transparent blur-[85px] sm:blur-[115px] pointer-events-none animate-float-orb-1"
-        />
+      {/* ================================================== ABOVE THE FOLD */}
+      <section aria-label="Top stories" className="wrap pt-7 pb-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-7">
+          {/* Lead */}
+          <article className="group lg:order-2 lg:col-span-6">
+            <Link href={newsHref(leadStory)} className="block">
+              <figure>
+                <div className="media aspect-[16/10] !rounded-[20px]">
+                  <Image
+                    src={leadStory.featuredImage}
+                    alt={leadStory.imageCaption ?? ""}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 660px, 100vw"
+                    className="object-cover"
+                  />
+                  <span className="absolute left-3 top-3 z-10 rounded-full bg-terracotta px-3 py-1 font-mono text-[0.64rem] font-bold uppercase tracking-[0.08em] text-white">
+                    Lead story
+                  </span>
+                </div>
+                {leadStory.imageCaption && (
+                  <figcaption className="mt-2 text-[0.72rem] text-ink-3">{leadStory.imageCaption}</figcaption>
+                )}
+              </figure>
+              <div className="mt-4">
+                <Kicker story={leadStory} />
+                <h2 className="display mt-2 text-[clamp(1.9rem,1.3rem+1.9vw,2.9rem)] transition-colors group-hover:text-terracotta">
+                  {leadStory.title}
+                </h2>
+                {leadStory.subtitle && (
+                  <p className="mt-3 text-[1.02rem] leading-relaxed text-ink-2">{leadStory.subtitle}</p>
+                )}
+                <p className="mt-3 flex flex-wrap items-center gap-2 text-[0.8rem] text-ink-3">
+                  <span className="relative h-6 w-6 overflow-hidden rounded-full bg-paper-2">
+                    <Image src={leadStory.author.avatar} alt="" fill sizes="24px" className="object-cover" />
+                  </span>
+                  <span className="font-semibold text-ink-2">{leadStory.author.name}</span>
+                  <span aria-hidden="true">·</span>
+                  <time dateTime={leadStory.isoDate}>{shortDate(leadStory)}</time>
+                  <span aria-hidden="true">·</span>
+                  {leadStory.readTime}
+                </p>
+              </div>
+            </Link>
+          </article>
 
-        {/* Right Moving Fluid Gradient Orb (Deep Teal & Cyan Sheen) */}
-        <div
-          aria-hidden="true"
-          className="absolute -right-28 sm:-right-16 top-24 sm:top-16 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-gradient-to-bl from-[#064734]/28 via-[#0A5C44]/22 to-transparent blur-[95px] sm:blur-[125px] pointer-events-none animate-float-orb-2"
-        />
-
-        {/* Center Pulsing Ambient Aurora (Coral-Teal Harmony) */}
-        <div
-          aria-hidden="true"
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] sm:w-[860px] h-[360px] sm:h-[500px] rounded-full bg-gradient-to-r from-[#E0FFC2]/25 via-[#0A5C44]/20 to-[#E0FFC2]/15 blur-[85px] sm:blur-[115px] pointer-events-none animate-float-orb-3"
-        />
-
-        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-          {/* Floating Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 rounded-full border-2 border-[#BDE895] bg-[#E0FFC2] px-4 py-1.5 text-xs sm:text-sm font-extrabold text-[#064734] shadow-xs mb-5">
-            <span className="h-2.5 w-2.5 rounded-full bg-[#15803D] animate-pulse shrink-0" />
-            <span>The Independent Software Guide for Saudi Arabia, UAE &amp; GCC</span>
+          {/* Left column */}
+          <div className="lg:order-1 lg:col-span-3">
+            <ul className="divide-y-[1.5px] divide-dashed divide-rule">
+              {leftCol.map((story, i) => (
+                <li key={story.id} className="py-4 first:pt-0">
+                  <article className="group">
+                    <Link href={newsHref(story)} className="block">
+                      {i === 0 && (
+                        <div className="media mb-3 aspect-[16/10] !rounded-[14px]">
+                          <Image src={story.featuredImage} alt="" fill sizes="(min-width: 1024px) 300px, 100vw" className="object-cover" />
+                        </div>
+                      )}
+                      <Kicker story={story} />
+                      <h3 className="h-card mt-1.5 text-[1.12rem] transition-colors group-hover:text-terracotta">{story.title}</h3>
+                      {i === 0 && <p className="mt-1.5 text-[0.86rem] leading-relaxed text-ink-2 line-clamp-2">{story.excerpt}</p>}
+                      <Meta story={story} />
+                    </Link>
+                  </article>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Main Headline (Floating, Majestic Typography) */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-bold font-serif text-[#064734] tracking-tight leading-[1.16] max-w-4xl">
-            Find the Right Software for Your Business in the Gulf
-          </h1>
+          {/* Right column — the wire */}
+          <aside aria-labelledby="wire-title" className="hidden lg:order-3 lg:col-span-3 lg:block">
+            <div className="rounded-[22px] bg-teal p-5 text-paper">
+              <h2 id="wire-title" className="flex items-center justify-between font-display text-[1.2rem] font-bold tracking-[-0.02em]">
+                Latest
+                <span className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-sand">Newest first</span>
+              </h2>
+              <ol className="mt-3">
+                {wire.map((story) => (
+                  <li key={story.id} className="border-t border-white/12">
+                    <Link href={newsHref(story)} className="group grid grid-cols-[3rem_1fr] gap-2 py-3">
+                      <time dateTime={story.isoDate} className="num pt-0.5 text-[0.7rem] text-sand">
+                        {shortDate(story)}
+                      </time>
+                      <span className="text-[0.88rem] font-medium leading-snug text-paper/90 transition-colors group-hover:text-sand">
+                        {story.title}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+              <Link href="/news" className="mt-1 inline-flex text-[0.82rem] font-semibold text-sand hover:underline">
+                All news →
+              </Link>
+            </div>
+          </aside>
+        </div>
 
-          {/* Floating Subtitle */}
-          <p className="mt-5 text-base sm:text-lg md:text-xl font-medium text-[#163A2E] leading-relaxed max-w-3xl">
-            Independent reviews, comparisons, and ZATCA compliance checks for Accounting, CRM, HR, and ERP software across the Middle East.
-          </p>
-
-          {/* Floating Action Buttons */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/reviews"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#064734] px-7 py-3.5 text-base sm:text-lg font-bold text-white hover:bg-[#043224] hover:-translate-y-0.5 transition-all shadow-md min-h-[48px]"
-            >
-              <span>Browse 50+ Reviews</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/categories"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[#E5DAC8] bg-white px-6 py-3.5 text-base sm:text-lg font-bold text-[#064734] hover:border-[#064734] hover:text-[#064734] hover:-translate-y-0.5 transition-all shadow-xs min-h-[48px]"
-            >
-              <Layers className="h-4 w-4 text-[#15803D]" />
-              <span>Explore Categories</span>
-            </Link>
-            <Link
-              href="/compare"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-[#E5DAC8] bg-white px-6 py-3.5 text-base sm:text-lg font-bold text-[#064734] hover:border-[#064734] hover:text-[#064734] hover:-translate-y-0.5 transition-all shadow-xs min-h-[48px]"
-            >
-              <Scale className="h-4 w-4 text-[#15803D]" />
-              <span>Compare Matrix</span>
-            </Link>
-          </div>
-
-          {/* Floating Trust Bar (High Contrast & Clear) */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm text-[#064734] font-bold">
-            <span>✓ 50+ Audited GCC Tools</span>
-            <span className="text-[#BDE895]">•</span>
-            <span>✓ 100% Sponsor-Free Editorial</span>
-            <span className="text-[#BDE895]">•</span>
-            <span>✓ Saudi ZATCA &amp; UAE FTA Verified</span>
-            <span className="text-[#BDE895]">•</span>
-            <span>✓ Free Instant Access</span>
-          </div>
+        {/* More top stories */}
+        <div className="mt-10 grid grid-cols-1 gap-6 border-t-[1.5px] border-dashed border-rule pt-8 sm:grid-cols-2 lg:grid-cols-4">
+          {moreTop.map((story) => (
+            <article key={story.id} className="group">
+              <Link href={newsHref(story)} className="grid grid-cols-[1fr_96px] gap-4 sm:block">
+                <div className="media aspect-square !rounded-[14px] max-sm:order-2 sm:aspect-[16/10]">
+                  <Image
+                    src={story.featuredImage}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 96px"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="sm:mt-3">
+                  <Kicker story={story} />
+                  <h3 className="h-card mt-1.5 text-[1.05rem] transition-colors group-hover:text-terracotta">{story.title}</h3>
+                  <Meta story={story} />
+                </div>
+              </Link>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 2: BROWSE SOFTWARE BY CATEGORY (STATIC GRID) */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-10 sm:py-12 bg-[#F4ECE1] border-b-2 border-[#E5DAC8]">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-3 border-b-2 border-[#E5DAC8]">
-            <div>
-              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#15803D] mb-1">
-                <Layers className="h-4 w-4" />
-                <span>Browse by Business Need</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[#064734] tracking-tight">
-                Software Categories for Gulf Businesses
-              </h2>
-              <p className="mt-1 text-sm sm:text-base text-[#163A2E] font-medium max-w-3xl">
-                Explore dedicated directories grouped by organizational function, verified for Middle Eastern legal and commercial standards.
-              </p>
-            </div>
-
-            <Link
-              href="/categories"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#064734] hover:text-[#15803D] transition-colors shrink-0"
-            >
-              <span>View All Categories</span>
-              <ArrowRight className="h-4 w-4 text-[#15803D]" />
-            </Link>
-          </div>
-
-          {/* 4-Column x 2-Row Grid of 8 Categories */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {categories.slice(0, 8).map((cat) => {
-              const IconComponent = categoryIcons[cat.iconName] || Layers;
+      {/* ================================================== SECTIONS + SIDEBAR */}
+      <section aria-label="News by section" className="border-t-[1.5px] border-rule bg-paper-2">
+        <div className="wrap grid grid-cols-1 gap-8 py-12 lg:grid-cols-12">
+          <div className="grid grid-cols-1 content-start gap-5 sm:grid-cols-2 lg:col-span-8">
+            {sectionBlocks.map((block) => {
+              const tone = sectionTone[block.slug];
+              const [first, ...others] = block.stories;
               return (
-                <Link
-                  key={cat.id}
-                  href={`/reviews?category=${cat.slug}`}
-                  className="group flex flex-col justify-between rounded-2xl border-2 border-[#E5DAC8] bg-white p-5 transition-all duration-200 hover:border-[#064734] hover:shadow-md cursor-pointer"
-                >
-                  <div>
-                    {/* Top Bar: Icon & Count Badge */}
-                    <div className="flex items-center justify-between mb-3.5">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#064734] text-[#E0FFC2] group-hover:bg-[#E0FFC2] group-hover:text-[#064734] transition-colors duration-200 shadow-2xs">
-                        <IconComponent className="h-5 w-5" />
-                      </div>
-                      <span className="rounded-lg bg-[#E0FFC2] border border-[#BDE895] px-2.5 py-1 text-xs font-extrabold text-[#064734]">
-                        {cat.count}+ tools
-                      </span>
-                    </div>
-
-                    <h3 className="font-serif text-lg font-bold text-[#064734] group-hover:text-[#15803D] transition-colors leading-snug">
-                      {cat.name}
-                    </h3>
-                    <p className="mt-2 text-xs sm:text-sm text-[#163A2E] font-medium line-clamp-2 leading-relaxed">
-                      {cat.description}
-                    </p>
+                <section key={block.slug} aria-labelledby={`sec-${block.slug}`} className="overflow-hidden rounded-[22px] bg-surface">
+                  <div className={`flex items-center justify-between px-5 py-3 ${tone.bar}`}>
+                    <h2 id={`sec-${block.slug}`} className="font-display text-[1.15rem] font-bold tracking-[-0.02em]">
+                      {block.label}
+                    </h2>
+                    <Link href={`/news?section=${block.slug}`} className="text-[0.78rem] font-semibold opacity-85 hover:underline hover:opacity-100">
+                      More →
+                    </Link>
                   </div>
-
-                  <div className="mt-4 pt-3 border-t-2 border-[#E5DAC8] flex items-center justify-between text-xs sm:text-sm font-bold text-[#064734] group-hover:text-[#15803D] transition-colors">
-                    <span>Explore Tools</span>
-                    <ArrowRight className="h-4 w-4" />
+                  <div className="p-5">
+                    <article className="group">
+                      <Link href={newsHref(first)} className="grid grid-cols-[1fr_92px] gap-4">
+                        <div>
+                          <p className="font-mono text-[0.64rem] font-semibold uppercase tracking-[0.07em] text-ink-3">
+                            {countryLabel(first.countryCode)}
+                          </p>
+                          <h3 className="h-card mt-1 text-[1.08rem] transition-colors group-hover:text-terracotta">{first.title}</h3>
+                          <Meta story={first} />
+                        </div>
+                        <div className="media aspect-square !rounded-[12px]">
+                          <Image src={first.featuredImage} alt="" fill sizes="92px" className="object-cover" />
+                        </div>
+                      </Link>
+                    </article>
+                    {others.length > 0 && (
+                      <ul className="mt-3 divide-y-[1.5px] divide-dashed divide-rule border-t-[1.5px] border-dashed border-rule">
+                        {others.map((s) => (
+                          <li key={s.id}>
+                            <Link href={newsHref(s)} className="group flex gap-3 py-3">
+                              <span aria-hidden="true" className={`mt-2 h-1.5 w-1.5 shrink-0 rounded-full ${tone.dot}`} />
+                              <span className="text-[0.92rem] font-semibold leading-snug transition-colors group-hover:text-terracotta">
+                                {s.title}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
-                </Link>
+                </section>
               );
             })}
           </div>
-        </div>
-      </section>
 
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 3: GCC SAAS DIRECTORY INDEX TABLE (2 SIZES BIGGER) */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FFF8EF] border-b-2 border-[#E5DAC8]">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-5">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b-2 border-[#E5DAC8]">
-            <div>
-              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#15803D] mb-1">
-                <Table className="h-4 w-4" />
-                <span>The GCC Software Index</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[#064734] tracking-tight">
-                The GCC SaaS Directory &amp; Compliance Index
-              </h2>
-              <p className="mt-1 text-sm sm:text-base text-[#163A2E] font-medium">
-                Every audited business platform summarized in a single-line view for fast regional comparison.
-              </p>
-            </div>
-
-            <Link
-              href="/reviews"
-              className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-[#064734] hover:text-[#15803D] transition-colors shrink-0"
-            >
-              <span>Full 50+ Tool Directory</span>
-              <ArrowRight className="h-4 w-4 text-[#15803D]" />
-            </Link>
-          </div>
-
-          {/* Table (2 Sizes Bigger & Simpler) */}
-          <div className="rounded-2xl border-2 border-[#E5DAC8] bg-white overflow-hidden shadow-xs">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-sm whitespace-nowrap">
-                <thead className="bg-[#064734] text-white uppercase text-xs sm:text-sm font-extrabold tracking-wider">
-                  <tr>
-                    <th scope="col" className="py-4 px-4">Software</th>
-                    <th scope="col" className="py-4 px-3">Category</th>
-                    <th scope="col" className="py-4 px-3">Suitability</th>
-                    <th scope="col" className="py-4 px-4">Compliance Highlights</th>
-                    <th scope="col" className="py-4 px-3">Arabic RTL</th>
-                    <th scope="col" className="py-4 px-3">Starting Price</th>
-                    <th scope="col" className="py-4 px-3 text-center">Score</th>
-                    <th scope="col" className="py-4 px-4 text-right">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y-2 divide-[#E5DAC8] text-[#064734] font-medium">
-                  {marketIndexRows.map((row) => (
-                    <tr
-                      key={row.slug}
-                      className="hover:bg-[#F4ECE1]/60 transition-colors group"
-                    >
-                      {/* Name */}
-                      <td className="py-3.5 px-4 font-bold text-[#064734]">
-                        <Link
-                          href={`/reviews/${row.slug}`}
-                          className="flex items-center gap-2.5 group-hover:text-[#15803D] transition-colors"
-                        >
-                          <div
-                            className="h-7 w-7 rounded-lg flex items-center justify-center text-xs text-white font-extrabold shadow-2xs"
-                            style={{ backgroundColor: row.accentColor }}
-                          >
-                            {row.name.substring(0, 2).toUpperCase()}
-                          </div>
-                          <span className="font-bold text-sm sm:text-base">{row.name}</span>
-                        </Link>
-                      </td>
-
-                      {/* Category */}
-                      <td className="py-3.5 px-3 text-[#3C6152] font-semibold text-xs sm:text-sm">
-                        {row.category}
-                      </td>
-
-                      {/* Suitability */}
-                      <td className="py-3.5 px-3">
-                        <span className="inline-flex items-center gap-1 rounded-md bg-[#E0FFC2] px-2.5 py-1 text-xs font-bold text-[#064734] border border-[#BDE895]">
-                          {row.country}
-                        </span>
-                      </td>
-
-                      {/* Compliance */}
-                      <td className="py-3.5 px-4 font-semibold text-xs sm:text-sm text-[#064734]">
-                        <div className="flex items-center gap-2">
-                          <CheckCircle2 className="h-4 w-4 text-[#15803D] shrink-0" />
-                          <span>{row.compliance}</span>
-                        </div>
-                      </td>
-
-                      {/* Arabic RTL */}
-                      <td className="py-3.5 px-3">
-                        <span className="text-xs sm:text-sm font-bold text-[#15803D]">
-                          {row.arabic}
-                        </span>
-                      </td>
-
-                      {/* Pricing */}
-                      <td className="py-3.5 px-3 font-extrabold text-xs sm:text-sm text-[#064734]">
-                        {row.price}
-                      </td>
-
-                      {/* Rating */}
-                      <td className="py-3.5 px-3 text-center">
-                        <span className="inline-flex items-center gap-1 rounded-md bg-[#FFF8EF] px-2.5 py-1 text-xs sm:text-sm font-bold text-[#064734] border border-[#E5DAC8]">
-                          <Star className="h-3.5 w-3.5 fill-[#D97706] text-[#D97706]" />
-                          {row.rating.toFixed(1)}
-                        </span>
-                      </td>
-
-                      {/* Action */}
-                      <td className="py-3.5 px-4 text-right">
-                        <Link
-                          href={`/reviews/${row.slug}`}
-                          className="inline-flex items-center gap-1 text-xs sm:text-sm font-bold text-[#064734] group-hover:text-[#15803D] hover:underline"
-                        >
-                          <span>Review</span>
-                          <ArrowRight className="h-3.5 w-3.5" />
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            {/* Table Footer */}
-            <div className="border-t-2 border-[#E5DAC8] bg-[#FFF8EF] px-5 py-3 flex items-center justify-between text-xs sm:text-sm text-[#3C6152] font-semibold">
-              <span>Audited under Saudi Arabia ZATCA Phase 2, UAE FTA Corporate Tax, and Regional WPS Standards</span>
-              <Link href="/reviews" className="font-bold text-[#064734] hover:text-[#15803D] inline-flex items-center gap-1">
-                <span>View Full Database</span>
-                <ChevronRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 4: FEATURED INDEPENDENT EVALUATIONS (SLIDER) */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#F4ECE1] border-b-2 border-[#E5DAC8]">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
-          <SoftwareSlider softwares={featuredSoftware} />
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 5: HEAD-TO-HEAD COMPARISON BENCHMARKS        */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#FFF8EF] border-b-2 border-[#E5DAC8]">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-5">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b-2 border-[#E5DAC8]">
-            <div>
-              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#15803D] mb-1">
-                <Scale className="h-4 w-4" />
-                <span>Side-by-Side Analysis</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[#064734] tracking-tight">
-                Featured Head-to-Head Comparisons
-              </h2>
-              <p className="mt-1 text-sm sm:text-base text-[#163A2E] font-medium">
-                Direct benchmark evaluations comparing implementation costs, regional tax integration, and team adoption friction.
-              </p>
-            </div>
-
-            <Link
-              href="/compare"
-              className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-[#064734] hover:text-[#15803D] transition-colors shrink-0"
-            >
-              <span>All Comparisons</span>
-              <ArrowRight className="h-4 w-4 text-[#15803D]" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {comparisons.slice(0, 2).map((comp) => (
-              <div
-                key={comp.id}
-                className="rounded-2xl border-2 border-[#E5DAC8] bg-white p-5 hover:border-[#064734] transition-all duration-200 shadow-2xs flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-xs font-extrabold uppercase tracking-wider text-[#064734] bg-[#E0FFC2] px-2.5 py-1 rounded-md border border-[#BDE895]">
-                      {comp.categories?.[0] || "Head-to-Head"}
-                    </span>
-                    <span className="text-xs font-bold text-[#15803D]">Bilingual Audit</span>
-                  </div>
-
-                  <h3 className="font-serif text-lg sm:text-xl font-bold text-[#064734] leading-snug">
-                    <Link href={`/compare/${comp.slug}`} className="hover:text-[#15803D] transition-colors">
-                      {comp.title}
+          {/* Sidebar */}
+          <aside aria-label="Sidebar" className="space-y-5 lg:col-span-4">
+            <section aria-labelledby="mostread-title" className="rounded-[22px] bg-sand-soft p-5">
+              <ModuleTitle id="mostread-title">Most read</ModuleTitle>
+              <ol className="mt-2">
+                {mostRead.map((story, i) => (
+                  <li key={story.id} className="border-t-[1.5px] border-dashed border-sand first:border-t-0">
+                    <Link href={newsHref(story)} className="group grid grid-cols-[2rem_1fr] gap-2 py-3">
+                      <span className="font-display text-[1.8rem] font-bold leading-[0.9] text-terracotta">{i + 1}</span>
+                      <span className="text-[0.9rem] font-semibold leading-snug transition-colors group-hover:text-terracotta">{story.title}</span>
                     </Link>
-                  </h3>
+                  </li>
+                ))}
+              </ol>
+            </section>
 
-                  {/* 1-Line Description */}
-                  <p className="mt-2 text-xs sm:text-sm text-[#163A2E] font-medium truncate" title={comp.shortDescription}>
-                    {comp.shortDescription}
-                  </p>
-                </div>
+            <section aria-labelledby="scores-title" className="rounded-[22px] bg-surface p-5">
+              <ModuleTitle id="scores-title" href="/reviews" link="All reviews">
+                Review scores
+              </ModuleTitle>
+              <ol className="mt-3">
+                {scoreboard.map((sw, i) => (
+                  <li key={sw.id} className="border-t-[1.5px] border-dashed border-rule first:border-t-0">
+                    <Link href={`/reviews/${sw.slug}`} className="group flex items-center gap-3 py-2.5">
+                      <span className="num w-4 text-[0.72rem] text-ink-3">{i + 1}</span>
+                      <Monogram name={sw.name} color={sw.accentColor} size="sm" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[0.92rem] font-semibold transition-colors group-hover:text-terracotta">{sw.name}</span>
+                        <span className="block truncate text-[0.74rem] text-ink-3">{sw.categoryName}</span>
+                      </span>
+                      <span className="num rounded-full bg-teal px-2.5 py-1 text-[0.78rem] font-semibold text-paper">
+                        {sw.verdict.score.toFixed(1)}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </section>
 
-                <div className="mt-4 pt-3.5 border-t-2 border-[#E5DAC8] flex items-center justify-between text-xs sm:text-sm">
-                  <span className="text-[#3C6152] font-medium">
-                    GCC Verdict &amp; Pricing Breakdown Included
+            <section aria-labelledby="vs-title" className="rounded-[22px] bg-terracotta p-5 text-white">
+              <h2 id="vs-title" className="font-display text-[1.35rem] font-bold tracking-[-0.025em]">
+                Head to head
+              </h2>
+              <ul className="mt-2">
+                {comparisons.map((comp) => {
+                  const a = bySlug(comp.productAId);
+                  const b = bySlug(comp.productBId);
+                  return (
+                    <li key={comp.id} className="border-t border-white/20 first:border-t-0">
+                      <Link href={`/compare/${comp.slug}`} className="group flex items-center justify-between gap-3 py-3">
+                        <span className="text-[0.95rem] font-semibold leading-snug group-hover:underline">
+                          {a?.name ?? comp.title.split(" vs ")[0]} <span className="text-sand">vs</span>{" "}
+                          {b?.name ?? comp.title.split(" vs ")[1]}
+                        </span>
+                        <span aria-hidden="true" className="text-sand transition-transform group-hover:translate-x-1">
+                          →
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          </aside>
+        </div>
+      </section>
+
+      {/* ================================================== ACROSS THE GULF */}
+      <Sadu from="#F7F0E4" to="#0E4B48" accent="#C24E2A" />
+      <section aria-labelledby="gulf-title" className="bg-teal text-teal-soft">
+        <div className="wrap py-10">
+          <div className="flex items-end justify-between gap-4">
+            <h2 id="gulf-title" className="font-display text-[1.6rem] font-bold tracking-[-0.025em] text-paper">
+              Across the Gulf
+            </h2>
+            <Link href="/news" className="text-[0.85rem] font-semibold text-sand hover:underline">
+              All countries →
+            </Link>
+          </div>
+          <ul className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
+            {countryLead.map((c) => (
+              <li key={c.code}>
+                <Link
+                  href={`/news?country=${c.code}`}
+                  className="group flex h-full flex-col rounded-[18px] bg-teal-deep p-4 transition-colors hover:bg-[#0b2f2d]"
+                >
+                  <span lang="ar" dir="rtl" className="font-arabic text-[1.25rem] leading-tight text-sand">
+                    {c.native}
                   </span>
-                  <Link
-                    href={`/compare/${comp.slug}`}
-                    className="inline-flex items-center gap-1 font-bold text-[#064734] hover:text-[#15803D] transition-colors"
-                  >
-                    <span>Compare Solutions</span>
-                    <ArrowRight className="h-3.5 w-3.5 text-[#15803D]" />
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 6: SOFTWARE BUYER GUIDES & PLAYBOOKS         */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#F4ECE1] border-b-2 border-[#E5DAC8]">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-5">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b-2 border-[#E5DAC8]">
-            <div>
-              <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#15803D] mb-1">
-                <FileText className="h-4 w-4" />
-                <span>Software Selection Playbooks</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[#064734] tracking-tight">
-                Gulf Software Buyer Guides &amp; Playbooks
-              </h2>
-              <p className="mt-1 text-sm sm:text-base text-[#163A2E] font-medium">
-                Practical research on ZATCA Phase 2 e-invoicing, UAE Corporate Tax compliance, Wage Protection System (WPS) integrations, and total cost of ownership.
-              </p>
-            </div>
-
-            <Link
-              href="/articles"
-              className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-[#064734] hover:text-[#15803D] transition-colors shrink-0"
-            >
-              <span>Explore All Guides</span>
-              <ArrowRight className="h-4 w-4 text-[#15803D]" />
-            </Link>
-          </div>
-
-          {/* 3 Comprehensive Software Buyer Guides */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {articles.map((art) => (
-              <article
-                key={art.id}
-                className="group flex flex-col justify-between rounded-2xl border-2 border-[#E5DAC8] bg-white p-5 hover:border-[#064734] hover:shadow-xs transition-all duration-200"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2 mb-2.5">
-                    <span className="text-xs font-extrabold uppercase tracking-wider text-[#064734] bg-[#E0FFC2] px-2.5 py-1 rounded-md border border-[#BDE895]">
-                      {art.category}
-                    </span>
-                    <span className="text-xs sm:text-sm text-[#3C6152] font-bold">
-                      {art.readTime}
-                    </span>
-                  </div>
-
-                  <h3 className="font-serif text-lg sm:text-xl font-bold text-[#064734] group-hover:text-[#15803D] transition-colors leading-snug line-clamp-2">
-                    <Link href={`/articles/${art.slug}`}>
-                      {art.title}
-                    </Link>
-                  </h3>
-
-                  {/* 1-Line Excerpt */}
-                  <p className="mt-2 text-xs sm:text-sm text-[#163A2E] font-medium truncate" title={art.excerpt}>
-                    {art.excerpt}
-                  </p>
-
-                  {/* 1-Line Key Takeaway */}
-                  {art.keyTakeaways && art.keyTakeaways.length > 0 && (
-                    <div className="mt-3 pt-2.5 border-t-2 border-[#E5DAC8]/80 text-xs sm:text-sm text-[#064734] font-semibold">
-                      <div className="flex items-center gap-2 truncate">
-                        <Check className="h-3.5 w-3.5 text-[#15803D] shrink-0" />
-                        <span className="truncate">{art.keyTakeaways[0]}</span>
-                      </div>
-                    </div>
+                  <span className="mt-1 font-mono text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-teal-soft/75">{c.name}</span>
+                  {c.story && (
+                    <span className="mt-3 text-[0.86rem] font-semibold leading-snug text-paper group-hover:underline">{c.story.title}</span>
                   )}
-                </div>
-
-                <div className="mt-4 pt-3 border-t-2 border-[#E5DAC8] flex items-center justify-between text-xs sm:text-sm">
-                  <div className="flex items-center gap-2 text-[#3C6152]">
-                    <User className="h-4 w-4 text-[#15803D]" />
-                    <span className="font-bold text-[#064734]">{art.author.name}</span>
-                  </div>
-
-                  <Link
-                    href={`/articles/${art.slug}`}
-                    className="inline-flex items-center gap-1 font-bold text-[#064734] group-hover:text-[#15803D] transition-colors"
-                  >
-                    <span>Read Guide</span>
-                    <ArrowRight className="h-3.5 w-3.5 text-[#15803D]" />
-                  </Link>
-                </div>
-              </article>
+                </Link>
+              </li>
             ))}
-          </div>
+          </ul>
+        </div>
+      </section>
+      <Sadu from="#0E4B48" to="#FFFCF6" accent="#F1D39C" />
+
+      {/* ================================================== BUYER GUIDES */}
+      <section aria-labelledby="guides-title" className="wrap pt-8">
+        <ModuleTitle id="guides-title" href="/articles" link="All guides">
+          Buyer guides
+        </ModuleTitle>
+        <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
+          {articles.map((art) => (
+            <article key={art.id} className="group">
+              <Link href={`/articles/${art.slug}`} className="card card-hover flex h-full gap-4 p-3">
+                <div className="media aspect-square w-24 shrink-0 !rounded-[14px]">
+                  <Image src={art.image} alt="" fill sizes="96px" className="object-cover" />
+                </div>
+                <div className="min-w-0 py-1 pr-1">
+                  <span className="kicker kicker-accent">{art.category}</span>
+                  <h3 className="h-card mt-1 text-[1rem] line-clamp-3">{art.title}</h3>
+                  <p className="mt-1.5 text-[0.74rem] text-ink-3">{art.readTime}</p>
+                </div>
+              </Link>
+            </article>
+          ))}
         </div>
       </section>
 
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 7: THE 6 STANDARDS OF GULF SAAS VERIFICATION */}
-      {/* ---------------------------------------------------- */}
-      <section className="py-8 sm:py-10 bg-[#064734] text-[#FFF8EF] border-b-2 border-[#0A5C44]">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 space-y-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 pb-3 border-b-2 border-[#0A5C44]">
-            <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#E0FFC2]/50 bg-[#0A5C44] px-3.5 py-1 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#E0FFC2] mb-1.5">
-                <ShieldCheck className="h-4 w-4" />
-                <span>Evaluation Framework</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-white tracking-tight">
-                The 6 Pillars of Gulf Software Verification
-              </h2>
-              <p className="mt-1 text-sm sm:text-base text-[#FFF8EF]/90 font-medium">
-                Every platform listed on GulfSaasReview is benchmarked against critical regional legal and operational criteria before receiving editorial endorsement.
-              </p>
-            </div>
-
-            <Link
-              href="/about#methodology"
-              className="inline-flex items-center gap-2 text-sm sm:text-base font-bold text-[#E0FFC2] hover:text-white transition-colors shrink-0"
-            >
-              <span>View Methodology</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
-
-          {/* Numbered Standard Cards (01 to 06) with vibrant green numbers */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {standards.map((item) => (
-              <div
-                key={item.rank}
-                className="group relative rounded-2xl border-2 border-[#0A5C44] bg-[#043224] p-5 hover:border-[#E0FFC2] transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between pb-2 border-b border-[#0A5C44]">
-                    <span className="font-serif text-3xl font-extrabold text-[#15803D] group-hover:text-[#15803D] transition-colors">
-                      {item.rank}
-                    </span>
-                    <span className="text-xs font-extrabold uppercase tracking-wider text-[#E0FFC2] bg-[#E0FFC2]/20 border border-[#E0FFC2]/30 px-2.5 py-1 rounded-md">
-                      {item.tag}
-                    </span>
-                  </div>
-
-                  <h3 className="mt-2.5 text-base sm:text-lg font-bold font-serif text-white group-hover:text-[#15803D] transition-colors leading-snug">
-                    {item.title}
-                  </h3>
-
-                  {/* 1-Line Summary */}
-                  <p className="mt-1.5 text-xs sm:text-sm text-[#C2D6CE] font-medium truncate" title={item.summary}>
-                    {item.summary}
-                  </p>
-                </div>
-
-                <div className="mt-3.5 pt-3 border-t border-[#0A5C44] flex items-center justify-between text-xs sm:text-sm text-[#A5C2B6]">
-                  <span>Regional Standard</span>
-                  <span className="font-bold text-[#E0FFC2]">{item.badge}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------------------------------------------- */}
-      {/* SECTION 8: EDITORIAL NEWSLETTER BRIEFING             */}
-      {/* ---------------------------------------------------- */}
       <NewsletterSection />
-    </div>
+    </>
   );
 }

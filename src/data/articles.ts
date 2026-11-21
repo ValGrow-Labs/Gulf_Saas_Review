@@ -41,7 +41,7 @@ export const articles: Article[] = [
       role: "Senior SaaS Analyst",
       avatar: "/authors/leila.jpg",
     },
-    image: "/articles/uae-crm.jpg",
+    image: "/articles/enterprise-saas-platform.jpg",
     featured: true,
     keyTakeaways: [
       "WhatsApp Business API integration is essential for UAE buyer communication speed",

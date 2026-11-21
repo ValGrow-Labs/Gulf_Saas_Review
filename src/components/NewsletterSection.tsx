@@ -1,116 +1,108 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, CheckCircle2, ArrowRight, ShieldCheck } from "lucide-react";
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const editions = ["Saudi", "UAE", "GCC"] as const;
 
 export default function NewsletterSection() {
   const [email, setEmail] = useState("");
-  const [country, setCountry] = useState("Saudi Arabia");
+  const [edition, setEdition] = useState<(typeof editions)[number]>("Saudi");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email || !email.includes("@")) {
+    if (!EMAIL_RE.test(email.trim())) {
       setStatus("error");
-      setMessage("Please enter a valid business email address.");
       return;
     }
-
     setStatus("loading");
-    setTimeout(() => {
-      setStatus("success");
-      setMessage(`Thank you! You are now subscribed to Gulf business technology insights tailored for ${country}.`);
-    }, 600);
+    setTimeout(() => setStatus("success"), 600);
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#064734] py-10 sm:py-14 text-[#FFF8EF]">
-      {/* Subtle geometric background watermarks */}
-      <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#0A5C44] blur-3xl opacity-60 pointer-events-none" />
-      <div className="absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-[#E0FFC2]/15 blur-3xl pointer-events-none" />
+    <section id="newsletter" aria-labelledby="newsletter-title" className="scroll-mt-24 py-16 lg:py-24">
+      <div className="wrap">
+        <div className="relative overflow-hidden rounded-[32px] bg-terracotta text-white">
+          {/* sun over dunes motif */}
+          <svg aria-hidden="true" viewBox="0 0 400 400" className="pointer-events-none absolute -right-16 -bottom-24 h-[130%] w-auto max-md:hidden">
+            <rect x="40" y="70" width="320" height="360" rx="36" fill="#9B3A1C" />
+            <circle cx="200" cy="230" r="70" fill="#F1D39C" />
+            <path d="M40 320 L80 280 L120 320 L160 280 L200 320 L240 280 L280 320 L320 280 L360 320 V400 H40 Z" fill="#0E4B48" />
+          </svg>
 
-      <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-[#E0FFC2]/50 bg-[#0A5C44] px-3.5 py-1 text-xs font-bold #E0FFC2 mb-3">
-          <Mail className="h-3.5 w-3.5" />
-          <span>Bi-Weekly GCC Software Intelligence</span>
-        </div>
+          <div className="relative grid grid-cols-1 gap-8 px-6 py-12 sm:px-10 lg:grid-cols-12 lg:px-14 lg:py-16">
+            <div className="lg:col-span-7">
+              <p className="font-mono text-[0.72rem] font-semibold uppercase tracking-[0.08em] text-sand">The Sunday brief · every other week</p>
+              <h2 id="newsletter-title" className="display mt-4 text-[clamp(2.2rem,1.4rem+2.8vw,3.8rem)]">
+                The Gulf&rsquo;s software news, in one calm email.
+              </h2>
+              <p className="mt-4 max-w-[46ch] text-[1.02rem] text-white/85">
+                New reviews, ZATCA, FTA and WPS rule changes, and which price lists moved. About a four-minute read.
+              </p>
 
-        <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-white tracking-tight">
-          Stay Ahead of Business Technology
-        </h2>
-
-        <p className="mx-auto mt-2 max-w-xl text-xs sm:text-sm text-[#FFF8EF]/90 leading-relaxed font-normal">
-          Get independent software reviews, ZATCA e-invoicing updates, GCC pricing benchmarks and practical technology insights delivered straight to your inbox.
-        </p>
-
-        {status === "success" ? (
-          <div className="mx-auto mt-6 max-w-md rounded-xl border border-emerald-500/50 bg-emerald-950/50 p-5 text-center animate-in zoom-in-95 duration-200">
-            <CheckCircle2 className="mx-auto h-8 w-8 text-emerald-400 mb-2" />
-            <h3 className="text-base font-bold text-white">Subscription Confirmed</h3>
-            <p className="mt-1 text-xs text-emerald-200/90 leading-relaxed">
-              {message}
-            </p>
-            <button
-              onClick={() => {
-                setStatus("idle");
-                setEmail("");
-              }}
-              className="mt-3 text-xs font-semibold #E0FFC2 hover:underline cursor-pointer"
-            >
-              Subscribe another business email &rarr;
-            </button>
+              {status === "success" ? (
+                <div role="status" className="mt-8 max-w-lg rounded-2xl bg-white/12 p-6">
+                  <p className="h-card text-[1.25rem]">You&rsquo;re subscribed to the {edition} edition.</p>
+                  <p className="mt-2 text-[0.92rem] text-white/85">
+                    We sent a confirmation link to {email}.{" "}
+                    <button
+                      type="button"
+                      className="link"
+                      onClick={() => {
+                        setStatus("idle");
+                        setEmail("");
+                      }}
+                    >
+                      Use another address
+                    </button>
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate className="mt-8 max-w-xl">
+                  <fieldset className="flex flex-wrap items-center gap-2">
+                    <legend className="sr-only">Edition</legend>
+                    {editions.map((ed) => (
+                      <button
+                        key={ed}
+                        type="button"
+                        aria-pressed={edition === ed}
+                        onClick={() => setEdition(ed)}
+                        className={`h-9 rounded-full px-4 text-[0.86rem] font-semibold transition-colors ${
+                          edition === ed ? "bg-sand text-ink" : "bg-white/12 text-white hover:bg-white/20"
+                        }`}
+                      >
+                        {ed} edition
+                      </button>
+                    ))}
+                  </fieldset>
+                  <div className="mt-4 flex flex-col gap-2 rounded-[20px] bg-white p-1.5 sm:flex-row">
+                    <label className="flex-1">
+                      <span className="sr-only">Work email</span>
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (status === "error") setStatus("idle");
+                        }}
+                        placeholder="you@company.sa"
+                        aria-invalid={status === "error"}
+                        aria-describedby="newsletter-error"
+                        className="h-12 w-full rounded-2xl bg-transparent px-4 text-ink placeholder:text-ink-3 focus:outline-none"
+                      />
+                    </label>
+                    <button type="submit" disabled={status === "loading"} className="btn btn-primary !min-h-12 disabled:opacity-60">
+                      {status === "loading" ? "Subscribing…" : "Subscribe"}
+                    </button>
+                  </div>
+                  <p id="newsletter-error" className="mt-2 min-h-5 text-[0.88rem] font-semibold text-sand">
+                    {status === "error" ? "Enter a valid work email, e.g. name@company.ae." : ""}
+                  </p>
+                </form>
+              )}
+            </div>
           </div>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto mt-6 max-w-xl space-y-2.5 sm:space-y-0 sm:flex sm:items-center sm:gap-2.5"
-          >
-            <div className="relative flex-1">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your corporate email"
-                className="w-full rounded-xl border border-[#0A5C44] bg-[#043224] px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-[#A5C2B6] focus:border-[#E0FFC2] focus:outline-none focus:ring-1 focus:ring-[#E0FFC2] min-h-[44px]"
-                required
-              />
-            </div>
-
-            <div className="sm:w-48">
-              <select
-                value={country}
-                onChange={(e) => setCountry(e.target.value)}
-                className="w-full rounded-xl border border-[#0A5C44] bg-[#043224] px-3 py-2.5 text-xs sm:text-sm text-[#FFF8EF] font-semibold focus:border-[#E0FFC2] focus:outline-none min-h-[44px] cursor-pointer"
-              >
-                <option value="Saudi Arabia">Saudi Arabia (KSA)</option>
-                <option value="UAE">UAE (Dubai &amp; AD)</option>
-                <option value="Other GCC">Other GCC (QA, KW, BH, OM)</option>
-              </select>
-            </div>
-
-            <button
-              type="submit"
-              disabled={status === "loading"}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#E0FFC2] text-[#064734] hover:bg-white hover:text-[#064734] px-7 py-2.5 text-sm sm:text-base font-extrabold active:scale-95 transition-all shadow-md shrink-0 cursor-pointer min-h-[46px] border border-[#BDE895]"
-            >
-              <span>{status === "loading" ? "Subscribing..." : "Subscribe"}</span>
-              <ArrowRight className="h-4 w-4 text-[#064734]" />
-            </button>
-          </form>
-        )}
-
-        {status === "error" && (
-          <p className="mt-2 text-xs font-semibold text-rose-400">{message}</p>
-        )}
-
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] text-[#FFF8EF]/70">
-          <span className="flex items-center gap-1">
-            <ShieldCheck className="h-3.5 w-3.5 text-[#E0FFC2]" />
-            No marketing spam. Unsubscribe anytime.
-          </span>
-          <span>•</span>
-          <span>Curated by regional SaaS research team</span>
         </div>
       </div>
     </section>

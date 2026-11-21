@@ -2,24 +2,25 @@ import React, { Suspense } from "react";
 import ReviewsClient from "./ReviewsClient";
 
 export const metadata = {
-  title: "Software Reviews Directory | GulfSaasReview",
+  title: "Software reviews",
   description:
-    "Browse, filter, and discover business software evaluated for Saudi Arabia, the UAE, and the wider GCC. Filter by category, country suitability, Arabic RTL support, and pricing models.",
+    "Browse business software reviewed for Saudi Arabia, the UAE and the wider GCC. Filter by category, market, Arabic support and pricing model.",
 };
 
 export default function ReviewsPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-[#FFF8EF]">
-          <div className="text-sm font-semibold text-[#064734]">
-            Loading Gulf software directory...
+        <section className="bg-teal text-teal-soft">
+          <div className="wrap py-28">
+            <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.07em] text-sand">
+              Loading the review index…
+            </p>
           </div>
-        </div>
+        </section>
       }
     >
       <ReviewsClient />
     </Suspense>
   );
 }
-

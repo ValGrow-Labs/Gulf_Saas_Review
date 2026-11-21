@@ -3,18 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { softwares } from "@/data/software";
 import SoftwareCard from "@/components/SoftwareCard";
-import {
-  Star,
-  ShieldCheck,
-  CheckCircle2,
-  XCircle,
-  Globe2,
-  Building2,
-  ArrowRight,
-  ExternalLink,
-  Scale,
-  Sparkles,
-} from "lucide-react";
+import Monogram from "@/components/Monogram";
+import ScoreDial from "@/components/ScoreDial";
+import Sadu from "@/components/Sadu";
+import { arabicLabel, billingSuffix, marketsLabel, pad2 } from "@/lib/format";
 
 export const dynamicParams = false;
 
@@ -31,12 +23,40 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const software = softwares.find((s) => s.slug === slug);
-  if (!software) return { title: "Software Review Not Found" };
+  if (!software) return { title: "Review not found" };
 
   return {
-    title: `${software.name} Review: Gulf Business Suitability, ZATCA & Pricing`,
+    title: `${software.name} review: Gulf suitability, ZATCA and pricing`,
     description: software.tagline,
   };
+}
+
+const C = {
+  paper: "#FFFCF6",
+  terracotta: "#C24E2A",
+  teal: "#0E4B48",
+  tealSoft: "#D5E7E3",
+  sand: "#F1D39C",
+};
+
+/** Rounded score bar, 0–10. */
+function ScoreBar({ score, className = "" }: { score: number; className?: string }) {
+  return (
+    <span aria-hidden="true" className={`block h-2.5 overflow-hidden rounded-full bg-paper-2 ${className}`}>
+      <span className="block h-full rounded-full bg-teal" style={{ width: `${Math.min(score, 10) * 10}%` }} />
+    </span>
+  );
+}
+
+function SectionHead({ n, id, title, tone = "default" }: { n: number; id: string; title: string; tone?: "default" | "onColor" }) {
+  return (
+    <header>
+      <p className={`kicker ${tone === "onColor" ? "!text-sand" : "kicker-accent"}`}>{pad2(n)}</p>
+      <h2 id={id} className={`h-section mt-2 ${tone === "onColor" ? "text-paper" : ""}`}>
+        {title}
+      </h2>
+    </header>
+  );
 }
 
 export default async function IndividualReviewPage({
@@ -51,525 +71,427 @@ export default async function IndividualReviewPage({
     notFound();
   }
 
-  // Find similar softwares
-  const similarProducts = softwares.filter(
-    (s) =>
-      software.similarSoftwareSlugs.includes(s.slug) ||
-      (s.category === software.category && s.slug !== software.slug)
-  ).slice(0, 3);
+  const similarProducts = softwares
+    .filter(
+      (s) =>
+        s.slug !== software.slug &&
+        (software.similarSoftwareSlugs.includes(s.slug) || s.category === software.category)
+    )
+    .slice(0, 3);
+
+  const analysis = software.gulfSuitabilityAnalysis;
+  const isSample = software.isVerifiedReview === false;
+
+  const readiness = [
+    analysis.zatcaStatus && { k: "ZATCA e-invoicing (KSA)", v: analysis.zatcaStatus },
+    analysis.uaeVatStatus && { k: "FTA VAT (UAE)", v: analysis.uaeVatStatus },
+    { k: "Arabic and right-to-left", v: analysis.arabicExperience },
+    { k: "Regional support", v: analysis.regionalSupport },
+    { k: "Data residency", v: analysis.dataResidency },
+  ].filter((r): r is { k: string; v: string } => Boolean(r));
+
+  const toc = [
+    { id: "overview", label: "Overview" },
+    { id: "strengths", label: "Strengths and drawbacks" },
+    { id: "features", label: "Feature scores" },
+    { id: "readiness", label: "Gulf readiness" },
+    { id: "pricing", label: "Pricing" },
+    { id: "verdict", label: "Verdict" },
+  ];
+
+  const figures = [
+    { k: "Markets", v: marketsLabel(software), unit: "" },
+    { k: "From", v: software.pricing.startingPrice, unit: billingSuffix(software) },
+    { k: "Pricing model", v: software.pricing.model, unit: "" },
+    { k: "Deployment", v: software.deploymentTime.replace(/\s*-\s*/, "–"), unit: "" },
+    { k: "Arabic", v: arabicLabel(software.arabicSupport), unit: "" },
+  ];
+
+  const tiers = software.pricing.tiers;
 
   return (
-    <div className="min-h-screen bg-[#FFF8EF] pb-24">
-      {/* ---------------------------------------------------- */}
-      {/* BREADCRUMBS & TOP HERO BANNER                        */}
-      {/* ---------------------------------------------------- */}
-      <div className="bg-[#FFF8EF] border-b border-[#E5DAC8] pt-8 pb-12 sm:pb-14">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
-          {/* Breadcrumb Navigation */}
-          <nav className="flex items-center space-x-2 text-xs sm:text-sm text-[#4A6D5F] mb-6">
-            <Link href="/" className="hover:text-[#064734] font-medium">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/reviews" className="hover:text-[#064734] font-medium">
-              Reviews
-            </Link>
-            <span>/</span>
-            <Link
-              href={`/reviews?category=${software.category}`}
-              className="hover:text-[#064734] font-medium"
-            >
-              {software.categoryName}
-            </Link>
-            <span>/</span>
-            <span className="font-bold text-[#064734]">{software.name}</span>
-          </nav>
+    <article>
+      {/* ------------------------------------------------------------ HERO */}
+      <header className="wrap pt-8 pb-12 lg:pb-16">
+        <nav aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.82rem] text-ink-3">
+            <li>
+              <Link href="/" className="transition-colors hover:text-terracotta">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href="/reviews" className="transition-colors hover:text-terracotta">
+                Reviews
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href={`/reviews?category=${software.category}`} className="transition-colors hover:text-terracotta">
+                {software.categoryName}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li aria-current="page" className="text-ink-2">
+              {software.name}
+            </li>
+          </ol>
+        </nav>
 
-          {/* Product Header */}
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-              {/* Product Logo */}
-              <div
-                className="flex h-16 w-16 sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-2xl text-2xl sm:text-3xl font-serif font-bold text-white shadow-md"
-                style={{ backgroundColor: software.accentColor || "#064734" }}
-              >
-                {software.name.substring(0, 2).toUpperCase()}
-              </div>
-
-              <div>
-                <div className="flex flex-wrap items-center gap-2.5 mb-2">
-                  <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#064734]">
-                    {software.name}
-                  </h1>
-                  <span className="inline-flex items-center gap-1 rounded-lg bg-[#FFF8EF] px-3 py-1 text-xs sm:text-sm font-semibold text-[#4A6D5F] border border-[#E5DAC8]">
-                    <ShieldCheck className="h-4 w-4 text-[#15803D]" />
-                    Sample Review Profile
-                  </span>
-                </div>
-
-                <p className="text-sm sm:text-lg text-[#556070] max-w-3xl leading-relaxed">
-                  {software.tagline}
-                </p>
-
-                {/* Country Suitability Tags */}
-                <div className="mt-4 flex flex-wrap items-center gap-2">
-                  <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A6D5F] mr-1">
-                    Suited For:
-                  </span>
-                  {software.countrySuitability.map((c) => (
-                    <span
-                      key={c}
-                      className="inline-flex items-center gap-1.5 rounded-lg bg-[#064734]/5 px-3 py-1 text-xs sm:text-sm font-bold text-[#064734]"
-                    >
-                      <Building2 className="h-3.5 w-3.5 text-[#15803D]" />
-                      {c}
-                    </span>
-                  ))}
-
-                  <span className="inline-flex items-center gap-1.5 rounded-lg bg-[#15803D]/20 px-3 py-1 text-xs sm:text-sm font-bold text-[#064734]">
-                    <Globe2 className="h-3.5 w-3.5" />
-                    {software.arabicSupport}
-                  </span>
-                </div>
+        <div className="mt-8 grid grid-cols-1 gap-10 lg:mt-12 lg:grid-cols-12 lg:items-center lg:gap-12">
+          <div className="rise lg:col-span-7">
+            <div className="flex flex-wrap items-center gap-4">
+              <Monogram name={software.name} color={software.accentColor} size="lg" />
+              <div className="flex flex-wrap gap-2">
+                <span className="tag tag-accent">Review</span>
+                <span className="tag tag-teal">{software.categoryName}</span>
               </div>
             </div>
-
-            {/* Rating & CTA Block */}
-            <div className="flex flex-col sm:flex-row lg:flex-col items-start sm:items-center lg:items-end gap-3 shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-[#E5DAC8]">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5 text-2xl sm:text-3xl font-extrabold text-[#064734]">
-                  <Star className="h-6 w-6 fill-[#D97706] text-[#D97706]" />
-                  <span>{software.rating.toFixed(1)}</span>
-                </div>
-                <div className="text-left text-xs sm:text-sm text-[#556070]">
-                  <div className="font-bold text-[#064734]">Score: {software.verdict.score}/10</div>
-                  <div className="text-[11px] text-[#4A6D5F]">Regional GCC Criteria</div>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5 w-full sm:w-auto pt-2">
-                <Link
-                  href={`/compare?a=${software.slug}`}
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl border border-[#064734] bg-white px-5 py-3 text-sm font-bold text-[#064734] hover:bg-[#FFF8EF] transition-all min-h-[44px]"
-                >
-                  <Scale className="h-4 w-4 text-[#15803D]" />
-                  <span>Compare</span>
-                </Link>
-
-                <a
-                  href={software.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl bg-[#064734] px-5 py-3 text-sm font-bold text-[#FFF8EF] hover:bg-[#043224] transition-all shadow-xs min-h-[44px]"
-                >
-                  <span>Visit Vendor</span>
-                  <ExternalLink className="h-4 w-4 text-[#15803D]" />
-                </a>
-              </div>
+            <h1 className="display mt-7 text-[clamp(2.8rem,1.4rem+5vw,5.6rem)]">{software.name}</h1>
+            <p className="mt-6 max-w-[50ch] text-[clamp(1.15rem,1.05rem+0.5vw,1.4rem)] leading-snug text-ink-2">
+              {software.verdict.summary}
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href={`/compare?a=${software.slug}`} className="btn btn-primary">
+                Compare with others
+              </Link>
+              <a href={software.websiteUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                Vendor site <span aria-hidden="true">↗</span>
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* ---------------------------------------------------- */}
-      {/* MAIN REVIEW BODY & SIDEBAR                           */}
-      {/* ---------------------------------------------------- */}
-      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Main Review Content (Col Span 8) */}
-          <div className="lg:col-span-8 space-y-10">
-            {/* 1. Software Overview & Executive Summary */}
-            <section className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734] mb-4">
-                Executive Overview
-              </h2>
-              <p className="text-base sm:text-lg text-[#064734] leading-relaxed mb-4 font-normal">
-                {software.description}
-              </p>
-              <p className="text-sm sm:text-base text-[#556070] leading-relaxed">
-                {software.gulfSuitabilityAnalysis.summary}
-              </p>
-
-              {/* Quick Metrics Bar */}
-              <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 border-t border-[#E5DAC8]">
-                <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#4A6D5F] block">
-                    Ease of Use
-                  </span>
-                  <span className="text-xl font-extrabold text-[#064734] block mt-1">
-                    {software.easeOfUse} / 10
-                  </span>
+          {/* Score panel */}
+          <aside aria-label="Score" className="rise [animation-delay:120ms] lg:col-span-5">
+            <div>
+              <div className="rounded-[32px] bg-teal p-6 text-teal-soft sm:p-8">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <p className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-sand">Our score</p>
+                  <span className="tag !whitespace-normal !bg-sand !text-ink">{software.verdict.badge}</span>
                 </div>
-                <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#4A6D5F] block">
-                    Deployment
-                  </span>
-                  <span className="text-sm sm:text-base font-bold text-[#064734] block mt-1">
-                    {software.deploymentTime}
-                  </span>
+                <div className="mt-6 flex justify-center">
+                  <ScoreDial
+                    score={software.verdict.score}
+                    size={168}
+                    color={C.sand}
+                    showMax
+                    className="[&_.num]:!text-paper [&_circle:first-of-type]:[stroke:rgb(255_255_255/0.14)]"
+                  />
                 </div>
-                <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#4A6D5F] block">
-                    Starting At
-                  </span>
-                  <span className="text-base sm:text-lg font-bold text-[#064734] block mt-1">
-                    {software.pricing.startingPrice}
-                  </span>
-                </div>
-                <div className="rounded-xl bg-[#FFF8EF] p-4 text-center">
-                  <span className="text-xs uppercase font-bold text-[#4A6D5F] block">
-                    Arabic Support
-                  </span>
-                  <span className="text-xs sm:text-sm font-bold text-[#064734] block mt-1 truncate">
-                    {software.arabicSupport.split(" ")[0]}
-                  </span>
-                </div>
-              </div>
-            </section>
-
-            {/* 2. Key Features Breakdown */}
-            <section className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734] mb-2">
-                Key Features &amp; Regional Benchmarks
-              </h2>
-              <p className="text-sm text-[#556070] mb-6">
-                Evaluated against Gulf corporate software operational standards.
-              </p>
-
-              <div className="space-y-4">
-                {software.keyFeatures.map((kf, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-xl border border-[#E5DAC8] bg-white p-5 transition-all hover:border-[#064734]"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="text-base font-bold text-[#064734]">
-                        {kf.title}
-                      </h4>
-                      <div className="flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#064734] bg-[#FFF8EF] px-2.5 py-1 rounded-md">
-                        <Sparkles className="h-3.5 w-3.5 text-[#15803D]" />
-                        <span>{kf.score} / 10</span>
-                      </div>
-                    </div>
-                    <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
-                      {kf.description}
-                    </p>
+                <dl className="mt-7 grid grid-cols-2 gap-2">
+                  <div className="rounded-[18px] bg-teal-deep px-4 py-3.5">
+                    <dt className="text-[0.78rem] text-teal-soft/80">Ease of use</dt>
+                    <dd className="num mt-1 text-[1.15rem] font-semibold text-paper">
+                      {software.easeOfUse.toFixed(1)}
+                      <span className="text-[0.8rem] font-normal text-teal-soft/70">/10</span>
+                    </dd>
                   </div>
-                ))}
-              </div>
-            </section>
-
-            {/* 3. Pros & Cons (Gulf Market Focused) */}
-            <section className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734] mb-6">
-                Pros &amp; Cons: The Gulf Perspective
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Pros */}
-                <div className="rounded-2xl border border-emerald-200 bg-emerald-50/50 p-6">
-                  <div className="flex items-center gap-2 mb-4 text-emerald-900 font-bold text-base">
-                    <CheckCircle2 className="h-5 w-5 text-emerald-600" />
-                    <span>Key Advantages</span>
+                  <div className="rounded-[18px] bg-teal-deep px-4 py-3.5">
+                    <dt className="text-[0.78rem] text-teal-soft/80">User rating</dt>
+                    <dd className="num mt-1 text-[1.15rem] font-semibold text-paper">
+                      {software.rating.toFixed(1)}
+                      <span className="text-[0.8rem] font-normal text-teal-soft/70"> / 5 · {software.reviewCount}</span>
+                    </dd>
                   </div>
-                  <ul className="space-y-3">
-                    {software.pros.map((pro, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-start gap-2.5 text-xs sm:text-sm text-[#064734] leading-relaxed"
-                      >
-                        <span className="h-2 w-2 rounded-full bg-emerald-600 mt-1.5 shrink-0" />
-                        <span>{pro}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Cons */}
-                <div className="rounded-2xl border border-rose-200 bg-rose-50/50 p-6">
-                  <div className="flex items-center gap-2 mb-4 text-rose-900 font-bold text-base">
-                    <XCircle className="h-5 w-5 text-rose-600" />
-                    <span>Points to Consider</span>
-                  </div>
-                  <ul className="space-y-3">
-                    {software.cons.map((con, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-start gap-2.5 text-xs sm:text-sm text-[#064734] leading-relaxed"
-                      >
-                        <span className="h-2 w-2 rounded-full bg-rose-600 mt-1.5 shrink-0" />
-                        <span>{con}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* 4. Regional Suitability Deep-Dive */}
-            <section className="rounded-2xl border border-[#064734]/50 bg-gradient-to-br from-[#FFF8EF] to-[#FFF8EF] p-6 sm:p-8 shadow-xs">
-              <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#15803D] mb-2">
-                <Globe2 className="h-4 w-4" />
-                <span>Regional Middle East Audit</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734] mb-6">
-                Middle Eastern Market Compliance &amp; Readiness
-              </h2>
-
-              <div className="space-y-4">
-                {software.gulfSuitabilityAnalysis.zatcaStatus && (
-                  <div className="rounded-xl bg-white border border-[#E5DAC8] p-5">
-                    <span className="text-sm font-bold text-[#064734] block mb-1">
-                      Saudi Arabia ZATCA E-Invoicing Status:
-                    </span>
-                    <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
-                      {software.gulfSuitabilityAnalysis.zatcaStatus}
-                    </p>
-                  </div>
-                )}
-
-                {software.gulfSuitabilityAnalysis.uaeVatStatus && (
-                  <div className="rounded-xl bg-white border border-[#E5DAC8] p-5">
-                    <span className="text-sm font-bold text-[#064734] block mb-1">
-                      UAE FTA VAT Compliance Status:
-                    </span>
-                    <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
-                      {software.gulfSuitabilityAnalysis.uaeVatStatus}
-                    </p>
-                  </div>
-                )}
-
-                <div className="rounded-xl bg-white border border-[#E5DAC8] p-5">
-                  <span className="text-sm font-bold text-[#064734] block mb-1">
-                    Arabic Language &amp; RTL Usability:
-                  </span>
-                  <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
-                    {software.gulfSuitabilityAnalysis.arabicExperience}
-                  </p>
-                </div>
-
-                <div className="rounded-xl bg-white border border-[#E5DAC8] p-5">
-                  <span className="text-sm font-bold text-[#064734] block mb-1">
-                    GCC Data Residency &amp; Cloud Hosting:
-                  </span>
-                  <p className="text-xs sm:text-sm text-[#556070] leading-relaxed">
-                    {software.gulfSuitabilityAnalysis.dataResidency}
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            {/* 5. Pricing Information & Tiers */}
-            <section className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-8 shadow-xs">
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734] mb-2">
-                Pricing &amp; Regional Estimates
-              </h2>
-              <p className="text-sm text-[#556070] mb-6">
-                {software.pricing.regionalNote}
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {software.pricing.tiers.map((tier, idx) => (
-                  <div
-                    key={idx}
-                    className={`rounded-2xl border p-6 flex flex-col justify-between ${
-                      tier.highlight
-                        ? "border-[#064734] bg-[#FFF8EF]/70 shadow-sm"
-                        : "border-[#E5DAC8] bg-white"
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-2">
-                        <h4 className="font-bold text-[#064734] text-lg">
-                          {tier.name}
-                        </h4>
-                        {tier.highlight && (
-                          <span className="rounded-md bg-[#15803D] text-[#064734] text-xs font-bold px-2.5 py-1">
-                            Recommended
-                          </span>
-                        )}
-                      </div>
-
-                      <div className="flex items-baseline gap-1 my-3">
-                        <span className="text-2xl sm:text-3xl font-extrabold text-[#064734]">
-                          {tier.price}
-                        </span>
-                        <span className="text-xs sm:text-sm text-[#4A6D5F]">
-                          /{tier.period}
-                        </span>
-                      </div>
-
-                      {tier.regionalEstimateSAR && (
-                        <div className="text-xs sm:text-sm font-bold text-[#064734] mb-3">
-                          Est: {tier.regionalEstimateSAR} â€¢ {tier.regionalEstimateAED}
-                        </div>
-                      )}
-
-                      <p className="text-xs sm:text-sm text-[#556070] mb-4">
-                        {tier.description}
-                      </p>
-
-                      <ul className="space-y-2.5 border-t border-[#E5DAC8] pt-4 text-xs sm:text-sm text-[#064734]">
-                        {tier.features.map((feat, fIdx) => (
-                          <li key={fIdx} className="flex items-center gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* 6. Final Verdict */}
-            <section className="rounded-2xl border border-[#064734] bg-[#064734] text-[#FFF8EF] p-6 sm:p-8 shadow-lg">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#043224]">
-                <div>
-                  <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#15803D] block mb-1">
-                    GulfSaasReview Editorial Verdict
-                  </span>
-                  <h3 className="text-2xl sm:text-3xl font-bold font-editorial text-white">
-                    {software.verdict.badge}
-                  </h3>
-                </div>
-                <div className="flex items-center gap-2 bg-[#043224] px-5 py-2.5 rounded-xl border border-[#043224]">
-                  <span className="text-3xl font-extrabold text-[#15803D]">
-                    {software.verdict.score}
-                  </span>
-                  <span className="text-xs sm:text-sm text-[#E5DAC8]/80 font-medium">/ 10 Overall Score</span>
-                </div>
-              </div>
-
-              <p className="mt-6 text-sm sm:text-base text-[#E5DAC8] leading-relaxed">
-                {software.verdict.summary}
-              </p>
-
-              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs sm:text-sm pt-5 border-t border-[#043224]">
-                <div>
-                  <strong className="text-emerald-400 block mb-1 text-sm">
-                    Best Suited For:
-                  </strong>
-                  <span className="text-[#E5DAC8]/90 leading-relaxed">
-                    {software.verdict.bestFor}
-                  </span>
-                </div>
-                <div>
-                  <strong className="text-rose-400 block mb-1 text-sm">
-                    Not Recommended For:
-                  </strong>
-                  <span className="text-[#E5DAC8]/90 leading-relaxed">
-                    {software.verdict.notRecommendedFor}
-                  </span>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          {/* Sidebar Column (Col Span 4) */}
-          <aside className="lg:col-span-4 space-y-6">
-            {/* Quick Actions Card */}
-            <div className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-7 shadow-xs sticky top-28">
-              <h3 className="text-base sm:text-lg font-bold text-[#064734] mb-4">
-                Evaluate &amp; Compare
-              </h3>
-
-              <div className="space-y-3">
-                <Link
-                  href={`/compare?a=${software.slug}`}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-[#064734] px-4 py-3.5 text-sm font-bold text-white hover:bg-[#043224] transition-colors"
-                >
-                  <Scale className="h-4 w-4 text-[#15803D]" />
-                  <span>Compare with Other Platforms</span>
-                </Link>
-
-                <a
-                  href={software.websiteUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 rounded-xl border border-[#064734] bg-white px-4 py-3.5 text-sm font-bold text-[#064734] hover:bg-[#FFF8EF] transition-colors"
-                >
-                  <span>Visit {software.name} Official Website</span>
-                  <ExternalLink className="h-4 w-4 text-[#15803D]" />
-                </a>
-              </div>
-
-              {/* Verified Integrations List */}
-              <div className="mt-6 pt-5 border-t border-[#E5DAC8]">
-                <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A6D5F] mb-3">
-                  Verified Local Integrations
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {software.localIntegrations.map((intg, i) => (
-                    <span
-                      key={i}
-                      className="rounded-lg bg-[#FFF8EF] border border-[#E5DAC8] px-2.5 py-1 text-xs text-[#064734] font-semibold"
-                    >
-                      {intg}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Regulatory Compliance Badges */}
-              <div className="mt-6 pt-5 border-t border-[#E5DAC8]">
-                <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#4A6D5F] mb-3">
-                  Regional Regulatory Badges
-                </h4>
-                <div className="space-y-2">
-                  {software.localCompliance.map((comp, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-2 text-xs sm:text-sm text-[#064734]"
-                    >
-                      <CheckCircle2 className="h-4 w-4 text-emerald-600 shrink-0" />
-                      <span className="font-semibold">{comp}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Research Disclaimer */}
-              <div className="mt-6 pt-5 border-t border-[#E5DAC8] text-xs text-[#4A6D5F] leading-relaxed">
-                <span className="font-bold text-[#064734] block mb-1">
-                  Editorial Research Note:
-                </span>
-                {software.sampleNotice}
+                </dl>
               </div>
             </div>
           </aside>
         </div>
 
-        {/* ---------------------------------------------------- */}
-        {/* SIMILAR SOFTWARE RECOMMENDATIONS                     */}
-        {/* ---------------------------------------------------- */}
-        <section className="mt-20 pt-12 border-t border-[#E5DAC8]">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#15803D] block mb-1">
-                Alternative Solutions
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-bold font-editorial text-[#064734]">
-                Similar Software for Gulf Businesses
-              </h2>
-            </div>
-            <Link
-              href="/reviews"
-              className="text-sm font-bold text-[#064734] hover:text-[#15803D] flex items-center gap-1"
+        {/* Quick facts */}
+        <dl className="mt-12 grid grid-cols-2 gap-2.5 md:grid-cols-5 lg:mt-16">
+          {figures.map((f) => (
+            <div
+              key={f.k}
+              className="flex flex-col-reverse justify-end rounded-[20px] bg-sand-soft px-4 py-4 last:col-span-2 sm:px-5 md:last:col-span-1"
             >
-              <span>All Reviews</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+              <dt className="mt-1.5 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.07em] text-[#7A5418]">{f.k}</dt>
+              <dd className="font-display text-[1.15rem] font-bold leading-tight tracking-[-0.015em] text-ink">
+                {f.v}
+                {f.unit && <span className="num text-[0.78rem] font-normal text-ink-3">{f.unit}</span>}
+              </dd>
+            </div>
+          ))}
+        </dl>
+
+        {isSample && software.sampleNotice && (
+          <p className="mt-5 flex flex-col gap-2 rounded-[20px] bg-paper-2 px-5 py-4 text-[0.88rem] leading-relaxed text-ink-2 sm:flex-row sm:items-baseline sm:gap-3">
+            <span className="tag shrink-0 self-start !bg-surface">Note</span>
+            <span>{software.sampleNotice}</span>
+          </p>
+        )}
+      </header>
+
+      {/* ------------------------------------------------------------ IN-PAGE NAV */}
+      <nav aria-label="In this review" className="sticky top-12 z-30 border-y-[1.5px] border-rule bg-paper/95 backdrop-saturate-150">
+        <div className="wrap flex items-center gap-2 overflow-x-auto py-2.5 scrollbar-none">
+          <span className="mr-1 hidden shrink-0 font-mono text-[0.66rem] font-semibold uppercase tracking-[0.08em] text-ink-3 sm:inline">
+            In this review
+          </span>
+          {toc.map((t, i) => (
+            <a key={t.id} href={`#${t.id}`} className="chip shrink-0 !min-h-[34px] hover:!border-terracotta hover:!text-terracotta">
+              <span className="num text-[0.72rem] text-terracotta">{pad2(i + 1)}</span>
+              {t.label}
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      {/* ------------------------------------------------------------ OVERVIEW, STRENGTHS, FEATURES */}
+      <div className="wrap space-y-20 py-16 lg:space-y-24 lg:py-20">
+        <section aria-labelledby="overview" className="grid scroll-mt-36 grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-4">
+            <SectionHead n={1} id="overview" title="Overview" />
+          </div>
+          <div className="prose-gsr lg:col-span-8">
+            <p>{software.description}</p>
+            <p>{analysis.summary}</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="strengths" className="scroll-mt-36">
+          <SectionHead n={2} id="strengths" title="Strengths and drawbacks" />
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="rounded-[28px] bg-teal-soft p-6 sm:p-8">
+              <h3 className="h-card text-[1.45rem] text-teal">What works</h3>
+              <ul className="mt-5 space-y-3">
+                {software.pros.map((pro, idx) => (
+                  <li key={idx} className="grid grid-cols-[1.75rem_1fr] gap-3 text-[0.98rem] leading-relaxed text-ink">
+                    <span aria-hidden="true" className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-teal text-[0.85rem] font-bold text-paper">
+                      +
+                    </span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-[28px] bg-terracotta-soft p-6 sm:p-8">
+              <h3 className="h-card text-[1.45rem] text-terracotta-deep">What to watch</h3>
+              <ul className="mt-5 space-y-3">
+                {software.cons.map((con, idx) => (
+                  <li key={idx} className="grid grid-cols-[1.75rem_1fr] gap-3 text-[0.98rem] leading-relaxed text-ink">
+                    <span aria-hidden="true" className="mt-0.5 flex h-7 w-7 items-center justify-center rounded-full bg-terracotta text-[0.85rem] font-bold text-white">
+                      −
+                    </span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="features" className="scroll-mt-36">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <SectionHead n={3} id="features" title="Feature scores" />
+            <p className="max-w-[46ch] text-ink-2 md:text-right">
+              Each area is scored out of 10 for how well it serves a business operating in the Gulf.
+            </p>
+          </div>
+          <ol className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2">
+            {software.keyFeatures.map((kf, idx) => (
+              <li key={idx} className="card flex flex-col p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="h-card text-[1.25rem]">
+                    <span className="num mr-2 text-[0.8rem] font-normal text-terracotta">{pad2(idx + 1)}</span>
+                    {kf.title}
+                  </h3>
+                  <span className="num shrink-0 text-[1.35rem] font-semibold leading-none">
+                    {kf.score.toFixed(1)}
+                    <span className="text-[0.75rem] font-normal text-ink-3">/10</span>
+                  </span>
+                </div>
+                <p className="mt-3 text-[0.93rem] leading-relaxed text-ink-2">{kf.description}</p>
+                <div className="mt-auto pt-5">
+                  <ScoreBar score={kf.score} />
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      </div>
+
+      {/* ------------------------------------------------------------ GULF READINESS — teal band */}
+      <Sadu from={C.paper} to={C.teal} accent={C.terracotta} />
+      <section aria-labelledby="readiness" className="scroll-mt-36 bg-teal text-teal-soft">
+        <div className="wrap py-16 lg:py-20">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <SectionHead n={4} id="readiness" title="Gulf readiness" tone="onColor" />
+            <p className="max-w-[46ch] md:text-right">Tax compliance, language, support and where your data lives.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {similarProducts.map((sim) => (
-              <SoftwareCard key={sim.id} software={sim} />
+          <dl className="mt-10 grid grid-cols-1 gap-3 md:grid-cols-2">
+            {readiness.map((r, i) => (
+              <div
+                key={r.k}
+                className={`rounded-[24px] bg-teal-deep p-6 ${readiness.length % 2 === 1 && i === readiness.length - 1 ? "md:col-span-2" : ""}`}
+              >
+                <dt className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-sand">{r.k}</dt>
+                <dd className="mt-2.5 text-[0.98rem] leading-relaxed text-teal-soft">{r.v}</dd>
+              </div>
             ))}
+          </dl>
+
+          <div className="mt-10 grid grid-cols-1 gap-8 md:grid-cols-2">
+            <div>
+              <h3 className="h-card text-[1.35rem] text-paper">Local compliance</h3>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {software.localCompliance.map((comp, i) => (
+                  <li key={i} className="inline-flex items-center gap-2 rounded-full bg-sand px-3.5 py-1.5 text-[0.88rem] font-medium text-ink">
+                    <span aria-hidden="true" className="text-teal">✓</span>
+                    {comp}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="h-card text-[1.35rem] text-paper">Local integrations</h3>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {software.localIntegrations.map((intg, i) => (
+                  <li key={i} className="rounded-full border-[1.5px] border-teal-soft/30 px-3.5 py-1.5 text-[0.88rem] text-teal-soft">
+                    {intg}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <Sadu from={C.teal} to={C.paper} accent={C.sand} />
+
+      {/* ------------------------------------------------------------ PRICING + VERDICT */}
+      <div className="wrap space-y-20 py-16 lg:space-y-24 lg:py-20">
+        <section aria-labelledby="pricing" className="scroll-mt-36">
+          <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <SectionHead n={5} id="pricing" title="Pricing" />
+            <p className="flex flex-wrap gap-2 md:justify-end">
+              <span className="tag tag-sand">{software.pricing.model}</span>
+              <span className="tag">{software.pricing.billingPeriod}</span>
+            </p>
+          </div>
+          <p className="mt-4 max-w-[64ch] text-ink-2">{software.pricing.regionalNote}</p>
+
+          <div
+            className={`mt-8 grid grid-cols-1 gap-4 ${tiers.length > 1 ? "md:grid-cols-2" : ""} ${
+              tiers.length > 2 ? "xl:grid-cols-3" : ""
+            }`}
+          >
+            {tiers.map((tier, idx) => {
+              const hot = Boolean(tier.highlight);
+              return (
+                <div
+                  key={idx}
+                  className={`flex flex-col rounded-[28px] p-6 sm:p-7 ${
+                    hot ? "bg-terracotta text-white" : "border-[1.5px] border-rule bg-surface"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="h-card text-[1.35rem]">{tier.name}</h3>
+                    {hot && <span className="tag shrink-0 !bg-sand !text-ink">Recommended</span>}
+                  </div>
+                  <p className="mt-5 leading-none">
+                    <span className="display text-[2.4rem]">{tier.price}</span>
+                    <span className={`num ml-1 text-[0.8rem] ${hot ? "text-white/75" : "text-ink-3"}`}>/{tier.period}</span>
+                  </p>
+                  {(tier.regionalEstimateSAR || tier.regionalEstimateAED) && (
+                    <p className={`num mt-2.5 text-[0.78rem] ${hot ? "text-sand" : "text-ink-3"}`}>
+                      ≈ {[tier.regionalEstimateSAR, tier.regionalEstimateAED].filter(Boolean).join(" · ")}
+                    </p>
+                  )}
+                  <p className={`mt-4 text-[0.93rem] leading-relaxed ${hot ? "text-white/85" : "text-ink-2"}`}>{tier.description}</p>
+                  <ul
+                    className={`mt-5 space-y-2.5 border-t-[1.5px] border-dashed pt-5 ${hot ? "border-white/30" : "border-rule"}`}
+                  >
+                    {tier.features.map((feat, fIdx) => (
+                      <li key={fIdx} className="grid grid-cols-[1.1rem_1fr] gap-2 text-[0.9rem]">
+                        <span aria-hidden="true" className={hot ? "text-sand" : "text-teal"}>
+                          ✓
+                        </span>
+                        {feat}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        <section aria-labelledby="verdict" className="scroll-mt-36">
+          <div className="rounded-[32px] bg-sand p-6 sm:p-10 lg:p-14">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
+              <div className="lg:col-span-8">
+                <p className="kicker kicker-accent">{pad2(6)}</p>
+                <h2 id="verdict" className="h-section mt-2">
+                  Verdict
+                </h2>
+                <p className="display mt-6 max-w-[22ch] text-[clamp(1.8rem,1.3rem+1.6vw,2.8rem)]">
+                  {software.verdict.badge}.
+                </p>
+              </div>
+              <div className="flex lg:col-span-4 lg:justify-end">
+                <span className="rounded-full bg-paper p-3">
+                  <ScoreDial score={software.verdict.score} size={136} color={C.terracotta} showMax />
+                </span>
+              </div>
+            </div>
+
+            <dl className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <div className="rounded-[22px] bg-paper p-6">
+                <dt className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-teal">Best for</dt>
+                <dd className="mt-2 text-[1rem] leading-relaxed text-ink">{software.verdict.bestFor}</dd>
+              </div>
+              <div className="rounded-[22px] bg-paper p-6">
+                <dt className="font-mono text-[0.7rem] font-semibold uppercase tracking-[0.08em] text-terracotta">
+                  Not recommended for
+                </dt>
+                <dd className="mt-2 text-[1rem] leading-relaxed text-ink">{software.verdict.notRecommendedFor}</dd>
+              </div>
+            </dl>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href={`/compare?a=${software.slug}`} className="btn btn-primary">
+                Compare {software.name} with others
+              </Link>
+              <a href={software.websiteUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                Visit {software.name} <span aria-hidden="true">↗</span>
+                <span className="sr-only">(opens in a new tab)</span>
+              </a>
+            </div>
           </div>
         </section>
       </div>
-    </div>
+
+      {/* ------------------------------------------------------------ ALTERNATIVES */}
+      {similarProducts.length > 0 && (
+        <>
+          <Sadu from={C.paper} to={C.tealSoft} accent={C.terracotta} />
+          <section aria-labelledby="alternatives-title" className="bg-teal-soft">
+            <div className="wrap py-16 lg:py-20">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <span className="tag !bg-paper !text-teal">Alternatives</span>
+                  <h2 id="alternatives-title" className="h-section mt-4 max-w-[24ch]">
+                    Other products to consider alongside {software.name}.
+                  </h2>
+                </div>
+                <Link href="/reviews" className="arrow-link">
+                  All reviews
+                </Link>
+              </div>
+              <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
+                {similarProducts.map((sim) => (
+                  <SoftwareCard key={sim.id} software={sim} />
+                ))}
+              </div>
+            </div>
+          </section>
+          <Sadu from={C.tealSoft} to={C.paper} accent={C.teal} />
+        </>
+      )}
+    </article>
   );
 }

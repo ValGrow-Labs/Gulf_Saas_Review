@@ -4,156 +4,73 @@ import React from "react";
 import Link from "next/link";
 import { Software } from "@/types";
 import { useApp } from "@/context/AppContext";
-import { Star, ArrowRight, Check, Plus, Globe2, ShieldCheck, CheckCircle2 } from "lucide-react";
+import Monogram from "./Monogram";
+import ScoreDial from "./ScoreDial";
+import { arabicLabel, billingSuffix, marketsLabel } from "@/lib/format";
 
 interface SoftwareCardProps {
   software: Software;
+  /** Kept for API compatibility. */
   compact?: boolean;
 }
 
 export default function SoftwareCard({ software }: SoftwareCardProps) {
   const { isInCompare, addToCompare, removeFromCompare } = useApp();
   const compared = isInCompare(software.slug);
+  const native = software.arabicSupport.startsWith("Native");
 
-  const handleCompareClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (compared) {
-      removeFromCompare(software.slug);
-    } else {
-      addToCompare(software.slug);
-    }
-  };
-
-  const getBillingSuffix = () => {
-    const price = software.pricing.startingPrice?.toLowerCase() || "";
-    if (price.includes("quote")) return "";
-    const period = software.pricing.billingPeriod?.toLowerCase() || "";
-    if (
-      period.includes("user") ||
-      period.includes("seat") ||
-      period.includes("agent") ||
-      period.includes("employee")
-    ) {
-      return "/user/mo";
-    }
-    return "/mo";
+  const toggleCompare = () => {
+    if (compared) removeFromCompare(software.slug);
+    else addToCompare(software.slug);
   };
 
   return (
-    <div className="group relative flex flex-col justify-between rounded-2xl border-2 border-[#E5DAC8] bg-white p-5 sm:p-6 transition-all duration-200 hover:border-[#064734] hover:shadow-md">
-      <div>
-        {/* Row 1: Brand Logo, Name, Category, Rating (Single Line, 2 Sizes Bigger) */}
-        <div className="flex items-center justify-between gap-3 pb-3 border-b-2 border-[#E5DAC8]/80">
-          <div className="flex items-center gap-3.5 min-w-0">
-            <div
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl font-extrabold text-white shadow-xs text-sm"
-              style={{ backgroundColor: software.accentColor || "#064734" }}
-            >
-              <span>{software.name.substring(0, 2).toUpperCase()}</span>
-            </div>
-
-            <div className="min-w-0">
+    <article className="group card card-hover relative flex h-full flex-col p-5 sm:p-6">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <Monogram name={software.name} color={software.accentColor} />
+          <div className="min-w-0">
+            <h3 className="h-card truncate text-[1.25rem]">
               <Link
                 href={`/reviews/${software.slug}`}
-                className="font-bold text-[#064734] text-lg sm:text-xl hover:text-[#15803D] transition-colors leading-snug truncate block"
-                title={software.name}
+                className="transition-colors after:absolute after:inset-0 after:rounded-[22px] after:content-[''] group-hover:text-terracotta"
               >
                 {software.name}
               </Link>
-              <span className="text-xs sm:text-sm font-bold text-[#15803D] block truncate">
-                {software.categoryName}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-1.5 rounded-lg bg-[#FFF8EF] px-2.5 py-1 text-sm sm:text-base font-bold text-[#064734] border-2 border-[#E5DAC8] shrink-0">
-            <Star className="h-4 w-4 fill-[#D97706] text-[#D97706]" />
-            <span>{software.rating.toFixed(1)}</span>
-            <span className="text-xs text-[#3C6152] font-medium">
-              ({software.reviewCount})
-            </span>
+            </h3>
+            <p className="truncate text-[0.82rem] text-ink-3">{software.categoryName}</p>
           </div>
         </div>
+        <ScoreDial score={software.verdict.score} size={54} />
+      </div>
 
-        {/* Row 2: Short & Simple Tagline (Visible & Readable) */}
-        <p className="mt-3 text-sm sm:text-base text-[#163A2E] font-semibold truncate" title={software.tagline}>
-          {software.tagline || software.description}
+      <p className="mt-4 min-h-[3em] text-[0.94rem] leading-relaxed text-ink-2 line-clamp-2">
+        {software.tagline || software.description}
+      </p>
+
+      <div className="mt-4 mb-5 flex flex-wrap gap-1.5">
+        <span className="tag tag-teal">{marketsLabel(software)}</span>
+        <span className={`tag ${native ? "tag-sand" : ""}`}>Arabic: {arabicLabel(software.arabicSupport)}</span>
+      </div>
+
+      <div className="mt-auto flex items-end justify-between gap-3 border-t-[1.5px] border-dashed border-rule pt-4">
+        <p className="leading-tight">
+          <span className="kicker block !text-[0.6rem]">From</span>
+          <span className="num text-[1.05rem] font-semibold text-ink">{software.pricing.startingPrice}</span>
+          <span className="num text-[0.78rem] text-ink-3">{billingSuffix(software)}</span>
         </p>
-
-        {/* Row 3: Regional Suitability & Arabic RTL (Large & Clear) */}
-        <div className="mt-3 flex items-center justify-between gap-2 text-xs sm:text-sm bg-[#F4ECE1] px-3 py-2 rounded-xl border border-[#E5DAC8]">
-          <div className="flex items-center gap-2 truncate text-[#064734] font-bold">
-            <span className="h-2 w-2 rounded-full bg-[#15803D] shrink-0" />
-            <span className="truncate">{software.countrySuitability.join(" • ")}</span>
-          </div>
-          <span className="shrink-0 text-[#15803D] font-bold">
-            {software.arabicSupport.includes("Native") ? "Arabic RTL: Native" : "Arabic: Partial"}
-          </span>
-        </div>
-
-        {/* Row 4: Single-Line Compliance Highlights (Visible & Punchy) */}
-        <div className="mt-2.5 space-y-1.5 text-xs sm:text-sm">
-          {software.localCompliance.slice(0, 2).map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-[#064734] font-semibold" title={item}>
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-[#15803D]" />
-              <span className="truncate">{item}</span>
-            </div>
-          ))}
-        </div>
+        <button
+          type="button"
+          onClick={toggleCompare}
+          aria-pressed={compared}
+          className={`relative z-10 inline-flex h-9 items-center gap-1.5 rounded-full px-3.5 text-[0.84rem] font-semibold transition-colors ${
+            compared ? "bg-terracotta text-white" : "bg-paper-2 text-ink hover:bg-sand-soft"
+          }`}
+        >
+          <span aria-hidden="true">{compared ? "✓" : "+"}</span>
+          {compared ? "Comparing" : "Compare"}
+        </button>
       </div>
-
-      {/* Row 5: Pricing & Big Action Buttons */}
-      <div className="mt-4 pt-3.5 border-t-2 border-[#E5DAC8] flex items-center justify-between gap-3">
-        <div className="min-w-0">
-          <span className="text-xs uppercase font-extrabold text-[#3C6152] block leading-none mb-1">
-            Starting Price
-          </span>
-          <div className="flex items-baseline gap-1 truncate">
-            <span className="text-lg sm:text-xl font-extrabold text-[#064734]">
-              {software.pricing.startingPrice}
-            </span>
-            {getBillingSuffix() && (
-              <span className="text-xs sm:text-sm font-bold text-[#3C6152]">
-                {getBillingSuffix()}
-              </span>
-            )}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            type="button"
-            onClick={handleCompareClick}
-            className={`inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold transition-all min-h-[40px] cursor-pointer shrink-0 ${
-              compared
-                ? "bg-[#064734] text-white shadow-xs"
-                : "border-2 border-[#E5DAC8] bg-white text-[#064734] hover:border-[#064734] hover:text-[#064734]"
-            }`}
-            title={compared ? "Remove from comparison" : "Add to comparison"}
-          >
-            {compared ? (
-              <>
-                <Check className="h-4 w-4 text-[#E0FFC2]" />
-                <span className="hidden sm:inline">Added</span>
-              </>
-            ) : (
-              <>
-                <Plus className="h-4 w-4" />
-                <span className="hidden sm:inline">Compare</span>
-              </>
-            )}
-          </button>
-
-          <Link
-            href={`/reviews/${software.slug}`}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-[#064734] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#043224] transition-colors min-h-[40px] shadow-xs shrink-0"
-          >
-            <span>Review</span>
-            <ArrowRight className="h-4 w-4 text-[#E0FFC2]" />
-          </Link>
-        </div>
-      </div>
-    </div>
+    </article>
   );
 }

@@ -4,186 +4,321 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
-import NavbarSearch from "./NavbarSearch";
 import { useApp } from "@/context/AppContext";
-import {
-  Menu,
-  X,
-  Scale,
-  ArrowUpRight,
-} from "lucide-react";
+import { newsSections } from "@/lib/news";
+
+const links = [
+  { name: "News", href: "/news" },
+  { name: "Reviews", href: "/reviews" },
+  { name: "Compare", href: "/compare" },
+  { name: "Guides", href: "/articles" },
+  { name: "About", href: "/about" },
+];
+
+function SearchIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" className={className} aria-hidden="true">
+      <circle cx="7" cy="7" r="4.75" fill="none" stroke="currentColor" strokeWidth="1.7" />
+      <path d="M10.5 10.5 L14 14" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function useDateline() {
+  const [date, setDate] = useState("");
+  useEffect(() => {
+    setDate(new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
+  }, []);
+  return date;
+}
+
+const searchHints = ["Odoo", "ZATCA e-invoicing", "payroll & WPS", "Arabic CRM", "Zoho vs HubSpot", "UAE VAT"];
+
+/**
+ * "Search …" with the example term sliding up every few seconds.
+ * Pure transform transition — no keyframes — so the global reduced-motion rule stills it.
+ */
+function RotatingSearchHint() {
+  const [i, setI] = useState(0);
+  const [instant, setInstant] = useState(false);
+
+  useEffect(() => {
+    const t = setInterval(() => {
+      setInstant(false);
+      setI((n) => n + 1);
+    }, 2600);
+    return () => clearInterval(t);
+  }, []);
+
+  // After sliding onto the duplicated first term, jump back to the real first term without animating.
+  const onEnd = () => {
+    if (i >= searchHints.length) {
+      setInstant(true);
+      setI(0);
+    }
+  };
+
+  const items = [...searchHints, searchHints[0]];
+
+  return (
+    <span aria-hidden="true" className="hidden text-[0.9rem] lg:block">
+      <span className="relative block h-[1.4em] w-[12.5rem] overflow-hidden text-left">
+        <span
+          onTransitionEnd={onEnd}
+          className={`absolute inset-x-0 top-0 flex flex-col ${
+            instant ? "" : "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          }`}
+          style={{ transform: `translateY(-${i * 1.4}em)` }}
+        >
+          {items.map((h, k) => (
+            <span key={k} className="block h-[1.4em] truncate leading-[1.4em] text-ink-3">
+              Search {h}
+            </span>
+          ))}
+        </span>
+      </span>
+    </span>
+  );
+}
 
 export default function Navigation() {
   const pathname = usePathname();
-  const { openSearch, compareSlugs, setIsCompareTrayOpen } = useApp();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { compareSlugs, setIsCompareTrayOpen, openSearch } = useApp();
+  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const dateline = useDateline();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 110);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => setMenuOpen(false), [pathname]);
+
   useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [pathname]);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "SaaS Reviews", href: "/reviews" },
-    { name: "Categories", href: "/categories" },
-    { name: "Comparisons", href: "/compare" },
-    { name: "Buyer Guides", href: "/articles" },
-    { name: "About Us", href: "/about" },
-  ];
-
-  const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    if (href === "/categories" && pathname.startsWith("/categories")) return true;
-    if (href === "/reviews" && pathname.startsWith("/reviews")) return true;
-    if (href === "/compare" && pathname.startsWith("/compare")) return true;
-    if (href === "/articles" && pathname.startsWith("/articles")) return true;
-    if (href === "/about" && pathname.startsWith("/about")) return true;
-    return pathname.startsWith(href);
-  };
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className={`w-full bg-[#FFF8EF] border-b-2 border-[#E5DAC8] sticky top-0 z-50 transition-all duration-200 ${scrolled ? "shadow-md bg-[#FFF8EF]/95 backdrop-blur-md" : ""}`}>
-      {/* MAIN MASTHEAD */}
-      <div className="bg-[#FFF8EF] py-3.5 sm:py-4 border-b border-[#E5DAC8]">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between gap-4">
-          {/* Brand Logo & Editorial Subtitle */}
-          <div className="flex items-center gap-4 sm:gap-6 min-w-0">
-            <Logo showTagline={false} />
-            <div className="hidden lg:block pl-5 border-l-2 border-[#E5DAC8]">
-              <span className="block text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#15803D]">
-                Middle East Software &amp; Tech Intelligence
-              </span>
-              <span className="text-sm sm:text-base text-[#064734] font-bold">
-                Independent Reviews • Regional Compliance • Vision 2030
-              </span>
-            </div>
-          </div>
-
-          {/* Right: Compare Tray & Mobile Hamburger Toggle */}
-          <div className="flex items-center gap-2.5 sm:gap-3.5 shrink-0">
-            {/* Compare Counter Pill */}
-            {compareSlugs.length > 0 && (
-              <button
-                onClick={() => setIsCompareTrayOpen(true)}
-                className="inline-flex items-center gap-2 h-10 px-3.5 rounded-xl text-sm font-bold bg-[#064734] text-[#E0FFC2] border border-[#E0FFC2]/50 hover:bg-[#0A5C44] transition-all shadow-xs cursor-pointer"
-                title="View selected software to compare"
-              >
-                <Scale className="h-4 w-4" />
-                <span className="hidden sm:inline">Compare</span>
-                <span>({compareSlugs.length})</span>
-              </button>
-            )}
-
-            {/* Mobile Hamburger Toggle */}
-            <button
-              type="button"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden inline-flex items-center justify-center h-10 w-10 rounded-xl text-[#064734] hover:bg-[#E5DAC8]/60 border border-[#E5DAC8] bg-white transition-colors cursor-pointer"
-              aria-expanded={isMobileMenuOpen}
-              aria-label="Toggle navigation menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
-              ) : (
-                <Menu className="h-5 w-5" />
-              )}
-            </button>
-          </div>
+    <>
+      {/* Teal dateline strip */}
+      <div className="bg-teal text-teal-soft">
+        <div className="wrap flex h-9 items-center justify-between gap-4 text-[0.78rem]">
+          <p className="num hidden min-w-[15rem] sm:block" suppressHydrationWarning>
+            {dateline}
+          </p>
+          <p lang="ar" dir="rtl" className="font-arabic text-[0.85rem] text-sand">
+            أخبار التقنية والبرمجيات في الخليج
+          </p>
+          <ul className="hidden items-center gap-3 font-mono text-[0.68rem] tracking-[0.08em] md:flex">
+            {["KSA", "UAE", "QAT", "KWT", "BHR", "OMN"].map((m) => (
+              <li key={m}>{m}</li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      {/* PRIMARY NAVIGATION BAR (WITH THE NEW SOFTWARE SEARCH BAR IN MARKED AREA) */}
-      <nav className="w-full bg-[#FFF8EF]/98 backdrop-blur-md">
-        <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="hidden lg:flex items-center justify-between h-12 sm:h-13">
-            {/* Nav links on the left */}
-            <div className="flex items-center gap-7 xl:gap-9 h-full">
-              {navLinks.map((link) => {
-                const active = isActive(link.href);
-                return (
+      {/* Main bar */}
+      <header className="bg-paper">
+        <div className="wrap flex h-[76px] items-center justify-between gap-6">
+          <Logo />
+
+          <p className="hidden max-w-[34ch] text-center text-[0.86rem] leading-snug text-ink-3 xl:block">
+            Business software and technology news from Saudi Arabia, the UAE and the Gulf
+          </p>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={openSearch}
+              aria-label="Search"
+              className="inline-flex h-11 items-center gap-2.5 rounded-full border-[1.5px] border-rule bg-surface px-4 text-ink-3 transition-colors hover:border-ink-3 hover:text-ink lg:pr-5"
+            >
+              <SearchIcon />
+              <RotatingSearchHint />
+            </button>
+
+            {compareSlugs.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setIsCompareTrayOpen(true)}
+                className="hidden h-11 items-center gap-2 rounded-full bg-paper-2 px-4 text-[0.9rem] font-semibold text-ink transition-colors hover:bg-sand-soft sm:inline-flex"
+              >
+                Compare
+                <span className="num grid h-5 min-w-5 place-items-center rounded-full bg-terracotta px-1 text-[0.7rem] text-white">
+                  {compareSlugs.length}
+                </span>
+              </button>
+            )}
+
+            <Link href="/#newsletter" className="btn btn-accent btn-sm hidden !min-h-11 sm:inline-flex">
+              Subscribe
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-ink text-paper lg:hidden"
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label="Open menu"
+            >
+              <span className="flex flex-col gap-[5px]" aria-hidden="true">
+                <span className="block h-[2px] w-4 rounded bg-current" />
+                <span className="block h-[2px] w-4 rounded bg-current" />
+              </span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Section bar — sticky, terracotta */}
+      <nav
+        aria-label="Sections"
+        className={`sticky top-0 z-50 bg-terracotta text-white transition-shadow duration-300 ${
+          scrolled ? "shadow-[0_10px_30px_-14px_rgba(31,25,21,0.55)]" : ""
+        }`}
+      >
+        <div className="wrap flex h-12 items-center gap-5">
+          <Link
+            href="/"
+            aria-label="Front page"
+            tabIndex={scrolled ? 0 : -1}
+            className={`hidden shrink-0 overflow-hidden font-display text-[1.05rem] font-extrabold tracking-[-0.04em] transition-[max-width,opacity] duration-300 lg:block ${
+              scrolled ? "max-w-[180px] opacity-100" : "max-w-0 opacity-0"
+            }`}
+          >
+            Gulf SaaS <span className="text-sand">Review</span>
+          </Link>
+          <ul className="-mx-1 flex flex-1 items-center gap-1 overflow-x-auto scrollbar-none text-[0.9rem] font-semibold">
+            <li>
+              <Link
+                href="/"
+                aria-current={pathname === "/" ? "page" : undefined}
+                className={`block whitespace-nowrap rounded-full px-3 py-1.5 transition-colors ${
+                  pathname === "/" ? "bg-sand text-ink" : "hover:bg-white/15"
+                }`}
+              >
+                Front page
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/news"
+                aria-current={isActive("/news") ? "page" : undefined}
+                className={`block whitespace-nowrap rounded-full px-3 py-1.5 transition-colors ${
+                  isActive("/news") ? "bg-sand text-ink" : "hover:bg-white/15"
+                }`}
+              >
+                Latest news
+              </Link>
+            </li>
+            {newsSections.map((sec) => (
+              <li key={sec.slug}>
+                <Link
+                  href={`/news?section=${sec.slug}`}
+                  className="block whitespace-nowrap rounded-full px-3 py-1.5 text-white/85 transition-colors hover:bg-white/15 hover:text-white"
+                >
+                  {sec.label}
+                </Link>
+              </li>
+            ))}
+            <li aria-hidden="true" className="mx-2 h-5 w-px shrink-0 bg-white/30" />
+            {links.filter((l) => l.href !== "/news").map((l) => {
+              const active = isActive(l.href);
+              return (
+                <li key={l.href}>
                   <Link
-                    key={link.name}
-                    href={link.href}
-                    className={`relative h-full flex items-center px-1 text-sm sm:text-base font-extrabold uppercase tracking-wide whitespace-nowrap transition-colors duration-150 ${
-                      active
-                        ? "text-[#064734]"
-                        : "text-[#3C6152] hover:text-[#064734]"
+                    href={l.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`block whitespace-nowrap rounded-full px-3 py-1.5 transition-colors ${
+                      active ? "bg-sand text-ink" : "hover:bg-white/15"
                     }`}
                   >
-                    <span>{link.name}</span>
-                    {active && (
-                      <span className="absolute bottom-0 left-0 right-0 h-[3px] bg-[#064734] rounded-full" />
-                    )}
+                    {l.name}
                   </Link>
-                );
-              })}
-            </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </nav>
 
-            {/* Right: The Marked Area - Brand New Software Search Bar! */}
-            <div className="flex items-center py-1">
-              <NavbarSearch />
+      {/* Mobile menu — full-screen teal sheet */}
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+          className="fixed inset-0 z-[65] overflow-y-auto bg-teal text-paper lg:hidden rise [animation-duration:300ms]"
+        >
+          <div className="wrap flex h-[72px] items-center justify-between">
+            <Logo variant="light" />
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-paper text-xl text-ink"
+              aria-label="Close menu"
+            >
+              ×
+            </button>
+          </div>
+          <div className="wrap pb-10 pt-4">
+            <nav aria-label="Mobile">
+              <ul>
+                {links.map((l) => (
+                  <li key={l.href} className="border-b border-white/15">
+                    <Link
+                      href={l.href}
+                      aria-current={isActive(l.href) ? "page" : undefined}
+                      className={`block py-3.5 font-display text-[2.4rem] font-bold tracking-[-0.04em] ${
+                        isActive(l.href) ? "text-sand" : "text-paper"
+                      }`}
+                    >
+                      {l.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <p className="kicker mt-8 !text-teal-soft">News sections</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {newsSections.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={`/news?section=${s.slug}`}
+                  className="rounded-full border-[1.5px] border-white/25 px-4 py-2 text-[0.9rem] text-paper hover:bg-white/10"
+                >
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+            <div className="mt-10 grid gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  openSearch();
+                }}
+                className="btn bg-paper text-ink"
+              >
+                <SearchIcon /> Search reviews and news
+              </button>
+              <Link href="/#newsletter" className="btn btn-sand">
+                Subscribe to the Sunday brief
+              </Link>
             </div>
           </div>
         </div>
-
-        {/* Mobile Navigation Drawer */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden border-b border-[#E5DAC8] bg-[#FFF8EF] px-4 pt-3 pb-6 shadow-2xl animate-in slide-in-from-top-2 duration-200">
-            {/* Mobile Software Search */}
-            <div className="mb-3.5">
-              <NavbarSearch />
-            </div>
-            <div className="space-y-1.5">
-              {navLinks.map((link) => {
-                const active = isActive(link.href);
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center justify-between rounded-xl px-4 py-3 text-base font-bold uppercase tracking-wider transition-colors min-h-[48px] ${
-                      active
-                        ? "bg-[#064734] text-white"
-                        : "text-[#064734] hover:bg-[#E5DAC8]/60"
-                    }`}
-                  >
-                    <span>{link.name}</span>
-                    {active && <span className="h-2.5 w-2.5 rounded-full bg-[#E0FFC2]" />}
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="mt-4 pt-4 border-t border-[#E5DAC8] flex flex-col gap-3">
-              <Link
-                href="/reviews"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full rounded-xl bg-[#064734] py-3 text-base font-bold text-white hover:bg-[#043224] min-h-[48px] flex items-center justify-center gap-2 shadow-xs"
-              >
-                <span>Browse Software Reviews</span>
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/compare"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="w-full rounded-xl border-2 border-[#E5DAC8] bg-white py-3 text-base font-bold text-[#064734] hover:border-[#064734] min-h-[48px] flex items-center justify-center gap-2 shadow-2xs"
-              >
-                <Scale className="h-4 w-4 text-[#15803D]" />
-                <span>Side-by-Side Comparisons</span>
-              </Link>
-            </div>
-          </div>
-        )}
-      </nav>
-    </header>
+      )}
+    </>
   );
 }

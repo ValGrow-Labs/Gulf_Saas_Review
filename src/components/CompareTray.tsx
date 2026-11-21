@@ -30,12 +30,12 @@ export default function CompareTray() {
 
   return (
     <div className="fixed bottom-3 sm:bottom-4 left-3 right-3 sm:left-1/2 sm:-translate-x-1/2 z-50 w-auto sm:w-[92%] sm:max-w-3xl animate-in slide-in-from-bottom-6 duration-300">
-      <div className="rounded-2xl border border-[#16A34A]/50 bg-[#0B3D2E] p-3 sm:p-4 text-[#FFF8EF] shadow-[0_20px_50px_rgba(11,61,46,0.45)] backdrop-blur-xl">
+      <div className="rounded-2xl border border-[#E0FFC2]/50 bg-[#064734] p-3 sm:p-4 text-[#FFF8EF] shadow-[0_20px_50px_rgba(11,61,46,0.45)] backdrop-blur-xl">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           {/* Left: Indicator & Items */}
           <div className="flex items-center gap-3 overflow-x-auto w-full sm:w-auto py-1">
-            <div className="flex items-center gap-2 border-r border-[#0E4B39] pr-3 shrink-0">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#16A34A]/20 text-[#22C55E]">
+            <div className="flex items-center gap-2 border-r border-[#0A5C44] pr-3 shrink-0">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#E0FFC2]/20 text-[#E0FFC2]">
                 <Scale className="h-4 w-4" />
               </div>
               <div className="flex flex-col">
@@ -53,16 +53,16 @@ export default function CompareTray() {
               {comparedSoftwares.map((sw) => (
                 <div
                   key={sw.id}
-                  className="flex items-center gap-2 rounded-lg bg-[#0E4B39] border border-[#135944] px-2.5 py-1 text-xs"
+                  className="flex items-center gap-2 rounded-lg bg-[#0A5C44] border border-[#0E6E52] px-2.5 py-1 text-xs"
                 >
                   <span
                     className="h-2 w-2 rounded-full"
-                    style={{ backgroundColor: sw.accentColor || "#16A34A" }}
+                    style={{ backgroundColor: sw.accentColor || "#E0FFC2" }}
                   />
                   <span className="font-semibold text-white">{sw.name}</span>
                   <button
                     onClick={() => removeFromCompare(sw.slug)}
-                    className="text-[#A3C2B8] hover:text-[#FFF8EF] transition-colors cursor-pointer"
+                    className="text-[#A5C2B6] hover:text-[#FFF8EF] transition-colors cursor-pointer"
                     aria-label={`Remove ${sw.name}`}
                   >
                     <X className="h-3 w-3" />
@@ -91,14 +91,14 @@ export default function CompareTray() {
 
             <Link
               href={compareUrl}
-              className={`inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-xs font-bold transition-all shadow-md w-full sm:w-auto min-h-[36px] ${
+              className={`inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-xs font-extrabold transition-all shadow-md w-full sm:w-auto min-h-[36px] ${
                 compareSlugs.length >= 2
-                  ? "bg-[#16A34A] text-white hover:bg-[#22C55E] active:scale-95"
-                  : "bg-[#0E4B39] text-[#FFF8EF]/60 pointer-events-none opacity-60"
+                  ? "bg-[#E0FFC2] text-[#064734] hover:bg-white hover:text-[#064734] active:scale-95"
+                  : "bg-[#0A5C44] text-[#FFF8EF]/60 pointer-events-none opacity-60"
               }`}
             >
               <span>Compare Side-by-Side</span>
-              <ArrowRight className="h-3.5 w-3.5 text-white" />
+              <ArrowRight className="h-3.5 w-3.5 text-[#064734]" />
             </Link>
           </div>
         </div>

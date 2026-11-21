@@ -1,100 +1,117 @@
 import React from "react";
 import Link from "next/link";
 import { articles } from "@/data/articles";
-import { FileText, Clock, ArrowRight, Newspaper } from "lucide-react";
+import { FileText, Clock, ArrowRight, Layers } from "lucide-react";
 
 export const metadata = {
-  title: "Insights & Guides for Middle East Business Technology | GulfSaasReview",
+  title: "Software Selection Guides & Compliance Playbooks | GulfSaasReview",
   description:
-    "Editorial analysis, compliance playbooks, and SaaS implementation guides for Saudi Arabia, UAE, and GCC business leaders.",
+    "In-depth research, regulatory compliance breakdowns (ZATCA Phase 2, UAE VAT, WPS), and executive software selection guides for Saudi Arabia, UAE, and GCC business leaders.",
 };
 
 export default function ArticlesPage() {
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 sm:pt-12 pb-12 sm:pb-14">
+      <div className="bg-[#FFF8EF] border-b-2 border-[#E5DAC8] pt-12 sm:pt-16 pb-14 sm:pb-16">
         <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#16A34A] mb-2.5">
+            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#15803D] mb-3">
               <FileText className="h-4 w-4" />
-              <span>Editorial Intelligence</span>
+              <span>Software Selection Guides</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
-              Insights for Smarter Business Technology
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-[#064734] tracking-tight">
+              Insights for Smarter Business Software Decisions
             </h1>
-            <p className="mt-2.5 text-sm sm:text-base text-[#354F44] leading-relaxed">
-              In-depth research, regulatory compliance breakdowns (ZATCA, UAE VAT, WPS), and executive software selection guides for the Gulf market.
+            <p className="mt-3 text-base sm:text-lg md:text-xl text-[#163A2E] font-medium leading-relaxed">
+              In-depth research, regulatory compliance breakdowns (Saudi ZATCA Phase 2, UAE Corporate Tax, WPS), and practical software evaluation playbooks for the Gulf market.
             </p>
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
-                href="/news"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#0B3D2E] px-4 py-2 text-xs sm:text-sm font-bold text-white hover:bg-[#16A34A] transition-colors shadow-xs"
+                href="/reviews"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#064734] px-6 py-3 text-sm sm:text-base font-bold text-white hover:bg-[#15803D] transition-colors shadow-xs"
               >
-                <Newspaper className="h-4 w-4 text-[#22C55E]" />
-                <span>Switch to Gulf Tech News Feed</span>
+                <Layers className="h-4 w-4 text-[#15803D]" />
+                <span>Browse All Software Reviews</span>
+              </Link>
+              <Link
+                href="/compare"
+                className="inline-flex items-center gap-2 rounded-xl border-2 border-[#E5DAC8] bg-white px-5 py-3 text-sm sm:text-base font-bold text-[#064734] hover:border-[#064734] transition-colors shadow-2xs"
+              >
+                <span>Compare Tools</span>
               </Link>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-10">
+      <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-10 sm:pt-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {articles.map((art) => (
             <article
               key={art.id}
-              className="group flex flex-col justify-between rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] overflow-hidden shadow-xs hover:border-[#16A34A] hover:shadow-md transition-all duration-300"
+              className="group flex flex-col justify-between rounded-2xl border-2 border-[#E5DAC8] bg-white overflow-hidden shadow-xs hover:border-[#064734] hover:shadow-md transition-all duration-300"
             >
               <div>
-                <div className="h-48 w-full bg-[#0B3D2E] p-6 flex flex-col justify-between text-white relative overflow-hidden">
-                  <span className="inline-block rounded-md bg-[#16A34A]/20 px-3 py-1 text-xs font-bold uppercase tracking-wider text-[#16A34A] border border-[#16A34A]/30 self-start">
+                <div className="h-52 w-full bg-[#064734] p-6 flex flex-col justify-between text-white relative overflow-hidden">
+                  <span className="inline-block rounded-lg bg-[#15803D]/25 px-3 py-1 text-xs sm:text-sm font-extrabold uppercase tracking-wider text-[#15803D] border border-[#064734]/40 self-start">
                     {art.category}
                   </span>
-                  <p className="font-editorial italic text-white text-xl font-normal line-clamp-2">
+                  <p className="font-serif italic text-white text-xl sm:text-2xl font-normal line-clamp-2">
                     &ldquo;{art.title}&rdquo;
                   </p>
                 </div>
 
                 <div className="p-6">
-                  <div className="flex items-center gap-3 text-sm text-[#5E7A6E] mb-3">
+                  <div className="flex items-center gap-3 text-xs sm:text-sm font-bold text-[#3C6152] mb-3">
                     <span>{art.publishedDate}</span>
                     <span>•</span>
-                    <span className="flex items-center gap-1">
-                      <Clock className="h-4 w-4 text-[#16A34A]" />
+                    <span className="flex items-center gap-1.5 text-[#15803D]">
+                      <Clock className="h-4 w-4" />
                       {art.readTime}
                     </span>
                   </div>
 
-                  <h2 className="text-lg sm:text-xl font-bold font-editorial text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors leading-snug">
-                    <Link href={`/news/${art.slug}`}>{art.title}</Link>
+                  <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#064734] group-hover:text-[#15803D] transition-colors leading-snug">
+                    <Link href={`/articles/${art.slug}`}>{art.title}</Link>
                   </h2>
 
-                  <p className="mt-3 text-[17px] sm:text-[18px] text-[#475569] leading-relaxed line-clamp-3">
+                  <p className="mt-3 text-sm sm:text-base text-[#163A2E] font-medium leading-relaxed line-clamp-3">
                     {art.excerpt}
                   </p>
+
+                  {art.keyTakeaways && art.keyTakeaways.length > 0 && (
+                    <div className="mt-4 pt-3.5 border-t-2 border-[#E5DAC8]/80 space-y-2">
+                      {art.keyTakeaways.slice(0, 2).map((takeaway, idx) => (
+                        <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm text-[#064734] font-semibold">
+                          <span className="h-2 w-2 rounded-full bg-[#15803D] mt-1.5 shrink-0" />
+                          <span className="line-clamp-1">{takeaway}</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
 
-              <div className="px-6 pb-6 pt-4 flex items-center justify-between border-t border-[#EAE2D5] mt-auto">
-                <div className="flex items-center gap-2.5">
-                  <div className="h-8 w-8 rounded-full bg-[#0B3D2E] text-[#16A34A] flex items-center justify-center font-bold text-xs border border-[#16A34A]/30">
+              <div className="px-6 pb-6 pt-4 flex items-center justify-between border-t-2 border-[#E5DAC8] mt-auto">
+                <div className="flex items-center gap-3">
+                  <div className="h-9 w-9 rounded-full bg-[#064734] text-[#15803D] flex items-center justify-center font-bold text-xs border border-[#064734]/30">
                     {art.author.name
                       .split(" ")
                       .map((n) => n[0])
                       .join("")}
                   </div>
-                  <span className="text-[15px] font-semibold text-[#0B3D2E]">
+                  <span className="text-sm sm:text-base font-bold text-[#064734]">
                     {art.author.name}
                   </span>
                 </div>
 
                 <Link
-                  href={`/news/${art.slug}`}
-                  className="inline-flex items-center gap-1.5 text-[15px] font-bold text-[#0B3D2E] group-hover:text-[#16A34A] transition-colors"
+                  href={`/articles/${art.slug}`}
+                  className="inline-flex items-center gap-1.5 text-sm sm:text-base font-bold text-[#064734] group-hover:text-[#15803D] transition-colors"
                 >
-                  <span>Read Briefing</span>
-                  <ArrowRight className="h-4 w-4 text-[#16A34A]" />
+                  <span>Read Guide</span>
+                  <ArrowRight className="h-4 w-4 text-[#15803D]" />
                 </Link>
               </div>
             </article>

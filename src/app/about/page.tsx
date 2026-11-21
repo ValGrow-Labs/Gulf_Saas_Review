@@ -18,17 +18,17 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header Banner */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 sm:pt-14 pb-12 sm:pb-16">
+      <div className="bg-[#FFF8EF] border-b border-[#E5DAC8] pt-10 sm:pt-14 pb-12 sm:pb-16">
         <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#16A34A] mb-3">
+            <div className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#15803D] mb-3">
               <ShieldCheck className="h-4 w-4" />
               <span>Independent Platform Mission</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#064734] tracking-tight leading-tight">
               Making business software decisions easier for companies across the Middle East.
             </h1>
-            <p className="mt-3 text-sm sm:text-base text-[#354F44] leading-relaxed">
+            <p className="mt-3 text-sm sm:text-base text-[#163A2E] leading-relaxed">
               GulfSaasReview was founded on a simple observation: global software review sites rarely evaluate whether a tool supports Saudi ZATCA e-invoicing, understands UAE Wage Protection Systems, or renders authentic Arabic typography.
             </p>
           </div>
@@ -39,20 +39,20 @@ export default function AboutPage() {
         {/* Three Core Pillars */}
         <section>
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-[15px] font-bold uppercase tracking-wider text-[#16A34A] block mb-2">
+            <span className="text-[15px] font-bold uppercase tracking-wider text-[#15803D] block mb-2">
               Our Foundations
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-editorial text-[#0B3D2E]">
+            <h2 className="text-3xl sm:text-4xl font-bold font-editorial text-[#064734]">
               Built on Three Uncompromising Standards
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-7 shadow-xs">
-              <div className="flex h-13 w-13 items-center justify-center rounded-xl bg-[#0B3D2E] text-[#16A34A] mb-5">
+            <div className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-7 shadow-xs">
+              <div className="flex h-13 w-13 items-center justify-center rounded-xl bg-[#064734] text-[#15803D] mb-5">
                 <ShieldCheck className="h-7 w-7" />
               </div>
-              <h3 className="text-xl font-bold text-[#0B3D2E] mb-2.5">
+              <h3 className="text-xl font-bold text-[#064734] mb-2.5">
                 1. Uncompromising Transparency
               </h3>
               <p className="text-[17px] text-[#475569] leading-relaxed">
@@ -60,11 +60,11 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-7 shadow-xs">
-              <div className="flex h-13 w-13 items-center justify-center rounded-xl bg-[#0B3D2E] text-[#16A34A] mb-5">
+            <div className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-7 shadow-xs">
+              <div className="flex h-13 w-13 items-center justify-center rounded-xl bg-[#064734] text-[#15803D] mb-5">
                 <Compass className="h-7 w-7" />
               </div>
-              <h3 className="text-xl font-bold text-[#0B3D2E] mb-2.5">
+              <h3 className="text-xl font-bold text-[#064734] mb-2.5">
                 2. Practical Regional Research
               </h3>
               <p className="text-[17px] text-[#475569] leading-relaxed">
@@ -72,11 +72,11 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-7 shadow-xs">
-              <div className="flex h-13 w-13 items-center justify-center rounded-xl bg-[#0B3D2E] text-[#16A34A] mb-5">
+            <div className="rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-7 shadow-xs">
+              <div className="flex h-13 w-13 items-center justify-center rounded-xl bg-[#064734] text-[#15803D] mb-5">
                 <Building2 className="h-7 w-7" />
               </div>
-              <h3 className="text-xl font-bold text-[#0B3D2E] mb-2.5">
+              <h3 className="text-xl font-bold text-[#064734] mb-2.5">
                 3. Gulf Market Relevance
               </h3>
               <p className="text-[17px] text-[#475569] leading-relaxed">
@@ -89,13 +89,13 @@ export default function AboutPage() {
         {/* Editorial Methodology Section */}
         <section
           id="methodology"
-          className="rounded-3xl border border-[#16A34A]/40 bg-[#FFF8EF] p-8 sm:p-12 shadow-sm"
+          className="rounded-3xl border border-[#064734]/40 bg-[#FFF8EF] p-8 sm:p-12 shadow-sm"
         >
           <div className="max-w-3xl mb-10">
-            <span className="text-[15px] font-bold uppercase tracking-wider text-[#16A34A] block mb-2">
+            <span className="text-[15px] font-bold uppercase tracking-wider text-[#15803D] block mb-2">
               Evaluation Rubric
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#064734]">
               How We Evaluate Software for the Gulf
             </h2>
             <p className="mt-3 text-[18px] sm:text-[19px] text-[#475569] leading-relaxed">
@@ -104,9 +104,9 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-            <div className="rounded-2xl border border-[#EAE2D5] bg-white p-7 shadow-2xs">
-              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#0B3D2E]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0B3D2E] text-white text-sm font-bold">
+            <div className="rounded-2xl border border-[#E5DAC8] bg-white p-7 shadow-2xs">
+              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#064734]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#064734] text-white text-sm font-bold">
                   1
                 </span>
                 <span>Regional Regulatory Compliance</span>
@@ -116,9 +116,9 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-[#EAE2D5] bg-white p-7 shadow-2xs">
-              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#0B3D2E]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0B3D2E] text-white text-sm font-bold">
+            <div className="rounded-2xl border border-[#E5DAC8] bg-white p-7 shadow-2xs">
+              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#064734]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#064734] text-white text-sm font-bold">
                   2
                 </span>
                 <span>Arabic Language &amp; RTL Localization</span>
@@ -128,9 +128,9 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-[#EAE2D5] bg-white p-7 shadow-2xs">
-              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#0B3D2E]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0B3D2E] text-white text-sm font-bold">
+            <div className="rounded-2xl border border-[#E5DAC8] bg-white p-7 shadow-2xs">
+              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#064734]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#064734] text-white text-sm font-bold">
                   3
                 </span>
                 <span>Regional Payment &amp; Ecosystem Integrations</span>
@@ -140,9 +140,9 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="rounded-2xl border border-[#EAE2D5] bg-white p-7 shadow-2xs">
-              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#0B3D2E]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0B3D2E] text-white text-sm font-bold">
+            <div className="rounded-2xl border border-[#E5DAC8] bg-white p-7 shadow-2xs">
+              <div className="flex items-center gap-2.5 mb-3.5 text-lg font-bold text-[#064734]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#064734] text-white text-sm font-bold">
                   4
                 </span>
                 <span>Data Residency &amp; Regional Support Availability</span>
@@ -155,9 +155,9 @@ export default function AboutPage() {
         </section>
 
         {/* Editorial Standards Notice */}
-        <section className="rounded-2xl border border-[#172B46] bg-[#0B3D2E] text-[#FFF8EF] p-8">
+        <section className="rounded-2xl border border-[#043224] bg-[#064734] text-[#FFF8EF] p-8">
           <div className="flex items-start gap-4">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#16A34A] text-[#0B3D2E]">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#15803D] text-[#064734]">
               <Scale className="h-6 w-6" />
             </div>
             <div>
@@ -175,10 +175,10 @@ export default function AboutPage() {
         <div className="text-center pt-4">
           <Link
             href="/reviews"
-            className="inline-flex items-center gap-2 rounded-xl bg-[#0B3D2E] px-8 py-4 text-[17px] font-bold text-[#FFF8EF] hover:bg-[#172B46] shadow-sm min-h-[50px]"
+            className="inline-flex items-center gap-2 rounded-xl bg-[#064734] px-8 py-4 text-[17px] font-bold text-[#FFF8EF] hover:bg-[#043224] shadow-sm min-h-[50px]"
           >
             <span>Explore Gulf Software Directory</span>
-            <ArrowRight className="h-5 w-5 text-[#16A34A]" />
+            <ArrowRight className="h-5 w-5 text-[#15803D]" />
           </Link>
         </div>
       </div>

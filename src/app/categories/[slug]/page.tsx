@@ -55,35 +55,35 @@ export default async function CategoryDetailPage({
   return (
     <div className="min-h-screen bg-[#FFF8EF] pb-24">
       {/* Header */}
-      <div className="bg-[#FFF8EF] border-b border-[#EAE2D5] pt-10 pb-12 sm:pb-14">
+      <div className="bg-[#FFF8EF] border-b border-[#E5DAC8] pt-10 pb-12 sm:pb-14">
         <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12">
           <Link
             href="/categories"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#5E7A6E] hover:text-[#0B3D2E] mb-5 transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#4A6D5F] hover:text-[#064734] mb-5 transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>All Categories</span>
           </Link>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#16A34A]/50 bg-[#EAF5ED] px-3.5 py-1 text-xs font-bold text-[#0B3D2E] mb-3">
-              <Layers className="h-4 w-4 text-[#16A34A]" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#064734]/50 bg-[#E0FFC2] px-3.5 py-1 text-xs font-bold text-[#064734] mb-3">
+              <Layers className="h-4 w-4 text-[#15803D]" />
               <span>{matchingSoftware.length} Evaluated Solutions</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#0B3D2E] tracking-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-editorial text-[#064734] tracking-tight">
               {category.name} Software in the Gulf
             </h1>
 
-            <p className="mt-2.5 text-sm sm:text-base text-[#354F44] leading-relaxed">
+            <p className="mt-2.5 text-sm sm:text-base text-[#163A2E] leading-relaxed">
               {category.description}
             </p>
 
-            <div className="mt-5 rounded-2xl bg-white border border-[#EAE2D5] p-4 sm:p-5 text-xs sm:text-sm shadow-2xs">
-              <span className="font-bold text-[#0B3D2E] block mb-1">
+            <div className="mt-5 rounded-2xl bg-white border border-[#E5DAC8] p-4 sm:p-5 text-xs sm:text-sm shadow-2xs">
+              <span className="font-bold text-[#064734] block mb-1">
                 Regional Gulf Context &amp; Relevance:
               </span>
-              <p className="text-[#354F44] leading-relaxed">
+              <p className="text-[#163A2E] leading-relaxed">
                 {category.gulfRelevance}
               </p>
             </div>
@@ -94,10 +94,10 @@ export default async function CategoryDetailPage({
       {/* Software Listings in this Category */}
       <div className="mx-auto max-w-[1536px] px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-10">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-6 sm:mb-8">
-          <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E]">
+          <h2 className="text-xl sm:text-2xl font-bold font-editorial text-[#064734]">
             Reviewed {category.name} Tools
           </h2>
-          <span className="text-xs sm:text-sm font-semibold text-[#5E7A6E]">
+          <span className="text-xs sm:text-sm font-semibold text-[#4A6D5F]">
             Sorted by Gulf regional suitability
           </span>
         </div>
@@ -109,8 +109,8 @@ export default async function CategoryDetailPage({
         </div>
 
         {/* Category Key Criteria Box */}
-        <div className="mt-16 rounded-2xl border border-[#EAE2D5] bg-[#FFF8EF] p-6 sm:p-8">
-          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#0B3D2E] mb-5">
+        <div className="mt-16 rounded-2xl border border-[#E5DAC8] bg-[#FFF8EF] p-6 sm:p-8">
+          <h3 className="text-xl sm:text-2xl font-bold font-editorial text-[#064734] mb-5">
             Buyer&apos;s Checklist for {category.name} in Saudi Arabia &amp; UAE
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

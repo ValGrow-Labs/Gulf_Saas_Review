@@ -52,14 +52,14 @@ export default function ContactForm() {
     return (
       <div className="rounded-2xl border border-emerald-500/50 bg-emerald-50/70 p-8 text-center animate-in zoom-in-95 duration-200">
         <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-600 mb-3" />
-        <h3 className="text-2xl font-bold font-editorial text-[#0B3D2E]">
+        <h3 className="text-2xl font-bold font-editorial text-[#064734]">
           Message Successfully Received
         </h3>
         <p className="mt-2 text-[17px] text-[#334155] max-w-md mx-auto leading-relaxed">
-          Thank you, <strong className="text-[#0B3D2E]">{formData.name}</strong>. Your inquiry regarding &ldquo;{formData.subject || formData.inquiryType}&rdquo; has been routed to our regional editorial desk in Riyadh and Dubai.
+          Thank you, <strong className="text-[#064734]">{formData.name}</strong>. Your inquiry regarding &ldquo;{formData.subject || formData.inquiryType}&rdquo; has been routed to our regional editorial desk in Riyadh and Dubai.
         </p>
         <p className="mt-2 text-[16px] text-[#475569]">
-          We will contact you at <strong className="text-[#0B3D2E]">{formData.email}</strong> shortly.
+          We will contact you at <strong className="text-[#064734]">{formData.email}</strong> shortly.
         </p>
 
         <button
@@ -74,7 +74,7 @@ export default function ContactForm() {
               message: "",
             });
           }}
-          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#0B3D2E] px-6 py-3.5 text-[16px] font-bold text-white hover:bg-[#172B46] transition-colors"
+          className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#064734] px-6 py-3.5 text-[16px] font-bold text-white hover:bg-[#043224] transition-colors"
         >
           <span>Send Another Message</span>
         </button>
@@ -94,7 +94,7 @@ export default function ContactForm() {
       {/* Row 1: Name & Email */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="text-[16px] font-bold text-[#0B3D2E] block mb-2">
+          <label className="text-[16px] font-bold text-[#064734] block mb-2">
             Full Name <span className="text-rose-500">*</span>
           </label>
           <input
@@ -104,12 +104,12 @@ export default function ContactForm() {
             onChange={handleChange}
             placeholder="e.g. Faisal Al-Harbi"
             required
-            className="w-full rounded-xl border border-[#EAE2D5] bg-white px-4 py-3.5 text-[17px] text-[#0B3D2E] placeholder-[#64748B] focus:border-[#16A34A] focus:outline-none min-h-[48px]"
+            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
           />
         </div>
 
         <div>
-          <label className="text-[16px] font-bold text-[#0B3D2E] block mb-2">
+          <label className="text-[16px] font-bold text-[#064734] block mb-2">
             Business Email <span className="text-rose-500">*</span>
           </label>
           <input
@@ -119,7 +119,7 @@ export default function ContactForm() {
             onChange={handleChange}
             placeholder="faisal@company.sa"
             required
-            className="w-full rounded-xl border border-[#EAE2D5] bg-white px-4 py-3.5 text-[17px] text-[#0B3D2E] placeholder-[#64748B] focus:border-[#16A34A] focus:outline-none min-h-[48px]"
+            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
           />
         </div>
       </div>
@@ -127,7 +127,7 @@ export default function ContactForm() {
       {/* Row 2: Company & Inquiry Type */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
-          <label className="text-[16px] font-bold text-[#0B3D2E] block mb-2">
+          <label className="text-[16px] font-bold text-[#064734] block mb-2">
             Company Name
           </label>
           <input
@@ -136,19 +136,19 @@ export default function ContactForm() {
             value={formData.company}
             onChange={handleChange}
             placeholder="e.g. Al-Riyadh Logistics"
-            className="w-full rounded-xl border border-[#EAE2D5] bg-white px-4 py-3.5 text-[17px] text-[#0B3D2E] placeholder-[#64748B] focus:border-[#16A34A] focus:outline-none min-h-[48px]"
+            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
           />
         </div>
 
         <div>
-          <label className="text-[16px] font-bold text-[#0B3D2E] block mb-2">
+          <label className="text-[16px] font-bold text-[#064734] block mb-2">
             Inquiry Topic
           </label>
           <select
             name="inquiryType"
             value={formData.inquiryType}
             onChange={handleChange}
-            className="w-full rounded-xl border border-[#EAE2D5] bg-white px-4 py-3.5 text-[16px] font-semibold text-[#0B3D2E] focus:border-[#16A34A] focus:outline-none min-h-[48px]"
+            className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[16px] font-semibold text-[#064734] focus:border-[#064734] focus:outline-none min-h-[48px]"
           >
             <option value="Vendor Review Request">Vendor Review Request (Listing)</option>
             <option value="Editorial Inquiry">Editorial &amp; Research Inquiry</option>
@@ -161,7 +161,7 @@ export default function ContactForm() {
 
       {/* Subject */}
       <div>
-        <label className="text-[16px] font-bold text-[#0B3D2E] block mb-2">
+        <label className="text-[16px] font-bold text-[#064734] block mb-2">
           Subject
         </label>
         <input
@@ -170,13 +170,13 @@ export default function ContactForm() {
           value={formData.subject}
           onChange={handleChange}
           placeholder="Brief summary of your inquiry"
-          className="w-full rounded-xl border border-[#EAE2D5] bg-white px-4 py-3.5 text-[17px] text-[#0B3D2E] placeholder-[#64748B] focus:border-[#16A34A] focus:outline-none min-h-[48px]"
+          className="w-full rounded-xl border border-[#E5DAC8] bg-white px-4 py-3.5 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none min-h-[48px]"
         />
       </div>
 
       {/* Message */}
       <div>
-        <label className="text-[16px] font-bold text-[#0B3D2E] block mb-2">
+        <label className="text-[16px] font-bold text-[#064734] block mb-2">
           Message <span className="text-rose-500">*</span>
         </label>
         <textarea
@@ -186,7 +186,7 @@ export default function ContactForm() {
           onChange={handleChange}
           placeholder="Please share details regarding your inquiry, regional market questions, or software specifications..."
           required
-          className="w-full rounded-xl border border-[#EAE2D5] bg-white p-4 text-[17px] text-[#0B3D2E] placeholder-[#64748B] focus:border-[#16A34A] focus:outline-none"
+          className="w-full rounded-xl border border-[#E5DAC8] bg-white p-4 text-[17px] text-[#064734] placeholder-[#64748B] focus:border-[#064734] focus:outline-none"
         />
       </div>
 
@@ -195,9 +195,9 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "loading"}
-          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B3D2E] px-8 py-4 text-[17px] font-bold text-[#FFF8EF] hover:bg-[#172B46] active:scale-98 transition-all shadow-sm w-full sm:w-auto cursor-pointer min-h-[50px]"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#064734] px-8 py-4 text-[17px] font-bold text-[#FFF8EF] hover:bg-[#043224] active:scale-98 transition-all shadow-sm w-full sm:w-auto cursor-pointer min-h-[50px]"
         >
-          <Send className="h-5 w-5 text-[#16A34A]" />
+          <Send className="h-5 w-5 text-[#15803D]" />
           <span>{status === "loading" ? "Submitting..." : "Send Message to Editorial Desk"}</span>
         </button>
       </div>

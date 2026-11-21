@@ -44,14 +44,14 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
 
   return (
     <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
-      <span className="text-[#5E7A6E] uppercase tracking-wider font-bold mr-1 flex items-center gap-1">
+      <span className="text-[#4A6D5F] uppercase tracking-wider font-bold mr-1 flex items-center gap-1">
         <Share2 className="h-3.5 w-3.5" />
         <span>Share:</span>
       </span>
 
       <button
         onClick={handleCopy}
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#EAE2D5] bg-white text-[#0B3D2E] hover:border-[#16A34A] hover:bg-[#FFF8EF] transition-colors cursor-pointer"
+        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-[#15803D] hover:bg-[#FFF8EF] transition-colors cursor-pointer"
         title="Copy article link"
       >
         {copied ? (
@@ -61,7 +61,7 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
           </>
         ) : (
           <>
-            <Copy className="h-3.5 w-3.5 text-[#5E7A6E]" />
+            <Copy className="h-3.5 w-3.5 text-[#4A6D5F]" />
             <span>Copy Link</span>
           </>
         )}
@@ -69,7 +69,7 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
 
       <button
         onClick={handleShareLinkedIn}
-        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#EAE2D5] bg-white text-[#0B3D2E] hover:border-[#0077b5] hover:text-[#0077b5] transition-colors cursor-pointer"
+        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-[#0077b5] hover:text-[#0077b5] transition-colors cursor-pointer"
         title="Share on LinkedIn"
       >
         <span>LinkedIn</span>
@@ -77,7 +77,7 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
 
       <button
         onClick={handleShareTwitter}
-        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#EAE2D5] bg-white text-[#0B3D2E] hover:border-black hover:text-black transition-colors cursor-pointer"
+        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-black hover:text-black transition-colors cursor-pointer"
         title="Share on X"
       >
         <span>X (Twitter)</span>
@@ -85,7 +85,7 @@ export default function ShareButtons({ title }: ShareButtonsProps) {
 
       <button
         onClick={handleShareWhatsApp}
-        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#EAE2D5] bg-white text-[#0B3D2E] hover:border-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer"
+        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-[#E5DAC8] bg-white text-[#064734] hover:border-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer"
         title="Share on WhatsApp"
       >
         <MessageCircle className="h-3.5 w-3.5 text-emerald-600" />

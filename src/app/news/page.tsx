@@ -1,18 +1,5 @@
-import React, { Suspense } from "react";
-import type { Metadata } from "next";
-import NewsClient from "./NewsClient";
-
-export const metadata: Metadata = {
-  title: "Gulf Technology News & SaaS Dispatches",
-  description:
-    "Real-time business technology reporting across Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, and Oman. Daily updates on AI, sovereign cloud, enterprise SaaS, and startup venture capital.",
-};
+import { redirect } from "next/navigation";
 
 export default function NewsPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FFF8EF] p-12 text-center text-[#0B3D2E]">Loading GCC technology news...</div>}>
-      <NewsClient />
-    </Suspense>
-  );
+  redirect("/reviews");
 }
-

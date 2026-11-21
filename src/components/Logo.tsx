@@ -20,15 +20,15 @@ export default function Logo({
       className={`group inline-flex items-center gap-3 transition-opacity hover:opacity-95 whitespace-nowrap shrink-0 ${className}`}
       aria-label="GulfSaasReview Homepage"
     >
-      {/* Custom Geometric Gulf-inspired Emblem in Forest Green & Leaf Green */}
-      <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-xl bg-[#0B3D2E] border border-[#16A34A]/50 shadow-sm transition-transform duration-300 group-hover:scale-105">
+      {/* Custom Geometric Gulf-inspired Emblem in Forest & Leaf */}
+      <div className="relative flex h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11 shrink-0 items-center justify-center rounded-xl bg-[#064734] border border-[#E0FFC2]/60 shadow-sm transition-transform duration-300 group-hover:scale-105">
         <svg
           viewBox="0 0 40 40"
           className="h-5 w-5 sm:h-6 sm:w-6 md:h-6.5 md:w-6.5"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          {/* Geometric 8-Point Gulf Star Lattice in Leaf Green */}
+          {/* Geometric 8-Point Gulf Star Lattice in Leaf */}
           <rect
             x="9"
             y="9"
@@ -36,9 +36,9 @@ export default function Logo({
             height="22"
             rx="2"
             transform="rotate(45 20 20)"
-            stroke="#16A34A"
+            stroke="#E0FFC2"
             strokeWidth="1.5"
-            strokeOpacity="0.9"
+            strokeOpacity="0.95"
           />
           <rect
             x="11"
@@ -53,7 +53,7 @@ export default function Logo({
           {/* Central Geometric Apex */}
           <path
             d="M20 12L25 21H15L20 12Z"
-            fill="#22C55E"
+            fill="#E0FFC2"
             fillOpacity="0.95"
           />
           <path
@@ -70,19 +70,23 @@ export default function Logo({
         <div className="flex items-baseline tracking-tight leading-none">
           <span
             className={`font-extrabold text-[1.18rem] sm:text-[1.3rem] md:text-[1.38rem] tracking-tight ${
-              isLight ? "text-[#FFF8EF]" : "text-[#0B3D2E]"
+              isLight ? "text-[#FFF8EF]" : "text-[#064734]"
             }`}
           >
             GulfSaas
           </span>
-          <span className="font-sans font-bold text-[#16A34A] ml-1 text-[1.22rem] sm:text-[1.35rem] md:text-[1.44rem] tracking-tight">
+          <span
+            className={`font-sans font-bold ml-1 text-[1.22rem] sm:text-[1.35rem] md:text-[1.44rem] tracking-tight ${
+              isLight ? "text-[#E0FFC2]" : "text-[#15803D]"
+            }`}
+          >
             Review
           </span>
         </div>
         {showTagline ? (
           <span
             className={`text-[11px] tracking-[0.16em] uppercase font-bold mt-1 ${
-              isLight ? "text-[#FFF8EF]/80" : "text-[#5E7A6E]"
+              isLight ? "text-[#FFF8EF]/80" : "text-[#4A6D5F]"
             }`}
           >
             Middle East Tech &amp; SaaS Reviews
@@ -90,7 +94,7 @@ export default function Logo({
         ) : (
           <span
             className={`text-[10.5px] tracking-[0.18em] uppercase font-bold mt-0.5 ${
-              isLight ? "text-[#22C55E]" : "text-[#5E7A6E]"
+              isLight ? "text-[#E0FFC2]" : "text-[#15803D]"
             }`}
           >
             GCC Software &amp; Tech Intelligence

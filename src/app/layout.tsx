@@ -3,7 +3,6 @@ import { Plus_Jakarta_Sans, Lora } from "next/font/google";
 import "./globals.css";
 import { AppProvider } from "@/context/AppContext";
 import Navigation from "@/components/Navigation";
-import BreakingNewsTicker from "@/components/BreakingNewsTicker";
 import Footer from "@/components/Footer";
 import CompareTray from "@/components/CompareTray";
 import SearchModal from "@/components/SearchModal";
@@ -31,25 +30,24 @@ export const viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "GulfSaasReview | Gulf Business Technology & SaaS News Journal",
+    default: "GulfSaasReview | Gulf Business Software & SaaS Intelligence",
     template: "%s | GulfSaasReview",
   },
   description:
-    "Leading Gulf business technology, artificial intelligence, and enterprise software publication. Dedicated coverage of Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, and Oman.",
+    "Leading Gulf business software directory and SaaS evaluation platform. Dedicated independent reviews, ZATCA e-invoicing compliance, and side-by-side software comparisons for Saudi Arabia, UAE, Qatar, Kuwait, Bahrain, and Oman.",
   keywords: [
-    "Gulf technology news",
-    "Saudi Arabia AI",
-    "Dubai AI Campus",
-    "Middle East B2B SaaS",
-    "ZATCA compliance",
-    "GCC cloud computing",
+    "Gulf SaaS reviews",
+    "Saudi Arabia business software",
+    "UAE B2B software",
+    "ZATCA compliance software",
+    "GCC cloud accounting",
     "Gulf software comparisons",
-    "Arab business tech journal",
+    "Middle East CRM ERP",
   ],
   authors: [{ name: "GulfSaasReview Editorial Board" }],
   openGraph: {
-    title: "GulfSaasReview — Gulf Business Technology & SaaS Intelligence",
-    description: "Daily reporting on artificial intelligence, sovereign cloud, enterprise software reviews, and market comparisons across KSA, UAE, and the GCC.",
+    title: "GulfSaasReview — Gulf Business Software & SaaS Intelligence",
+    description: "Independent reviews, regional compliance verification (ZATCA, UAE VAT, WPS), and software comparisons across KSA, UAE, and the GCC.",
     url: "https://gulfsaasreview.com",
     siteName: "GulfSaasReview",
     locale: "en_US",
@@ -68,10 +66,9 @@ export default function RootLayout({
       className={`${sans.variable} ${serif.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body className="min-h-screen flex flex-col bg-[#FFF8EF] text-[#0B3D2E] font-sans antialiased overflow-x-hidden selection:bg-[#16A34A]/25 selection:text-[#0B3D2E]">
+      <body className="min-h-screen flex flex-col bg-[#FFF8EF] text-[#064734] font-sans antialiased overflow-x-clip selection:bg-[#E0FFC2] selection:text-[#064734]">
         <AppProvider>
           <Navigation />
-          <BreakingNewsTicker />
           <main className="flex-1">{children}</main>
           <Footer />
           <CompareTray />

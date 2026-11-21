@@ -12,7 +12,7 @@ export default function ReviewsPage() {
     <Suspense
       fallback={
         <div className="min-h-screen flex items-center justify-center bg-[#FFF8EF]">
-          <div className="text-sm font-semibold text-[#0B3D2E]">
+          <div className="text-sm font-semibold text-[#064734]">
             Loading Gulf software directory...
           </div>
         </div>

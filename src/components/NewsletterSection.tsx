@@ -25,13 +25,13 @@ export default function NewsletterSection() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-[#0B3D2E] py-10 sm:py-14 text-[#FFF8EF]">
+    <section className="relative w-full overflow-hidden bg-[#064734] py-10 sm:py-14 text-[#FFF8EF]">
       {/* Subtle geometric background watermarks */}
-      <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#0E4B39] blur-3xl opacity-60 pointer-events-none" />
-      <div className="absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-[#22C55E]/15 blur-3xl pointer-events-none" />
+      <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#0A5C44] blur-3xl opacity-60 pointer-events-none" />
+      <div className="absolute -left-20 -bottom-20 h-72 w-72 rounded-full bg-[#E0FFC2]/15 blur-3xl pointer-events-none" />
 
       <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-1.5 rounded-full border border-[#22C55E]/40 bg-[#0E4B39] px-3.5 py-1 text-xs font-bold text-[#22C55E] mb-3">
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-[#E0FFC2]/50 bg-[#0A5C44] px-3.5 py-1 text-xs font-bold #E0FFC2 mb-3">
           <Mail className="h-3.5 w-3.5" />
           <span>Bi-Weekly GCC Software Intelligence</span>
         </div>
@@ -56,7 +56,7 @@ export default function NewsletterSection() {
                 setStatus("idle");
                 setEmail("");
               }}
-              className="mt-3 text-xs font-semibold text-[#22C55E] hover:underline cursor-pointer"
+              className="mt-3 text-xs font-semibold #E0FFC2 hover:underline cursor-pointer"
             >
               Subscribe another business email &rarr;
             </button>
@@ -72,7 +72,7 @@ export default function NewsletterSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your corporate email"
-                className="w-full rounded-xl border border-[#0E4B39] bg-[#07261D] px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-[#A3C2B8] focus:border-[#22C55E] focus:outline-none focus:ring-1 focus:ring-[#22C55E] min-h-[44px]"
+                className="w-full rounded-xl border border-[#0A5C44] bg-[#043224] px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-[#A5C2B6] focus:border-[#E0FFC2] focus:outline-none focus:ring-1 focus:ring-[#E0FFC2] min-h-[44px]"
                 required
               />
             </div>
@@ -81,7 +81,7 @@ export default function NewsletterSection() {
               <select
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
-                className="w-full rounded-xl border border-[#0E4B39] bg-[#07261D] px-3 py-2.5 text-xs sm:text-sm text-[#FFF8EF] font-semibold focus:border-[#22C55E] focus:outline-none min-h-[44px] cursor-pointer"
+                className="w-full rounded-xl border border-[#0A5C44] bg-[#043224] px-3 py-2.5 text-xs sm:text-sm text-[#FFF8EF] font-semibold focus:border-[#E0FFC2] focus:outline-none min-h-[44px] cursor-pointer"
               >
                 <option value="Saudi Arabia">Saudi Arabia (KSA)</option>
                 <option value="UAE">UAE (Dubai &amp; AD)</option>
@@ -92,10 +92,10 @@ export default function NewsletterSection() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#16A34A] px-6 py-2.5 text-xs sm:text-sm font-bold text-white hover:bg-[#22C55E] active:scale-95 transition-all shadow-md shrink-0 cursor-pointer min-h-[44px]"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#E0FFC2] text-[#064734] hover:bg-white hover:text-[#064734] px-7 py-2.5 text-sm sm:text-base font-extrabold active:scale-95 transition-all shadow-md shrink-0 cursor-pointer min-h-[46px] border border-[#BDE895]"
             >
               <span>{status === "loading" ? "Subscribing..." : "Subscribe"}</span>
-              <ArrowRight className="h-4 w-4" />
+              <ArrowRight className="h-4 w-4 text-[#064734]" />
             </button>
           </form>
         )}
@@ -106,7 +106,7 @@ export default function NewsletterSection() {
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-[11px] text-[#FFF8EF]/70">
           <span className="flex items-center gap-1">
-            <ShieldCheck className="h-3.5 w-3.5 text-[#22C55E]" />
+            <ShieldCheck className="h-3.5 w-3.5 text-[#E0FFC2]" />
             No marketing spam. Unsubscribe anytime.
           </span>
           <span>•</span>

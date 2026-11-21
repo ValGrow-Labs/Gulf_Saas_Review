@@ -3,56 +3,76 @@
 @theme {
   --font-sans: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-serif: var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-editorial: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-editorial: var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
 
-  /* Theme: Cream White (#FFF8EF) & Forest Green (#0B3D2E) with Leaf Green Accents */
-  --color-forest-green: #0B3D2E;
-  --color-forest-dark: #07261D;
-  --color-forest-surface: #0E4B39;
-  --color-forest-card: #093326;
-  --color-forest-border: #135944;
+  /* Theme: Forest (#064734), Leaf (#E0FFC2), Cream (#FFF8EF) */
+  --color-forest: #064734;
+  --color-forest-dark: #043224;
+  --color-forest-deepest: #022017;
+  --color-forest-surface: #0A5C44;
+  --color-forest-card: #053B2B;
+  --color-forest-border: #0E6E52;
 
-  --color-cream-white: #FFF8EF;
-  --color-cream: #FBF4E8;
-  --color-light-cream: #FFFDF9;
-  --color-card-cream: #FFFFFF;
-
-  --color-leaf-green: #16A34A;
-  --color-leaf-vibrant: #22C55E;
+  --color-leaf: #E0FFC2;
+  --color-leaf-hover: #C8F79E;
   --color-leaf-dark: #15803D;
-  --color-mint-light: #EAF5ED;
-  --color-mint-border: #C8E6D2;
+  --color-leaf-light: #F2FFE5;
+  --color-leaf-border: #BDE895;
 
-  --color-soft-grey: #EAE2D5;
-  --color-border-cream: #EAE2D5;
-  --color-text-forest: #0B3D2E;
-  --color-text-body: #354F44;
-  --color-text-muted: #5E7A6E;
+  --color-cream: #FFF8EF;
+  --color-cream-tint: #F4ECE1;
+  --color-cream-subtle: #FFFDF9;
+  --color-card-white: #FFFFFF;
+  --color-cream-border: #E5DAC8;
 
-  /* Legacy mappings to Forest Green & Cream White theme */
-  --color-deep-teal: #0B3D2E;
-  --color-teal: #0E4B39;
-  --color-dark-teal: #07261D;
-  --color-teal-surface: #0E4B39;
-  --color-teal-card: #093326;
-  --color-teal-border: #135944;
+  --color-deep-teal: #064734;
+  --color-teal-dark: #043224;
+  --color-teal-deepest: #022017;
+  --color-teal-surface: #0A5C44;
+  --color-teal-card: #053B2B;
+  --color-teal-border: #0E6E52;
 
-  --color-warm-cream: #FFF8EF;
-  --color-coral: #16A34A;
+  --color-soft-white: #FFF8EF;
+  --color-soft-tint: #F4ECE1;
+  --color-soft-subtle: #FFFDF9;
+  --color-soft-border: #E5DAC8;
+
+  --color-coral: #064734;
   --color-coral-hover: #15803D;
   --color-coral-dark: #166534;
-  --color-coral-light: #EAF5ED;
-  --color-coral-border: #22C55E;
+  --color-coral-light: #E0FFC2;
+  --color-coral-border: #BDE895;
 
-  --color-deep-navy: #0B3D2E;
-  --color-navy: #0E4B39;
-  --color-dark-navy: #07261D;
-  --color-navy-card: #093326;
-  --color-navy-border: #135944;
-  --color-muted-gold: #16A34A;
-  --color-gold: #16A34A;
-  --color-gold-light: #22C55E;
-  --color-gold-hover: #15803D;
+  --color-text-teal: #064734;
+  --color-text-body: #163A2E;
+  --color-text-muted: #3C6152;
+
+  /* Backward compatibility mappings */
+  --color-forest-green: #064734;
+  --color-cream-white: #FFF8EF;
+  --color-leaf-green: #E0FFC2;
+  --color-leaf-vibrant: #E0FFC2;
+  --color-mint-light: #E0FFC2;
+  --color-mint-border: #BDE895;
+
+  --color-soft-grey: #E5DAC8;
+  --color-border-cream: #E5DAC8;
+  --color-text-forest: #064734;
+
+  --color-teal: #0A5C44;
+  --color-dark-teal: #043224;
+
+  --color-warm-cream: #FFF8EF;
+
+  --color-deep-navy: #064734;
+  --color-navy: #0A5C44;
+  --color-dark-navy: #043224;
+  --color-navy-card: #053B2B;
+  --color-navy-border: #0E6E52;
+  --color-muted-gold: #D97706;
+  --color-gold: #D97706;
+  --color-gold-light: #FBBF24;
+  --color-gold-hover: #B45309;
 }
 
 /* Base document settings: Cream White background with Forest Green typography */
@@ -63,7 +83,7 @@ html {
 
 body {
   background-color: #FFF8EF;
-  color: #0B3D2E;
+  color: #064734;
   font-size: 15px;
   line-height: 1.6;
   font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -72,7 +92,7 @@ body {
   letter-spacing: -0.01em;
 }
 
-/* Custom scrollbar in Forest Green theme */
+/* Custom scrollbar in Forest Green and Leaf theme */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -81,11 +101,11 @@ body {
   background: #FFF8EF;
 }
 ::-webkit-scrollbar-thumb {
-  background: #0B3D2E;
+  background: #064734;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #16A34A;
+  background: #15803D;
 }
 
 /* Custom editorial typography class */
@@ -94,14 +114,16 @@ body {
   letter-spacing: -0.02em;
 }
 
-.green-gradient-text {
-  background: linear-gradient(135deg, #22C55E 0%, #16A34A 50%, #0B3D2E 100%);
+.green-gradient-text,
+.teal-gradient-text {
+  background: linear-gradient(135deg, #E0FFC2 0%, #15803D 50%, #064734 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.forest-gradient-bg {
-  background: linear-gradient(145deg, #0B3D2E 0%, #0E4B39 100%);
+.forest-gradient-bg,
+.teal-gradient-bg {
+  background: linear-gradient(145deg, #064734 0%, #043224 100%);
 }
 
 /* News ticker smooth keyframe */
@@ -184,11 +206,85 @@ body {
 }
 
 @keyframes elevatorPulse {
-  0% { transform: translateY(120px); opacity: 0.2; }
-  50% { opacity: 0.9; }
-  100% { transform: translateY(-120px); opacity: 0.2; }
+  0% { transform: translateY(120px) scale(0.9); opacity: 0.2; }
+  50% { transform: translateY(0px) scale(1.05); opacity: 0.9; }
+  100% { transform: translateY(-120px) scale(0.9); opacity: 0.2; }
 }
 
 .animate-elevator {
   animation: elevatorPulse 5s ease-in-out infinite;
+}
+
+/* Fluid Moving Gradient Background Orbs & Aurora Animations */
+@keyframes floatOrb1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(70px, -50px, 0) scale(1.18) rotate(18deg);
+  }
+  66% {
+    transform: translate3d(-50px, 45px, 0) scale(0.88) rotate(-14deg);
+  }
+}
+
+@keyframes floatOrb2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(-65px, 55px, 0) scale(1.15) rotate(-22deg);
+  }
+  66% {
+    transform: translate3d(50px, -40px, 0) scale(0.9) rotate(16deg);
+  }
+}
+
+@keyframes floatOrb3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate3d(40px, -55px, 0) scale(1.22);
+    opacity: 0.95;
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-float-orb-1 {
+  animation: floatOrb1 15s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-orb-2 {
+  animation: floatOrb2 19s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-orb-3 {
+  animation: floatOrb3 13s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradientShift 14s ease-in-out infinite;
+}
+
+/* Subtle architectural dot matrix grid for high-end SaaS look */
+.hero-dot-grid {
+  background-image: radial-gradient(rgba(6, 71, 52, 0.14) 1.25px, transparent 1.25px);
+  background-size: 26px 26px;
 }

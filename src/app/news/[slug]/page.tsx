@@ -39,6 +39,7 @@ export async function generateMetadata({
 
   const description = story.subtitle || story.excerpt;
   const canonicalUrl = `/news/${story.slug}`;
+  const isPublished = story.status === "published";
 
   return {
     title: story.title,
@@ -46,8 +47,14 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl,
     },
+    robots: isPublished
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
     openGraph: {
       type: "article",
+      url: `/news/${story.slug}`,
+      siteName: "Gulf SaaS Review",
+      locale: "en_US",
       title: story.title,
       description,
       url: canonicalUrl,

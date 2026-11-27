@@ -8,6 +8,7 @@ import CompareTray from "@/components/CompareTray";
 import SearchModal from "@/components/SearchModal";
 import SiteChrome from "@/components/SiteChrome";
 import { getPublishedStories } from "@/lib/news-store";
+import { SITE_URL } from "@/lib/site";
 
 const bricolage = Bricolage_Grotesque({
   variable: "--font-bricolage",
@@ -42,7 +43,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gulfsaasreview.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Gulf SaaS Review — Business software and tech news from the Gulf",
     template: "%s — Gulf SaaS Review",
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
     title: "Gulf SaaS Review — Business software and tech news from the Gulf",
     description:
       "Independent reviews of business software for Saudi Arabia, the UAE and the GCC — tested for local tax, payroll and language rules.",
-    url: "https://gulfsaasreview.com",
+    url: "/",
     siteName: "Gulf SaaS Review",
     locale: "en_US",
     type: "website",

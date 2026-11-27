@@ -52,7 +52,6 @@ export async function generateMetadata({
       : { index: false, follow: false },
     openGraph: {
       type: "article",
-      url: `/news/${story.slug}`,
       siteName: "Gulf SaaS Review",
       locale: "en_US",
       title: story.title,

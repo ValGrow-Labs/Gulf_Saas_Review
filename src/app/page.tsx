@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import type { Metadata } from "next";
 import { softwares } from "@/data/software";
 import { comparisons } from "@/data/comparisons";
 import { articles } from "@/data/articles";
@@ -73,12 +72,6 @@ function ModuleTitle({ id, children, href, link }: { id: string; children: React
     </div>
   );
 }
-
-export const metadata: Metadata = {
-  alternates: {
-    canonical: "/",
-  },
-};
 
 export default async function FrontPage() {
   const { latestNews, leadStory, mostRead } = await getNewsFeed();

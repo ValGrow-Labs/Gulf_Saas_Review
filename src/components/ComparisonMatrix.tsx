@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Software } from "@/types";
 import { softwares } from "@/data/software";
 import Monogram from "./Monogram";
@@ -94,14 +93,26 @@ export default function ComparisonMatrix({
   curatedVerdict,
   syncUrl = false,
 }: ComparisonMatrixProps) {
-  const router = useRouter();
-
   const [slots, setSlots] = useState<Slots>([initialProductA, initialProductB, initialProductC]);
 
-  // Sync state cleanly when external props change (e.g. navigation or tray events)
-  useEffect(() => {
+  // Adjust state when incoming props change
+  const [prevProps, setPrevProps] = useState({
+    a: initialProductA?.slug,
+    b: initialProductB?.slug,
+    c: initialProductC?.slug,
+  });
+  if (
+    prevProps.a !== initialProductA?.slug ||
+    prevProps.b !== initialProductB?.slug ||
+    prevProps.c !== initialProductC?.slug
+  ) {
+    setPrevProps({
+      a: initialProductA?.slug,
+      b: initialProductB?.slug,
+      c: initialProductC?.slug,
+    });
     setSlots([initialProductA, initialProductB, initialProductC]);
-  }, [initialProductA?.slug, initialProductB?.slug, initialProductC?.slug]);
+  }
 
   const updateUrl = (nextSlots: Slots) => {
     if (syncUrl && typeof window !== "undefined") {

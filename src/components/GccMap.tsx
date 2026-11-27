@@ -4,14 +4,9 @@ import React, { useState } from "react";
 import { gccCountries } from "@/data/news";
 import { GccCountryCode, GccCountryProfile } from "@/types";
 import {
-  Globe2,
-  TrendingUp,
-  Server,
   ArrowRight,
-  ShieldCheck,
   Building2,
-  Sparkles,
-  MapPin
+  Sparkles
 } from "lucide-react";
 
 interface GccMapProps {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
@@ -25,11 +25,11 @@ function SearchIcon({ className = "h-4 w-4" }: { className?: string }) {
 }
 
 function useDateline() {
-  const [date, setDate] = useState("");
-  useEffect(() => {
-    setDate(new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" }));
-  }, []);
-  return date;
+  return useSyncExternalStore(
+    () => () => {},
+    () => new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" }),
+    () => ""
+  );
 }
 
 const searchHints = ["Odoo", "ZATCA e-invoicing", "payroll & WPS", "Arabic CRM", "Zoho vs HubSpot", "UAE VAT"];
@@ -95,7 +95,11 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setMenuOpen(false), [pathname]);
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setMenuOpen(false);
+  }
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";

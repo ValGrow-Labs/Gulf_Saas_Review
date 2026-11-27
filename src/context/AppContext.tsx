@@ -33,7 +33,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     try {
       const stored = sessionStorage.getItem("gsr_compare_slugs");
       if (stored) {
-        setCompareSlugs(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        queueMicrotask(() => {
+          setCompareSlugs(parsed);
+        });
       }
     } catch {
       // Ignore storage errors

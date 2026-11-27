@@ -5,6 +5,9 @@ export const metadata = {
   title: "Compare Business Software Side-by-Side | GulfSaasReview",
   description:
     "Compare software features, ZATCA Phase 2 compliance, UAE VAT compatibility, Arabic RTL support, and pricing models side-by-side for Saudi Arabia and UAE businesses.",
+  alternates: {
+    canonical: "/compare",
+  },
 };
 
 export default function ComparePage() {

@@ -5,6 +5,9 @@ export const metadata = {
   title: "Software reviews",
   description:
     "Browse business software reviewed for Saudi Arabia, the UAE and the wider GCC. Filter by category, market, Arabic support and pricing model.",
+  alternates: {
+    canonical: "/reviews",
+  },
 };
 
 export default function ReviewsPage() {

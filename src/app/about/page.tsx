@@ -11,6 +11,9 @@ export const metadata = {
   title: "About Us & Editorial Methodology | GulfSaasReview",
   description:
     "How GulfSaasReview evaluates business software for Saudi Arabia, the UAE and the GCC: regional compliance, Arabic support, local integrations and data residency.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const C = {

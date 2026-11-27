@@ -28,6 +28,9 @@ export async function generateMetadata({
   return {
     title: `${software.name} review: Gulf suitability, ZATCA and pricing`,
     description: software.tagline,
+    alternates: {
+      canonical: `/reviews/${software.slug}`,
+    },
   };
 }
 

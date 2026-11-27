@@ -29,6 +29,9 @@ export async function generateMetadata({
   return {
     title: `${category.name} Software Reviews for Saudi Arabia & UAE`,
     description: category.description,
+    alternates: {
+      canonical: `/categories/${category.slug}`,
+    },
   };
 }
 

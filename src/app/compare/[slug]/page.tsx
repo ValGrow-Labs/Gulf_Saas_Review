@@ -31,6 +31,9 @@ export async function generateMetadata({
   return {
     title: `${comp.title}: Which is Better for Middle East Businesses?`,
     description: comp.shortDescription,
+    alternates: {
+      canonical: `/compare/${comp.slug}`,
+    },
   };
 }
 

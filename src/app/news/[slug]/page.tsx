@@ -38,11 +38,21 @@ export async function generateMetadata({
   if (!story) return { title: "Story not found" };
 
   const description = story.subtitle || story.excerpt;
+  const isPublished = story.status === "published";
   return {
     title: story.title,
     description,
+    alternates: {
+      canonical: `/news/${story.slug}`,
+    },
+    robots: isPublished
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
     openGraph: {
       type: "article",
+      url: `/news/${story.slug}`,
+      siteName: "Gulf SaaS Review",
+      locale: "en_US",
       title: story.title,
       description,
       publishedTime: story.isoDate,

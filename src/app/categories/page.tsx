@@ -10,6 +10,9 @@ export const metadata = {
   title: "Software Categories for Gulf Businesses | GulfSaasReview",
   description:
     "Browse software categories tailored for Middle Eastern enterprises, startups, and SMBs: Accounting, CRM, HR & Payroll, ERP, Project Management, and E-commerce.",
+  alternates: {
+    canonical: "/categories",
+  },
 };
 
 const C = {

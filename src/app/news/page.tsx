@@ -17,6 +17,9 @@ export const metadata: Metadata = {
   title: "News",
   description:
     "Reporting on business software, cloud, FinTech and policy across Saudi Arabia, the UAE, Qatar, Kuwait, Bahrain and Oman.",
+  alternates: {
+    canonical: "/news",
+  },
 };
 
 

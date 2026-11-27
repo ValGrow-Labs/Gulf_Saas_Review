@@ -11,6 +11,9 @@ export const metadata = {
   title: "Buyer Guides for Gulf Business Software | GulfSaasReview",
   description:
     "Long-form buyer guides on ZATCA Phase 2, UAE VAT and corporate tax, WPS payroll and software selection for businesses in Saudi Arabia, the UAE and the GCC.",
+  alternates: {
+    canonical: "/articles",
+  },
 };
 
 const C = {

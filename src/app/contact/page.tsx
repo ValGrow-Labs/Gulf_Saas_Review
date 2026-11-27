@@ -7,6 +7,9 @@ export const metadata = {
   title: "Contact GulfSaasReview | Editorial & Vendor Inquiries",
   description:
     "Contact the GulfSaasReview editorial and research team. Request a software review, report a regional compliance change, or ask about partnerships.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 const C = {

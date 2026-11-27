@@ -31,6 +31,9 @@ export async function generateMetadata({
   return {
     title: `${article.title} | GulfSaasReview`,
     description: article.excerpt,
+    alternates: {
+      canonical: `/articles/${article.slug}`,
+    },
   };
 }
 

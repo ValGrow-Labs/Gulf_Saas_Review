@@ -3,9 +3,14 @@ import Link from "next/link";
 import Sadu from "@/components/Sadu";
 import { pad2 } from "@/lib/format";
 
-export const metadata = {
-  title: "Privacy Policy | GulfSaasReview",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy & Regional Data Protection",
   description: "Privacy policy and regional data protection standards for GulfSaasReview.",
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 interface LegalSection {

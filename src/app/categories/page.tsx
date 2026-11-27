@@ -6,10 +6,33 @@ import Monogram from "@/components/Monogram";
 import Sadu from "@/components/Sadu";
 import { pad2 } from "@/lib/format";
 
-export const metadata = {
-  title: "Software Categories for Gulf Businesses | GulfSaasReview",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Software Categories for Gulf Businesses",
   description:
     "Browse software categories tailored for Middle Eastern enterprises, startups, and SMBs: Accounting, CRM, HR & Payroll, ERP, Project Management, and E-commerce.",
+  alternates: {
+    canonical: "/categories",
+  },
+  openGraph: {
+    title: "Software Categories for Gulf Businesses — Gulf SaaS Review",
+    description:
+      "Browse software categories tailored for Middle Eastern enterprises, startups, and SMBs: Accounting, CRM, HR & Payroll, ERP, Project Management, and E-commerce.",
+    url: "/categories",
+    images: [
+      {
+        url: "/articles/uae-einvoicing-digital.jpg",
+        alt: "Gulf Software Categories",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Software Categories for Gulf Businesses",
+    description:
+      "Browse software categories tailored for Middle Eastern enterprises, startups, and SMBs: Accounting, CRM, HR & Payroll, ERP, Project Management, and E-commerce.",
+  },
 };
 
 const C = {

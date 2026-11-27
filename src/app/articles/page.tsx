@@ -7,10 +7,33 @@ import { comparisons } from "@/data/comparisons";
 import Sadu from "@/components/Sadu";
 import { pad2 } from "@/lib/format";
 
-export const metadata = {
-  title: "Buyer Guides for Gulf Business Software | GulfSaasReview",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Buyer Guides for Gulf Business Software",
   description:
     "Long-form buyer guides on ZATCA Phase 2, UAE VAT and corporate tax, WPS payroll and software selection for businesses in Saudi Arabia, the UAE and the GCC.",
+  alternates: {
+    canonical: "/articles",
+  },
+  openGraph: {
+    title: "Buyer Guides for Gulf Business Software — Gulf SaaS Review",
+    description:
+      "Long-form buyer guides on ZATCA Phase 2, UAE VAT and corporate tax, WPS payroll and software selection for businesses in Saudi Arabia, the UAE and the GCC.",
+    url: "/articles",
+    images: [
+      {
+        url: "/articles/saudi-zatca-accounting-guide.jpg",
+        alt: "Gulf SaaS Review Buyer Guides",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Buyer Guides for Gulf Business Software",
+    description:
+      "Long-form buyer guides on ZATCA Phase 2, UAE VAT and corporate tax, WPS payroll and software selection for businesses in Saudi Arabia, the UAE and the GCC.",
+  },
 };
 
 const C = {
@@ -71,7 +94,7 @@ export default function ArticlesPage() {
               <Link href={`/articles/${lead.slug}`} tabIndex={-1} aria-hidden="true" className="block">
                 <div className="relative">
                   <div className="media relative aspect-[4/5] !rounded-[28px] max-sm:aspect-[4/3.4]">
-                    <Image src={lead.image} alt="" fill priority sizes="(min-width: 1024px) 480px, 100vw" className="object-cover" />
+                    <Image src={lead.image} alt={lead.title} fill priority sizes="(min-width: 1024px) 480px, 100vw" className="object-cover" />
                   </div>
                 </div>
               </Link>
@@ -90,7 +113,7 @@ export default function ArticlesPage() {
               <div className="mt-7 flex flex-wrap items-center gap-5">
                 <div className="flex items-center gap-3">
                   <span className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full bg-paper-2">
-                    <Image src={lead.author.avatar} alt="" fill sizes="44px" className="object-cover" />
+                    <Image src={lead.author.avatar} alt={lead.author.name} fill sizes="44px" className="object-cover" />
                   </span>
                   <p className="text-[0.88rem] leading-tight">
                     <span className="block font-semibold text-ink">{lead.author.name}</span>
@@ -117,7 +140,7 @@ export default function ArticlesPage() {
                     className="card card-hover grid h-full grid-cols-1 gap-5 p-3 sm:grid-cols-[200px_1fr]"
                   >
                     <div className="media aspect-[4/3] sm:aspect-auto sm:min-h-[220px]">
-                      <Image src={art.image} alt="" fill sizes="(min-width: 640px) 200px, 100vw" className="object-cover" />
+                      <Image src={art.image} alt={art.title} fill loading="lazy" sizes="(min-width: 640px) 200px, 100vw" className="object-cover" />
                     </div>
                     <div className="flex min-w-0 flex-col p-3 sm:pl-0">
                       <span className="kicker kicker-accent">{art.category}</span>

@@ -21,8 +21,11 @@ const C = {
 export default function CompareClient() {
   const searchParams = useSearchParams();
 
-  const productA = find(searchParams.get("a"));
-  let productB = find(searchParams.get("b"));
+  const hasAnyParams = searchParams.has("a") || searchParams.has("b") || searchParams.has("c");
+
+  // Default to Zoho One vs QuickBooks Online if user lands on /compare without parameters
+  const productA = hasAnyParams ? find(searchParams.get("a")) : find("zoho-one");
+  let productB = hasAnyParams ? find(searchParams.get("b")) : find("quickbooks-online");
   if (productB && productB.slug === productA?.slug) productB = null;
   let productC = find(searchParams.get("c"));
   if (productC && (productC.slug === productA?.slug || productC.slug === productB?.slug)) productC = null;

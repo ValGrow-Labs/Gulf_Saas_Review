@@ -125,7 +125,7 @@ export default async function StoriesAdmin({ searchParams }: { searchParams: SP 
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
                         <span className="relative h-11 w-14 shrink-0 overflow-hidden rounded-lg bg-paper-2">
-                          <Image src={s.featuredImage} alt="" fill sizes="56px" className="object-cover" />
+                          <Image src={s.featuredImage} alt={s.title} fill sizes="56px" className="object-cover" />
                         </span>
                         <span className="min-w-0">
                           <Link href={`/admin/stories/${encodeURIComponent(s.id)}`} className="line-clamp-2 font-semibold hover:text-terracotta">

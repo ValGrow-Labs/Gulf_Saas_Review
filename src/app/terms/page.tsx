@@ -3,9 +3,14 @@ import Link from "next/link";
 import Sadu from "@/components/Sadu";
 import { pad2 } from "@/lib/format";
 
-export const metadata = {
-  title: "Terms & Conditions | GulfSaasReview",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions",
   description: "Terms and conditions of use for GulfSaasReview.",
+  alternates: {
+    canonical: "/terms",
+  },
 };
 
 interface LegalSection {

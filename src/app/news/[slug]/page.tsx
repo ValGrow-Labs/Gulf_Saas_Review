@@ -38,18 +38,30 @@ export async function generateMetadata({
   if (!story) return { title: "Story not found" };
 
   const description = story.subtitle || story.excerpt;
+  const canonicalUrl = `/news/${story.slug}`;
+
   return {
     title: story.title,
     description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       type: "article",
       title: story.title,
       description,
+      url: canonicalUrl,
       publishedTime: story.isoDate,
       authors: [story.author.name],
       section: sectionLabel(story.categorySlug),
       tags: story.tags,
-      images: [{ url: story.featuredImage, alt: story.imageCaption ?? "" }],
+      images: [{ url: story.featuredImage, alt: story.imageCaption ?? story.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: story.title,
+      description,
+      images: [story.featuredImage],
     },
   };
 }
@@ -120,8 +132,73 @@ export default async function NewsStoryPage({ params }: { params: Promise<{ slug
   const related = relatedTo(story, latestNews);
   const popular = mostRead.filter((a) => a.id !== story.id).slice(0, 5);
 
+  const newsArticleSchema = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: story.title,
+    description: story.subtitle || story.excerpt,
+    image: [`https://gulfsaasreview.com${story.featuredImage}`],
+    datePublished: story.isoDate || story.publishedDate,
+    dateModified: story.updatedAt || story.isoDate || story.publishedDate,
+    author: [
+      {
+        "@type": "Person",
+        name: story.author.name,
+        jobTitle: story.author.role,
+      },
+    ],
+    publisher: {
+      "@type": "NewsMediaOrganization",
+      name: "Gulf SaaS Review",
+      url: "https://gulfsaasreview.com",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://gulfsaasreview.com/news/${story.slug}`,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://gulfsaasreview.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "News",
+        item: "https://gulfsaasreview.com/news",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: section,
+        item: `https://gulfsaasreview.com${sectionHref}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: story.title,
+        item: `https://gulfsaasreview.com/news/${story.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(newsArticleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {isDraft && (
         <div role="status" className="bg-sand">
           <div className="wrap flex flex-wrap items-center justify-between gap-3 py-2.5 text-[0.88rem] font-semibold text-ink">
@@ -164,7 +241,7 @@ export default async function NewsStoryPage({ params }: { params: Promise<{ slug
           <div className="mt-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
               <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-paper-2 ring-2 ring-sand ring-offset-2 ring-offset-paper">
-                <Image src={story.author.avatar} alt="" fill sizes="48px" className="object-cover" />
+                <Image src={story.author.avatar} alt={story.author.name} fill sizes="48px" className="object-cover" />
               </span>
               <p className="text-[0.9rem] leading-tight">
                 <span className="block font-semibold text-ink">By {story.author.name}</span>
@@ -183,7 +260,7 @@ export default async function NewsStoryPage({ params }: { params: Promise<{ slug
             <div className="media relative aspect-[16/10] !rounded-[28px] sm:aspect-[21/9]">
               <Image
                 src={story.featuredImage}
-                alt={story.imageCaption ?? ""}
+                alt={story.imageCaption ?? story.title}
                 fill
                 priority
                 sizes="(min-width: 1536px) 1440px, 100vw"
@@ -320,7 +397,7 @@ export default async function NewsStoryPage({ params }: { params: Promise<{ slug
                     <article className="group">
                       <Link href={newsHref(s)} className="grid grid-cols-[1fr_104px] items-start gap-4 md:block">
                         <div className="media order-2 aspect-[4/3] !bg-terracotta-deep md:mb-5">
-                          <Image src={s.featuredImage} alt="" fill sizes="(min-width: 768px) 420px, 104px" className="object-cover" />
+                          <Image src={s.featuredImage} alt={s.imageCaption || s.title} fill loading="lazy" sizes="(min-width: 768px) 420px, 104px" className="object-cover" />
                         </div>
                         <div className="order-1 min-w-0">
                           <Kicker story={s} tone="onColor" />

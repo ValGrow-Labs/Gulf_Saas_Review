@@ -42,6 +42,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gulfsaasreview.com"),
   title: {
     default: "Gulf SaaS Review — Business software and tech news from the Gulf",
     template: "%s — Gulf SaaS Review",
@@ -55,16 +56,49 @@ export const metadata: Metadata = {
     "ZATCA compliance software",
     "GCC cloud accounting",
     "Gulf software comparisons",
+    "Saudi HR software WPS Mudad",
+    "UAE Corporate Tax ERP",
   ],
   authors: [{ name: "Gulf SaaS Review editorial desk" }],
+  creator: "Gulf SaaS Review",
+  publisher: "Gulf SaaS Review",
+  alternates: {
+    canonical: "./",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
-    title: "Gulf SaaS Review",
+    title: "Gulf SaaS Review — Business software and tech news from the Gulf",
     description:
       "Independent reviews of business software for Saudi Arabia, the UAE and the GCC — tested for local tax, payroll and language rules.",
     url: "https://gulfsaasreview.com",
     siteName: "Gulf SaaS Review",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/articles/uae-einvoicing-digital.jpg",
+        width: 1200,
+        height: 750,
+        alt: "Gulf SaaS Review — Regional enterprise software and technology news",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gulf SaaS Review — Business software and tech news from the Gulf",
+    description:
+      "Independent reviews of business software for Saudi Arabia, the UAE and the GCC — tested for local tax, payroll and language rules.",
+    images: ["/articles/uae-einvoicing-digital.jpg"],
   },
 };
 
@@ -77,12 +111,42 @@ export default async function RootLayout({
     id, slug, title, excerpt, tags, categorySlug, isoDate, publishedDate,
   }));
 
+  const globalSchemas = [
+    {
+      "@context": "https://schema.org",
+      "@type": "NewsMediaOrganization",
+      "@id": "https://gulfsaasreview.com/#organization",
+      name: "Gulf SaaS Review",
+      url: "https://gulfsaasreview.com",
+      description:
+        "Independent evaluations, regional compliance audits, and business technology news from Saudi Arabia, the UAE, and the wider GCC.",
+      areaServed: ["Saudi Arabia", "United Arab Emirates", "Qatar", "Kuwait", "Bahrain", "Oman"],
+      knowsAbout: ["ZATCA Phase 2", "WPS", "Mudad", "UAE Corporate Tax", "Enterprise SaaS", "Cloud ERP"],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://gulfsaasreview.com/#website",
+      name: "Gulf SaaS Review",
+      url: "https://gulfsaasreview.com",
+      publisher: {
+        "@id": "https://gulfsaasreview.com/#organization",
+      },
+    },
+  ];
+
   return (
     <html
       lang="en"
       className={`${bricolage.variable} ${hanken.variable} ${jetbrains.variable} ${readex.variable}`}
       data-scroll-behavior="smooth"
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemas) }}
+        />
+      </head>
       <body className="min-h-dvh flex flex-col bg-paper text-ink font-sans antialiased overflow-x-clip">
         <a
           href="#main"

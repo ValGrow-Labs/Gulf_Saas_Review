@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { softwares } from "@/data/software";
 import { comparisons } from "@/data/comparisons";
 import { articles } from "@/data/articles";
@@ -17,6 +18,15 @@ import {
   countryLabel,
   shortDate,
 } from "@/lib/news";
+
+export const metadata: Metadata = {
+  title: "Gulf SaaS Review — Business software and tech news from the Gulf",
+  description:
+    "Independent reviews and side-by-side comparisons of accounting, CRM, HR and ERP software for Saudi Arabia, the UAE and the wider GCC. Every product is checked for ZATCA, UAE FTA, WPS and Arabic support.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 /* Section colour coding — each news section owns a band colour. */
 const sectionTone: Record<string, { bar: string; text: string; dot: string }> = {
@@ -126,7 +136,7 @@ export default async function FrontPage() {
                 <div className="media aspect-[16/10] !rounded-[20px]">
                   <Image
                     src={leadStory.featuredImage}
-                    alt={leadStory.imageCaption ?? ""}
+                    alt={leadStory.imageCaption ?? leadStory.title}
                     fill
                     priority
                     sizes="(min-width: 1024px) 660px, 100vw"
@@ -150,7 +160,7 @@ export default async function FrontPage() {
                 )}
                 <p className="mt-3 flex flex-wrap items-center gap-2 text-[0.8rem] text-ink-3">
                   <span className="relative h-6 w-6 overflow-hidden rounded-full bg-paper-2">
-                    <Image src={leadStory.author.avatar} alt="" fill sizes="24px" className="object-cover" />
+                    <Image src={leadStory.author.avatar} alt={leadStory.author.name} fill sizes="24px" className="object-cover" />
                   </span>
                   <span className="font-semibold text-ink-2">{leadStory.author.name}</span>
                   <span aria-hidden="true">·</span>
@@ -171,7 +181,7 @@ export default async function FrontPage() {
                     <Link href={newsHref(story)} className="block">
                       {i === 0 && (
                         <div className="media mb-3 aspect-[16/10] !rounded-[14px]">
-                          <Image src={story.featuredImage} alt="" fill sizes="(min-width: 1024px) 300px, 100vw" className="object-cover" />
+                          <Image src={story.featuredImage} alt={story.imageCaption || story.title} fill loading="lazy" sizes="(min-width: 1024px) 300px, 100vw" className="object-cover" />
                         </div>
                       )}
                       <Kicker story={story} />
@@ -221,8 +231,9 @@ export default async function FrontPage() {
                 <div className="media aspect-square !rounded-[14px] max-sm:order-2 sm:aspect-[16/10]">
                   <Image
                     src={story.featuredImage}
-                    alt=""
+                    alt={story.imageCaption || story.title}
                     fill
+                    loading="lazy"
                     sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 96px"
                     className="object-cover"
                   />
@@ -266,7 +277,7 @@ export default async function FrontPage() {
                           <Meta story={first} />
                         </div>
                         <div className="media aspect-square !rounded-[12px]">
-                          <Image src={first.featuredImage} alt="" fill sizes="92px" className="object-cover" />
+                          <Image src={first.featuredImage} alt={first.imageCaption || first.title} fill loading="lazy" sizes="92px" className="object-cover" />
                         </div>
                       </Link>
                     </article>
@@ -353,6 +364,97 @@ export default async function FrontPage() {
                 })}
               </ul>
             </section>
+
+            {/* GCC Compliance Quick-Check */}
+            <section aria-labelledby="compliance-title" className="rounded-[22px] border-[1.5px] border-rule bg-surface p-5 shadow-2xs lg:sticky lg:top-16">
+              <ModuleTitle id="compliance-title" href="/reviews" link="All reviews">
+                Compliance check
+              </ModuleTitle>
+              <p className="mt-1.5 text-[0.84rem] leading-snug text-ink-3">
+                Four rules your software must handle to run legally in the Gulf.
+              </p>
+
+              <ul className="mt-3 divide-y-[1.5px] divide-dashed divide-rule border-t-[1.5px] border-dashed border-rule">
+                <li className="py-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="kicker kicker-accent">Saudi Arabia</span>
+                    <span className="num rounded-full border border-emerald-200/80 bg-emerald-50 px-2 py-0.5 text-[0.68rem] font-semibold text-emerald-800">
+                      Mandatory
+                    </span>
+                  </div>
+                  <h3 className="h-card mt-1 text-[0.98rem] text-ink">
+                    ZATCA Phase 2 e-invoicing
+                  </h3>
+                  <p className="mt-1 text-[0.82rem] leading-relaxed text-ink-2">
+                    Links to the Fatoora portal with live QR stamps on invoices.
+                  </p>
+                  <p className="mt-1.5 text-[0.74rem] text-ink-3">
+                    <span className="font-semibold text-ink-2">Tested:</span> Zoho Books, Odoo ERP
+                  </p>
+                </li>
+
+                <li className="py-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="kicker text-teal">United Arab Emirates</span>
+                    <span className="num rounded-full border border-teal/20 bg-teal-soft/70 px-2 py-0.5 text-[0.68rem] font-semibold text-teal">
+                      Audit ready
+                    </span>
+                  </div>
+                  <h3 className="h-card mt-1 text-[0.98rem] text-ink">
+                    UAE Corporate Tax &amp; VAT
+                  </h3>
+                  <p className="mt-1 text-[0.82rem] leading-relaxed text-ink-2">
+                    Exports the official FTA audit file (FAF) and 5% VAT returns.
+                  </p>
+                  <p className="mt-1.5 text-[0.74rem] text-ink-3">
+                    <span className="font-semibold text-ink-2">Tested:</span> QuickBooks, Zoho, Xero
+                  </p>
+                </li>
+
+                <li className="py-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="kicker text-[#8A5A12]">Saudi Arabia &amp; UAE</span>
+                    <span className="num rounded-full border border-sand bg-sand-soft px-2 py-0.5 text-[0.68rem] font-semibold text-[#8A5A12]">
+                      Payroll SIF
+                    </span>
+                  </div>
+                  <h3 className="h-card mt-1 text-[0.98rem] text-ink">
+                    WPS salary transfers
+                  </h3>
+                  <p className="mt-1 text-[0.82rem] leading-relaxed text-ink-2">
+                    Generates bank-ready salary files so staff get paid without fines.
+                  </p>
+                  <p className="mt-1.5 text-[0.74rem] text-ink-3">
+                    <span className="font-semibold text-ink-2">Tested:</span> Bayzat, ZenHR
+                  </p>
+                </li>
+
+                <li className="py-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="kicker text-ink-3">Regional standard</span>
+                    <span className="num rounded-full border border-blue-200/80 bg-blue-50 px-2 py-0.5 text-[0.68rem] font-semibold text-blue-700">
+                      Data hosting
+                    </span>
+                  </div>
+                  <h3 className="h-card mt-1 text-[0.98rem] text-ink">
+                    Saudi PDPL &amp; cloud residency
+                  </h3>
+                  <p className="mt-1 text-[0.82rem] leading-relaxed text-ink-2">
+                    Stores company records inside local GCC data centers.
+                  </p>
+                  <p className="mt-1.5 text-[0.74rem] text-ink-3">
+                    <span className="font-semibold text-ink-2">Tested:</span> Salesforce, Zoho ME, Odoo
+                  </p>
+                </li>
+              </ul>
+
+              <Link
+                href="/reviews"
+                className="btn btn-primary mt-4 w-full justify-center text-[0.88rem]"
+              >
+                See all reviewed software →
+              </Link>
+            </section>
           </aside>
         </div>
       </section>
@@ -401,7 +503,7 @@ export default async function FrontPage() {
             <article key={art.id} className="group">
               <Link href={`/articles/${art.slug}`} className="card card-hover flex h-full gap-4 p-3">
                 <div className="media aspect-square w-24 shrink-0 !rounded-[14px]">
-                  <Image src={art.image} alt="" fill sizes="96px" className="object-cover" />
+                  <Image src={art.image} alt={art.title} fill loading="lazy" sizes="96px" className="object-cover" />
                 </div>
                 <div className="min-w-0 py-1 pr-1">
                   <span className="kicker kicker-accent">{art.category}</span>

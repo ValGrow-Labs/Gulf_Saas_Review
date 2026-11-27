@@ -14,7 +14,7 @@ export const articles: Article[] = [
       role: "Head of Regional ERP Research",
       avatar: "/authors/tariq.jpg",
     },
-    image: "/articles/zatca-guide.jpg",
+    image: "/articles/saudi-zatca-accounting-guide.jpg",
     featured: true,
     keyTakeaways: [
       "ZATCA Phase 2 mandates cryptographic stamp (CSID) and real-time XML transmission",
@@ -41,7 +41,7 @@ export const articles: Article[] = [
       role: "Senior SaaS Analyst",
       avatar: "/authors/leila.jpg",
     },
-    image: "/articles/enterprise-saas-platform.jpg",
+    image: "/articles/uae-crm-whatsapp-pipeline.jpg",
     featured: true,
     keyTakeaways: [
       "WhatsApp Business API integration is essential for UAE buyer communication speed",

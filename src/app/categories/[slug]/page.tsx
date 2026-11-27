@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { categories, categoryLookup } from "@/data/categories";
 import { softwares, softwareLookup } from "@/data/software";
@@ -21,14 +22,37 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const category = categoryLookup[slug];
   if (!category) return { title: "Category Not Found" };
 
+  const title = `${category.name} Software Reviews for Saudi Arabia & UAE`;
+  const description = category.description;
+  const canonicalUrl = `/categories/${slug}`;
+
   return {
-    title: `${category.name} Software Reviews for Saudi Arabia & UAE`,
-    description: category.description,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      images: [
+        {
+          url: "/articles/uae-einvoicing-digital.jpg",
+          alt: `${category.name} software evaluations`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
@@ -76,8 +100,37 @@ export default async function CategoryDetailPage({
         }`
       : null;
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://gulfsaasreview.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Categories",
+        item: "https://gulfsaasreview.com/categories",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.name,
+        item: `https://gulfsaasreview.com/categories/${category.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* ------------------------------------------------ Header band */}
       <section className={band.cls}>
         <div className="wrap pt-10 pb-14 lg:pt-14 lg:pb-20">

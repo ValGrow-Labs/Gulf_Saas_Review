@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { softwares } from "@/data/software";
 import SoftwareCard from "@/components/SoftwareCard";
@@ -20,14 +21,38 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const software = softwares.find((s) => s.slug === slug);
   if (!software) return { title: "Review not found" };
 
+  const title = `${software.name} review: Gulf suitability, ZATCA and pricing`;
+  const description = software.tagline;
+  const canonicalUrl = `/reviews/${slug}`;
+
   return {
-    title: `${software.name} review: Gulf suitability, ZATCA and pricing`,
-    description: software.tagline,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: "article",
+      title,
+      description,
+      url: canonicalUrl,
+      images: [
+        {
+          url: "/articles/uae-einvoicing-digital.jpg",
+          alt: `${software.name} review`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
@@ -109,8 +134,71 @@ export default async function IndividualReviewPage({
 
   const tiers = software.pricing.tiers;
 
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: software.name,
+    operatingSystem: "Cloud, Web-based",
+    applicationCategory: software.category,
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: software.verdict.score,
+      bestRating: 10,
+      worstRating: 1,
+      ratingCount: 1,
+    },
+    review: {
+      "@type": "Review",
+      author: {
+        "@type": "Organization",
+        name: "Gulf SaaS Review Editorial Lab",
+      },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: software.verdict.score,
+        bestRating: 10,
+        worstRating: 1,
+      },
+      reviewBody: software.verdict.summary,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://gulfsaasreview.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Reviews",
+        item: "https://gulfsaasreview.com/reviews",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: software.name,
+        item: `https://gulfsaasreview.com/reviews/${software.slug}`,
+      },
+    ],
+  };
+
   return (
-    <article>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <article>
       {/* ------------------------------------------------------------ HERO */}
       <header className="wrap pt-8 pb-12 lg:pb-16">
         <nav aria-label="Breadcrumb">
@@ -492,6 +580,7 @@ export default async function IndividualReviewPage({
           <Sadu from={C.tealSoft} to={C.paper} accent={C.teal} />
         </>
       )}
-    </article>
+      </article>
+    </>
   );
 }

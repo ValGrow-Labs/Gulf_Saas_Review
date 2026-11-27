@@ -3,10 +3,15 @@ import Link from "next/link";
 import Sadu from "@/components/Sadu";
 import ContactForm from "./ContactForm";
 
-export const metadata = {
-  title: "Contact GulfSaasReview | Editorial & Vendor Inquiries",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Editorial & Research Team",
   description:
     "Contact the GulfSaasReview editorial and research team. Request a software review, report a regional compliance change, or ask about partnerships.",
+  alternates: {
+    canonical: "/contact",
+  },
 };
 
 const C = {

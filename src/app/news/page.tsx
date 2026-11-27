@@ -14,9 +14,30 @@ import {
 } from "@/lib/news";
 
 export const metadata: Metadata = {
-  title: "News",
+  title: "Gulf Tech & Business Software News",
   description:
     "Reporting on business software, cloud, FinTech and policy across Saudi Arabia, the UAE, Qatar, Kuwait, Bahrain and Oman.",
+  alternates: {
+    canonical: "/news",
+  },
+  openGraph: {
+    title: "Gulf Tech & Business Software News — Gulf SaaS Review",
+    description:
+      "Reporting on business software, cloud, FinTech and policy across Saudi Arabia, the UAE, Qatar, Kuwait, Bahrain and Oman.",
+    url: "/news",
+    images: [
+      {
+        url: "/articles/uae-einvoicing-digital.jpg",
+        alt: "Gulf SaaS Review News",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Gulf Tech & Business Software News",
+    description:
+      "Reporting on business software, cloud, FinTech and policy across Saudi Arabia, the UAE, Qatar, Kuwait, Bahrain and Oman.",
+  },
 };
 
 
@@ -109,7 +130,7 @@ function RiverItem({ story }: { story: NewsArticle }) {
           </p>
         </div>
         <div className="media aspect-[4/3] !rounded-[12px]">
-          <Image src={story.featuredImage} alt="" fill sizes="128px" className="object-cover" />
+          <Image src={story.featuredImage} alt={story.imageCaption || story.title} fill loading="lazy" sizes="128px" className="object-cover" />
         </div>
       </Link>
     </li>
@@ -250,7 +271,7 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
                   <div className="media aspect-[16/11] !rounded-[20px]">
                     <Image
                       src={leadStory.featuredImage}
-                      alt={leadStory.imageCaption ?? ""}
+                      alt={leadStory.imageCaption ?? leadStory.title}
                       fill
                       priority
                       sizes="(min-width: 1024px) 520px, 100vw"
@@ -280,7 +301,7 @@ export default async function NewsPage({ searchParams }: { searchParams: SearchP
                     <article className="group">
                       <Link href={newsHref(s2)} className="grid grid-cols-[1fr_88px] gap-4 sm:block">
                         <div className="media aspect-square !rounded-[14px] max-sm:order-2 sm:aspect-[16/10]">
-                          <Image src={s2.featuredImage} alt="" fill sizes="(min-width: 640px) 260px, 88px" className="object-cover" />
+                          <Image src={s2.featuredImage} alt={s2.imageCaption || s2.title} fill loading="lazy" sizes="(min-width: 640px) 260px, 88px" className="object-cover" />
                         </div>
                         <div className="sm:mt-3">
                           <Kicker story={s2} />

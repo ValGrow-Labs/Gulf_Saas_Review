@@ -7,10 +7,15 @@ import { articles } from "@/data/articles";
 import Sadu from "@/components/Sadu";
 import { pad2 } from "@/lib/format";
 
-export const metadata = {
-  title: "About Us & Editorial Methodology | GulfSaasReview",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us & Editorial Methodology",
   description:
     "How GulfSaasReview evaluates business software for Saudi Arabia, the UAE and the GCC: regional compliance, Arabic support, local integrations and data residency.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const C = {

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { comparisons, comparisonLookup } from "@/data/comparisons";
 import { softwareLookup } from "@/data/software";
@@ -23,14 +24,37 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const comp = comparisonLookup[slug];
   if (!comp) return { title: "Software Comparison Not Found" };
 
+  const title = `${comp.title}: Which is Better for Middle East Businesses?`;
+  const description = comp.shortDescription;
+  const canonicalUrl = `/compare/${slug}`;
+
   return {
-    title: `${comp.title}: Which is Better for Middle East Businesses?`,
-    description: comp.shortDescription,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      images: [
+        {
+          url: "/articles/uae-einvoicing-digital.jpg",
+          alt: comp.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
@@ -60,8 +84,37 @@ export default async function ComparisonDetailPage({
     { cls: "bg-terracotta text-white", accent: "text-sand", dial: "#C24E2A", lead: "bg-sand text-ink" },
   ] as const;
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://gulfsaasreview.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Compare",
+        item: "https://gulfsaasreview.com/compare",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: comparison.title,
+        item: `https://gulfsaasreview.com/compare/${comparison.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       {/* ------------------------------------------------ Title */}
       <section aria-labelledby="vs-h1" className="wrap pt-10 lg:pt-14">
         <nav aria-label="Breadcrumb" className="num text-[0.75rem] text-ink-3">

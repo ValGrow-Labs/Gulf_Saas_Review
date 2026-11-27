@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { articles, articleLookup } from "@/data/articles";
 import { softwares, softwareLookup } from "@/data/software";
@@ -23,14 +24,39 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
-}) {
+}): Promise<Metadata> {
   const { slug } = await params;
   const article = articleLookup[slug];
   if (!article) return { title: "Article Not Found | GulfSaasReview" };
 
+  const canonicalUrl = `/articles/${slug}`;
   return {
-    title: `${article.title} | GulfSaasReview`,
+    title: article.title,
     description: article.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: "article",
+      title: article.title,
+      description: article.excerpt,
+      url: canonicalUrl,
+      publishedTime: article.isoDate,
+      authors: [article.author.name],
+      section: article.category,
+      images: [
+        {
+          url: article.image,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.image],
+    },
   };
 }
 
@@ -94,8 +120,66 @@ export default async function ArticleDetailPage({
     </figure>
   );
 
+  const guideSchema = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: article.title,
+    description: article.excerpt,
+    image: [`https://gulfsaasreview.com${article.image}`],
+    datePublished: article.isoDate || article.publishedDate,
+    author: [
+      {
+        "@type": "Person",
+        name: article.author.name,
+        jobTitle: article.author.role,
+      },
+    ],
+    publisher: {
+      "@type": "Organization",
+      name: "Gulf SaaS Review",
+      url: "https://gulfsaasreview.com",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://gulfsaasreview.com/articles/${article.slug}`,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://gulfsaasreview.com",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Buyer Guides",
+        item: "https://gulfsaasreview.com/articles",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.title,
+        item: `https://gulfsaasreview.com/articles/${article.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(guideSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
       <article>
         {/* ============================================================ HERO */}
         <header className="wrap pt-8 pb-10 lg:pt-10 lg:pb-12">
@@ -144,7 +228,7 @@ export default async function ArticleDetailPage({
           <div className="mt-8 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
               <span className="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-paper-2 ring-2 ring-teal-soft ring-offset-2 ring-offset-paper">
-                <Image src={article.author.avatar} alt="" fill sizes="48px" className="object-cover" />
+                <Image src={article.author.avatar} alt={article.author.name} fill sizes="48px" className="object-cover" />
               </span>
               <p className="text-[0.9rem] leading-tight">
                 <span className="block font-semibold text-ink">By {article.author.name}</span>
@@ -168,7 +252,7 @@ export default async function ArticleDetailPage({
             <div className="media aspect-[16/10] !rounded-[28px] sm:aspect-[21/9]">
               <Image
                 src={article.image}
-                alt=""
+                alt={article.title}
                 fill
                 priority
                 sizes="(min-width: 1536px) 1440px, 100vw"
@@ -329,7 +413,7 @@ export default async function ArticleDetailPage({
                           </span>
                         </span>
                         <span className="media aspect-square !bg-teal">
-                          <Image src={rel.image} alt="" fill sizes="150px" className="object-cover" />
+                          <Image src={rel.image} alt={rel.title} fill loading="lazy" sizes="150px" className="object-cover" />
                         </span>
                       </Link>
                     </article>

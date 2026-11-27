@@ -1,10 +1,32 @@
 import React, { Suspense } from "react";
+import type { Metadata } from "next";
 import CompareClient from "./CompareClient";
 
-export const metadata = {
-  title: "Compare Business Software Side-by-Side | GulfSaasReview",
+export const metadata: Metadata = {
+  title: "Compare Business Software Side-by-Side",
   description:
     "Compare software features, ZATCA Phase 2 compliance, UAE VAT compatibility, Arabic RTL support, and pricing models side-by-side for Saudi Arabia and UAE businesses.",
+  alternates: {
+    canonical: "/compare",
+  },
+  openGraph: {
+    title: "Compare Business Software Side-by-Side — Gulf SaaS Review",
+    description:
+      "Compare software features, ZATCA Phase 2 compliance, UAE VAT compatibility, Arabic RTL support, and pricing models side-by-side.",
+    url: "/compare",
+    images: [
+      {
+        url: "/articles/uae-einvoicing-digital.jpg",
+        alt: "Compare Middle East Business Software",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Compare Business Software Side-by-Side",
+    description:
+      "Compare software features, ZATCA Phase 2 compliance, UAE VAT compatibility, Arabic RTL support, and pricing models side-by-side.",
+  },
 };
 
 export default function ComparePage() {

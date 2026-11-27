@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Software } from "@/types";
@@ -76,6 +76,15 @@ function winners(values: (number | null)[], prefer: "high" | "low"): Set<number>
 
 const slotLabels = ["First product", "Second product", "Third product (optional)"];
 
+const quickMatchups = [
+  { label: "Zoho One vs QuickBooks", a: "zoho-one", b: "quickbooks-online" },
+  { label: "Zoho One vs Odoo", a: "zoho-one", b: "odoo" },
+  { label: "QuickBooks vs Xero", a: "quickbooks-online", b: "xero" },
+  { label: "Zoho vs HubSpot", a: "zoho-one", b: "hubspot-crm" },
+  { label: "Odoo vs SAP B1", a: "odoo", b: "sap-business-one" },
+  { label: "Freshdesk vs Zendesk", a: "freshdesk", b: "zendesk" },
+];
+
 /* ---------- Component ---------- */
 
 export default function ComparisonMatrix({
@@ -86,29 +95,60 @@ export default function ComparisonMatrix({
   syncUrl = false,
 }: ComparisonMatrixProps) {
   const router = useRouter();
-  const initialKey = [initialProductA, initialProductB, initialProductC].map((p) => p?.slug ?? "").join("|");
 
   const [slots, setSlots] = useState<Slots>([initialProductA, initialProductB, initialProductC]);
-  const [prevKey, setPrevKey] = useState(initialKey);
 
-  // Re-sync when the incoming products change (e.g. the compare tray navigates here with new params).
-  if (initialKey !== prevKey) {
-    setPrevKey(initialKey);
+  // Sync state cleanly when external props change (e.g. navigation or tray events)
+  useEffect(() => {
     setSlots([initialProductA, initialProductB, initialProductC]);
-  }
+  }, [initialProductA?.slug, initialProductB?.slug, initialProductC?.slug]);
+
+  const updateUrl = (nextSlots: Slots) => {
+    if (syncUrl && typeof window !== "undefined") {
+      const params = new URLSearchParams();
+      if (nextSlots[0]) params.set("a", nextSlots[0].slug);
+      if (nextSlots[1]) params.set("b", nextSlots[1].slug);
+      if (nextSlots[2]) params.set("c", nextSlots[2].slug);
+      const qs = params.toString();
+      window.history.replaceState(null, "", qs ? `/compare?${qs}` : "/compare");
+    }
+  };
 
   const setSlot = (index: number, slug: string) => {
     const next = [...slots] as Slots;
     next[index] = slug ? softwares.find((s) => s.slug === slug) ?? null : null;
     setSlots(next);
-    if (syncUrl) {
-      const params = new URLSearchParams();
-      (["a", "b", "c"] as const).forEach((k, i) => {
-        if (next[i]) params.set(k, next[i]!.slug);
-      });
-      const qs = params.toString();
-      setPrevKey(next.map((p) => p?.slug ?? "").join("|"));
-      router.replace(qs ? `/compare?${qs}` : "/compare", { scroll: false });
+    updateUrl(next);
+  };
+
+  const swapSlots = () => {
+    const next: Slots = [slots[1], slots[0], slots[2]];
+    setSlots(next);
+    updateUrl(next);
+  };
+
+  const clearAll = () => {
+    const next: Slots = [null, null, null];
+    setSlots(next);
+    updateUrl(next);
+  };
+
+  const setPreset = (slugA: string, slugB: string) => {
+    const a = softwares.find((s) => s.slug === slugA) ?? null;
+    const b = softwares.find((s) => s.slug === slugB) ?? null;
+    const next: Slots = [a, b, null];
+    setSlots(next);
+    updateUrl(next);
+    setTimeout(() => {
+      const el = document.getElementById("comparison-table");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 60);
+  };
+
+  const handleCompareClick = () => {
+    const el = document.getElementById("comparison-table");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -233,6 +273,83 @@ export default function ComparisonMatrix({
             );
           })}
         </div>
+
+        {/* ------------------------------------------------ Action Controls & Compare Button */}
+        <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-sand-2/60 pt-5">
+          <div className="flex flex-wrap items-center gap-2.5">
+            {n >= 2 ? (
+              <button
+                type="button"
+                onClick={handleCompareClick}
+                className="btn btn-accent inline-flex items-center gap-2 shadow-sm font-semibold !px-6 !py-3 text-[0.95rem]"
+              >
+                <span>Compare {n} Products Now</span>
+                <span aria-hidden="true" className="text-[1.1rem]">↓</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                disabled
+                className="btn inline-flex items-center gap-2 bg-paper-2 text-ink-3 cursor-not-allowed !px-5 !py-3 text-[0.9rem]"
+              >
+                <span>Select {2 - n} More Product{2 - n > 1 ? "s" : ""} to Compare</span>
+              </button>
+            )}
+
+            {slots[0] && slots[1] && (
+              <button
+                type="button"
+                onClick={swapSlots}
+                className="btn btn-secondary btn-sm inline-flex items-center gap-1.5"
+                title="Swap first and second product"
+              >
+                <span>⇄</span>
+                <span>Swap</span>
+              </button>
+            )}
+
+            {n > 0 && (
+              <button
+                type="button"
+                onClick={clearAll}
+                className="h-9 rounded-full px-3 text-[0.82rem] font-semibold text-ink-3 hover:text-ink transition-colors"
+              >
+                Clear all
+              </button>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {n >= 2 ? (
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-teal-soft px-3 py-1 font-mono text-[0.72rem] font-bold uppercase tracking-wider text-teal">
+                <span className="h-2 w-2 rounded-full bg-teal animate-pulse" />
+                {n} of 3 active in comparison
+              </span>
+            ) : (
+              <span className="font-mono text-[0.72rem] text-ink-3">
+                {n === 0 ? "Pick 2 or 3 products above" : "Pick 1 more product to unlock table"}
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* ------------------------------------------------ Quick Matchup Presets */}
+        <div className="mt-4 flex flex-wrap items-center gap-2 pt-3 border-t border-sand/40">
+          <span className="font-mono text-[0.66rem] font-bold uppercase tracking-[0.08em] text-ink-3 mr-1">
+            Popular Matchups:
+          </span>
+          {quickMatchups.map((preset) => (
+            <button
+              key={preset.label}
+              type="button"
+              onClick={() => setPreset(preset.a, preset.b)}
+              className="inline-flex items-center gap-1.5 rounded-full border border-sand bg-paper px-3 py-1 text-[0.78rem] font-semibold text-ink transition-colors hover:border-terracotta hover:text-terracotta"
+            >
+              <span>{preset.label}</span>
+              <span className="text-[0.65rem] text-terracotta font-mono">→</span>
+            </button>
+          ))}
+        </div>
       </fieldset>
 
       {curatedVerdict && (
@@ -251,12 +368,28 @@ export default function ComparisonMatrix({
       {/* ------------------------------------------------ Empty state */}
       {n < 2 && (
         <div className="mt-8 rounded-[28px] border-[1.5px] border-dashed border-sand bg-surface px-5 py-10 sm:px-10 sm:py-12">
-          <span className="tag tag-accent">{n === 0 ? "Nothing picked yet" : "One more to go"}</span>
-          <p className="h-card mt-4 max-w-[36ch] text-[1.7rem]">
-            {n === 0
-              ? "Pick two or three products above to see them side by side."
-              : `Pick a second product to compare with ${active[0].name}.`}
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <span className="tag tag-accent">{n === 0 ? "Nothing picked yet" : "One more to go"}</span>
+              <p className="h-card mt-3 max-w-[36ch] text-[1.6rem]">
+                {n === 0
+                  ? "Pick two or three products above to see them side by side."
+                  : `Pick a second product to compare with ${active[0].name}.`}
+              </p>
+              <p className="mt-2 text-[0.92rem] text-ink-2">
+                Select products in the dropdowns above or launch one of our verified head-to-head comparisons.
+              </p>
+            </div>
+            {n === 0 && (
+              <button
+                type="button"
+                onClick={() => setPreset("zoho-one", "quickbooks-online")}
+                className="btn btn-accent btn-md shadow-sm"
+              >
+                Compare Zoho One vs QuickBooks →
+              </button>
+            )}
+          </div>
           <p className="mt-7 font-mono text-[0.68rem] font-semibold uppercase tracking-[0.08em] text-ink-3">
             {n === 1 && sameCategory.length ? `Also in ${active[0].categoryName}` : "Quick picks · highest scores"}
           </p>
@@ -283,7 +416,7 @@ export default function ComparisonMatrix({
         <p className="num mt-8 text-[0.72rem] text-ink-3 sm:hidden">Scroll sideways to see each product →</p>
       )}
       {n >= 2 && (
-        <div className="mt-4 overflow-x-auto rounded-[28px] border-[1.5px] border-rule bg-surface sm:mt-8">
+        <div id="comparison-table" className="mt-4 overflow-x-auto rounded-[28px] border-[1.5px] border-rule bg-surface sm:mt-8 scroll-mt-24">
           <table className={`w-full border-collapse text-left ${n === 3 ? "min-w-[900px]" : "min-w-[640px]"}`}>
             <caption className="sr-only">
               {active.map((p) => p.name).join(" compared with ")}. Values marked Best lead their row.
